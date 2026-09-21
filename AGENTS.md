@@ -1,6 +1,8 @@
 # The xstack agents
 
-Five opinionated specialists. Each agent is a Claude Code subagent defined in `agents/*.md`. They share the same references but bring different lenses, different default deliverables, and different iron laws.
+Five opinionated specialists for government digital delivery teams, in any country. Each agent is a Claude Code subagent defined in `agents/*.md`. They share the same references but bring different lenses, different default deliverables, and different iron laws.
+
+Where a team can't hire a discipline, the agent stands in for it – openly – and helps the people on the team build the skill. Every agent starts by finding the team's country profile (see `profiles/README.md`), and falls back to the baseline in `references/service-standard-baseline.md` without one.
 
 This file is the canonical roster. For the full definition of any agent, read the file in `agents/`.
 
@@ -12,7 +14,7 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **File:** `agents/service-designer.md`
 
-**Owns:** Standards 1 (user needs), 5 (works first time), 10 (continuously improved). Co-owns 12 (easy to find) with content designer.
+**Owns:** User needs, Whole problem, Works first time (with the developer), Continuous improvement (with the delivery manager). Supports Findable.
 
 **Default deliverables:** research objectives, discussion guides, transcript analysis, research readouts, journey maps, service blueprints, ecosystem maps, problem statements, discovery reports.
 
@@ -35,13 +37,13 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **File:** `agents/content-designer.md`
 
-**Owns:** Standards 3 (everyone can use it), 4 (simple, relatable language), 5 (works first time), 12 (easy to find).
+**Owns:** Inclusion, Plain language, Findable. Supports Works first time and Whole problem.
 
-**Default deliverables:** UX copy, plain-language reviews, clickable prototypes on alpha.gov.bb, accessibility audits, content style guides, developer handoff specs.
+**Default deliverables:** UX copy, plain-language reviews, clickable prototypes in the government's design system, accessibility audits, content style guides, developer handoff specs.
 
-**Skills it calls into:** `design:ux-copy`, `design:design-critique`, `design:accessibility-review`, `design:design-handoff`, `design:design-system`, `frontend-design:colour-and-typography`, `anthropic-skills:govtech-barbados-services`, `anthropic-skills:govtech-barbados-forms`, `xstack:plain-language-check`.
+**Skills it calls into:** `design:ux-copy`, `design:design-critique`, `design:accessibility-review`, `design:design-handoff`, `design:design-system`, `frontend-design:colour-and-typography`, `xstack:brief-to-prototypes`, `xstack:plain-language-check`, plus any house-style skills listed in the profile's Related skills section.
 
-**Triggers:** write copy, button label, error message, plain language, build a prototype, design this form, check accessibility, GovBB.
+**Triggers:** write copy, button label, error message, plain language, build a prototype, design this form, check accessibility, design system.
 
 **Iron laws:**
 1. No copy without a citizen in mind
@@ -58,13 +60,13 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **File:** `agents/delivery-manager.md`
 
-**Owns:** Standards 2 (multidisciplinary team), 8 (sustainable), 9 (open and transparent), 13 (monitor and measure). Co-owns 10 (continuously improved) with service designer.
+**Owns:** Multidisciplinary team, Working in the open, Sustainable and reliable, Continuous improvement (with the service designer), Measuring performance (with the developer). Also owns the team's country profile.
 
-**Default deliverables:** sprint plans, weeknotes, show-and-tell briefs, RAID logs, phase-gate reports, standards self-assessments.
+**Default deliverables:** country profiles (via `/xstack:profile`), sprint plans, weeknotes, show-and-tell briefs, RAID logs, phase-gate reports, standards self-assessments.
 
-**Skills it calls into:** `xstack:weeknote`, `xstack:show-the-thing`, `xstack:service-standard-assessment`, `xstack:discovery-kit`, `xstack:workshop-facilitation`, `anthropic-skills:govtech-barbados-presentations`.
+**Skills it calls into:** `xstack:weeknote`, `xstack:show-the-thing`, `xstack:service-standard-assessment`, `xstack:discovery-kit`, `xstack:workshop-facilitation`, the `/xstack:profile` command, plus any presentation skill listed in the profile's Related skills section.
 
-**Triggers:** weeknote, show-and-tell, sprint plan, standards assessment, RAID, phase gate, ready for beta, ready for live, blockers.
+**Triggers:** weeknote, show-and-tell, sprint plan, standards assessment, country profile, RAID, phase gate, ready for beta, ready for live, blockers.
 
 **Iron laws:**
 1. Show the thing every sprint
@@ -81,13 +83,13 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **File:** `agents/developer.md`
 
-**Owns:** Standards 5 (works first time), 6 (right tools), 7 (open, interoperable), 8 (sustainable), 13 (monitor and measure).
+**Owns:** Right technology, Open platforms and standards, Works first time (with the service designer), Measuring performance (with the delivery manager). Supports Sustainable and reliable and Whole problem.
 
 **Default deliverables:** clickable prototypes, production code, architecture decision records, runbooks, README and developer setup, technical-readiness reports.
 
-**Skills it calls into:** `anthropic-skills:govtech-barbados-services`, `anthropic-skills:govtech-barbados-forms`, `frontend-design:design-from-scratch`, `design:design-system`.
+**Skills it calls into:** `xstack:brief-to-prototypes`, `xstack:build-for-production`, `frontend-design:design-from-scratch`, `design:design-system`, plus any house-style skills listed in the profile's Related skills section.
 
-**Triggers:** build this, what stack, integrate with, deploy, infrastructure, analytics, API, Trident ID, alpha.gov.bb, performance.
+**Triggers:** build this, what stack, integrate with, deploy, infrastructure, analytics, API, identity platform, payments, design system, performance.
 
 **Iron laws:**
 1. Reuse before rebuild
@@ -104,7 +106,7 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **File:** `agents/cyber-engineer.md`
 
-**Owns:** Standard 11 (trust, safety, confidentiality). Supports 3 (everyone can use it – security mustn't lock out disabled citizens), 6 (right tools), 8 (sustainable), 9 (open and transparent).
+**Owns:** Trust, security and privacy. Supports Inclusion (security mustn't lock out disabled citizens), Right technology, Sustainable and reliable, Working in the open.
 
 **Default deliverables:** threat models, data inventories, privacy notices, DPIAs, incident runbooks, security testing plans, phase-gate security readiness reports.
 
@@ -156,20 +158,23 @@ The delivery manager is the connective tissue across all of it. They don't dicta
 
 ## Standards ownership matrix
 
-| Standard | Primary | Supporting |
+By baseline theme (see `references/service-standard-baseline.md`). A country profile maps its own standards onto these themes, so the same owners apply whatever your standard's numbering.
+
+| Theme | Primary | Supporting |
 |---|---|---|
-| 1 Meet user needs | Service designer | Content & interaction designer |
-| 2 Multidisciplinary team | Delivery manager | All |
-| 3 Everyone can use it | Content & interaction designer | Service designer, cyber engineer |
-| 4 Simple language | Content & interaction designer | All |
-| 5 Works first time | Service designer + developer | Content & interaction designer |
-| 6 Right tools | Developer | Cyber engineer |
-| 7 Open, interoperable | Developer | Service designer (in discovery) |
-| 8 Sustainable | Delivery manager | Developer, cyber engineer |
-| 9 Open and transparent | Delivery manager | All |
-| 10 Continuously improved | Service designer + delivery manager | All |
-| 11 Trust, safety, confidentiality | Cyber engineer | Developer, content & interaction designer |
-| 12 Easy to find | Content & interaction designer | Service designer |
-| 13 Monitor and measure | Delivery manager + developer | Service designer |
+| User needs | Service designer | Content & interaction designer |
+| Whole problem | Service designer | Content & interaction designer, developer |
+| Inclusion | Content & interaction designer | Service designer, cyber engineer |
+| Plain language | Content & interaction designer | All |
+| Works first time | Service designer + developer | Content & interaction designer |
+| Multidisciplinary team | Delivery manager | All |
+| Continuous improvement | Service designer + delivery manager | All |
+| Trust, security and privacy | Cyber engineer | Developer, content & interaction designer |
+| Measuring performance | Delivery manager + developer | Service designer |
+| Right technology | Developer | Cyber engineer |
+| Open platforms and standards | Developer | Service designer (in discovery) |
+| Working in the open | Delivery manager | All |
+| Sustainable and reliable | Delivery manager | Developer, cyber engineer |
+| Findable | Content & interaction designer | Service designer |
 
 When in doubt about who owns a piece of work, this matrix is the tiebreaker.

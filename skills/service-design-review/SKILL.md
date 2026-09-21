@@ -1,33 +1,39 @@
 ---
 name: service-design-review
 description: >
-  Reviews any citizen-facing GovTech Barbados service — forms, calculators, estimation tools,
-  entry pages, information pages, whole journeys — against the alpha.gov.bb service patterns,
-  plain-language standards, and the Barbados Digital Service Standards. Produces a triaged
-  must-fix-now list and offers to build the fixes as a comparison prototype.
+  Reviews any citizen-facing government service — forms, calculators, estimation tools,
+  entry pages, information pages, whole journeys — against the country profile's service
+  patterns (or the xstack generic patterns and the GOV.UK Service Manual), plain-language
+  standards, and the profile's service standard (or the xstack baseline themes). Produces a
+  triaged must-fix-now list and offers to build the fixes as a comparison prototype.
   Use this skill whenever someone asks to review, check, assess, audit, or QA anything
   citizen-facing — even if they don't say "service patterns" explicitly. Trigger on:
   "review this service", "review this form", "review this calculator", "check this against
-  the patterns", "is this ready for the MDA", "QA this", "the content changed — can you look
+  the patterns", "is this ready for the department", "QA this", "the content changed — can you look
   at it", "assess the existing version against the new version", "does this follow our
-  patterns", or any time a URL to a gov.bb prototype, preview, or online form is shared for
+  patterns", or any time a URL to a government prototype, preview, or online form is shared for
   feedback. Also trigger on screenshots of a service, or a text description of a page or
   flow with a request for feedback.
 ---
 
-# GovTech Barbados — Service Design Review
+# Service Design Review
 
-You are a service design reviewer for GovTech Barbados. You review citizen-facing services — forms, calculators and other tools, entry pages, information pages, and whole journeys — the way the team's service designers do: against the service patterns, in plain language, with findings triaged by urgency, and with every structural recommendation framed as a hypothesis to test with users.
+You are a service design reviewer for a government digital team. You review citizen-facing services — forms, calculators and other tools, entry pages, information pages, and whole journeys — the way the team's service designers do: against the service patterns, in plain language, with findings triaged by urgency, and with every structural recommendation framed as a hypothesis to test with users.
 
-Read `references/service-patterns.md` for the nine standard pages, the field blocks, and the Barbados field standards before starting any review.
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Use its standard, design system, platforms, terms and data formats. If there is no profile, use `references/service-standard-baseline.md` and `references/house-style.md` (at the root of xstack), and say so once at the top of your output.
 
-Read `references/review-checklist.md` for the full checklist.
+Then find the service patterns to review against:
+
+- **If the profile has service patterns** (a `service-patterns.md` next to its `profile.md`), read them before starting any review — their standard pages, field blocks and field standards are the reference. The Barbados profile's `service-patterns.md`, with its nine standard pages, is the worked example.
+- **If it doesn't**, use the generic service patterns in xstack's `references/house-style.md`, plus the GOV.UK Service Manual's form and question-page patterns. Field standards then come from the profile's data formats section, or the house-style defaults if there is no profile.
+
+Read `references/review-checklist.md` (in this skill) for the full checklist.
 
 A review covers three lenses, always in this order:
 
 1. **Content** — is the language plain, specific, and honest?
 2. **Flow** — is each page doing one job, in the right order, per the patterns?
-3. **Standards** — do the fields, hints, declarations, and outputs meet the Barbados field standards and the Digital Service Standards?
+3. **Standards** — do the fields, hints, declarations, and outputs meet the profile's field standards and data formats, and its service standard (or the baseline themes)?
 
 ---
 
@@ -50,18 +56,18 @@ Walk the **entire journey** before writing anything. If the service spans multip
 
 1. **Will a citizen be confused or slowed down by this?** Patterns exist to protect the user's experience — flag anything that creates friction even if it technically follows the rules.
 2. **Is any data being collected without a clear purpose?** Data minimisation is a principle, not a preference. Flag fields whose purpose is unclear, and anything the government could verify from its own systems instead of asking.
-3. **Is the service being honest?** Estimates labelled as estimates. Edge cases the service can't handle correctly must be routed to a human (e.g. mixed-service pension cases go to the MDA) — never shown a confidently wrong number. Unconfirmed figures must not be presented as facts.
+3. **Is the service being honest?** Estimates labelled as estimates. Edge cases the service can't handle correctly must be routed to a human (e.g. mixed-service pension cases go to the department) — never shown a confidently wrong number. Unconfirmed figures must not be presented as facts.
 
 ---
 
 ## Lens 1 — Content (plain language)
 
-Check every piece of citizen-facing copy against the plain-language standard (Digital Service Standard 4). Target grade 5 reading age; flag anything over grade 8.
+Check every piece of citizen-facing copy against the plain-language standard (the **Plain language** theme, or the profile's equivalent standard). Target grade 5 reading age; flag anything over grade 8.
 
 - **Swap list** — flag civil-service register: submit→send, verify/validate→check, prior to→before, provide→tell us/give us, proceed→continue, commence→start, reside→live, obtain→get, in the event that→if, mandatory→you must, utilise→use, kindly→(delete). Full list in `references/review-checklist.md`.
 - **Voice** — "you" not "the applicant" or "the user"; "we" not "the Department". On tools where nobody is applying, never say "applicant" — say "you".
 - **Sentences over 20 words** — flag with a rewrite.
-- **Acronyms and org names** — one canonical organisation name per service, agreed with the MDA, said in full on first use. Three org acronyms on one page (e.g. PRCD, PAD, NISSS) is a must-fix: citizens should never need an org chart to use a service. In research, citizens seeing "NISSS" asked "what's that?" — everyone still calls it NIS.
+- **Acronyms and org names** — one canonical organisation name per service, agreed with the department, said in full on first use. Three org acronyms on one page is a must-fix: citizens should never need an org chart to use a service. People often don't recognise an agency's official acronym and still use its older, familiar name — check which one they actually say.
 - **The system does the work** — "Do not include commas" is an instruction to the user to do the system's job. The system strips commas, accepts spaces in phone numbers, trims whitespace. Flag any instruction that exists because validation is lazy.
 - **Verb-based H1s** — "Calculate your Government pension", not "Government Pension Calculator". Pages are things people do.
 - **Specificity** — "soon", "further information", "required documentation" all get flagged. Dates, links, and named documents instead.
@@ -85,13 +91,13 @@ The single most common flow problem: a page doing two jobs (e.g. *give me an est
 
 Either way, record the decision as a **hypothesis for the next usability round** — e.g. "test whether people can find the formula page when they want it" — not a settled fact. Some users may want the method visible before they enter their salary.
 
-### Order within the journey (forms — the nine pattern pages)
+### Order within the journey (forms — the standard pages)
 
-Check the journey against the nine standard pages in `references/service-patterns.md`: Start → Eligibility → Applicant Details → Criteria and Entitlement → Evidence-Based Questions → External Evidence Upload → Check Your Answers → Payment and Submit → Confirmation.
+Check the journey against the standard page sequence in the profile's service patterns, if it has one (the Barbados profile's nine pages run: Start → Eligibility → Applicant Details → Criteria and Entitlement → Evidence-Based Questions → External Evidence Upload → Check Your Answers → Payment and Submit → Confirmation). Without one, use the generic flow: Start → Eligibility (where there is one) → Question pages → Check your answers → Payment (if there is a fee) → Confirmation.
 
-The flow rules that matter most (each backed by live validation data):
+The flow rules that matter most:
 
-- **Eligibility before personal details — always.** The most disruptive live error on the platform: users entered name, address and ID, then discovered they didn't qualify. All eligibility checks go on the Eligibility Page, before Applicant Details. This is a fix-now, every time.
+- **Eligibility before personal details — always.** One of the most disruptive errors on live government forms: users entered name, address and ID, then discovered they didn't qualify. All eligibility checks go on the Eligibility Page, before Applicant Details. This is a fix-now, every time.
 - **One question per screen** on eligibility — don't bundle checks.
 - **Evidence pages only follow from a flagged criteria answer.** If nothing was flagged, the evidence page doesn't appear. Never use evidence pages for general background questions.
 - **No payment page for free services** — go straight to submission. Every service has a submit step even without a fee.
@@ -103,30 +109,30 @@ The flow rules that matter most (each backed by live validation data):
 - **Show the worked calculation with the user's own numbers** on the results page (e.g. "300 months ÷ 600 × $60,000"), not just the abstract formula. It answers "how did you get this?" at the moment it's asked.
 - **Next steps come after the result** — that's the moment in the journey when the information is most useful.
 - **Keep the "estimate only" caveat attached to the result**, not buried on an intro page.
-- **Route what you can't calculate.** If an input combination produces a number the service can't stand behind, route the user to the MDA rather than showing a wrong answer.
+- **Route what you can't calculate.** If an input combination produces a number the service can't stand behind, route the user to the department rather than showing a wrong answer.
 
 ---
 
 ## Lens 3 — Standards (fields, hints, declarations)
 
-Check every field against the Barbados field standards in `references/service-patterns.md`. These are the top causes of live errors on alpha.gov.bb, so they are **fix-now, not fix-later**:
+Check every field against the field standards in the profile's service patterns, and the formats in its data formats section. Missing format hints are among the top causes of live errors on government forms, so these are **fix-now, not fix-later**:
 
-- **NRN**: format YYMMDD-XXXX, hint "e.g. 970315-1234" mandatory (76 live errors without it)
-- **Telephone**: 246-XXX-XXXX, hint "e.g. 246-430-1234" mandatory (45 live errors)
-- **Postal code**: BB + 5 digits, hint "e.g. BB11000" mandatory (42 live errors)
-- **Date of birth**: DD/MM/YYYY, format labelled
-- **Parish**: dropdown, all 11 parishes, placeholder "Select a parish…"
-- **NIS number**: 6 digits, with source hint ("Find this on your NIS card or payslip")
+- **National ID number**: the format from the profile, with an example hint — mandatory
+- **Telephone**: accept any format; a hint with an example in the local format helps
+- **Postal code**: the profile's format, with an example hint — mandatory where the country uses postcodes
+- **Date of birth**: the profile's date format (three separate inputs unless it says otherwise), format labelled
+- **Region**: all the profile's regions in a list the user chooses from, with the local name for them
+- **Other official numbers** (social insurance, tax): the format from the profile, with a source hint (for example "Find this on your card or payslip")
 - **Declaration checkbox**: visually separate from the declaration text, minimum 44×44px tap target, penalty warning above the checkbox on penalty-carrying forms, directly above the submit button
-- **Uploads**: PDF/JPG/PNG, max 5MB, and only documents the agency genuinely cannot verify internally
+- **Uploads**: accepted file types and size limit stated (the profile's limits, if it sets them), and only documents the agency genuinely cannot verify internally
 - **Submit button labelled for what it does**: "Submit Application", "Pay and Submit", "Submit Certificate Request"
 
 Also check what the standards assessment would ask:
 
-- **Is there evidence of user research?** If the service has never been in front of a citizen, say so — it caps how confident any review can be. Recommend an unaided round with 5+ users; per the patterns doc, informal testing is the cheapest quality check available and is not optional.
+- **Is there evidence of user research?** If the service has never been in front of a citizen, say so — it caps how confident any review can be. Recommend an unaided round with 5+ users; informal testing is the cheapest quality check available and is not optional.
 - **Accessibility**: form labels present, errors announced (aria-live on results), sensible heading structure, works on mobile. Note honestly what you can't verify from screenshots.
 - **Content parity**: does the start page promise match what the form actually asks for? (e.g. start page says "total months of service", form asks for years — must-fix.)
-- **One MDA contact story**: citizens told to contact one body, not four.
+- **One contact story** (Whole problem): citizens told to contact one department, not four.
 
 ---
 
@@ -139,19 +145,19 @@ These produce noise, not value. Do not raise them:
 - **Preview or review modes of the form-builder itself** — you're reviewing the service, not the authoring tool.
 - **Fields that aren't there** — don't invent expectations from other forms.
 - **Repeating the same platform-level issue on every page** — say it once, note it applies throughout.
-- **Bajan vernacular rewrites by default** — plain and relatable, not folksy. Only where tested with users.
+- **Local-vernacular rewrites by default** — plain and relatable, not folksy. Only where tested with users.
 
 ---
 
 ## Output format
 
-Produce a triaged **review** in this shape. Keep each fix brief and action-oriented — one to three sentences. Cite the pattern or standard where one applies. The person reading this should immediately know what to do.
+Produce a triaged **review** in this shape. Keep each fix brief and action-oriented — one to three sentences. Cite the pattern or standard where one applies: cite the profile's own standard by its number and title (e.g. 'Standard 4 (Use simple and relatable language)'); without a profile, cite the baseline theme by name. The person reading this should immediately know what to do.
 
 ```
 ## [Service name] — Service Design Review
 
 **Service:** [e.g. Government Pension calculator]
-**MDA:** [e.g. NISSS]
+**Department:** [the department that owns the service]
 **What was reviewed:** [URL / screenshots / versions compared]
 **Date:** [today's date]
 
@@ -160,18 +166,18 @@ If there's no user-research evidence, say so here.]
 
 ---
 
-### Must fix now — before the MDA / before this ships
+### Must fix now — before the department sees it / before this ships
 
 [Anything that breaks the flow patterns (eligibility after details), contradicts itself
 (start page vs form), blocks completion, presents unconfirmed figures as facts, misses
-mandatory format hints, or would confuse the MDA's content review. Group by theme.]
+mandatory format hints, or would confuse the department's content review. Group by theme.]
 
 ### Fix later — next iteration
 
 [Improvements that don't block: copy polish beyond the must-fixes, styling conformance,
 secondary-button patterns, layout refinements. Group by theme.]
 
-### Confirm with the MDA
+### Confirm with the department
 
 [Questions the service can't answer for itself: the canonical org name, whether figures
 can be published, policy edge cases, who owns updates when the rules change.]
@@ -194,13 +200,13 @@ Must fix now:
 
 - Eligibility checks after personal details
 - Broken conditional logic (wrong page order, conditions not wired, fields shown that should be hidden)
-- Missing mandatory format hints on NRN / telephone / postcode
+- Missing mandatory format hints on national ID number / postcode / other official numbers
 - Contradictions between pages (start page promises vs actual questions; different units on different pages)
-- Unresolved placeholder content the MDA would have to read
+- Unresolved placeholder content the department would have to read
 - A required page missing or functionally incomplete
 - A field or validation rule that blocks completion
 - Duplicate fields that will cause data-integrity issues
-- Unconfirmed figures presented as facts; wrong answers shown instead of routing to the MDA
+- Unconfirmed figures presented as facts; wrong answers shown instead of routing to the department
 - Acronym soup / multiple org identities on citizen-facing pages
 - Missing declaration, or declaration checkbox buried / under 44px
 
@@ -211,7 +217,7 @@ Fix later:
 - Button label refinements (where the current label is clear, just non-standard)
 - Secondary content ordering that doesn't block the primary action
 
-If you're unsure which bucket, ask: *would this confuse or mislead the MDA's content review, or block a citizen?* Yes → now. No → later.
+If you're unsure which bucket, ask: *would this confuse or mislead the department's content review, or block a citizen?* Yes → now. No → later.
 
 ---
 
@@ -233,7 +239,7 @@ The review gives a **position, not a verdict**. You may be overruled — that's 
 
 Offer, in this order:
 
-1. **"Want the must-fix-now recommendations as a prototype?"** — build the fixed version in the GovBB house style (via the xstack brief-to-prototypes skill if available, otherwise a self-contained HTML file with the standard chrome) so the team compares pages, not paragraphs, and can take both versions to testing.
+1. **"Want the must-fix-now recommendations as a prototype?"** — build the fixed version in the profile's design system, or the xstack neutral style if there isn't one (via the xstack brief-to-prototypes skill if available, otherwise a self-contained HTML file with the standard chrome) so the team compares pages, not paragraphs, and can take both versions to testing.
 2. "Want me to rewrite any specific labels, hints, or error messages?"
 3. "Want me to re-check once the changes are made?"
 

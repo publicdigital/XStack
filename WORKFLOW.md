@@ -25,7 +25,7 @@ This file explains what each verb means in practice, who leads it, and what good
 
 **Skills:** `xstack:research-coach` (the router across the whole cycle), `xstack:research-planning`, `xstack:transcript-analysis`, `xstack:research-presenting`, supported by `design:user-research` and `design:research-synthesis`.
 
-**Cost of skipping:** you build for an imagined citizen. Standard 1 fails.
+**Cost of skipping:** you build for an imagined citizen. The User needs theme fails.
 
 ---
 
@@ -55,12 +55,12 @@ This file explains what each verb means in practice, who leads it, and what good
 
 **What good looks like:**
 - Multiple alphas in alpha (not one)
-- Prototypes use the Barbados Design System – no Tailwind, no bespoke colours
-- Production code uses lookups (Trident ID, vehicle, business), not retyped fields
+- Prototypes use the government's design system named in the profile (or the xstack neutral style) – no Tailwind, no bespoke colours
+- Production code uses the shared platforms and lookups (identity, vehicles, businesses), not retyped fields
 - Page weight kept low – tested on a real phone, on a slow connection
-- Source code in a public repository from day one (Standard 9)
+- Source code in a public repository from day one (Working in the open)
 
-**Skills:** `anthropic-skills:govtech-barbados-services`, `anthropic-skills:govtech-barbados-forms`, `design:design-system`.
+**Skills:** `xstack:brief-to-prototypes`, `xstack:prototype-iteration`, `xstack:build-for-production`, `design:design-system`, and any house-style skills listed in the profile's Related skills section.
 
 **Cost of skipping:** you have ideas instead of evidence.
 
@@ -81,7 +81,7 @@ This file explains what each verb means in practice, who leads it, and what good
 
 **Skills:** `xstack:synthetic-research`, `design:accessibility-review`, `design:design-critique`.
 
-**Cost of skipping:** the citizen tests it in production, and Standard 5 fails.
+**Cost of skipping:** the citizen tests it in production, and the Works first time theme fails.
 
 ---
 
@@ -115,11 +115,11 @@ This file explains what each verb means in practice, who leads it, and what good
 - Show-and-tell every sprint, with the thing shown live
 - Source in a public repository from day one
 - Decisions captured in ADRs in the repo
-- Other MDAs and civil society invited
+- Other departments and civil society invited
 
-**Skills:** `xstack:weeknote`, `xstack:show-the-thing`, `anthropic-skills:govtech-barbados-presentations`.
+**Skills:** `xstack:weeknote`, `xstack:show-the-thing`, and any presentation skill listed in the profile's Related skills section.
 
-**Cost of skipping:** the team gets isolated, the knowledge stays in heads, and Standard 9 fails.
+**Cost of skipping:** the team gets isolated, the knowledge stays in heads, and the Working in the open theme fails.
 
 ---
 
@@ -137,7 +137,7 @@ This file explains what each verb means in practice, who leads it, and what good
 
 **Skills:** every skill in the xstack, repeatedly.
 
-**Cost of skipping:** the service drifts out of fit, Standard 10 fails, and citizens stop using it.
+**Cost of skipping:** the service drifts out of fit, the Continuous improvement theme fails, and citizens stop using it.
 
 ---
 
@@ -159,8 +159,8 @@ A team in alpha that's heavy on Make and light on Listen has misread the phase. 
 xstack's sprint excludes some things that show up in lots of other agile frameworks:
 
 - **Estimation rituals.** Story points, t-shirt sizes, planning poker. They're a proxy for actual planning and rarely help.
-- **Stage-gate sign-offs from outside the team.** The team owns the work. The Standards self-assessment is the gate.
-- **Velocity charts.** Velocity is a vanity metric. Standard 13's four metrics are the real ones.
+- **Stage-gate sign-offs from outside the team.** The team owns the work. The service standard self-assessment is the gate.
+- **Velocity charts.** Velocity is a vanity metric. The four metrics under the Measuring performance theme are the real ones.
 - **Big upfront design.** Anything not validated with users is a guess.
 - **Big upfront architecture.** ADRs accumulate; they don't sit at the top of the backlog.
 
@@ -178,6 +178,6 @@ If the team is skipping a verb, name it. In the weeknote. In the show-and-tell. 
 | Make without Map | The team jumped to a solution | Pause and map. Even a 30-minute whiteboard helps. |
 | Test only at the end | Test got pushed back by a deadline | Move test forward. Late testing is fake testing. |
 | Ship without Show | The team got busy | Catch up. Two weeks without a weeknote is a smell. |
-| No Iterate after Ship | Treating live as maintenance | Standard 10 is failing. Bring the team back in. |
+| No Iterate after Ship | Treating live as maintenance | The Continuous improvement theme is failing. Bring the team back in. |
 
 The sprint mantra is a check, not a recipe. If something feels off, walk the verbs and find the one that's missing.

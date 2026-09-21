@@ -1,8 +1,8 @@
 # GOV.UK Design Principles
 
-The ten design principles that underpin everything the UK Government Digital Service does. Published at <https://www.gov.uk/guidance/government-design-principles>. xstack adopts them wholesale, alongside the Barbados Digital Service Standards.
+The ten design principles that underpin everything the UK Government Digital Service does. Published at <https://www.gov.uk/guidance/government-design-principles>. xstack adopts them wholesale, alongside your government's service standard (named in the country profile – see `profiles/README.md`) or, without one, the xstack baseline themes in `references/service-standard-baseline.md`.
 
-These are the *how* (philosophy and method) to the Barbados Standards' *what* (the assessment criteria).
+These are the *how* (philosophy and method) to the service standard's *what* (the assessment criteria).
 
 1. **Start with user needs**
 2. **Do less**
@@ -27,7 +27,7 @@ Service design starts with identifying user needs. If you don't know what the us
 
 Government should only do what only government can do. If we've found a way of doing something that works, we should make it reusable and shareable instead of reinventing the wheel every time. This means building platforms and registers others can build upon, providing better linking to information, and only building new things when there is a clear user need.
 
-**In an xstack sprint:** before any new build, the developer agent checks whether GovTech or another MDA has already built it, or whether a common component covers it.
+**In an xstack sprint:** before any new build, the developer agent checks whether the digital team or another department has already built it, whether a shared platform in the profile covers it, or whether a common component does.
 
 ## 3. Design with data
 
@@ -49,7 +49,7 @@ The best way to build effective services is to start small and iterate wildly. R
 
 ## 6. This is for everyone
 
-Accessible design is good design. Everything we build should be as inclusive, legible and readable as possible. If we have to sacrifice elegance – so be it. We're building for needs, not audiences. We're designing for the whole of Barbados, not just the people who are used to using the web.
+Accessible design is good design. Everything we build should be as inclusive, legible and readable as possible. If we have to sacrifice elegance – so be it. We're building for needs, not audiences. We're designing for the whole country, not just the people who are used to using the web.
 
 **In an xstack sprint:** the content & interaction designer agent runs the accessibility-review skill on every prototype. The cyber engineer agent makes sure security controls don't lock disabled users out.
 
@@ -57,7 +57,7 @@ Accessible design is good design. Everything we build should be as inclusive, le
 
 We're not designing for a screen, we're designing for people. We need to think hard about the context in which they're using our services. Are they in a library? Are they on a phone? Are they only really familiar with Facebook? Have they never used the web before?
 
-**In an xstack sprint:** the service designer agent insists on real-world research – on the bus, in the parish office, with a citizen's actual phone, on actual mobile data.
+**In an xstack sprint:** the service designer agent insists on real-world research – on the bus, in the local government office, with a citizen's actual phone, on actual mobile data.
 
 ## 8. Build digital services, not websites
 
@@ -69,7 +69,7 @@ A service is something that helps people to do something. Our job is to uncover 
 
 We will use the same language and the same design patterns wherever possible. This helps people get familiar with our services. But if this isn't possible we should make sure our approach is consistent. This isn't a straitjacket or a rulebook. Every circumstance is different. When we find patterns that work we should share them and talk about why we use them.
 
-**In an xstack sprint:** every agent uses the Barbados Design System components and the GovTech Barbados house style. Departures are documented and contributed back.
+**In an xstack sprint:** every agent uses the components of the design system named in the profile and the profile's house style – or, without a profile, the xstack neutral style and `references/house-style.md`. Departures are documented and contributed back.
 
 ## 10. Make things open: it makes things better
 
@@ -81,22 +81,23 @@ We should share what we're doing whenever we can. With colleagues, with users, w
 
 ## How xstack uses these principles
 
-The Barbados Service Standards tell you *what* to assess against. The GOV.UK Design Principles tell you *how* to think about the work.
+The service standard tells you *what* to assess against. The GOV.UK Design Principles tell you *how* to think about the work. The table maps the xstack baseline themes onto the principles; the country profile maps its own standard onto the themes, so you can go from any standard to the principles through it.
 
-| Barbados standard | GOV.UK principles it draws on |
+| Baseline theme | GOV.UK principles it draws on |
 |---|---|
-| 1 Meet user needs | 1 Start with user needs, 3 Design with data, 7 Understand context |
-| 2 Multidisciplinary team | (Way of working – see GDS Way) |
-| 3 Everyone can use it | 6 This is for everyone, 7 Understand context |
-| 4 Simple, relatable language | 4 Do the hard work to make it simple, 6 This is for everyone |
-| 5 Works first time | 4 Do the hard work to make it simple, 5 Iterate, 7 Understand context |
-| 6 Right tools and technology | 2 Do less, 9 Be consistent |
-| 7 Open, common, interoperable | 2 Do less, 9 Be consistent, 10 Make things open |
-| 8 Scalable and sustainable | 8 Build services not websites, 5 Iterate |
-| 9 Open and transparent | 10 Make things open |
-| 10 Continuously improved | 5 Iterate, 3 Design with data |
-| 11 Trust, safety, confidentiality | 6 This is for everyone, 8 Build services not websites |
-| 12 Easy to find | 1 Start with user needs, 7 Understand context, 8 Build services not websites |
-| 13 Monitor and measure | 3 Design with data, 10 Make things open |
+| User needs | 1 Start with user needs, 3 Design with data, 7 Understand context |
+| Whole problem | 7 Understand context, 8 Build services not websites |
+| Multidisciplinary team | (Way of working – see GDS Way) |
+| Inclusion | 6 This is for everyone, 7 Understand context |
+| Plain language | 4 Do the hard work to make it simple, 6 This is for everyone |
+| Works first time | 4 Do the hard work to make it simple, 5 Iterate, 7 Understand context |
+| Right technology | 2 Do less, 9 Be consistent |
+| Open platforms and standards | 2 Do less, 9 Be consistent, 10 Make things open |
+| Sustainable and reliable | 8 Build services not websites, 5 Iterate |
+| Working in the open | 10 Make things open |
+| Continuous improvement | 5 Iterate, 3 Design with data |
+| Trust, security and privacy | 6 This is for everyone, 8 Build services not websites |
+| Findable | 1 Start with user needs, 7 Understand context, 8 Build services not websites |
+| Measuring performance | 3 Design with data, 10 Make things open |
 
-When an agent cites a principle in a critique, it should reference both: *"This breaks Standard 4 (simple language) and Principle 4 (do the hard work to make it simple)."*
+When an agent cites a principle in a critique, it should reference both the standard and the principle. Cite the profile's own standard by its number and title; without a profile, cite the baseline theme by name. For example: *"This breaks Standard 4 (Use simple and relatable language) and Principle 4 (do the hard work to make it simple)"*, or without a profile, *"This breaks Plain language and Principle 4 (do the hard work to make it simple)."*

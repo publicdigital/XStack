@@ -1,15 +1,15 @@
 ---
 name: show-the-thing
-description: Prepare a show-and-tell – the end-of-sprint or end-of-phase session where the team shows real work to real people. Plans the agenda, the running order, the demo, and any supporting slides (which then go through the GovTech Barbados presentations skill). Triggers on "show and tell", "show-and-tell", "demo", "showcase", "end of sprint", "phase showcase", "show the thing", "what should we show".
+description: Prepare a show-and-tell – the end-of-sprint or end-of-phase session where the team shows real work to real people. Plans the agenda, the running order, the demo, and any supporting slides (which then go through a presentations skill – the profile's house-style skill if it has one). Triggers on "show and tell", "show-and-tell", "demo", "showcase", "end of sprint", "phase showcase", "show the thing", "what should we show".
 ---
 
 # Show the thing
 
-This skill plans and stages a show-and-tell – the regular session where a GovTech Barbados team shows their work in the open. It supports Barbados Digital Service Standard 9 (be open and transparent) and GOV.UK Principle 10 (make things open: it makes things better).
+This skill plans and stages a show-and-tell – the regular session where a government digital team shows their work in the open. It supports the **Working in the open** theme and GOV.UK Principle 10 (make things open: it makes things better).
 
 The name comes from Giles Turnbull's principle: *show the thing*. Don't describe what you built. Don't talk about the journey. Show it. Demo it. Let people see it work, and see it fail.
 
-For the visual production of slides, defer to `anthropic-skills:govtech-barbados-presentations`. For the structure and the running order, use this skill.
+For the visual production of slides, defer to any house-style presentations skill listed in the country profile's Related skills section (see `profiles/README.md`), or a general .pptx skill if there isn't one. For the structure and the running order, use this skill.
 
 ---
 
@@ -18,8 +18,8 @@ For the visual production of slides, defer to `anthropic-skills:govtech-barbados
 - End of every sprint (two weeks is the default)
 - At the end of each phase (discovery → alpha, alpha → beta, beta → live)
 - When a major release is about to ship
-- When the MDA leadership rotates and the new sponsor needs to see the work
-- When other MDAs want to learn from what you've built
+- When the department's leadership rotates and the new sponsor needs to see the work
+- When other departments want to learn from what you've built
 
 If it's been more than three weeks since the team last did a show-and-tell, *now is the time*.
 
@@ -29,7 +29,7 @@ If it's been more than three weeks since the team last did a show-and-tell, *now
 
 - **15 minutes presenting, 15+ minutes conversation.** The conversation is the point.
 - **Real work shown live.** Click through the prototype. Walk a real journey. Read out a citizen quote.
-- **Open to outside the team.** The MDA. Other MDAs. Civil society. Curious civil servants. Press where appropriate.
+- **Open to outside the team.** The department that owns the service. Other departments. Civil society. Curious civil servants. Press where appropriate.
 - **Honest.** What worked, what didn't, what surprised you.
 - **In a regular slot citizens and partners can rely on.** Same day, same time, every fortnight, ideally.
 
@@ -67,7 +67,7 @@ If the team can't fill the slot, the slot is too long. Shrink it.
 
 Choose two or three of these. Don't try to show everything.
 
-- **A live prototype walkthrough** on alpha.gov.bb – tap through it on a phone, on the screen
+- **A live prototype walkthrough** on the government's service platform – tap through it on a phone, on the screen
 - **A citizen interview clip** – 60–90 seconds, with the citizen's permission
 - **A before-and-after** – the existing service vs the new alpha, side by side
 - **A metric** – the four GDS baseline metrics if you're in beta or live, the research signal if you're in discovery or alpha
@@ -84,9 +84,9 @@ Avoid showing:
 
 ## Drafting the deck
 
-A show-and-tell deck is a presenting deck (Giles Turnbull's distinction in `govtech-barbados-presentations`). It's low on detail – your slides support your words, they don't replace them.
+A show-and-tell deck is a presenting deck (Giles Turnbull's distinction). It's low on detail – your slides support your words, they don't replace them.
 
-Use the GovTech Barbados presentation house style. Defer to `anthropic-skills:govtech-barbados-presentations` for the visual production. Pass it this content brief.
+Use the presentation house style from the country profile, if it has one. Defer to the profile's presentations skill, or a general .pptx skill, for the visual production. Pass it this content brief.
 
 ```markdown
 # Show-and-tell brief – [team, sprint or phase, date]
@@ -158,7 +158,7 @@ A day or two before:
 
 ## After
 
-- Publish the deck (or a slimmer reading version) where the audience can find it. Standard 9.
+- Publish the deck (or a slimmer reading version) where the audience can find it. **Working in the open**.
 - Write up the questions and the team's answers in the next weeknote.
 - Thank the audience by name in the weeknote.
 - File any new risks, decisions, or commitments in the RAID log.
@@ -170,7 +170,7 @@ A day or two before:
 - **Slides instead of the thing.** The audience came to see the work. Show the work.
 - **Defensive answers to questions.** *"That's outside the scope of this sprint."* No – the question is the data.
 - **Burying bad news.** If the eligibility logic is a mess, say so. The audience will trust you more, not less.
-- **No call to action.** End with a specific ask if you have one – feedback on a prototype, candidates for research, MDAs to talk to.
+- **No call to action.** End with a specific ask if you have one – feedback on a prototype, candidates for research, departments to talk to.
 - **One person doing all the talking.** Show-and-tells are a team sport.
 - **Skipping it when the sprint went badly.** That's exactly when to do it.
 

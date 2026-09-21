@@ -39,16 +39,16 @@ Severity definitions (use these words):
 
 ## Layer 3 — Findings deck (.pptx, 6–13 slides)
 
-GovTech template style — see `deck-style.md`. Slide arc:
+The profile's house style, or the neutral defaults — see `deck-style.md`. Slide arc:
 
-1. Cover (gold)
+1. Cover
 2. What we tested & how (method + participant profile)
-3. The headline (navy, quote cards)
+3. The headline (dark slide, quote cards)
 4. What's working well
 5. Findings at a glance (severity counters + ranked list)
 6–n. One slide per major finding — evidence, quote, insight, fix
 n+1. What we do next (NOW / NEXT / THEN columns)
-n+2. Bottom line (navy close)
+n+2. Bottom line (dark close)
 
 Default tone is the **team version**: blunt, specific, detailed — name the
 broken things plainly, include defect lists and per-finding fixes. If the user

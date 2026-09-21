@@ -68,7 +68,7 @@ Anything that fits none of the buckets but sounds load-bearing: note it and ask.
 
 Ask in this order, one round at a time, keeping rounds short:
 
-1. **The service in one sentence** — who applies for what, which MDA, what the
+1. **The service in one sentence** — who applies for what, which department, what the
    outcome is (licence? payment? place on a program?).
 2. **Phases** — "Walk me through it from the citizen deciding to apply to the case
    being closed. What are the 5–7 moments?"

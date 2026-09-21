@@ -10,11 +10,11 @@ Every persona is a Markdown section (`## Name`) containing the fields below, in 
 
 | Field | Required | Notes |
 |---|---|---|
-| **Name** | Yes | A realistic Barbadian name. Never use a real participant's name from prior research. |
+| **Name** | Yes | A name that is realistic for the country and for the community the persona comes from – including minority-language, indigenous and migrant communities. Never use a real participant's name from prior research. |
 | **Circumstances** | Yes | Life situation relevant to the service – occupation, household, location, anything that shapes how they'd encounter the form. Two to four sentences. |
-| **Device and connectivity** | Yes | Primary device, browser if relevant, typical connection speed. Be specific: "Samsung Galaxy A14 on Digicel prepaid data, often throttled after mid-month top-up runs out" – not "mobile user". |
+| **Device and connectivity** | Yes | Primary device, browser if relevant, typical connection speed. Be specific: "Samsung Galaxy A14 on prepaid mobile data, often throttled after mid-month top-up runs out" – not "mobile user". |
 | **Digital confidence** | Yes | One of: **high**, **moderate**, **low**, **very low**. Then a sentence explaining what that means for this person in practice. |
-| **Literacy and language** | Yes | Reading comfort in English, any other languages, whether they'd understand civil-service register or need plain language. Note if Bajan Creole is their primary spoken language. |
+| **Literacy and language** | Yes | Reading comfort in the language the service is written in, any other languages, whether they'd understand civil-service register or need plain language. Note if a local language, creole or dialect is their primary spoken language (the profile lists the languages people use). |
 | **Accessibility needs** | Yes | Specific assistive technology or access need, or "None identified". Never write "N/A" – the field exists to make the team think about it. |
 | **What they're trying to achieve** | Yes | The goal in their own words – not the service's framing of the goal. |
 | **What they're anxious about** | Yes | The fear, the cost of getting it wrong, the consequence they're trying to avoid. Government services carry stakes. |
@@ -24,19 +24,19 @@ Every persona is a Markdown section (`## Name`) containing the fields below, in 
 
 ## Grounding data
 
-Each field should be grounded in whatever real data the team has provided. Acceptable sources:
+Each field should be grounded in whatever real data the team has provided. Start from the population data sources listed in the profile's Research context section. Acceptable sources:
 
-- Census data (Barbados Statistical Service)
+- Census data (from the national statistics office)
 - Digital-inclusion surveys or reports
 - Contact-centre call logs, themes, or volume data
 - Prior user research transcripts or findings
-- MDA policy documents or eligibility criteria
+- Department policy documents or eligibility criteria
 - Known population characteristics (e.g. age distribution of licence holders, rural broadband coverage)
 
 When a field is grounded in real data, cite the source inline:
 
 ```markdown
-**Device and connectivity:** Samsung Galaxy A14 on Digicel prepaid data.
+**Device and connectivity:** Samsung Galaxy A14 on prepaid mobile data.
 Mid-month throttling is common among prepaid users (Digital Inclusion
 Survey 2024, p. 12). [GROUNDED]
 ```
@@ -48,7 +48,7 @@ When no data exists for a field, mark it as an assumption using the xstack conve
 to fill in online forms. [ASSUMPTION – VERIFY WITH USERS]
 ```
 
-The `[ASSUMPTION]` tag uses the same convention as the prototype assumptions panel: `[ASSUMPTION – VERIFY WITH USERS]`, `[ASSUMPTION – VERIFY WITH MDA]`, `[ASSUMPTION – VERIFY WITH DATA]`, etc.
+The `[ASSUMPTION]` tag uses the same convention as the prototype assumptions panel: `[ASSUMPTION – VERIFY WITH USERS]`, `[ASSUMPTION – VERIFY WITH DEPARTMENT]`, `[ASSUMPTION – VERIFY WITH DATA]`, etc.
 
 ---
 
@@ -62,32 +62,34 @@ Every persona pack must include **at minimum** the following four edge-case arch
 
 3. **Missing the assumed document or reference** – someone who doesn't have the ID document, reference number, certificate, or evidence the form assumes everyone has. This is the persona that tests the "what if they can't answer this question?" path.
 
-4. **Circumstances that don't fit the happy path** – the specific edge case depends on the service. Examples: no fixed address for a service that requires one; a recent name change that doesn't match the Trident ID record; irregular income for a means-tested service; a doctor who practises across multiple categories for a single-category renewal form. Pick the edge case that's most likely to break *this* form.
+4. **Circumstances that don't fit the happy path** – the specific edge case depends on the service. Examples: no fixed address for a service that requires one; a recent name change that doesn't match the national identity record; irregular income for a means-tested service; a doctor who practises across multiple categories for a single-category renewal form. Pick the edge case that's most likely to break *this* form.
 
-The remaining 1–4 personas should represent a realistic spread of the service's population. Over-index on diversity: age, parish, occupation, household composition, digital confidence. Don't generate five variations of the same comfortable professional.
+The remaining 1–4 personas should represent a realistic spread of the service's population. Over-index on diversity: age, region, occupation, household composition, digital confidence. Don't generate five variations of the same comfortable professional.
 
 ---
 
 ## Example persona (medical-licence renewal)
 
+Adapted from a Barbados example. Regions, networks and ID names are generic here; in a real pack, take them from the profile.
+
 ```markdown
 ## Marcia Alleyne
 
-**Circumstances:** Retired GP, 71, lives alone in St. Lucy. Renewed her
+**Circumstances:** Retired GP, 71, lives alone in a rural district in the far north. Renewed her
 licence for 40 years by posting a cheque and a paper form to the Medical
 Council. Has never used an online government service. Renewing this year
 because she still does two half-days a week at the polyclinic.
 
 **Device and connectivity:** Feature phone (no smartphone). Uses her
-nephew's laptop when he visits on Sundays. Home broadband is FLOW DSL,
+nephew's laptop when he visits on Sundays. Home broadband is DSL and
 often drops in the evening. [ASSUMPTION – VERIFY WITH DATA: broadband
-reliability in St. Lucy]
+reliability in rural northern districts]
 
 **Digital confidence:** Very low – can send WhatsApp voice notes on her
 nephew's phone but has never filled in an online form.
 
-**Literacy and language:** Fluent English reader, Bajan Creole primary
-spoken language. Comfortable with formal written English from decades of
+**Literacy and language:** Fluent English reader, local creole is her
+primary spoken language. Comfortable with formal written English from decades of
 medical practice, but impatient with unnecessary jargon.
 
 **Accessibility needs:** Wears reading glasses; needs text at 18px+ to
@@ -103,7 +105,7 @@ she'll start the form, get stuck, and lose her progress.
 **How their situation stresses this form:** No smartphone means the
 "phone-first" prototype is inaccessible to her without assisted digital.
 The CPD upload assumes a PDF – she has paper certificates only. The
-Trident ID lookup assumes she has her NRN to hand; she's not sure where
+identity lookup assumes she has her national ID number to hand; she's not sure where
 hers is. The "save and come back later" feature is useless if she can
 only access a laptop on Sundays.
 ```

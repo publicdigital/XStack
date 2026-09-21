@@ -1,9 +1,9 @@
 ---
-description: Draft a weeknote in the GovTech Barbados / GDS style. Hands off to the delivery-manager agent and the weeknote skill.
+description: Draft a weeknote in the GDS style. Hands off to the delivery-manager agent and the weeknote skill.
 argument-hint: [week dates or sprint number, optional]
 ---
 
-You are about to draft a weeknote for a GovTech Barbados service team. Hand off to the **delivery-manager** agent, which will use the **xstack:weeknote** skill to produce the draft.
+You are about to draft a weeknote for a government service team. Hand off to the **delivery-manager** agent, which will use the **xstack:weeknote** skill to produce the draft.
 
 Before you start, gather these from the user if they haven't already provided them:
 
@@ -26,6 +26,6 @@ Once you have the context, draft the weeknote following the structure in `skills
 5. What we'd like help with (optional)
 6. Thanks
 
-Use British English, n-dashes, the GovTech Barbados word-swap list. Honest, plain, specific. Aim for 300–800 words.
+Use British English, n-dashes, the word-swap list in `references/house-style.md`. Honest, plain, specific. Aim for 300–800 words.
 
 Save the draft to the workspace folder as `weeknote-YYYY-MM-DD.md` and share the file link with the user.

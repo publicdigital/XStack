@@ -1,11 +1,13 @@
 ---
 name: journey-map
-description: Produce a user journey map – current state or future state – showing what a citizen does, thinks, and feels step by step, across every channel, with the evidence behind each step. Canonical output is Markdown; optionally renders a single-file HTML visual in the GovBB style. Use in discovery for the current state, in alpha for the future state. Triggers on "journey map", "map the journey", "current-state journey", "future-state journey", "what do citizens do today", "map what happens when someone".
+description: Produce a user journey map – current state or future state – showing what a citizen does, thinks, and feels step by step, across every channel, with the evidence behind each step. Canonical output is Markdown; optionally renders a single-file HTML visual in the country profile's design system (or the xstack neutral style). Use in discovery for the current state, in alpha for the future state. Triggers on "journey map", "map the journey", "current-state journey", "future-state journey", "what do citizens do today", "map what happens when someone".
 ---
 
 # Journey map
 
-This skill produces a user journey map: the citizen's experience of getting something done, step by step, across every channel – not just the digital ones. It supports Barbados Digital Service Standard 1 (meet user needs) and GOV.UK Principle 1 (start with user needs) and Principle 7 (understand context).
+This skill produces a user journey map: the citizen's experience of getting something done, step by step, across every channel – not just the digital ones. It supports the **User needs** and **Whole problem** themes, and GOV.UK Principle 1 (start with user needs) and Principle 7 (understand context).
+
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Use its standard, terms, platforms and design system. If there is no profile, use `references/service-standard-baseline.md` and `references/house-style.md`, and say so once at the top of your output.
 
 A journey map is the team's shared answer to "what actually happens?" Walk the current journey before designing a future one – that's the service designer's iron law #3.
 
@@ -25,7 +27,7 @@ For the actors and systems around the journey, defer to `xstack:ecosystem-map`. 
 
 1. **Evidence per step, or mark it as assumption.** Every step cites where it came from – a transcript, a front-line shadow, analytics, or `[ASSUMPTION]` in bold. A journey map with no citations is fiction with columns. Pull evidence from research via `xstack:transcript-analysis` where transcripts exist.
 2. **Start before the service and end after it.** The journey starts when the citizen first realises they need the thing (often a letter, a deadline, a friend's warning) and ends when they've got what they needed and believe it – not at "form submitted".
-3. **Every channel, not just digital.** Phone, counter, WhatsApp, the neighbour who "knows somebody". If 60% of the journey happens offline, the map shows 60% offline.
+3. **Every channel, not just digital.** Phone, counter, WhatsApp, the neighbour who "knows somebody". If 60% of the journey happens offline, the map shows 60% offline. Show the other departments the citizen has to deal with along the way too – that's the **Whole problem**.
 4. **Emotions are data.** Record what citizens said they felt at each step, quoted or closely paraphrased – not what the team imagines they felt.
 5. **Current state maps what is, not what should be.** Resist fixing things mid-map. Park ideas in the opportunities row.
 
@@ -71,7 +73,7 @@ Keep it to 5–9 steps. If you need more, the scope is probably two journeys –
 
 ## Optional: single-file HTML visual
 
-When the team wants a wall-sized or shareable visual, render the same content as one self-contained HTML file (`journey-map.html`) following the xstack prototype pattern: single file, renders in any browser, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` class prefix, navy `#00267F` for headings, design-system tokens – no Tailwind, no invented colours). Lay the steps out as horizontal columns with the Doing/Feeling/Pain rows aligned across them; render pain points and workarounds so they stand out at a distance. The Markdown remains the canonical, diffable artefact – the HTML is a rendering of it, regenerated when the Markdown changes.
+When the team wants a wall-sized or shareable visual, render the same content as one self-contained HTML file (`journey-map.html`) following the xstack prototype pattern: single file, renders in any browser, inline CSS styled with the design system named in the profile (its tokens, fonts and colours – no Tailwind, no invented colours), or, without one, the xstack neutral style in `references/house-style.md` (`--xs-*` tokens, system font stack). Lay the steps out as horizontal columns with the Doing/Feeling/Pain rows aligned across them; render pain points and workarounds so they stand out at a distance. The Markdown remains the canonical, diffable artefact – the HTML is a rendering of it, regenerated when the Markdown changes.
 
 ---
 

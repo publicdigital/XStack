@@ -1,17 +1,21 @@
 ---
 name: page-composition
-description: Assemble a page or a flow in Figma from GOV.BB design system components – linked instances only, never detached – placed in the right information-architecture order. Use when building a page, a service flow, or a service-page draft from the Pattern Library. Triggers on "compose a page", "build this flow in Figma", "assemble a page", "lay out a service page", "start page", "check your answers page", "put this together from the design system".
+description: Assemble a page or a flow in Figma from the government's design system components (named in the country profile) – linked instances only, never detached – placed in the right information-architecture order. Use when building a page, a service flow, or a service-page draft from the design system's Figma library. Triggers on "compose a page", "build this flow in Figma", "assemble a page", "lay out a service page", "start page", "check your answers page", "put this together from the design system".
 ---
 
 # Page Composition
 
-This skill assembles a page or a flow in Figma from GOV.BB design system components. It places linked instances of Pattern Library components in the right order, never detached copies, and hands back a composition you can trust to stay in sync with the system.
+This skill assembles a page or a flow in Figma from the government's design system components. It places linked instances of library components in the right order, never detached copies, and hands back a composition you can trust to stay in sync with the system.
 
-It anchors to Standard 5 (the service works the first time): a page built from real, current components, in the order the information architecture calls for, works the first time rather than looking right and behaving wrong. It also serves Standard 7 (open, common, interoperable platforms): every element is a linked instance of a shared component, so the page inherits fixes instead of drifting. And it serves Standard 12 (easy to find): placement follows the agreed IA, not a guess.
+It anchors to the **Works first time** theme: a page built from real, current components, in the order the information architecture calls for, works the first time rather than looking right and behaving wrong. It also serves the **Open platforms and standards** theme: every element is a linked instance of a shared component, so the page inherits fixes instead of drifting. And it serves the **Findable** theme: placement follows the agreed IA, not a guess.
 
 This skill writes to Figma. That makes it different from `component-spec` and `token-cross-check`, which only read. The safe-writing rules below are not optional.
 
-Two references ground it. `references/govbb-design-tokens.yaml` `scope_guard` tells you which components actually exist and are tokenised – compose only from those. `references/govbb-design-guide.md` holds the decisions. Read them before you place anything.
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Its Design system section names the design system, its Figma library, and its reference files. If the profile has service patterns, use them for the flow.
+
+Two references ground it. The profile's **token file** (YAML) should have a scope guard that tells you which components actually exist and are tokenised – compose only from those. The **design guide** holds the decisions. Read them before you place anything. The Barbados profile's `design-tokens.yaml` and `design-guide.md` are the worked example.
+
+If the profile has no token file, or there is no profile, ask the team for the design system's Figma library and code repository. Confirm each component you need by reading it in the library before you place it, and never improvise one that is not there.
 
 ---
 
@@ -28,7 +32,7 @@ This skill's own job is the assembly: the right instances, in the right order, w
 
 ## When to use this skill
 
-- Building a content page or a landing page from Pattern Library components
+- Building a content page or a landing page from the design system's components
 - Assembling a service flow: Start, question pages, Check Your Answers, Confirmation
 - Drafting a service page as a starting point for content and research
 - Turning an agreed structure and a set of components into a real Figma layout
@@ -43,7 +47,7 @@ A page or a flow is not something to start placing on a hunch. Work through this
 
 1. **Scope it.** Set out the flow as you believe it should be: the screens, and for each the grid and the sections in order. Say what each screen is for. This is a proposal, not a decision.
 2. **Ask for inspiration.** Before you settle the scope, ask whether the user has references, a prototype, or a design to build from. Take what they give as input, not instruction.
-3. **Scrutinise the direction.** Interrogate the scope against the Standards, WCAG, and – above all – whether the service flow is correct. Do not just trace the inspiration. This is where a wrong status gets dropped, a personal-data decision gets made, a step gets removed. Pull in `design-review` if the design is far enough along to review.
+3. **Scrutinise the direction.** Interrogate the scope against the profile's service standard (or the baseline themes), WCAG, and – above all – whether the service flow is correct. Do not just trace the inspiration. This is where a wrong status gets dropped, a personal-data decision gets made, a step gets removed. Pull in `design-review` if the design is far enough along to review.
 4. **Propose the component inventory, as a picture.** List every component the full flow needs, and mark each one: exists and is tokenised, needs building, or needs a new variant. Show it as a **labelled wireframe** – a low-fidelity skeleton that names each block – not just a list, so the user sees the shape and the parts at once. Default to a self-contained HTML artifact, unless the user asks for it in Figma.
 5. **Get the inventory signed off.** Wait for a clear yes on the structure and the components before anything is built.
 6. **Build and verify the missing components.** Hand off to `component-build` for anything marked "needs building" or "needs a variant". Each is built behind its plan-first gate and confirmed with a screenshot before it is used.
@@ -55,11 +59,11 @@ Skip a gate and you pay for it later: an unreviewed flow gets built wrong, a mis
 
 ## The one rule that defines this skill: linked instances only
 
-Every element you place is a linked instance of a published Pattern Library component. Never detach. Never paste a local copy. Never rebuild a component from shapes because it is quicker.
+Every element you place is a linked instance of a published library component. Never detach. Never paste a local copy. Never rebuild a component from shapes because it is quicker.
 
-A detached instance stops receiving library updates. It looks identical the day you place it and drifts silently from then on – the opposite of Standard 7. If a component you need does not exist, do not build a one-off in the page. Stop, say so, and flag it for the component work.
+A detached instance stops receiving library updates. It looks identical the day you place it and drifts silently from then on – the opposite of reusing shared platforms (Open platforms and standards). If a component you need does not exist, do not build a one-off in the page. Stop, say so, and flag it for the component work.
 
-Compose only from components the `scope_guard` confirms as present. Prefer ones that are tokenised, so the page inherits token fixes too. And compose from the **published** library – if `token-cross-check` shows the published library is behind the working file, say so, because a page built now will inherit the published state, not the latest edits.
+Compose only from components the scope guard confirms as present. Prefer ones that are tokenised, so the page inherits token fixes too. And compose from the **published** library – if `token-cross-check` shows the published library is behind the working file, say so, because a page built now will inherit the published state, not the latest edits.
 
 ---
 
@@ -85,7 +89,7 @@ For the mechanics of writing into Figma, follow the `figma-use` guidance rather 
 ## How to compose
 
 1. **Get the structure from the IA skill.** What page, what section, what order in the flow. Do not proceed on a guessed IA.
-2. **List the components you need**, and check each against the `scope_guard`. Confirm each exists and is published. Read any you are unsure of with `component-spec`.
+2. **List the components you need**, and check each against the scope guard. Confirm each exists and is published. Read any you are unsure of with `component-spec`.
 3. **Build the frame in auto-layout**, then place linked instances in IA order, one small batch at a time, verifying each batch with a separate read.
 4. **Set each instance to the right variant** – the state, size, or type the page calls for. Do not leave a control on its Default variant if the page needs its Error state.
 5. **Do not restyle.** No local colours, no local type. The components carry the tokens; let them.
@@ -97,10 +101,10 @@ For the mechanics of writing into Figma, follow the `figma-use` guidance rather 
 
 These are the things that look right in one breakpoint and wrong in the others, or right on the surface and wrong underneath.
 
-- **Set the Typography mode on every breakpoint frame.** Type is responsive through variable modes, not separate styles: the Typography collection has Desktop, Tablet, and Mobile modes, and each text style resolves to whichever is set on the frame. A frame with no mode inherits the page default (Desktop), so a Tablet or Mobile frame renders **desktop type** until you set its mode. A cloned frame keeps the source's mode, so always set it after cloning. Match the mode to the frame.
+- **Set the Typography mode on every breakpoint frame.** Type is responsive through variable modes, not separate styles: the typography collection has modes (often Desktop, Tablet, and Mobile), and each text style resolves to whichever is set on the frame. A frame with no mode inherits the page default (Desktop), so a Tablet or Mobile frame renders **desktop type** until you set its mode. A cloned frame keeps the source's mode, so always set it after cloning. Match the mode to the frame.
 - **Match the content margins to the chrome.** Full-width chrome (header, footer, banners, back link) carries its own side inset per size variant – for example 128 on Large, 48 on Tablet, 16 on Small. The content column must sit on the same inset, or the page and its chrome will not line up. If a size the flow needs has no matching chrome variant, that is a component job, not a reason to fudge the content margin.
 - **Follow the service-name pattern.** The service name is the H1 on the Start page, with no caption above it. On every page after Start, the service name becomes the caption above that page's own H1. One name, set once, carried through.
-- **Across files, instance from the published library by key.** A flow lives in the Alpha file; the components live in the Pattern Library. Import the published components, variables, and text styles by key, build one breakpoint, then clone within the file for the other states and breakpoints. Do not rebuild components in the Alpha file.
+- **Across files, instance from the published library by key.** A flow lives in the team's service file; the components live in the design system library. Import the published components, variables, and text styles by key, build one breakpoint, then clone within the file for the other states and breakpoints. Do not rebuild components in the service file.
 
 ---
 
@@ -109,7 +113,7 @@ These are the things that look right in one breakpoint and wrong in the others, 
 Service-page drafting is a mode of this skill, not a separate one. The pattern, one thing per page:
 
 - **Start page** – what the service is, what the user needs, how long it takes, what happens after.
-- **Question pages** – one question each (unless two are tightly related, like first and last name), with a label, an optional hint, and a Continue button. Use `Form/Component/Input`, the form controls, and `Atom/Label` for errors – never a bespoke error text.
+- **Question pages** – one question each (unless two are tightly related), with a label, an optional hint, and a Continue button. Use the design system's input, form-control and label components for errors – never a bespoke error text.
 - **Check Your Answers** – every answer with a Change link, before the user commits.
 - **Confirmation** – a reference number, what happens next, and roughly when.
 

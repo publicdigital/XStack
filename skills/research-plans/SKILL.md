@@ -1,11 +1,13 @@
 ---
-name: govtech-research-plans
-description: Produce complete user research plans for GovTech Barbados as a three-part Word document — Part 1 research plan, Part 2 discussion guide, Part 3 note-taking framework. Covers moderated usability testing of prototypes, discovery interviews, and concept testing. Use this skill whenever the user asks for a research plan, discussion guide, note-taking framework, interview guide, research protocol, usability test plan, or session materials for any GovTech Barbados, alpha.gov.bb, or Ministry/MDA service — even if they only ask for one of the three parts, and even if they just say "plan the research for X" or "help me test this prototype with users". If a prototype URL is mentioned alongside research, testing, or user sessions, this skill applies.
+name: research-plans
+description: Produce complete user research plans for a government digital team as a three-part Word document, in the country profile's house style — Part 1 research plan, Part 2 discussion guide, Part 3 note-taking framework. Covers moderated usability testing of prototypes, discovery interviews, and concept testing. Use this skill whenever the user asks for a research plan, discussion guide, note-taking framework, interview guide, research protocol, usability test plan, or session materials for any government service or department — even if they only ask for one of the three parts, and even if they just say "plan the research for X" or "help me test this prototype with users". If a prototype URL is mentioned alongside research, testing, or user sessions, this skill applies.
 ---
 
-# GovTech Barbados research plans
+# Research plans
 
 Produce a research plan the team can run tomorrow: specific tasks grounded in the actual thing being tested, scripts a facilitator can read aloud, and note-taking tables a note-taker can fill in live. The output is always one .docx with three parts. The quality bar is the Open Pharmacy / EHD Forms plans this skill was distilled from: every task scenario traceable to real content, every comprehension check with a stated correct answer, ethics written around the project's actual sensitivity rather than pasted boilerplate.
+
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Use its terms, data formats, data protection law, research context (recruitment channels, regions, languages) and house style (colours and fonts for the document). If there is no profile, use `references/service-standard-baseline.md` and `references/house-style.md` – the document then uses the neutral defaults in `scripts/docx_helpers.js` – and say so once when you deliver.
 
 ## Workflow
 
@@ -19,9 +21,9 @@ Work out (from the request, then by asking only what's missing):
    - `references/concept-testing.md`
 2. **Subject** — if a prototype URL is given, fetch and analyse it (see below). If not, ask the user to describe what's being tested/explored, or work from documents they've shared.
 3. **Audience(s)** — who uses this service. Ask if not obvious. Multiple distinct audiences (e.g. vendors vs organisers, citizens vs intermediaries) change the plan's structure — see Step 2.
-4. **Deadline** — any launch date or event driving the timeline (Crop Over, fiscal year, ministerial commitment). Anchor the timeline section to it.
+4. **Deadline** — any launch date or event driving the timeline (a national festival or holiday, fiscal year, ministerial commitment). Anchor the timeline section to it.
 
-**Analysing a prototype URL.** Rendered fetches of alpha.gov.bb-pattern prototypes often return only the JS-disabled fallback. Download the raw HTML (`curl`) and mine it for the real structure:
+**Analysing a prototype URL.** Rendered fetches of single-file HTML prototypes (such as xstack prototypes) often return only the JS-disabled fallback. Download the raw HTML (`curl`) and mine it for the real structure:
 
 - `<h1>`/`<h2>` extraction gives the step names and start-page sections
 - String literals in the embedded JS give field labels, hints, error messages, option lists, and declaration text — regex for question marks, `Title Case` strings, and `label/hint/legend:` patterns
@@ -75,6 +77,6 @@ When delivering, flag to the user:
 
 - Don't produce the plan as chat text or markdown — this deliverable is always a .docx.
 - Don't write tasks or correct answers from memory of similar services; extract them from the actual prototype or the user's description.
-- Don't paste the ethics section unchanged between projects. The BDPA 2019 line and the withdrawal/anonymisation lines are constant; the sensitivity paragraph is written fresh every time.
+- Don't paste the ethics section unchanged between projects. The data protection law line and the withdrawal/anonymisation lines are constant; the sensitivity paragraph is written fresh every time.
 - Don't let participants use real personal data, even if the user suggests it would be more realistic.
 - Don't ask the user questions the prototype can answer (step names, field labels, what's required vs optional).

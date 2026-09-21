@@ -61,7 +61,8 @@ card in the same column or an explicit open question.
   smooth over.
 - **Plain language.** Understandable by a 9-year-old where possible: "told" not
   "notified", "sent" not "submitted" in citizen-facing copy. Internal lanes may use
-  the team's own vocabulary (CaMS, MDA, program code) since staff read them.
+  the team's own vocabulary (system names, department acronyms, program codes) since
+  staff read them.
 - **Keep the killer details.** Verbatim copy ("Your application was not
   successful"), specific numbers, and named behaviours ("Justin approves everyone
   in one go") are what make these artifacts persuasive. Quote them in italics.

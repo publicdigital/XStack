@@ -1,14 +1,14 @@
 ---
-description: Turn a brief into multiple testable HTML prototypes, in the GovTech Barbados house style, with assumptions surfaced inline. The build engine of xstack.
+description: Turn a brief into multiple testable HTML prototypes, in your government's design system (from the country profile) or the xstack neutral style, with assumptions surfaced inline. The build engine of xstack.
 argument-hint: [brief, problem statement, or path to a discovery report]
 ---
 
-You are about to generate testable HTML prototypes for a GovTech Barbados service. Hand off to the **content-designer** agent (for copy, structure, accessibility) and the **developer** agent (for the HTML), using the **xstack:brief-to-prototypes** skill. The **service-designer** agent reviews the candidate hypotheses before generation; the **cyber-engineer** agent flags any security-relevant assumptions in the panel.
+You are about to generate testable HTML prototypes for a government service. Hand off to the **content-designer** agent (for copy, structure, accessibility) and the **developer** agent (for the HTML), using the **xstack:brief-to-prototypes** skill. The **service-designer** agent reviews the candidate hypotheses before generation; the **cyber-engineer** agent flags any security-relevant assumptions in the panel.
 
-Before you start, gather these from the user if they haven't already provided them:
+Before you start, find the country profile (see `profiles/README.md`). Then gather these from the user if they haven't already provided them:
 
 - The brief or problem statement (paste it in, or point to a file)
-- The MDA the service belongs to
+- The department the service belongs to
 - What's been learned so far – any prior research, the discovery report, the constraints the team is carrying
 - The shape of the citizen the service is for (cohort, context, device assumptions)
 - Whether the user wants 2 or 3 candidate prototypes (default: 3)
@@ -25,14 +25,14 @@ Once you have the brief, the skill produces:
 
 Each prototype must:
 
-- Use the GovTech Barbados house style (navy, gold, off-white, charcoal; Figtree)
+- Use the profile's design system, or the xstack neutral style in `references/house-style.md` if there isn't one
 - Carry the official banner, header, alpha status banner, and footer chrome
 - Implement the full Start → question pages → Check Your Answers → Confirmation flow
 - One thing per page (GOV.UK Service Manual rule); Back link on every page except Start
-- An xstack assumptions panel (toggleable), listing every assumption tagged `[VERIFY WITH USERS]`, `[VERIFY WITH MDA]`, `[VERIFY WITH MIST]`, `[VERIFY WITH POLICY]`, `[VERIFY WITH DATA]`, or `[KNOWN GAP]`
-- "This is fake" markers on any mock data (Trident ID lookup, payment, confirmation reference)
-- Inline citation of the relevant Standards in the HTML `<head>` block
+- An xstack assumptions panel (toggleable), listing every assumption tagged `[VERIFY WITH USERS]`, `[VERIFY WITH DEPARTMENT]`, `[VERIFY WITH PLATFORM]`, `[VERIFY WITH POLICY]`, `[VERIFY WITH DATA]`, or `[KNOWN GAP]`
+- "This is fake" markers on any mock data (identity lookup, payment, confirmation reference)
+- Inline citation of the relevant standards (the profile's own, or the baseline themes by name) in the HTML `<head>` block
 
-When the published `@govtech-bb/styles` CDN URL is known to be reachable, the prototype should link to it. Otherwise inline the approximation CSS from the brief-to-prototypes skill.
+When the profile names a published stylesheet for its design system and it is reachable, the prototype should link to it. Otherwise inline the fallback CSS from the brief-to-prototypes skill.
 
 After generation, share each prototype file via a computer:// link. Tell the user how to test them (open in a browser, view on a phone, follow the test-plan.md), and offer to run `/xstack:iterate` once feedback is collected.

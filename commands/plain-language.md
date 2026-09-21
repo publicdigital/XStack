@@ -3,14 +3,14 @@ description: Run a plain-language check on a piece of text. Hands off to the con
 argument-hint: [text to review, or a file path to a document]
 ---
 
-You are about to run a plain-language review on a piece of text from a GovTech Barbados service. Hand off to the **content-designer** agent, using the **xstack:plain-language-check** skill.
+You are about to run a plain-language review on a piece of text from a government service. Hand off to the **content-designer** agent, using the **xstack:plain-language-check** skill.
 
 Before you start, gather these from the user if they haven't already provided them:
 
 - The text or document to review – paste it in, or give a file path
 - What it is – form copy, error message, content page, privacy notice, weeknote, slide
 - Who reads it – citizens (any literacy), specialist users, internal staff
-- Whether the source is in English or already partly in Bajan vernacular
+- Which language the text is in, and whether it already uses local turns of phrase (the country profile, where there is one, says which languages users speak)
 
 If the user hasn't provided this context, ask for it briefly using the AskUserQuestion tool. If they pasted a long document, ask whether to review the whole thing or just specific pages.
 

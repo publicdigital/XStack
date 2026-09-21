@@ -22,7 +22,7 @@ Describe the decision, action, or downstream process the answer feeds. Be concre
 
 If the use is vague or speculative, flag it:
 
-> **QP-WARN: Vague purpose.** The stated use ("for our records") doesn't name a specific decision or action. Challenge the MDA: if the answer doesn't change a decision, the question shouldn't be asked.
+> **QP-WARN: Vague purpose.** The stated use ("for our records") doesn't name a specific decision or action. Challenge the department: if the answer doesn't change a decision, the question shouldn't be asked.
 
 ### 3. What happens if the citizen leaves it blank?
 
@@ -57,11 +57,11 @@ Beyond the four core questions, also check:
 
 Does the question assume a format the citizen might not match?
 
-- Date fields that assume DD/MM/YYYY when Barbadians commonly write month names
-- Phone fields that reject valid Barbadian mobile formats (e.g. +1-246 with or without dashes)
-- Name fields that reject hyphens, apostrophes, or names shorter than two characters
-- Address fields that assume a street number when many Barbadian addresses use lot numbers, tenantry names, or landmarks
-- NRN / Trident ID fields without clear format guidance
+- Date fields that assume DD/MM/YYYY when people commonly write month names
+- Phone fields that reject valid local mobile formats (with or without the country code, spaces or dashes)
+- Name fields that reject hyphens, apostrophes, non-Latin characters, single names, or names shorter than two characters
+- Address fields that assume a street number when many local addresses use lot numbers, settlement or village names, or landmarks
+- National ID number fields without clear format guidance (the profile's Data formats section gives the formats)
 
 > **QP-WARN: Format assumption.** This field assumes [format], but [population segment] commonly uses [alternative]. Add format guidance or accept multiple formats.
 

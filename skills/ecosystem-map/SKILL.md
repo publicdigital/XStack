@@ -1,13 +1,15 @@
 ---
 name: ecosystem-map
-description: Map the ecosystem around a service – every actor, channel, system, and relationship, not just the digital ones – so the team can see who and what the service actually depends on. Canonical output is Markdown; optionally renders a single-file HTML visual in the GovBB style. Use in discovery. Triggers on "ecosystem map", "map the ecosystem", "who's involved in this service", "actors and systems", "map the landscape around", "what does this service depend on".
+description: Map the ecosystem around a service – every actor, channel, system, and relationship, not just the digital ones – so the team can see who and what the service actually depends on. Canonical output is Markdown; optionally renders a single-file HTML visual in the country profile's design system (or the xstack neutral style). Use in discovery. Triggers on "ecosystem map", "map the ecosystem", "who's involved in this service", "actors and systems", "map the landscape around", "what does this service depend on".
 ---
 
 # Ecosystem map
 
-This skill maps the ecosystem a service lives in: the actors (citizens, intermediaries, MDA staff, other agencies, private players), the channels they use, the systems they touch, and the relationships between them. Where the journey map is a sequence, the ecosystem map is a network.
+This skill maps the ecosystem a service lives in: the actors (citizens, intermediaries, department staff, other agencies, private players), the channels they use, the systems they touch, and the relationships between them. Where the journey map is a sequence, the ecosystem map is a network.
 
-It supports Barbados Digital Service Standard 1 (meet user needs), Standard 2 (multidisciplinary team – it shows who needs to be in the room), and Standard 7 (open, interoperable platforms), and GOV.UK Principle 7 (understand context).
+It supports the **User needs**, **Whole problem** (it shows every department and channel the need depends on), **Multidisciplinary team** (it shows who needs to be in the room) and **Open platforms and standards** themes, and GOV.UK Principle 7 (understand context).
+
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Use its standard, terms, platforms and design system. If there is no profile, use `references/service-standard-baseline.md` and `references/house-style.md`, and say so once at the top of your output. Use the profile's Shared platforms section as the starting list of systems to look for.
 
 ---
 
@@ -26,7 +28,7 @@ The stakeholder map in `xstack:discovery-kit` lists who has skin in the game; th
 ```markdown
 # Ecosystem map – [service / need]
 
-**Centre of the map:** [the citizen need, verb-led – not the MDA]
+**Centre of the map:** [the citizen need, verb-led – not the department]
 **Evidence base:** [stakeholder interviews, research sessions, system inventory]
 **Date / team:**
 
@@ -44,7 +46,7 @@ The stakeholder map in `xstack:discovery-kit` lists who has skin in the game; th
 
 ## Systems and registers
 
-| System | Owner | Holds | Integrates with | Standard 7 notes (reusable? blocked?) |
+| System | Owner | Holds | Integrates with | Open platforms and standards note (reusable? blocked?) |
 |---|---|---|---|---|
 
 ## Relationships and flows
@@ -60,23 +62,23 @@ The stakeholder map in `xstack:discovery-kit` lists who has skin in the game; th
 
 ## Rules
 
-1. **Put the citizen need at the centre, not the MDA.** An ecosystem map organised around the department reproduces the org chart. Organised around the need, it reveals intermediaries and informal actors the org chart doesn't know about.
+1. **Put the citizen need at the centre, not the department.** An ecosystem map organised around the department reproduces the org chart. Organised around the need, it reveals intermediaries and informal actors the org chart doesn't know about.
 2. **Hunt for the informal actors.** The cousin who fills in forms, the fixer outside the office, the Facebook group where everyone actually learns the process. Research transcripts (via `xstack:transcript-analysis`) are the best source – citizens name these people when asked what they actually did.
-3. **Map what flows, not just who exists.** A list of actors is a phonebook. The value is in the flows – especially the chasing, the re-submissions, and the informal data flows that carry personal information outside any system (flag those for the cyber engineer – Standard 11).
-4. **Every system gets a Standard 7 note.** Reusable platform? Owned register? Dead-end spreadsheet? This map is where the reuse conversation starts.
+3. **Map what flows, not just who exists.** A list of actors is a phonebook. The value is in the flows – especially the chasing, the re-submissions, and the informal data flows that carry personal information outside any system (flag those for the cyber engineer – Trust, security and privacy).
+4. **Every system gets an Open platforms and standards note.** Reusable platform? Owned register? Dead-end spreadsheet? This map is where the reuse conversation starts.
 5. **Evidence or `[ASSUMPTION]`**, same as every xstack map.
 
 ---
 
 ## Optional: single-file HTML visual
 
-Render as one self-contained HTML file (`ecosystem-map.html`) in the xstack prototype pattern: single file, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` prefix, navy `#00267F`, no Tailwind, no invented colours). Place the citizen need at the centre, actors grouped in rings or clusters by type (citizen-side, intermediaries, government, systems), and draw the flows as labelled connections – informal flows visibly distinct (e.g. dashed). The Markdown is canonical; regenerate the HTML from it.
+Render as one self-contained HTML file (`ecosystem-map.html`) in the xstack prototype pattern: single file, inline CSS styled with the design system named in the profile (its tokens, fonts and colours – no Tailwind, no invented colours), or, without one, the xstack neutral style in `references/house-style.md` (`--xs-*` tokens, system font stack). Place the citizen need at the centre, actors grouped in rings or clusters by type (citizen-side, intermediaries, government, systems), and draw the flows as labelled connections – informal flows visibly distinct (e.g. dashed). The Markdown is canonical; regenerate the HTML from it.
 
 ---
 
 ## What makes a good ecosystem map
 
-- At least one actor or flow the MDA didn't know existed
+- At least one actor or flow the department didn't know existed
 - The informal economy around the service is on the map, not politely omitted
 - Every boundary where citizens fall through is named
-- The Standard 7 column gives the developer a real starting list for integration conversations
+- The Open platforms and standards column gives the developer a real starting list for integration conversations

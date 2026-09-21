@@ -5,9 +5,9 @@ description: Coach a researcher to define sharp, decision-linked research object
 
 # Research planning
 
-This skill coaches a junior user researcher on a GovTech Barbados team. Its job is not to write their discussion guide for them – it's to get them to think clearly, then help them turn that thinking into a guide.
+This skill coaches a junior user researcher on a government digital team. Its job is not to write their discussion guide for them – it's to get them to think clearly, then help them turn that thinking into a guide.
 
-It supports Barbados Digital Service Standard 1 (meet user needs) and GOV.UK Principle 1 (start with user needs) and Principle 2 (do less – research what will change a decision).
+It supports the **User needs** theme and GOV.UK Principle 1 (start with user needs) and Principle 2 (do less – research what will change a decision).
 
 For the discovery-phase research plan and interview guide templates, see `xstack:discovery-kit`. This skill is about the quality of the thinking that fills those templates. For coaching across the whole research cycle, see `xstack:research-coach`.
 

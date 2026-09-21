@@ -1,15 +1,17 @@
 ---
 name: plain-language-check
-description: Review text for plain language, civil-service register, reading age, and the GovTech Barbados word-swap list. Use when reviewing copy for any government service – form copy, error messages, content pages, privacy notices, weeknotes, public comms. Triggers on "plain language check", "is this plain", "review this copy", "rewrite for citizens", "swap list", "reading age", "is this clear".
+description: Review text for plain language, civil-service register, reading age, and the xstack word-swap list. Use when reviewing copy for any government service – form copy, error messages, content pages, privacy notices, weeknotes, public comms. Triggers on "plain language check", "is this plain", "review this copy", "rewrite for citizens", "swap list", "reading age", "is this clear".
 ---
 
 # Plain Language Check
 
-This skill reviews a piece of text against the GovTech Barbados plain-language standard. It produces a marked-up critique with specific rewrites, not vague advice.
+This skill reviews a piece of text against the xstack plain-language standard. It produces a marked-up critique with specific rewrites, not vague advice.
 
-The standard is Barbados Digital Service Standard 4 (simple and relatable language), supported by GOV.UK Principle 4 (do the hard work to make it simple) and Principle 6 (this is for everyone).
+The standard is the **Plain language** theme in `references/service-standard-baseline.md`, supported by GOV.UK Principle 4 (do the hard work to make it simple) and Principle 6 (this is for everyone). If the team has a country profile (see `profiles/README.md`), cite the profile's own standard by its number and title (e.g. "Standard 4 (Use simple and relatable language)"); without a profile, cite the baseline theme by name.
 
 The canonical word-swap list lives in `references/house-style.md`.
+
+**The check applies in whatever language the service is written in.** The swap list below is English, but official register exists in every language – review text in its own language, and build the equivalent swap list with the content designer and front-line staff. The country profile says which languages users speak and whether local turns of phrase are welcome. If a significant part of the population is more comfortable in another language, flag it when the text only exists in one.
 
 ---
 
@@ -90,7 +92,7 @@ If you have access to a tool, calculate it. If not, eyeball it with these rules:
 ### 4. Jargon and acronyms
 
 - Acronyms not introduced on first use – flag.
-- Internal jargon (MDA, DPIA, KPI) in citizen-facing copy – flag and rewrite.
+- Internal jargon (department acronyms, DPIA, KPI) in citizen-facing copy – flag and rewrite.
 - Technical or legal terms without a plain-language explanation – flag.
 
 ### 5. Specificity
@@ -134,6 +136,7 @@ If any is missing, flag it.
 **Reviewer:** content-designer (xstack)
 **Reading age (current):** Grade X (Flesch–Kincaid or estimate)
 **Reading age (target):** Grade 5
+**Language:** [the language the text is written in]
 
 ## Summary
 
@@ -145,8 +148,8 @@ If any is missing, flag it.
 
 | Original | Suggested | Why |
 |---|---|---|
-| "Please submit your application" | "Send us your form" | Standard 4 / swap list |
-| "Verify your details" | "Check your details" | Standard 4 / swap list |
+| "Please submit your application" | "Send us your form" | Plain language / swap list |
+| "Verify your details" | "Check your details" | Plain language / swap list |
 
 ### Reading age
 
@@ -221,10 +224,10 @@ Rewrite: 27 words, grade 6, active, specific.
 
 ## What not to do
 
-- Don't rewrite into Bajan vernacular by default. Use it only where it actively helps the citizen and where it's been tested with users. Standard 4 is plain *and* relatable, not folksy for the sake of it.
+- Don't rewrite into local vernacular by default. Use the user's own words only where they actively help the citizen and have been tested with users. Plain language means plain *and* relatable, not folksy for the sake of it.
 - Don't drop important meaning to shorten. *"Send us your documents"* loses nothing important from the original; *"Send stuff"* would.
 - Don't make the rewrite condescending. Plain is not patronising.
-- Don't over-rely on a Flesch–Kincaid score. It's a rough guide; user testing is the ground truth.
+- Don't over-rely on a Flesch–Kincaid score. It's a rough guide, it only works for English, and user testing is the ground truth. For other languages, use a readability measure made for that language if there is one, and the sentence-length and word-length rules above if there isn't.
 
 ---
 

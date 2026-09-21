@@ -1,17 +1,21 @@
 ---
 name: component-build
-description: Create a new component in the GOV.BB Pattern Library in Figma from the design system's tokens – bound to real semantic and component tokens and the current text styles, never raw values or legacy styles. Always proposes a build plan and waits for sign-off before it writes. Use when a component is confirmed missing and needs building. Triggers on "build a component", "create a new component", "add this to the design system", "make the missing component", "build the H1 component", "build FormGroup".
+description: Create a new component in the government's design system library in Figma (named in the country profile) from the design system's tokens – bound to real semantic and component tokens and the current text styles, never raw values or legacy styles. Always proposes a build plan and waits for sign-off before it writes. Use when a component is confirmed missing and needs building. Triggers on "build a component", "create a new component", "add this to the design system", "make the missing component", "build the H1 component", "build FormGroup".
 ---
 
 # Component Build
 
-This skill creates a new component in the GOV.BB Pattern Library from the design system's own tokens. It builds anatomy, states, and variants, binds every part to the right token, and hands the result to `component-spec` to document and `design-review` to check.
+This skill creates a new component in the government's design system library in Figma from the design system's own tokens. It builds anatomy, states, and variants, binds every part to the right token, and hands the result to `component-spec` to document and `design-review` to check.
 
-It anchors to Standard 3 (everyone can use the service): new components built correctly on the system keep every service accessible and consistent. It also serves Standard 7 (reuse over rebuild): a real, shared component is the thing other files and the code should reuse, instead of each team building its own.
+It anchors to the **Inclusion** theme: new components built correctly on the system keep every service accessible and consistent. It also serves the **Open platforms and standards** theme (reuse over rebuild): a real, shared component is the thing other files and the code should reuse, instead of each team building its own.
 
-This skill writes to the Pattern Library – the source of truth that the Alpha file and the code consume. That is why it never writes first. It always proposes a plan and waits.
+This skill writes to the design system library – the source of truth that the team's service files and the code consume. That is why it never writes first. It always proposes a plan and waits.
 
-Two references ground every build. `references/govbb-design-tokens.yaml` gives the `scope_guard` (only build what is confirmed missing), the token names to bind, and the anatomy patterns of sibling components. `references/govbb-design-guide.md` gives the decisions and the conventions.
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Its Design system section names the design system, its Figma library, its code repository, and its reference files.
+
+Two references ground every build. The profile's **token file** (YAML) gives the scope guard (only build what is confirmed missing), the token names to bind, and the anatomy patterns of sibling components. Its **design guide** gives the decisions and the conventions. The Barbados profile's `design-tokens.yaml` and `design-guide.md` are the worked example.
+
+If the profile has no token file, or there is no profile, ask the team for the design system's Figma library and code repository, and read the tokens and sibling components from those before you propose anything. Never invent a token name or value to fill a gap.
 
 ---
 
@@ -33,12 +37,12 @@ Then stop. Only on a clear go-ahead do you build. If the plan needs changing, pr
 
 ## When to use this skill
 
-- A component the code or a design needs is confirmed missing from Figma (for example the ones the composition dry run flagged: a page H1, a fieldset grouping)
+- A component the code or a design needs is confirmed missing from Figma (for example a page H1, or a fieldset grouping)
 - The team has agreed a new pattern the system should adopt
 - An atom exists but its composed wrapper does not, and the wrapper is needed
 - `page-composition` scoped a flow, and its component inventory surfaced something missing or needing a new variant, and the user has approved building it
 
-Do not use it to rebuild something that already exists, or to fix an existing component's bindings – that is remediation, not building. And do not use it on a component whose `scope_guard` state is "exists" or "unconfirmed"; check first.
+Do not use it to rebuild something that already exists, or to fix an existing component's bindings – that is remediation, not building. And do not use it on a component whose scope-guard state is "exists" or "unconfirmed"; check first.
 
 ---
 
@@ -47,11 +51,11 @@ Do not use it to rebuild something that already exists, or to fix an existing co
 Every part binds to the system, or it does not ship.
 
 - **Colour** – bind to a semantic or component token (`Text/…`, `Surface/…`, `Border/…`, or a `Button/…`-style component token). Never a raw hex.
-- **Spacing and radius** – bind to the `Space` scale where a value matches. Leave a genuinely non-scale value (a fully-rounded radius) unbound on purpose, and say so.
+- **Spacing and radius** – bind to the spacing scale where a value matches. Leave a genuinely non-scale value (a fully-rounded radius) unbound on purpose, and say so.
 - **Typography** – apply the real current text style (`Body-regular`, `H1`, and so on), which bundles font, size, and line-height. Never bind a loose `fontSize`. **Never apply a legacy or "do not use" text style** – if a sibling component still carries one, that is a bug to flag, not a pattern to copy.
 - **States** – check for opacity before trusting any state as tokenised. Opacity is how a disabled state gets faked: a layer dimmed to look disabled has no token behind it. Strip the opacity and let the nested component's own disabled variant do the work.
 
-If a part needs a token that does not exist, do not invent a raw value in its place, and do not reach past the token layer to bind a primitive directly. Where a component needs colours the semantic layer does not cover – a status set, a new component's own parts – **create a component-token group for it first**: a `<Component>/*` group in the Tokens collection, each token aliasing a primitive, exactly as `Button/*` and `Link/*` do. Then bind the component to that group, not to the primitives. This keeps the component one layer above the ramp, so a palette change flows through and the component reads in its own vocabulary (`Status pill/received-border`, not `Teal/teal-80`). Reach for this whenever a new component introduces colours of its own. If even the primitive you would alias is missing, stop and say so.
+If a part needs a token that does not exist, do not invent a raw value in its place, and do not reach past the token layer to bind a primitive directly. Where a component needs colours the semantic layer does not cover – a status set, a new component's own parts – **create a component-token group for it first**: a `<Component>/*` group in the semantic or component token collection, each token aliasing a primitive, exactly as `Button/*` and `Link/*` do. Then bind the component to that group, not to the primitives. This keeps the component one layer above the ramp, so a palette change flows through and the component reads in its own vocabulary (`Status pill/received-border`, not `Teal/teal-80`). Reach for this whenever a new component introduces colours of its own. If even the primitive you would alias is missing, stop and say so.
 
 ---
 
@@ -93,13 +97,13 @@ For the mechanics of writing into Figma, follow the `figma-use` guidance rather 
 
 ## How to build
 
-1. **Confirm it is missing.** Check the `scope_guard`. If it exists or is unconfirmed, stop and use `component-spec` instead.
+1. **Confirm it is missing.** Check the scope guard. If it exists or is unconfirmed, stop and use `component-spec` instead.
 2. **Borrow the anatomy from a sibling.** Match how the system already builds this kind of thing – an atom plus a composed wrapper, the same state set, the same token roles. Read the sibling with `component-spec` if unsure.
 3. **Propose the plan** (the gate). Wait.
 4. **On sign-off, build in small verified batches** – frame and structure first, then parts, then variants – reading back each batch before the next.
 5. **Bind every part** to its token and text style as planned. No raw values, no legacy styles.
 6. **Verify the whole component** with a final read: the variants exist, the bindings resolve, nothing is a raw value.
-7. **Hand off** – `component-spec` to document it, `design-review` to check it, and update the `scope_guard` entry so the system knows it now exists and is tokenised.
+7. **Hand off** – `component-spec` to document it, `design-review` to check it, and update the scope-guard entry in the token file so the system knows it now exists and is tokenised.
 
 ---
 
@@ -118,7 +122,7 @@ Write every summary in the simplest words you can, for a reader who did not buil
 
 - **Don't write before sign-off.** The plan-first gate is the whole point.
 - **Don't use a raw value or a legacy style.** Bind to tokens and the current text styles, or stop and flag the missing token.
-- **Don't rebuild what exists.** Check the `scope_guard` first. Rebuilding creates a duplicate source of truth.
+- **Don't rebuild what exists.** Check the scope guard first. Rebuilding creates a duplicate source of truth.
 - **Don't detach or improvise.** Nest real atoms; do not paste shapes.
 - **Don't skip the verification read.** A write is not done until a separate call confirms it.
 

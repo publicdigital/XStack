@@ -1,11 +1,11 @@
 ---
 name: workshop-facilitation
-description: Plan and run a working session where stakeholders co-create rather than get consulted – journey mapping with the MDA, prioritisation, assumption-surfacing, findings sense-making. Produces a workshop plan with purpose, participants, agenda with timings, materials, and a capture plan for what happens to the outputs. Triggers on "workshop", "plan a workshop", "co-design session", "working session with the MDA", "get stakeholders in a room", "facilitate a session", "kickoff session".
+description: Plan and run a working session where stakeholders co-create rather than get consulted – journey mapping with the department, prioritisation, assumption-surfacing, findings sense-making. Produces a workshop plan with purpose, participants, agenda with timings, materials, and a capture plan for what happens to the outputs. Triggers on "workshop", "plan a workshop", "co-design session", "working session with the department", "get stakeholders in a room", "facilitate a session", "kickoff session".
 ---
 
 # Workshop facilitation
 
-This skill plans working sessions where stakeholders make things together, rather than being presented at. It supports Barbados Digital Service Standard 2 (multidisciplinary team) and Standard 9 (be open and transparent), and GOV.UK Principle 3 (design with data) and Principle 10 (make things open: it makes things better).
+This skill plans working sessions where stakeholders make things together, rather than being presented at. It supports the **Multidisciplinary team** and **Working in the open** themes, and GOV.UK Principle 3 (design with data) and Principle 10 (make things open: it makes things better).
 
 A workshop is not a meeting with sticky notes. It's a structured way to get knowledge out of people's heads and into a shared artefact – a map, a prioritised list, a set of assumptions – that the team couldn't have produced alone.
 
@@ -13,7 +13,7 @@ A workshop is not a meeting with sticky notes. It's a structured way to get know
 
 ## When to use this skill
 
-- Discovery kickoff with the MDA – surfacing what they know, fear, and assume
+- Discovery kickoff with the department – surfacing what they know, fear, and assume
 - Mapping sessions – building or correcting a journey map, blueprint, or ecosystem map with the people who actually run the service
 - Sense-making sessions – interpreting research findings with the delivery team (`xstack:research-presenting` explains why this beats a one-way readout)
 - Prioritisation – user needs, features for alpha, risks
@@ -40,7 +40,7 @@ First question, always: **what will be different after this workshop?** A worksh
 | Who | Why them | What they hold |
 |---|---|---|
 
-[8–12 maximum for one room. Beyond that, split into parallel groups with a share-back. Invite the people who do the work, not only the people who manage it – the counter clerk knows things the Permanent Secretary doesn't. Standard 2.]
+[8–12 maximum for one room. Beyond that, split into parallel groups with a share-back. Invite the people who do the work, not only the people who manage it – the counter clerk knows things the Permanent Secretary doesn't. Multidisciplinary team.]
 
 ## Agenda
 
@@ -58,7 +58,7 @@ First question, always: **what will be different after this workshop?** A worksh
 
 ## Capture plan
 
-[Who photographs/transcribes what, where it lands in the repo, and by when the digitised artefact goes back to participants. A workshop whose outputs die on the wall was a party, not a workshop. Standard 9.]
+[Who photographs/transcribes what, where it lands in the repo, and by when the digitised artefact goes back to participants. A workshop whose outputs die on the wall was a party, not a workshop. Working in the open.]
 ```
 
 ---
