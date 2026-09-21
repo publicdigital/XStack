@@ -8,7 +8,7 @@ description: >-
   stress-test a form before recruiting participants, or when a phase gate is
   approaching and the team needs confidence that the obvious failures are already
   caught. Complements real research – it never substitutes for it. Triggers on
-  "/xstack:synthetic", "synthetic personas", "synthetic research", "test this
+  "/xstack:synthetic-research", "synthetic personas", "synthetic research", "test this
   form automatically", "pre-flight check", "robot user testing", "who might
   struggle with this form", "run the personas against it".
 ---
@@ -26,7 +26,7 @@ It supports the **User needs** theme (by stress-testing assumptions before they 
 For the larger workflow this sits inside, read `PLAYBOOK.md` – the *Rapid prototyping loop* section. The natural flow is:
 
 ```
-/xstack:build  →  /xstack:synthetic  →  fix blockers  →  real user testing  →  /xstack:iterate
+/xstack:build  →  /xstack:synthetic-research  →  fix blockers  →  real user testing  →  /xstack:iterate
 ```
 
 The `synthetic-findings.md` this skill produces can be fed directly to `xstack:prototype-iteration` as structured feedback (Path B), so the loop closes without extra glue.
