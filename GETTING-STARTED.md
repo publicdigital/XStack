@@ -1,6 +1,6 @@
 # xstack — quick start
 
-xstack is a team of five specialists and a set of commands for building government digital services in Barbados, anchored to the Barbados Digital Service Standards, the GOV.UK Design Principles, and the GDS Way. This is the short version. For the full detail, see `MANUAL.md` and `PLAYBOOK.md`.
+xstack is a team of five specialists and a set of commands for building government digital services in any country. The specialists act as the user-centred design roles your team may not have yet. They're anchored to your government's service standard, the GOV.UK Design Principles, and the GDS Way. This is the short version. For the full detail, see `MANUAL.md` and `PLAYBOOK.md`.
 
 ## Install
 
@@ -10,21 +10,31 @@ Upload `xstack.zip` via **Customize → Plugins → upload a custom plugin file*
 
 > **If `/` invocations fail with "Unknown command" (even for valid skills):** there's a known Cowork bug where the slash-command resolver breaks — skills appear in the `/` menu but won't run, and even the built-in `/feedback` fails. When that happens, **trigger skills by natural language instead.** Don't type the slash name; just describe what you want and Claude picks the right skill from its description. For example, instead of `/discovery-kit`, write: *"Using xstack, scope a discovery for … — give me the problem statement, stakeholder map, research plan, and interview guide."* Fully quitting and reopening the app or starting a fresh conversation sometimes clears it.
 
+## Set up your country profile
+
+Do this once per project, before your first real piece of work. A country profile tells xstack about your government: its service standard, design system, shared platforms, terms and data formats.
+
+- **Run `/xstack:profile`** (Claude Code) or ask *"Using xstack, set up our country profile"* (app and Cowork). It asks a few questions and writes `.xstack/profile.md`. Commit it so the whole team shares it.
+- **Or use a bundled profile.** Barbados is bundled: add the line `xstack profile: barbados` to your project's `CLAUDE.md`.
+- **Or skip it for now.** xstack works without a profile. It uses its own baseline – 14 service standard themes and a neutral house style – and says so at the top of what it produces. You can add a profile later.
+
+See `profiles/README.md` for what goes in a profile.
+
 ## The core loop
 
 Most work follows one path, from a vague idea to a service you can ship:
 
-1. **`/discovery-kit`** — scope a discovery. Produces a problem statement, stakeholder map, research plan, interview guide, and a discovery report template. Use this when an MDA asks for a new service and you need to find out whether (and what) to build.
-2. **`/brief-to-prototypes`** — turn a brief or problem statement into several clickable HTML prototypes, each in the GovTech house style with its assumptions surfaced inline. This is the build engine: feel three approaches in hours, not weeks.
+1. **`/discovery-kit`** — scope a discovery. Produces a problem statement, stakeholder map, research plan, interview guide, and a discovery report template. Use this when a department asks for a new service and you need to find out whether (and what) to build.
+2. **`/brief-to-prototypes`** — turn a brief or problem statement into several clickable HTML prototypes, each in your design system (or the xstack neutral style) with its assumptions surfaced inline. This is the build engine: feel three approaches in hours, not weeks.
 2½. **`/synthetic-research`** *(optional but recommended)* — before recruiting real participants, generate synthetic personas and run them against the prototype to surface comprehension, logic, and edge-case failures. Fixes the obvious before real testing begins. Complements real research – never replaces it.
 3. **`/prototype-iteration`** — fold in what you heard. Give it a prototype plus either structured feedback or raw research transcripts, and it produces the next version with a changelog of what changed and why. Run it after every test round.
-4. **`/build-for-production`** — take the iteration you've chosen to carry forward and produce a production-ready front-end: per-page HTML, the published GovBB stylesheet linked, the prototype chrome stripped, plus a test suite (regression, accessibility, security, load).
+4. **`/build-for-production`** — take the iteration you've chosen to carry forward and produce a production-ready front-end: per-page HTML, your design system's published stylesheet linked, the prototype chrome stripped, plus a test suite (regression, accessibility, security, load).
 
 ## Supporting skills
 
 Use these alongside the loop, at any phase:
 
-- **`/service-standard-assessment`** — honest self-assessment against the 13 Barbados Digital Service Standards. Run it before any phase gate (discovery→alpha, alpha→beta, beta→live), at annual review, or after a major change.
+- **`/service-standard-assessment`** — honest self-assessment against your service standard, or the xstack baseline themes if you have no profile. Run it before any phase gate (discovery→alpha, alpha→beta, beta→live), at annual review, or after a major change.
 - **`/plain-language-check`** — review copy for plain language, civil-service register, and the house word-swap list. Returns specific rewrites, not vague advice. Use it on form copy, error messages, privacy notices, and comms.
 - **`/show-the-thing`** — plan a show-and-tell: agenda, running order, demo, and supporting slides.
 - **`/weeknote`** — draft a short, honest, public weeknote in the GDS style. Best run every Friday.

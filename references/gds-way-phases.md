@@ -1,6 +1,6 @@
 # The GDS Way: Discovery, Alpha, Beta, Live
 
-The four-phase agile delivery model used by the UK Government Digital Service and adopted across most modern digital governments – including, by intention, GovTech Barbados.
+The four-phase agile delivery model used by the UK Government Digital Service and adopted across most modern digital governments. xstack uses it whatever the country. If your government names its phases differently or runs its own gates, the country profile says so (see `profiles/README.md`) – map them onto these four.
 
 Source: <https://www.gov.uk/service-manual/agile-delivery> and <https://gds-way.digital.cabinet-office.gov.uk/>.
 
@@ -14,11 +14,11 @@ Every xstack agent knows which phase the team is in and adjusts what it produces
 
 **You're researching, not building.** No service. No prototype. No commitments to technology. Just enough to know whether to proceed, and if so, what the highest-priority user needs are.
 
-**Inputs.** A vague brief from an MDA: "we want a new licensing system", "applications are slow", "citizens are complaining". The job of discovery is to turn that into a sharp problem statement.
+**Inputs.** A vague brief from a department: "we want a new licensing system", "applications are slow", "citizens are complaining". The job of discovery is to turn that into a sharp problem statement.
 
 **Activities.**
 
-- Stakeholder interviews across the MDA, front-line staff, partner agencies
+- Stakeholder interviews across the owning department, front-line staff, partner agencies and the platform team
 - User research – at least five interviews with citizens facing the problem
 - Walkthrough of the current journey (digital, paper, phone, in-person)
 - Mapping the ecosystem of actors, channels, systems
@@ -37,7 +37,7 @@ Every xstack agent knows which phase the team is in and adjusts what it produces
 
 **Team.** Service designer, user researcher, delivery manager, subject-matter expert. No engineers yet (their time is better spent elsewhere until there's something to build).
 
-**Don't.** Don't design a service. Don't pick a technology. Don't write tickets for the build. Don't promise an MDA you'll deliver by a date.
+**Don't.** Don't design a service. Don't pick a technology. Don't write tickets for the build. Don't promise a department you'll deliver by a date.
 
 ---
 
@@ -45,14 +45,14 @@ Every xstack agent knows which phase the team is in and adjusts what it produces
 
 **Purpose:** test the riskiest assumptions from discovery by building rough prototypes and putting them in front of users.
 
-**You're prototyping, not building production code.** Clickable HTML on alpha.gov.bb is fine. Real data is not.
+**You're prototyping, not building production code.** Clickable HTML prototypes are fine. Real data is not.
 
 **Inputs.** Discovery outputs: the prioritised user needs, the problem statement, the ecosystem.
 
 **Activities.**
 
 - Sketch several candidate approaches – multiple alphas, not just one
-- Build rough prototypes using the [Barbados Design System](https://github.com/govtech-bb/design-system)
+- Build rough prototypes using the government's design system named in the profile (or the xstack neutral style in `references/house-style.md` if there isn't one)
 - Test each prototype with real users
 - Compare approaches; pick the one that best meets the needs
 - Identify the technical, organisational, and policy risks for beta
@@ -63,7 +63,7 @@ Every xstack agent knows which phase the team is in and adjusts what it produces
 - Designs that have been tested and iterated
 - A clear recommendation: which approach to take into beta
 - A roadmap for beta with explicit risks and dependencies
-- An assessment against the Barbados Digital Service Standards
+- An assessment against the service standard – the profile's, or the xstack baseline themes in `references/service-standard-baseline.md`
 
 **Typical duration.** 8 to 12 weeks.
 
@@ -99,11 +99,11 @@ Every xstack agent knows which phase the team is in and adjusts what it produces
 - The four metrics being reported openly
 - Source code in a public repository
 - Documentation for the next team
-- An assessment against all 13 Barbados Standards, with evidence
+- An assessment against every standard in the profile (or every baseline theme), with evidence
 
 **Typical duration.** 12 to 26 weeks for private beta; ongoing through public beta.
 
-**Team.** All disciplines: product, service design, content, interaction, research, multiple developers, ops, cyber, delivery, subject-matter experts, MDA front-line.
+**Team.** All disciplines: product, service design, content, interaction, research, multiple developers, ops, cyber, delivery, subject-matter experts, the department's front line.
 
 **Don't.** Don't skip private beta and go straight to everyone. Don't switch off discovery research. Don't let the back office lag the front end.
 
@@ -125,7 +125,7 @@ Every xstack agent knows which phase the team is in and adjusts what it produces
 - Regular minor releases, not big bangs
 - Capacity for substantive change, not just bug fixes
 - Reporting on the four metrics and any service-specific ones
-- Periodic reassessment against the Barbados Standards
+- Periodic reassessment against the service standard
 - Retirement planning – know when the service should end
 
 **Outputs.**
@@ -138,7 +138,7 @@ Every xstack agent knows which phase the team is in and adjusts what it produces
 
 **Team.** Smaller than beta. Product, a developer or two, design, research, ops. Senior decision-makers still reachable.
 
-**Don't.** Don't put the service into stasis. Don't think "we built it, now we're done". Don't outsource live support to a vendor with no embedded GovTech presence.
+**Don't.** Don't put the service into stasis. Don't think "we built it, now we're done". Don't outsource live support to a vendor with no embedded government digital team presence.
 
 ---
 
@@ -146,7 +146,7 @@ Every xstack agent knows which phase the team is in and adjusts what it produces
 
 Between each phase there's a gate. In the UK, this is the Service Standard Assessment – a panel reviews the service against the Service Standard and either passes it through, sends it back, or stops it.
 
-In Barbados, the equivalent is the Barbados Digital Service Standards assessment. xstack's `service-standard-assessment` skill walks an agent (or a human reading the output) through the 13 standards with evidence. A pass requires a yes-with-evidence on all 13.
+Other governments run their own equivalent against their own standard – for example, the Barbados Digital Service Standards assessment. The country profile names the standard and any assessment process. xstack's `service-standard-assessment` skill walks an agent (or a human reading the output) through every standard in the profile, or every theme in `references/service-standard-baseline.md` when there is no profile, with evidence. A pass requires a yes-with-evidence on all of them.
 
 | Gate | Question |
 |---|---|
@@ -166,7 +166,7 @@ Each agent has a default mode but adapts based on phase:
 | Service designer | Research, journey mapping, ecosystem mapping, problem statements | Prototype journey, blueprint, multiple-alpha comparison | Frontstage/backstage refinement, ops integration | Continuous research, monitoring service health |
 | Content & interaction designer | Listen to how citizens describe the thing | Microcopy, prototypes, accessibility | Production copy, error states, content patterns | Iterative copy improvements |
 | Delivery manager | Stakeholder mapping, RAID log, plan to alpha | Plan to beta, weeknotes, show-and-tells | Sprint cadence, standard assessments, operational readiness | Live cadence, performance reports |
-| Developer | Technical landscape, MDA system audit | Prototypes only, no production code | Production build, infrastructure, CI/CD | Maintenance, minor releases, telemetry |
+| Developer | Technical landscape, department system audit, shared platforms in the profile | Prototypes only, no production code | Production build, infrastructure, CI/CD | Maintenance, minor releases, telemetry |
 | Cyber engineer | Threat horizon scan | Threat model v1, secure-design patterns | Pen test, secure deployment, incident runbook | Continuous monitoring, patch cadence |
 
 When you ask an agent to do something, tell it which phase you're in. If you don't, it will ask.

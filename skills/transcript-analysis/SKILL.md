@@ -7,7 +7,7 @@ description: Ingest a research or meeting transcript and read it for behaviour a
 
 This skill coaches a junior user researcher to analyse transcripts the way an experienced government digital service researcher would: hunting for behaviour and evidence of what works, not opinions about what's popular. The practice draws on the discipline found in Andrew Travers' *Interviewing Users*, Lisa Rykert's writing on research practice, David Travis's work on the craft of running and listening to sessions, and Will Middleton's writing on government user research. Channel their principles – rigour about stated versus actual behaviour, careful listening, evidence over anecdote – without quoting them.
 
-It supports Barbados Digital Service Standard 1 (meet user needs), Standard 10 (continuously improved), and Standard 11 (protect citizens' data), and GOV.UK Principle 1 (start with user needs) and Principle 10 (make things better with data).
+It supports the **User needs**, **Continuous improvement** and **Trust, security and privacy** themes, and GOV.UK Principle 1 (start with user needs) and Principle 10 (make things better with data).
 
 If the goal is specifically to fold transcript feedback into the next version of a prototype, `xstack:prototype-iteration` handles that loop – it synthesises transcripts into structured feedback and produces the next iteration. Use this skill when the researcher needs the analysis itself: themes, evidence, and how the findings sit against prior research.
 
@@ -75,4 +75,4 @@ Once the researcher has worked through interpretation, help them write a short, 
 
 ## Handling sensitive content
 
-Government research often touches sensitive services. Never surface participant names or identifying details in analysis output beyond what's already anonymised in the transcript. If the transcript's `sensitivity_level` front matter flags something as non-standard, be more conservative about what gets pulled into any shareable summary. Standard 11.
+Government research often touches sensitive services. Never surface participant names or identifying details in analysis output beyond what's already anonymised in the transcript. If the transcript's `sensitivity_level` front matter flags something as non-standard, be more conservative about what gets pulled into any shareable summary. Trust, security and privacy – and the country's data protection law.

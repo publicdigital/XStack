@@ -1,18 +1,17 @@
-# GovTech Barbados house style (quick reference)
+# xstack house style
 
-A pocket reference to the GovTech Barbados visual identity, voice, and pattern library. Maintained in detail across the `govtech-barbados-services`, `govtech-barbados-forms`, `govtech-barbados-presentations`, and `govtech-barbados-qr-codes` skills. This file gives xstack agents the essentials they need without reading every skill front to back.
-
-If anything here ever drifts from those skills, **trust the skills**.
+The conventions every xstack agent follows, whatever the country. They cover voice, plain language, service patterns and accessibility. For your government's visual identity, design system and data formats, read the country profile (see `profiles/README.md`). **Where the profile and this file disagree, the profile wins.**
 
 ---
 
 ## Voice
 
 - **Plain language always.** Write for a 9-year-old reading on a phone.
-- **You and we.** Address the citizen as "you" and the government as "we". Never "the applicant" or "the Ministry".
-- **Active voice.** "Send us your form" not "Your form should be submitted".
+- **You and we.** Address the user as "you" and the government as "we". Never "the applicant" or "the Ministry".
+- **Active voice.** "Send us your form", not "Your form should be submitted".
 - **Short sentences.** Under 20 words. Break long ones in two.
-- **Bajan where it lands.** If a local turn of phrase makes something clearer for the citizen, use it. If it doesn't, English is fine.
+- **The user's own words.** If a local turn of phrase makes something clearer, use it. The profile says which languages and registers people use.
+- **Write in the languages people speak.** If a significant part of the population is more comfortable in another language, the service needs to work in it too. Translation is not an afterthought.
 
 ### The word-swap list
 
@@ -36,125 +35,108 @@ If anything here ever drifts from those skills, **trust the skills**.
 | as a matter of urgency | urgently |
 | with regard to | about |
 
----
-
-## Colour palette
-
-Primary tokens used across alpha.gov.bb services, slides, and QR codes.
-
-| Role | Name | Hex | Where |
-|---|---|---|---|
-| Primary | Navy | `#00267F` | Body text, primary actions, navy section breaks |
-| Secondary | Gold | `#FFC726` | Title slides, finder eyes on QR codes, agenda numerals |
-| Light | Off-white | `#F7F3F3` | Page background, light slide background |
-| Dark | Charcoal | `#2C2C2C` | Title bars, page-break slides, label bars on QR |
-| Accent | Coral | `#FF6B6B` | Page breaks, two-item splits |
-| Accent | Pink | `#FF94D9` | Page breaks, feature backgrounds |
-| Accent | Green | `#21BF83` | Statement slides, achievements |
-| Accent | Purple | `#A962C7` | Charts, category indicators |
-| Accent | Orange | `#F58757` | Charts, warm highlights |
-| Accent | Teal | `#0F7D75` | Charts, secondary highlights |
-
-In CSS, prefer the design system's tokens (`var(--color-blue-40)` etc.) over hex values directly.
-
----
-
-## Typography
-
-**Figtree** for everything – titles, body, big numbers, labels. Google Font, geometric humanist. Set `fontFace: "Figtree"` explicitly in slide code so it doesn't fall back to Calibri.
-
-| Use | Weight | Size (slides) |
-|---|---|---|
-| Hero stat | SemiBold | 72pt |
-| Section heading | SemiBold | 48–60pt |
-| Slide title | SemiBold | 36pt |
-| Body | Regular | 30pt minimum |
-| Subtitle | Regular | 24pt |
-| Title bar text | SemiBold | 14pt |
-
-For web pages, the design system handles typography – don't override it.
-
----
-
-## Components and chrome
-
-Every alpha.gov.bb page has:
-
-- **Official banner** – the thin bar confirming this is a real government service
-- **Header** – yellow site header with the GovBB logo and navigation
-- **Status banner** – the alpha or beta strip
-- **Footer** – navy footer with supporting links and the Barbados crest
-
-The design system provides them all. Don't redraw them.
-
-**CSS class prefix is always `govbb-`** (e.g. `govbb-btn`, `govbb-form-group`, `govbb-radio`). Don't introduce Tailwind for new prototypes; don't reach for one-off colours.
-
-For form pages: `single-question`, `multiple-questions`, `check-your-answers`, `confirmation`. For content: `service`, `category`, `home`. Templates and component reference at <https://govtech-bb.github.io/design-system/llm/llms.txt>.
-
----
-
-## Barbadian data formats
-
-| Field | Format |
-|---|---|
-| Parish | Christ Church, St. Andrew, St. George, St. James, St. John, St. Joseph, St. Lucy, St. Michael, St. Peter, St. Philip, St. Thomas |
-| National Registration Number (NRN) | `YYMMDD-XXXX` |
-| National Insurance Number | 6 digits, numeric |
-| Postal code | `BB` + 5 digits, e.g. `BB11000` |
-| Date | DD MM YYYY in three text inputs (day / month / year) |
-| Currency | Barbadian Dollar (BBD / BDS$) |
-| Phone | Accept any format – don't enforce a pattern |
-
-For personal details, use Trident ID lookup (not separate fields). For vehicles, the vehicle lookup. For businesses, the business lookup.
+For languages other than English, build the equivalent list with the content designer and front-line staff. Official register exists in every language.
 
 ---
 
 ## Service patterns
 
-**Forms.** One thing per page (GOV.UK Service Manual rule). The flow is always: Start → Question pages → Check Your Answers → Confirmation. Every page has a Back link except Start. Every confirmation page gives a reference number, the next step, and the timing.
+**Forms.** One thing per page. The flow is always: Start → Question pages → Check your answers → Confirmation. Every page has a Back link except Start. Every confirmation page gives a reference number, the next step and the timing.
 
-**Validation.** Always client-side. On submit (not on blur). Two things together when it fails:
+**Validation.** Client-side, on submit (not on blur). When it fails, do two things together:
 
 - An **error summary** at the top of the page, linking to each invalid field
 - An **inline error message** next to each invalid field, with `aria-invalid="true"` and `aria-describedby` linking the input to the error
 
 The page title starts with "Error: …" so screen readers announce the failure.
 
-**Content pages.** Lead with what the citizen can do (the verb). Steps. Eligibility. What you need. How long it takes. Cost. What happens next. Contact.
+**Content pages.** Lead with what the user can do (the verb). Then: steps, eligibility, what you need, how long it takes, cost, what happens next, contact.
+
+**Lookups, not retyping.** If the government already holds the information (identity, address, vehicle, business), look it up through a shared platform rather than asking for it again. The profile names the platforms.
+
+**Dates.** Day, month and year in three separate inputs, unless the profile says otherwise.
+
+**Phone numbers.** Accept any format. Don't enforce a pattern.
+
+**Names.** One "full name" field is safer than first name and last name, because naming conventions vary. Never assume a surname.
 
 ---
 
-## Visual identity for non-web outputs
+## Page chrome
 
-**Presentations.** See the `govtech-barbados-presentations` skill. Big text, few words. Three-act structure. Show the thing. Charcoal title bar in top-left of content slides; gold cover slide; navy closing slide. Mix background colours – no two adjacent slides the same.
+Every page of a government service has:
 
-**QR codes.** See the `govtech-barbados-qr-codes` skill. Navy modules, off-white background, gold finder eyes, charcoal label bar.
+- **An official banner** – a thin bar saying this is an official government service
+- **A header** – the government's identity and the service name
+- **A phase banner** – "alpha" or "beta", with a link to give feedback
+- **A footer** – supporting links, including privacy, accessibility and contact
 
-**Documents (Word, PDF).** Plain text. Figtree if the rendering supports it. Navy for headings, charcoal for body. Crest and "Government of Barbados" in the header.
+If the profile names a design system, use its chrome and components. Don't redraw them. Don't introduce one-off colours.
 
 ---
 
-## When the design system doesn't cover something
+## Prototypes without a design system
 
-If you need a pattern that isn't in the design system, build it from primitives the system *does* cover – containers, typography, buttons, links, form groups – and use the CSS variables, not hex. Don't invent new colours.
+When there is no profile, or the profile has no design system, prototypes use the **xstack neutral style**. It is plain, accessible and deliberately unbranded, so testing focuses on the journey, not the look. Replace it with the government's own design system as soon as one is available.
 
-If the gap is structural and recurring, flag it as a candidate for a new block or component. The design system is in alpha; gaps are expected.
+```css
+:root {
+  --xs-text: #0B0C0C;
+  --xs-text-secondary: #505A5F;
+  --xs-background: #FFFFFF;
+  --xs-surface: #F3F2F1;
+  --xs-border: #B1B4B6;
+  --xs-primary: #1D4F91;       /* header, links, primary buttons */
+  --xs-primary-hover: #143A6B;
+  --xs-success: #00703C;
+  --xs-error: #D4351C;
+  --xs-focus: #FFDD00;         /* focus ring: yellow with a dark outline */
+  --xs-font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+}
+```
+
+- **Fonts:** the system font stack above. No web font to download, and Noto Sans covers most scripts.
+- **Official banner text:** "This is a prototype of a [Country] government service." Use the country from the profile, or "[Country]" as a visible placeholder.
+- **Header:** `--xs-primary` background with white text. Service name only, no crest or logo.
+- **Focus:** a 3px `--xs-focus` outline with a dark inner outline, so it shows on any background.
+- **Contrast:** every text and background pair above meets WCAG 2.2 AA.
+
+---
+
+## Accessibility
+
+- Meet WCAG 2.2 AA, or the level the profile says your law requires.
+- Everything works with a keyboard alone, in a logical order, with a visible focus.
+- Every input has a visible label. Placeholder text is not a label.
+- Don't rely on colour alone to carry meaning.
+- Test with a screen reader and at 200% and 400% zoom.
+
+---
+
+## Designing for the conditions users are in
+
+Many users are on low-cost phones, prepaid data and slow or intermittent connections. So:
+
+- Keep pages light. No large images, videos or heavy JavaScript frameworks for simple forms.
+- Make it work at 320px wide.
+- Save progress where a form is long, so a dropped connection doesn't lose it.
+- Offer an assisted-digital or offline route, and signpost it.
 
 ---
 
 ## Quick checklist for any new output
 
-- [ ] Plain language: civil-service register words swapped out, sentences under 20 words, active voice
+- [ ] Plain language: official register swapped out, sentences under 20 words, active voice
 - [ ] "You" and "we"
 - [ ] Reading age friendly to a 9-year-old
-- [ ] Design system components and tokens used (no Tailwind, no bespoke colours, no inlined CSS)
-- [ ] Official banner, header, alpha/beta banner, footer present on every page
-- [ ] Barbadian data formats correct (parishes spelled "St. Michael" etc.)
-- [ ] Trident ID / vehicle / business lookups used instead of manual identity fields
+- [ ] Works in the languages users speak
+- [ ] Profile's design system used, or the xstack neutral style if there isn't one
+- [ ] Official banner, header, phase banner and footer on every page
+- [ ] Data formats match the profile
+- [ ] Lookups used instead of asking for information the government already holds
 - [ ] One thing per page (forms)
 - [ ] Back link on every page except Start
 - [ ] Confirmation page gives reference, next step, timing
 - [ ] Accessible: error summary + inline error pattern, `aria-invalid`, `aria-describedby`
-- [ ] Works on a phone-sized viewport
-- [ ] Works on a slow connection
+- [ ] Works on a phone-sized viewport and a slow connection
 - [ ] Keyboard reachable end to end

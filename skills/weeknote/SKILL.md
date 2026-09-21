@@ -1,11 +1,11 @@
 ---
 name: weeknote
-description: Draft a public-facing weeknote for a GovTech Barbados service team. Use at the end of every working week, after a sprint, or whenever the team wants to publish what they've been doing. Triggers on "weeknote", "weekly update", "write a weeknote", "publish what we did", "what we did this week", "show the work", "team update".
+description: Draft a public-facing weeknote for a government service team. Use at the end of every working week, after a sprint, or whenever the team wants to publish what they've been doing. Triggers on "weeknote", "weekly update", "write a weeknote", "publish what we did", "what we did this week", "show the work", "team update".
 ---
 
 # Weeknote
 
-This skill drafts a weeknote in the GovTech Barbados / GDS style – short, honest, public, useful. It supports Barbados Digital Service Standard 9 (be open and transparent) and GOV.UK Principle 10 (make things open: it makes things better).
+This skill drafts a weeknote in the GDS style – short, honest, public, useful. It supports the **Working in the open** theme and GOV.UK Principle 10 (make things open: it makes things better).
 
 A weeknote is not a status report. It's a public note from the team to the world about what they did, what they learned, and what's next.
 
@@ -80,41 +80,41 @@ This week we ran the first round of user testing on the new prototype, and two-t
 
 ## What we did
 
-- Tested the prototype with 9 citizens – on a phone, in the team room and at the Bridgetown licensing office. 6 completed the journey unaided. 3 got stuck on the eligibility page.
+- Tested the prototype with 9 citizens – on a phone, in the team room and at the central licensing office. 6 completed the journey unaided. 3 got stuck on the eligibility page.
 - Rewrote the eligibility page in plain language and re-tested with 3 more citizens. 3/3 understood it first time.
-- Wired up the Trident ID lookup so the personal details page is now an automatic step, not a form. The next test will tell us whether citizens trust it.
-- Published the alpha prototype on alpha.gov.bb at <https://alpha.gov.bb/renew-licence> (status: alpha, not for real applications).
+- Wired up the national identity lookup so the personal details page is now an automatic step, not a form. The next test will tell us whether citizens trust it.
+- Published the alpha prototype on the government's service platform at [link] (status: alpha, not for real applications).
 - Shared the alpha with the front-desk team at the licensing office. They flagged three corner cases we hadn't covered (renewing after expiry, renewing while abroad, renewing after a name change). We're sketching pages for each.
 
 ## What we learned
 
-- "Verify your details" stopped citizens cold. We replaced it with "Check your details" and the friction disappeared. Standard 4 in action.
-- The eligibility logic is more tangled than the policy team had told us. We've booked a session with the MDA to walk the rules together next Tuesday.
-- The Trident ID lookup latency is around 800ms on a slow 3G connection. That's noticeable. We've added a loading state and we'll watch the analytics in beta.
+- "Verify your details" stopped citizens cold. We replaced it with "Check your details" and the friction disappeared. Plain language in action.
+- The eligibility logic is more tangled than the policy team had told us. We've booked a session with the department to walk the rules together next Tuesday.
+- The identity lookup latency is around 800ms on a slow 3G connection. That's noticeable. We've added a loading state and we'll watch the analytics in beta.
 
 ## What's next
 
 - Build the three corner-case journeys (expiry, abroad, name change). Test them on Friday.
-- Walk the eligibility rules with the MDA's policy team (Tuesday).
+- Walk the eligibility rules with the department's policy team (Tuesday).
 - Start the threat-model refresh ahead of the private-beta gate (cyber engineer, week of 26 May).
 - Wire the four GDS baseline metrics (digital take-up, completion rate, cost per transaction, user satisfaction) into the alpha for testing.
 
 ## What we'd like help with
 
 - We're looking for citizens who've renewed from overseas in the last year, for a research session in week 2 of June. If you know anyone, drop us a line.
-- Any other MDAs running a licence-renewal-style flow – we'd like to compare patterns before we lock in the eligibility page.
+- Any other departments running a licence-renewal-style flow – we'd like to compare patterns before we lock in the eligibility page.
 
 ## Thanks
 
-- The Bridgetown licensing office team for letting us camp out and watch a morning of real renewals.
-- Sarah from the MDA's policy team for the Friday walk-through.
-- The Trident ID team for fixing the lookup latency mid-week.
+- The central licensing office team for letting us camp out and watch a morning of real renewals.
+- Sarah from the department's policy team for the Friday walk-through.
+- The identity platform team for fixing the lookup latency mid-week.
 
 ---
 
 **Links**
 
-- Alpha prototype: <https://alpha.gov.bb/renew-licence>
+- Alpha prototype: [link]
 - Show-and-tell deck: [link]
 - Research notes: [link]
 ```
@@ -138,12 +138,14 @@ Use the team's voice. First person plural ("we"). Active. Short sentences. The n
 
 British English. N-dashes. Word-swap list applied (no "submit", "verify", "provide", "ensure", "kindly"). See `references/house-style.md`.
 
+When a weeknote mentions a standard, cite the profile's own standard by its number and title (e.g. "Standard 4 (Use simple and relatable language)"); without a profile, cite the baseline theme by name. Use the profile's terms for departments and platforms, so readers recognise them.
+
 Honest about what didn't work. Generous to the people who helped.
 
 ---
 
 ## After you draft it
 
-Send it to the team for a quick check before publishing. The weeknote belongs to the team, not to one writer. Then publish it where the team's audience can find it – the team blog, the MDA's communications channel, the GovTech site.
+Send it to the team for a quick check before publishing. The weeknote belongs to the team, not to one writer. Then publish it where the team's audience can find it – the team blog, the department's communications channel, the digital agency's site.
 
 If anything is genuinely confidential (a security finding, an individual's personal data, a contract negotiation), redact it or hold it until it can be shared. Don't pretend the rest of the work didn't happen because one bit can't be shared.

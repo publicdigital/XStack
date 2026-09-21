@@ -5,7 +5,9 @@ description: Plan and produce the core deliverables of a discovery phase – pro
 
 # Discovery Kit
 
-This skill scaffolds the artefacts a GovTech Barbados discovery produces. It supports Barbados Digital Service Standard 1 (meet user needs) and Standard 2 (multidisciplinary team), and GOV.UK Principle 1 (start with user needs) and Principle 7 (understand context).
+This skill scaffolds the artefacts a government discovery produces. It supports the **User needs**, **Whole problem** and **Multidisciplinary team** themes, and GOV.UK Principle 1 (start with user needs) and Principle 7 (understand context).
+
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Use its standard, terms (what departments and the platform team are called), shared platforms, law and research context. If there is no profile, use `references/service-standard-baseline.md` and `references/house-style.md`, and say so once at the top of your output. Where the templates below cite a theme, cite the profile's own standard by its number and title (e.g. 'Standard 4 (Use simple and relatable language)'); without a profile, cite the baseline theme by name.
 
 A discovery isn't a build. It's a structured way to find out whether to build, and if so, what to build for whom. Typical duration: 6 to 12 weeks. Output: a problem statement, a prioritised list of user needs, and a recommendation – proceed, redesign, or stop.
 
@@ -15,7 +17,7 @@ For the phase model, read `references/gds-way-phases.md`.
 
 ## When to use this skill
 
-- The MDA has asked for a new service and the team needs to scope a discovery
+- A department has asked for a new service and the team needs to scope a discovery
 - A discovery is starting and the team wants the standard kit ready
 - A discovery is ending and the team needs the discovery report
 - The team is unsure whether they're in discovery or alpha (often a sign discovery hasn't finished)
@@ -29,12 +31,12 @@ These are the seven artefacts a discovery should produce. Use the templates belo
 | Artefact | Purpose | When |
 |---|---|---|
 | Problem statement | A single page naming the user need in citizen language | Drafted in week 1, refined throughout |
-| Stakeholder map | Everyone with skin in the game – MDA, citizens, partner agencies, oversight | Week 1 |
+| Stakeholder map | Everyone with skin in the game – the owning department, citizens, partner agencies, the platform team, oversight | Week 1 |
 | Research plan | How we'll learn from users – who, where, when, what | Week 1, revised as we go |
 | Interview guide | The actual questions for user interviews | Before fieldwork starts |
 | Ecosystem map | Actors, channels, systems and how they relate | Week 2–4 |
 | Current-state journey | What citizens do today, step by step | Week 2–6 |
-| Discovery report | The thing the MDA reads to make a decision | Last 2 weeks of discovery |
+| Discovery report | The thing the owning department reads to make a decision | Last 2 weeks of discovery |
 
 For ecosystem maps, defer to `xstack:ecosystem-map`. For current-state journeys, defer to `xstack:journey-map`. For research objectives and the discussion guide itself, defer to `xstack:research-planning` (with `design:user-research` as a supporting library). For transcript analysis and synthesis, defer to `xstack:transcript-analysis` (with `design:research-synthesis` as a supporting library). For the research readout, defer to `xstack:research-presenting`. This skill provides the connective tissue and the report shape.
 
@@ -51,11 +53,11 @@ One page. Maximum.
 
 ## The user
 
-[Who has the problem? Be specific – which citizens, in what situation. Avoid "all Barbadians".]
+[Who has the problem? Be specific – which citizens, in what situation. Avoid "all citizens".]
 
 ## The need
 
-[What are they trying to do? In their words, not in MDA words. Verb-led.]
+[What are they trying to do? In their words, not in department words. Verb-led.]
 
 ## The current experience
 
@@ -88,14 +90,16 @@ One page. Maximum.
 | Group | Estimated size | How affected | Currently engaged? | Notes |
 |---|---|---|---|---|
 
-## MDA
+## Owning department
+
+[Use the profile's term for departments, e.g. ministry, agency.]
 
 | Role | Name | Decision-making power | Engagement level | Notes |
 |---|---|---|---|---|
 
 ## Other government
 
-| MDA / function | Connection | Owner | Engagement level |
+| Department / function (incl. the platform team) | Connection | Owner | Engagement level |
 |---|---|---|---|
 
 ## Outside government
@@ -105,7 +109,7 @@ One page. Maximum.
 
 ## Senior decision-makers
 
-[Names. Reachable how often. Last time engaged. Standard 2.]
+[Names. Reachable how often. Last time engaged. Multidisciplinary team.]
 ```
 
 ### 3. Research plan
@@ -125,8 +129,8 @@ One page. Maximum.
 
 | Method | Why | How many | Where | Who runs it |
 |---|---|---|---|---|
-| Semi-structured interviews | … | 8–12 | In citizens' homes / on the bus / at the parish office | Service designer + content designer |
-| Front-line shadow | … | 3 half-days | Licensing office, Bridgetown | Service designer |
+| Semi-structured interviews | … | 8–12 | In citizens' homes / on the bus / at the local government office | Service designer + content designer |
+| Front-line shadow | … | 3 half-days | Licensing office, capital city | Service designer |
 | Existing-data review | … | n/a | Analytics, support tickets | Delivery manager + developer |
 
 ## Recruitment
@@ -144,7 +148,7 @@ One page. Maximum.
 
 ## Ethics and consent
 
-[Plain-language consent. Anonymisation. Data retention. Standard 11.]
+[Plain-language consent. Anonymisation. Data retention. The country's data protection law. Trust, security and privacy.]
 ```
 
 ### 4. Interview guide
@@ -184,7 +188,7 @@ One page. Maximum.
 
 ### 5. Discovery report
 
-The artefact the MDA reads. Use this structure.
+The artefact the owning department reads. Use this structure.
 
 ```markdown
 # Discovery report – [service name]
@@ -192,7 +196,7 @@ The artefact the MDA reads. Use this structure.
 **Phase:** Discovery
 **Dates:** [start] – [end]
 **Team:** [names and roles]
-**MDA:** [Ministry, Department, Agency]
+**Department:** [the owning ministry, department or agency]
 **Sponsor:** [senior decision-maker]
 
 ---
@@ -219,9 +223,9 @@ Proceed to alpha / Redesign the problem and re-discover / Don't build
 
 | Activity | Volume | Where | Who |
 |---|---|---|---|
-| Citizen interviews | 14 | Bridgetown, Holetown, St Philip | Service designer + content designer |
+| Citizen interviews | 14 | Capital, two towns, one rural region | Service designer + content designer |
 | Front-line shadow | 3 half-days | Licensing office | Service designer |
-| Stakeholder interviews | 11 | MDA, MIST, civil society | Delivery manager |
+| Stakeholder interviews | 11 | Owning department, platform team, civil society | Delivery manager |
 | Existing-data review | n/a | Service analytics, support log | Developer |
 
 ## What we learned
@@ -232,11 +236,11 @@ Proceed to alpha / Redesign the problem and re-discover / Don't build
 ### About the current journey
 [Where it breaks. What citizens work around.]
 
-### About the MDA's operation
+### About the department's operation
 [What's actually happening backstage. Constraints we found.]
 
 ### About the technical landscape
-[Existing systems. Shared platforms we could reuse – Standard 7. Constraints.]
+[Existing systems. Shared platforms we could reuse (the profile lists them) – Open platforms and standards. Constraints.]
 
 ## User needs (prioritised)
 
@@ -249,7 +253,7 @@ Proceed to alpha / Redesign the problem and re-discover / Don't build
 
 ## Risks for alpha
 
-[Top 5 risks with mitigations. Standard 11 risks called out.]
+[Top 5 risks with mitigations. Trust, security and privacy risks called out.]
 
 ## What this discovery did not cover
 
@@ -257,7 +261,7 @@ Proceed to alpha / Redesign the problem and re-discover / Don't build
 
 ## Team and budget needed for alpha
 
-[Specific. Standard 2.]
+[Specific. Multidisciplinary team – name any discipline an xstack agent is standing in for.]
 
 ---
 
@@ -275,9 +279,10 @@ Proceed to alpha / Redesign the problem and re-discover / Don't build
 
 ## What makes a good discovery
 
-- **It changes someone's mind.** If the discovery report says exactly what the MDA expected at the start, it probably wasn't a discovery.
+- **It changes someone's mind.** If the discovery report says exactly what the department expected at the start, it probably wasn't a discovery.
 - **It quotes citizens by name** (anonymised where needed) **and by situation.** Not summary platitudes.
-- **It names the existing platforms we could reuse.** Standard 7 starts in discovery.
+- **It names the existing platforms we could reuse.** Open platforms and standards starts in discovery.
+- **It maps the whole problem** – the other departments and the offline channels, not just the part this team owns.
 - **It recommends multiple alphas where the question is genuinely open.**
 - **It says "don't build" where that's the right answer.** Discoveries that always recommend building aren't discoveries.
 
@@ -285,8 +290,8 @@ Proceed to alpha / Redesign the problem and re-discover / Don't build
 
 ## When to stop a discovery early
 
-- The MDA already knows what to build and the user need is well-evidenced from existing data. Move to alpha.
-- The user need is being met fine today by another channel and the digital service would duplicate. Stop. Standard 7.
+- The department already knows what to build and the user need is well-evidenced from existing data. Move to alpha.
+- The user need is being met fine today by another channel and the digital service would duplicate. Stop. Open platforms and standards.
 - The political mandate has changed. Pause, regroup.
 
-When you stop a discovery early, write a short note explaining why. Standard 9.
+When you stop a discovery early, write a short note explaining why. Working in the open.

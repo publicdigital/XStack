@@ -1,5 +1,7 @@
 # Discovery kit – Renewing a medical licence
 
+> **Barbados profile example.** This example uses the Barbados country profile (`profiles/barbados/`), so it cites the Barbados standards and uses Barbados platforms and styling. See `examples/README.md`.
+
 **Strawman, not a finished discovery.** This kit was scaffolded by the xstack `service-designer` agent against the `discovery-kit` skill, before any conversation with the Medical Council of Barbados or the Ministry of Health and Wellness. It is a starting point for a real discovery, not a substitute for one.
 
 Every uncertain claim is marked `[TO VERIFY]`. The first job of the discovery team is to talk to people and turn those into facts (or strike them out).

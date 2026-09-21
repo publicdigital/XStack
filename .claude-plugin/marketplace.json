@@ -1,28 +1,29 @@
 {
   "name": "xstack",
   "owner": {
-    "name": "GovTech Barbados",
-    "url": "https://govtech.bb"
+    "name": "Public Digital",
+    "url": "https://public.digital"
   },
   "metadata": {
-    "description": "Five opinionated specialists for building government digital services in Barbados – anchored to the Barbados Digital Service Standards, the GOV.UK Design Principles, and the GDS Way.",
+    "description": "Five AI specialists that bring user-centred design roles into government digital delivery teams – service design, content and interaction design, delivery, development and cyber security. For any government, anchored to a country-agnostic service standard baseline, the GOV.UK Design Principles and the GDS Way, with country profiles for local standards and design systems.",
     "version": "0.1.1"
   },
   "plugins": [
     {
       "name": "xstack",
       "source": "./",
-      "description": "Five opinionated specialists, nine slash commands, eight shared skills. Turn a brief into testable prototypes, then iterate from transcripts.",
+      "description": "Five UCD specialists as AI team members for government digital teams. Turn a brief into testable prototypes, iterate from research, assess against your country's service standard.",
       "version": "0.1.1",
       "category": "service-design",
       "keywords": [
-        "govtech",
-        "barbados",
         "government",
+        "govtech",
         "digital-services",
         "service-design",
+        "user-centred-design",
         "gds",
-        "alpha.gov.bb"
+        "service-standards",
+        "design-systems"
       ]
     }
   ]

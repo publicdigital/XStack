@@ -2,23 +2,26 @@
 
 ## Inline commenting (always include)
 
-Every generated page ends with this script tag, immediately before `</body>`:
+Every generated page ends with the team's comments script tag, immediately before
+`</body>`:
 
 ```html
 <script defer src="blueprint-comments.js"
         data-page="<unique-page-id>"
-        data-api="https://moe-job-letters.vercel.app/api/blueprint-comments"></script>
+        data-api="<the team's comments API URL>"></script>
 ```
 
 - The script lives at `Prototypes/blueprint-comments.js` (same directory as the
   pages), adds a hover 💬 button to every card/stage/panel and a side drawer.
   No account needed; edit/delete is guarded by a per-comment secret in the
   commenter's localStorage.
-- Backend: `api/blueprint-comments.js` in the AdunniR/moe-job-letters repo
-  (auto-deploys to Vercel; stores in Neon, table `blueprint_comments`).
-- **CORS allowlist is `adunnir.github.io` and `localhost:3000`** — commenting
-  won't work from other origins, including the ad-hoc verification server. That's
-  expected; don't debug it.
+- Backend: a small API the team hosts (the first one was a serverless function on
+  Vercel storing comments in a Postgres table, `blueprint_comments`). Ask the user for
+  the API URL, or copy it from an existing page's script tag. If the team has no
+  comments backend yet, leave the tag out, say so, and offer to help set one up.
+- **The backend's CORS allowlist** usually covers only the live Pages origin and a
+  fixed localhost port — commenting won't work from other origins, including the
+  ad-hoc verification server. That's expected; don't debug it.
 
 ### Page-id registry
 
@@ -29,9 +32,9 @@ pages. Kebab-case, service-scoped. Before choosing, check existing ids:
 grep -h "data-page" Prototypes/*.html
 ```
 
-Known ids as of July 2026: `ehd-current-state`, `ehd-future-state`,
-`cms-blueprint`, `cms-blueprint-simplified`, `cms-journey-applicant`,
-`cms-journey-official`.
+The grep is the registry — trust it over any list you remember. Ids follow the
+pattern `<service>-blueprint`, `<service>-blueprint-simplified`,
+`<service>-journey-<actor>`, `<service>-current-state`, `<service>-future-state`.
 
 ## Verification (before handing over)
 
@@ -61,19 +64,19 @@ Known ids as of July 2026: `ehd-current-state`, `ehd-future-state`,
 
 ## Publishing (offer, never auto-push)
 
-The repo is `AdunniR/govtech-barbados-prototypes` (origin), GitHub Pages serves
-the `main` branch root. Live URL pattern:
+The team's prototypes repo is `origin`, and GitHub Pages serves the `main` branch
+root. Live URL pattern (check `git remote -v` for the owner and repo):
 
 ```
-https://adunnir.github.io/govtech-barbados-prototypes/Prototypes/<file>.html
+https://<owner>.github.io/<repo>/Prototypes/<file>.html
 ```
 
 Procedure when the user says push:
 
-1. **Stage only the files you created/edited, by explicit path.** The working
-   tree carries unrelated local deletions (including live pages like the EHD
-   blueprints and CLAUDE.md). `git add -A` or `git add .` would push those
-   deletions and take live pages down. Always:
+1. **Stage only the files you created/edited, by explicit path.** Run
+   `git status` first — a working tree can carry unrelated local changes or
+   deletions (including live pages). `git add -A` or `git add .` would push those
+   and could take live pages down. Always:
    ```bash
    git add "Prototypes/<file1>.html" "Prototypes/<file2>.html"
    ```
@@ -87,9 +90,9 @@ Procedure when the user says push:
    for a phrase from the edit instead of checking the status code).
 5. Report the live link(s). Remind the user that commenting works on the live URL.
 
-Environment note: the `gh` CLI is not installed. For GitHub API calls use the
-stored token via `git credential fill` + curl. Plain `git push` works with stored
-credentials.
+Environment note: if the `gh` CLI is not installed, plain `git push` works with
+stored credentials. Don't handle tokens yourself — if a push needs authentication,
+ask the user to do it.
 
 ## Cross-linking
 

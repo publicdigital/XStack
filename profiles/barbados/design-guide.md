@@ -1,6 +1,6 @@
 # GOV.BB design guide
 
-The prose companion to `govbb-design-tokens.yaml`. This file explains how the GOV.BB design system is organised, the decisions behind it, and the rules for working in it. The exact values – every hex, token, size, and status – live in the YAML. This file never repeats them, so the two cannot drift against each other.
+The prose companion to `profiles/barbados/design-tokens.yaml`. This file explains how the GOV.BB design system is organised, the decisions behind it, and the rules for working in it. The exact values – every hex, token, size, and status – live in the YAML. This file never repeats them, so the two cannot drift against each other.
 
 Anchored to Standard 3 (everyone can use the service), Standard 5 (works the first time), and Standard 7 (open, common, interoperable platforms).
 
@@ -12,8 +12,8 @@ Anchored to Standard 3 (everyone can use the service), Standard 5 (works the fir
 
 We keep the design system reference in two files on purpose.
 
-- **`govbb-design-guide.md`** (this file) holds the narrative: how each layer is built, why the decisions were made, what is still open, and the rules for reading Figma safely. It carries no exact values.
-- **`govbb-design-tokens.yaml`** holds the structured values: the tokens, the typography scale, the component inventories, the scope guard, the accessibility issues, and the confirmed cross-check findings. Skills read it directly.
+- **`profiles/barbados/design-guide.md`** (this file) holds the narrative: how each layer is built, why the decisions were made, what is still open, and the rules for reading Figma safely. It carries no exact values.
+- **`profiles/barbados/design-tokens.yaml`** holds the structured values: the tokens, the typography scale, the component inventories, the scope guard, the accessibility issues, and the confirmed cross-check findings. Skills read it directly.
 
 If you need to know *how* colour works, read this file. If you need to know *what* `Text/text-link` resolves to, read the YAML. Keeping values out of the prose means an update to a hex changes one file, not two, and the two can never disagree.
 

@@ -8,7 +8,7 @@ description: >-
   stress-test a form before recruiting participants, or when a phase gate is
   approaching and the team needs confidence that the obvious failures are already
   caught. Complements real research – it never substitutes for it. Triggers on
-  "/xstack:synthetic", "synthetic personas", "synthetic research", "test this
+  "/xstack:synthetic-research", "synthetic personas", "synthetic research", "test this
   form automatically", "pre-flight check", "robot user testing", "who might
   struggle with this form", "run the personas against it".
 ---
@@ -17,14 +17,16 @@ description: >-
 
 Generate synthetic personas for a government service and run automated user research against an xstack prototype, producing a friction report the team can act on before real testing begins.
 
-This skill raises the floor. It catches the comprehension failures, logic gaps, and edge-case exclusions that real participants shouldn't have to discover. It cannot tell you what real Barbadians feel, fear, or misunderstand in ways nobody predicted – only real research does that.
+This skill raises the floor. It catches the comprehension failures, logic gaps, and edge-case exclusions that real participants shouldn't have to discover. It cannot tell you what real users feel, fear, or misunderstand in ways nobody predicted – only real research does that.
 
-It supports Barbados Digital Service Standards 1 (meet user needs – by stress-testing assumptions before they reach users), 3 (everyone can use it – by deliberately over-representing awkward cases), and 10 (continuously improved – by making pre-flight checks cheap enough to run every round).
+It supports the **User needs** theme (by stress-testing assumptions before they reach users), the **Inclusion** theme (by deliberately over-representing awkward cases) and the **Continuous improvement** theme (by making pre-flight checks cheap enough to run every round).
+
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Use its standard, design system, terms, data formats and – above all for this skill – its **Research context** section (population data sources, recruitment channels, communities and languages). If there is no profile, use `references/service-standard-baseline.md` and `references/house-style.md`, and say so once at the top of your output.
 
 For the larger workflow this sits inside, read `PLAYBOOK.md` – the *Rapid prototyping loop* section. The natural flow is:
 
 ```
-/xstack:build  →  /xstack:synthetic  →  fix blockers  →  real user testing  →  /xstack:iterate
+/xstack:build  →  /xstack:synthetic-research  →  fix blockers  →  real user testing  →  /xstack:iterate
 ```
 
 The `synthetic-findings.md` this skill produces can be fed directly to `xstack:prototype-iteration` as structured feedback (Path B), so the loop closes without extra glue.
@@ -34,12 +36,12 @@ The `synthetic-findings.md` this skill produces can be fed directly to `xstack:p
 ## When to use
 
 - After `/xstack:build` produces prototypes and before the first round of real user testing
-- Before a show-and-tell or MDA review, to catch embarrassing failures early
+- Before a show-and-tell or department review, to catch embarrassing failures early
 - Before a phase gate (`/xstack:assess`), as a deeper pre-flight
 - When the team has iterated a prototype and wants a quick check before the next testing round
 - When recruiting real participants will take time and the team wants to use the gap productively
 
-**Do not use this skill to avoid real user testing.** Synthetic personas find what a careful desk review would find, faster and more systematically. They do not find what only a real citizen in a real situation can show you. Standard 1 requires real research. This skill makes real research more productive by clearing the obvious failures first.
+**Do not use this skill to avoid real user testing.** Synthetic personas find what a careful desk review would find, faster and more systematically. They do not find what only a real citizen in a real situation can show you. The **User needs** theme requires real research. This skill makes real research more productive by clearing the obvious failures first.
 
 ---
 
@@ -47,7 +49,7 @@ The `synthetic-findings.md` this skill produces can be fed directly to `xstack:p
 
 Every artefact this skill produces – the persona pack, the friction report, any intermediate output – must open with this disclaimer or a close paraphrase:
 
-> **Synthetic research disclaimer.** These findings are from synthetic personas, not real users. They catch comprehension, logic, and edge-case failures cheaply and early. They cannot tell you what real Barbadians feel, fear, or misunderstand in ways nobody predicted. This report raises the floor before real research – it never replaces it.
+> **Synthetic research disclaimer.** These findings are from synthetic personas, not real users. They catch comprehension, logic, and edge-case failures cheaply and early. They cannot tell you what real users feel, fear, or misunderstand in ways nobody predicted. This report raises the floor before real research – it never replaces it.
 
 This is non-negotiable. The skill must never present synthetic quotes, observations, or findings as if they came from real participants. Label everything synthetic. Use "the synthetic persona would…" or "Marcia (synthetic) would likely…" – never "the user said" or "participants reported".
 
@@ -61,7 +63,7 @@ Each stage produces a reviewable artefact before the next runs. The team can sto
 
 ### Stage 1 – Persona pack
 
-**Input:** the prototype's brief, its assumptions panel, and any service context the team provides – who the service is for, what triggers use, what's at stake, known population data (census, digital-inclusion stats, contact-centre themes, prior research).
+**Input:** the prototype's brief, its assumptions panel, and any service context the team provides – who the service is for, what triggers use, what's at stake, known population data (census, digital-inclusion stats, contact-centre themes, prior research). Take the grounding data sources from the profile's Research context section – typically the national statistics office's census, digital-inclusion statistics and department contact-centre themes.
 
 **Output:** `prototype-N-name/synthetic-round-K/personas.md`
 
@@ -162,8 +164,8 @@ Themes that appear across multiple personas, ranked by severity. For each theme:
 - **What the theme is** – one sentence.
 - **Which personas it affects** – names and why.
 - **Severity** – blocker / major / minor, based on the most severe instance.
-- **Suggested fix** – a specific rewrite, design change, or structural change. For copy rewrites, reference `xstack:plain-language-check`. For interaction changes, reference the GovBB design system patterns.
-- **Standard** – the Barbados Digital Service Standard this theme pushes against (1, 3, 4, 5, etc.).
+- **Suggested fix** – a specific rewrite, design change, or structural change. For copy rewrites, reference `xstack:plain-language-check`. For interaction changes, reference the patterns of the design system named in the profile (or the xstack neutral style and service patterns in `references/house-style.md` if there is none).
+- **Standard** – the standard this theme pushes against. Cite the profile's own standard by its number and title (e.g. 'Standard 4 (Use simple and relatable language)'); without a profile, cite the baseline theme by name (e.g. 'Plain language').
 
 #### 4. Question-protocol failures
 
@@ -179,7 +181,7 @@ The most important section. For each persona that surfaced significant friction 
 
 - **Why this persona matters** – the real population segment they represent.
 - **What to test** – the specific friction points that synthetic research flagged but can't resolve. (Does a real citizen in this situation actually abandon? Or do they muddle through?)
-- **Recruitment suggestion** – how to find real participants matching this persona's key characteristics. Be specific to Barbados: which parish, which community group, which MDA contact list, which assisted-digital channel.
+- **Recruitment suggestion** – how to find real participants matching this persona's key characteristics. Be specific to the country, using the recruitment channels in the profile's Research context section: which region, which community group, which department contact list, which assisted-digital channel.
 
 This section exists to make the handoff to real research concrete. Don't end with "test with real users" – end with "recruit two mobile-only citizens from [specific channel] and test pages 3–5 specifically".
 
@@ -191,7 +193,7 @@ This section exists to make the handoff to real research concrete. Don't end wit
 - **It does not generate quotes.** Synthetic personas do not "say" things. They "would likely struggle with" or "cannot answer" things. The language matters – the team must never mistake a synthetic observation for a real participant's words.
 - **It does not assess the service design.** It tests the form as built. If the underlying service model is wrong – the wrong process, the wrong eligibility criteria, the wrong channel – synthetic personas won't catch that. Real discovery does.
 - **It does not test emotional responses.** A synthetic persona can flag that a question about income is anxiety-inducing for people in financial difficulty. It cannot tell you *how* anxious, or what that anxiety makes someone do. Only a real participant can.
-- **It does not sign off the prototype.** A clean synthetic-research report means the obvious failures are cleared. It does not mean the prototype is ready for beta. Standard 1 still requires real research.
+- **It does not sign off the prototype.** A clean synthetic-research report means the obvious failures are cleared. It does not mean the prototype is ready for beta. The **User needs** theme still requires real research.
 
 ---
 
@@ -233,9 +235,9 @@ Round numbering (`K`) increments with each run of the skill against the same pro
 
 ## Citing standards
 
-Every synthetic-findings report cites the standards that each theme pushes against. Examples:
+Every synthetic-findings report cites the standards that each theme pushes against. Cite the profile's own standard by its number and title (e.g. 'Standard 4 (Use simple and relatable language)'); without a profile, cite the baseline theme by name. Examples, citing baseline themes:
 
-> Standard 3 (everyone can use it) – Marcia (synthetic) cannot complete the form without a smartphone; no assisted-digital path exists.
-> Standard 4 (simple, relatable language) – three personas flagged "pursuant to" on page 2; the word is on the swap list.
-> Standard 5 (works first time) – the back button on page 4 loses entered data; four of six personas would have to re-enter their CPD details.
-> Standard 1 (meet user needs) – QP-FAIL on the "practice type" question: no identified consumer for this data.
+> Inclusion – Marcia (synthetic) cannot complete the form without a smartphone; no assisted-digital path exists.
+> Plain language – three personas flagged "pursuant to" on page 2; the word is on the swap list.
+> Works first time – the back button on page 4 loses entered data; four of six personas would have to re-enter their CPD details.
+> User needs – QP-FAIL on the "practice type" question: no identified consumer for this data.

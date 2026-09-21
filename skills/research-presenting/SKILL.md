@@ -7,7 +7,7 @@ description: Turn analysed research findings into something a delivery team will
 
 This skill coaches a junior user researcher to turn analysis into something a delivery team will actually act on. The discipline: insight should land as clear, memorable strategy rather than a dense report, and findings should connect to what "good" looks like in the service more broadly, not just the immediate feature – service design thinking, not just bug-spotting.
 
-It supports Barbados Digital Service Standard 1 (meet user needs), Standard 9 (be open and transparent), and Standard 10 (continuously improved), and GOV.UK Principle 1 (start with user needs) and Principle 10 (make things open: it makes things better).
+It supports the **User needs**, **Working in the open** and **Continuous improvement** themes, and GOV.UK Principle 1 (start with user needs) and Principle 10 (make things open: it makes things better).
 
 ---
 
@@ -72,4 +72,4 @@ Before finalising, have the researcher think through:
 
 ## Output
 
-Depending on what the researcher needs, help them produce either a short written readout (markdown, following the structure above) or a slide-shaped outline they can build into a deck. Keep it short – a readout that's hard to skim won't get read by a busy delivery team. If they're building an actual slide deck, point them to the `govtech-barbados-presentations` skill for the deck build itself; this skill is about getting the content and framing right first. If the readout is part of a show-and-tell, `xstack:show-the-thing` handles the session itself.
+Depending on what the researcher needs, help them produce either a short written readout (markdown, following the structure above) or a slide-shaped outline they can build into a deck. Keep it short – a readout that's hard to skim won't get read by a busy delivery team. If they're building an actual slide deck, point them to any presentation house-style skill listed in the country profile's Related skills section (see `profiles/README.md`) for the deck build itself; this skill is about getting the content and framing right first. If the readout is part of a show-and-tell, `xstack:show-the-thing` handles the session itself.

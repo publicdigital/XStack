@@ -15,7 +15,7 @@ Use for: a proposition, sketch, storyboard, or early mock that isn't functional 
 2. **First exposure** — show the concept with a minimal neutral script ("Take a look at this and tell me what you make of it"). Say nothing else. Capture the first 30 seconds verbatim — first impressions before any explanation are the core data.
 3. **Comprehension** — in their own words: what is this, who is it for, what would it do for you, what would you do first? Correct answers stated in the facilitator note; do not correct the participant mid-session.
 4. **Value and fit** — when would you use this, what would it replace, what's better/worse than how you do it now? Probe the strongest claim the concept makes.
-5. **Trust and concerns** — does this feel like government? What worries you? (Data, cost, whether it will actually work, whether the office will honour it.) For Barbados services, always probe whether they'd trust the digital artefact (a reference number, an emailed licence) to be accepted in person.
+5. **Trust and concerns** — does this feel like government? What worries you? (Data, cost, whether it will actually work, whether the office will honour it.) Always probe whether they'd trust the digital artefact (a reference number, an emailed licence) to be accepted in person.
 6. **Variant comparison** (if applicable) — show the alternative(s), ask for preference and why, push on trade-offs.
 7. **Closing** — would you actually use this / magic wand / thanks.
 

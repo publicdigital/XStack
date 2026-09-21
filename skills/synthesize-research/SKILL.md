@@ -2,7 +2,7 @@
 name: synthesize-research
 description: >-
   Turn a folder of raw research data into a layered findings package —
-  exec summary, briefing docx, GovTech-style findings deck, and appendix — with
+  exec summary, briefing docx, findings deck in the country profile's house style, and appendix — with
   a themes checkpoint before anything is written. Use this skill whenever the
   user asks to synthesize, analyse, summarise, or "write up" research: usability
   tests, interview transcripts, observation grids, intercepts, surveys, polling
@@ -73,6 +73,12 @@ On sign-off, read `references/deliverables.md` (structures, severity wording,
 evidence and quote rules) and `references/deck-style.md` (palette, motifs,
 builder code to reuse, QA loop), then build:
 
+Colours, font and logo come from the country profile's house style (see
+`profiles/README.md`: `.xstack/profile.md`, or a bundled profile named in the
+project's `CLAUDE.md`). Without a profile, use the neutral defaults in
+`deck-style.md` and say so once in the hand-over.
+
+
 1. Briefing docx with exec summary up front (python-docx)
 2. Findings deck (python-pptx) + `(preview).pdf`
 3. Everything saved next to the raw data, build scripts kept alongside
@@ -103,8 +109,8 @@ Contact details from raw data never appear in a deliverable.
 - `~/Downloads` is TCC-blocked even unsandboxed. Copy files out via
   Finder: `osascript -e 'tell application "Finder" to duplicate (POSIX file
   "<src>" as alias) to (POSIX file "<dest-folder>" as alias) with replacing'`
-- Deck QA uses the bundled PIL renderer, not Office export. GovTech logo
-  PNGs are in this skill's `assets/`.
+- Deck QA uses the bundled PIL renderer, not Office export. Logos come from the
+  profile (the Barbados profile keeps its logos in `profiles/barbados/assets/`).
 
 ## Bundled files
 
@@ -114,4 +120,3 @@ Contact details from raw data never appear in a deliverable.
 | `scripts/render_pptx_qa.py` | step 6 — render deck slides for visual QA |
 | `references/deliverables.md` | step 5 — package structures + evidence rules |
 | `references/deck-style.md` | step 5 — deck palette, motifs, builder reuse |
-| `assets/logo_*.png` | deck builds — colour on light, white on navy |

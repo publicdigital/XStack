@@ -1,15 +1,19 @@
 ---
 name: component-spec
-description: Read a component or token layer from the GOV.BB Pattern Library in Figma and write an accurate, human-readable spec – anatomy, states, properties, and the tokens each part is bound to. Use when documenting what the design system actually contains, before building or reviewing against it. Triggers on "document this component", "component spec", "what tokens does the button use", "token reference", "what states does this have", "read this Figma component", "is this tokenised", "state inventory", "GovBB design system".
+description: Read a component or token layer from the government's design system library in Figma (named in the country profile) and write an accurate, human-readable spec – anatomy, states, properties, and the tokens each part is bound to. Use when documenting what the design system actually contains, before building or reviewing against it. Triggers on "document this component", "component spec", "what tokens does the button use", "token reference", "what states does this have", "read this Figma component", "is this tokenised", "state inventory", "design system component".
 ---
 
 # Component Spec
 
-This skill reads a component or a token layer from the GOV.BB Pattern Library in Figma and writes a spec you can trust. It produces a documented reference – anatomy, states, properties, and the exact token each part is bound to – not a loose description.
+This skill reads a component or a token layer from the government's design system library in Figma and writes a spec you can trust. It produces a documented reference – anatomy, states, properties, and the exact token each part is bound to – not a loose description.
 
-It anchors to Standard 3 (everyone can use the service): the design system is how we keep every service accessible and consistent, so an accurate account of what it contains is the floor everything else builds on. It also serves Standard 7 (open, common, interoperable platforms): you can only reuse what already exists if you can see it clearly, so reading the system accurately is the first step to not rebuilding it.
+It anchors to the **Inclusion** theme: the design system is how we keep every service accessible and consistent, so an accurate account of what it contains is the floor everything else builds on. It also serves the **Open platforms and standards** theme: you can only reuse what already exists if you can see it clearly, so reading the system accurately is the first step to not rebuilding it.
 
-The design system reference lives in two files. `references/govbb-design-tokens.yaml` holds the exact values, the scope guard, and the decided-versus-defect status – read it for what should be true. `references/govbb-design-guide.md` holds the narrative and the decisions behind it. Read them before you read Figma – they tell you what should be there, so you can tell drift from fact. When the YAML disagrees with live Figma, trust Figma.
+**Before you start, find the country profile** (see `profiles/README.md`): `.xstack/profile.md` in the project, or a bundled profile named in the project's `CLAUDE.md` (e.g. `xstack profile: barbados`). Its Design system section names the government's design system, its Figma library and its code repository, and points to the design system reference files.
+
+The reference lives in two files. A **token file** (YAML) holds the exact values, the scope guard, and the decided-versus-defect status – read it for what should be true. A **design guide** holds the narrative and the decisions behind it. Read them before you read Figma – they tell you what should be there, so you can tell drift from fact. When the token file disagrees with live Figma, trust Figma. The Barbados profile's `design-tokens.yaml` and `design-guide.md` are the worked example of this split.
+
+If the profile has no token file, or there is no profile, ask the team for the design system's Figma library and code repository, and work from those alone. Say at the top of the spec that there is no recorded baseline, so you cannot tell drift from decision. Never invent a value, a binding or a scope-guard state.
 
 ---
 
@@ -20,7 +24,7 @@ The design system reference lives in two files. `references/govbb-design-tokens.
 - Answering "what does this component use?" or "what states does it have?"
 - Checking whether something is tokenised, present-but-untokenised, or not in Figma at all
 - Producing a state inventory before a design review or a cross-check
-- Onboarding someone to the Pattern Library
+- Onboarding someone to the design system library
 
 If the request is "does Figma match the code?", that is a different job. Use the cross-check skill, not this one. This skill reads one side – Figma – and reports what is there.
 
@@ -43,15 +47,15 @@ If a value looks strange, check a concrete real example before theorising. A "co
 
 ## The scope guard – classify before you document
 
-`references/govbb-design-tokens.yaml` holds the scope guard under `scope_guard`. Three states matter, and they are not the same. Say which one applies before you write a single line of spec.
+The profile's token file should hold a **scope guard** – a section (`scope_guard` in the worked example) that records, for each component, whether it is tokenised, exists but is not tokenised, or has no confirmed Figma presence. Three states matter, and they are not the same. Say which one applies before you write a single line of spec.
 
-- **Tokenised** – present in Figma and bound to the Colour or Tokens collection. You can document the bindings.
+- **Tokenised** – present in Figma and bound to the design system's variable collections. You can document the bindings.
 - **Exists, not tokenised** – present in Figma but with no token bindings yet. Document the anatomy and states, but say plainly that no tokens are bound. Do not invent bindings.
-- **No confirmed Figma presence** – exists in the GitHub design system code but has not been found in Figma. Do not write anatomy, states, or tokens for it. Say no Figma presence is confirmed, and offer to check directly.
+- **No confirmed Figma presence** – exists in the design system's code but has not been found in Figma. Do not write anatomy, states, or tokens for it. Say no Figma presence is confirmed, and offer to check directly.
 
-The third state is where hallucination happens. A component existing in the React package is not evidence it exists in Figma. If the YAML lists it as unconfirmed – Breadcrumbs, Hint, FormGroup, SummaryList, and others – treat it as unconfirmed until you have looked.
+The third state is where hallucination happens. A component existing in the code package is not evidence it exists in Figma. If the token file lists it as unconfirmed, treat it as unconfirmed until you have looked.
 
-The YAML `scope_guard` holds the current classification – read it rather than working from memory, because the tokenised list grows as components are built out. At the last read, the colour primitives, the semantic layer, and the typography scale were built; Button, Link, and the form-control atoms (Radio, Checkbox, Input, Select, Label, Date, and File upload) were tokenised; Header, Footer, Payment, and ShowHide existed but were not; and several components named in the code had no confirmed Figma presence. Re-scan before trusting any of this if time has passed – both Figma and the code drift.
+The scope guard holds the current classification – read it rather than working from memory, because the tokenised list grows as components are built out. Re-scan before trusting it if time has passed – both Figma and the code drift. If the token file has no scope guard, build one as you read: classify each component you touch, say which you could not check, and suggest the team adds the section to their token file.
 
 ---
 
@@ -59,19 +63,19 @@ The YAML `scope_guard` holds the current classification – read it rather than 
 
 ### Tokens
 
-Three layers, in order:
+Most token-based design systems have three layers. Read them in order, using the collection names the token file gives (the names below are from the worked example):
 
-- **Primitives** – the `Colour` collection. Raw hue-stop values on the 10 / 20 / 40 / 60 / 80 / 90 scale, plus the grey ramp and the neutral endpoints. Stop 40 is the anchor.
-- **Semantic** – the `Tokens` collection. Text, Surface, Border, Status, and Focus roles. Every one is an alias into a primitive, never raw hex. Report both the token and the primitive it points to.
-- **Component** – also in `Tokens`, under a component group (for example `Button/`, `Link/`). Scoped to one component's parts and states.
+- **Primitives** – for example a `Colour` collection. Raw values, usually a hue-stop scale per colour plus a grey ramp and neutral endpoints.
+- **Semantic** – for example a `Tokens` collection. Roles such as Text, Surface, Border, Status, and Focus. Every one should be an alias into a primitive, never raw hex. Report both the token and the primitive it points to.
+- **Component** – often in the same collection as the semantic layer, under a component group (for example `Button/`, `Link/`). Scoped to one component's parts and states.
 
-For typography, read the `Typography` collection: 8 roles across Desktop, Tablet, and Mobile modes. For spacing, read the `Space` collection: it is now named (`xxs` to `xl`) and partly wired to components, but still provisional – a naming inconsistency is unresolved and some stops are missing.
+For typography, read the typography collection and its modes (often Desktop, Tablet, and Mobile). For spacing, read the spacing collection, and check the design guide for whether it is settled or still provisional.
 
 ### Components
 
 For a component, read and report:
 
-- **Anatomy** – the parts, and the property set (for example Button's Type, State, Disabled, Negative, Alternate).
+- **Anatomy** – the parts, and the property set (for example a button's Type, State, Disabled, Negative, Alternate).
 - **States** – every state, with the token or value each part takes in it.
 - **Bindings** – for each part and state, the semantic or component token it is bound to, and the primitive underneath.
 - **Effects** – focus rings, shadows, and opacity rules that are baked into the component rather than bound to a variable. Say when a value is baked in, not bound.
@@ -87,7 +91,7 @@ Write the spec in the simplest words you can, for a reader who did not build the
 ```markdown
 # Component spec – [component name]
 
-**Source:** GOV.BB Pattern Library (Figma), file Rexszlh17fXo0XAxO75Mq5
+**Source:** [design system's Figma library, from the profile], file [file key]
 **Read on:** YYYY-MM-DD
 **Scope-guard state:** Tokenised / Exists, not tokenised / No confirmed Figma presence
 
@@ -108,7 +112,7 @@ Write the spec in the simplest words you can, for a reader who did not build the
 
 ## Known deferred issues – do not flag as bugs
 
-[Anything the YAML records as tracked, with its issue number. These are decided, not defects.]
+[Anything the token file records as tracked, with its issue number. These are decided, not defects.]
 
 ## What is not confirmed
 
@@ -120,7 +124,7 @@ Write the spec in the simplest words you can, for a reader who did not build the
 ```markdown
 # Token reference – [layer name]
 
-**Source:** GOV.BB Pattern Library (Figma), file Rexszlh17fXo0XAxO75Mq5
+**Source:** [design system's Figma library, from the profile], file [file key]
 **Read on:** YYYY-MM-DD
 
 ## [Group, for example Text]
@@ -132,14 +136,16 @@ Write the spec in the simplest words you can, for a reader who did not build the
 
 ## Values that need a note
 
-[Tokens the YAML records as failing a check, with the requirement and the tracked status. Report them; do not silently fix them.]
+[Tokens the token file records as failing a check, with the requirement and the tracked status. Report them; do not silently fix them.]
 ```
 
 ---
 
 ## A worked example – Button
 
-**Scope-guard state:** Tokenised. The YAML confirms Button as 39 tokens in the `Tokens` collection.
+This example comes from the Barbados profile's design system. The values are theirs; the shape of the spec is what to copy.
+
+**Scope-guard state:** Tokenised. The token file confirms Button as 39 tokens in the `Tokens` collection.
 
 **Anatomy.** Six kinds – Primary, Secondary, Tertiary, Text, Text-Negative, Negative. Four states per kind – Default, Hover, Pressed, Focus. An Alternate property gives an inverse-context treatment for dark backgrounds. Disabled is 25% opacity on the base colour, not a separate token.
 
@@ -162,7 +168,7 @@ Write the spec in the simplest words you can, for a reader who did not build the
 
 - **Don't invent bindings for a component with no confirmed Figma presence.** Say it is unconfirmed and offer to check. A React component is not proof of a Figma one.
 - **Don't report a same-call read-back as confirmed.** Read it again, separately, before it goes in the spec.
-- **Don't fix anything – this skill only reads.** The focus-ring contrast (A1, A2), the text-button contrast (issue #149), and the disabled-opacity question are recorded decisions; report them with their status, do not quietly correct them. More generally, a value that does not match the YAML is a signal to ask, not a defect to fix – it may be a deliberate edit the YAML has not caught up with yet.
+- **Don't fix anything – this skill only reads.** Recorded decisions in the token file – known contrast failures that are tracked and deferred, for example – are reported with their status, not quietly corrected. More generally, a value that does not match the token file is a signal to ask, not a defect to fix – it may be a deliberate edit the token file has not caught up with yet.
 - **Don't collapse the three scope-guard states.** "Not tokenised" and "not in Figma" are different answers to different questions. Keep them apart.
 - **Don't cite a value you did not read this session.** If you are unsure, read it or say you are unsure. A confident wrong hex is worse than an honest gap.
 - **Don't reach past Figma.** This skill reads Figma. If someone asks whether the code agrees, that is the cross-check skill's job.
@@ -171,6 +177,6 @@ Write the spec in the simplest words you can, for a reader who did not build the
 
 ## When this skill isn't enough
 
-- **Figma against code.** If the question is whether Figma and the `govtech-bb/govbb-design-system` CSS agree, use the cross-check skill (Standard 7). This skill reads one side only.
+- **Figma against code.** If the question is whether Figma and the design system's code (the repository named in the profile) agree, use the cross-check skill (Open platforms and standards). This skill reads one side only.
 - **Building a page.** If the request is to assemble a page or flow from components, that is the composition skill's job. This skill documents the parts; it does not place them.
-- **A value that looks wrong.** If a token reads as an error rather than a decision – something the YAML has not already recorded as tracked – do not spec around it. Flag it to a person. The YAML records at least one live example as finding CC-01: `Focus/focus-ring` points to `Yellow/yellow-40` in Figma, while the code's general focus ring is teal. That is a suspected Figma-side error, not settled design.
+- **A value that looks wrong.** If a token reads as an error rather than a decision – something the token file has not already recorded as tracked – do not spec around it. Flag it to a person. A typical example: a focus-ring token in Figma points to a different colour from the code's general focus ring. That is a suspected error on one side, not settled design.

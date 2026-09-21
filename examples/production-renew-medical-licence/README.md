@@ -1,5 +1,7 @@
 # Renew Medical Licence – production build
 
+> **Barbados profile example.** This example uses the Barbados country profile (`profiles/barbados/`), so it cites the Barbados standards and uses Barbados platforms and styling. See `examples/README.md`.
+
 Production-ready front-end for the medical-licence renewal service, generated from `examples/build-renew-medical-licence/prototype-1-phone-first/iteration-3/index.html` via `/xstack:productionise`. Includes a comprehensive test suite – regression, accessibility, security, and load.
 
 > This is the **front-end's contribution** to alpha-to-beta readiness. The backend, threat model, pen test, runbook, and operational readiness sit in parallel workstreams owned by the developer, the cyber engineer, and the delivery manager.
