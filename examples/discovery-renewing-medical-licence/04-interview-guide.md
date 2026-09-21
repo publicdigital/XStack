@@ -10,7 +10,7 @@
 
 ### Before we start (5 minutes)
 
-- Thanks for the time. Brief intro of who we are (GovTech Barbados, bimstack discovery team) and why we're here.
+- Thanks for the time. Brief intro of who we are (GovTech Barbados, xstack discovery team) and why we're here.
 - We're trying to understand how you renew your licence today – what works, what doesn't, what you wish were different.
 - This is research, not policy. We won't change anything based on this conversation alone, and you won't be quoted by name.
 - Consent:

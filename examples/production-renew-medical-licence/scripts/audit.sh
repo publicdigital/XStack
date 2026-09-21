@@ -6,7 +6,7 @@
 #   - HTML files parse (no obviously malformed tags)
 #   - Every internal href and form action resolves to a real file
 #   - Every page links to assets/govbb.css (not inlined)
-#   - No bimstack chrome leaked into production (no assumptions panel, no fake-data spans)
+#   - No xstack chrome leaked into production (no assumptions panel, no fake-data spans)
 #   - No m-dashes in citizen-facing copy (house-style rule)
 #   - govbb- class prefix used consistently
 
@@ -76,10 +76,10 @@ for f in "$PUBLIC"/*.html; do
   fi
 done
 
-# 4. No bimstack chrome leaked into production
+# 4. No xstack chrome leaked into production
 echo ""
-echo "== No bimstack chrome in production =="
-for term in "bimstack-banner" "bimstack-assumptions" "Show assumptions" "verify-tag" "fake-data"; do
+echo "== No xstack chrome in production =="
+for term in "xstack-banner" "xstack-assumptions" "Show assumptions" "verify-tag" "fake-data"; do
   hits=$(grep -lE "$term" "$PUBLIC"/*.html 2>/dev/null | wc -l | tr -d ' ')
   if [[ "$hits" -gt 0 ]]; then
     red "FAIL  '$term' found in $hits page(s) – should not appear in production"

@@ -19,7 +19,7 @@ It supports Barbados Digital Service Standard 1 (meet user needs) and Standard 1
 4. **Analysis** – behavioural themes, cross-referenced against prior research
 5. **Presenting** – turning findings into action the delivery team will actually take
 
-This skill is the router across all five. For steps 1, 4, and 5, defer to `bimstack:research-planning`, `bimstack:transcript-analysis`, and `bimstack:research-presenting` for the detailed mechanics – this skill's job is to figure out where the researcher is in the cycle, coach the judgment calls at each handoff, and keep the whole thing coherent.
+This skill is the router across all five. For steps 1, 4, and 5, defer to `xstack:research-planning`, `xstack:transcript-analysis`, and `xstack:research-presenting` for the detailed mechanics – this skill's job is to figure out where the researcher is in the cycle, coach the judgment calls at each handoff, and keep the whole thing coherent.
 
 ---
 

@@ -233,7 +233,7 @@ The review gives a **position, not a verdict**. You may be overruled — that's 
 
 Offer, in this order:
 
-1. **"Want the must-fix-now recommendations as a prototype?"** — build the fixed version in the GovBB house style (via the bimstack brief-to-prototypes skill if available, otherwise a self-contained HTML file with the standard chrome) so the team compares pages, not paragraphs, and can take both versions to testing.
+1. **"Want the must-fix-now recommendations as a prototype?"** — build the fixed version in the GovBB house style (via the xstack brief-to-prototypes skill if available, otherwise a self-contained HTML file with the standard chrome) so the team compares pages, not paragraphs, and can take both versions to testing.
 2. "Want me to rewrite any specific labels, hints, or error messages?"
 3. "Want me to re-check once the changes are made?"
 

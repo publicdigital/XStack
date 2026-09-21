@@ -302,4 +302,4 @@ external_ecosystem:
     note: "Returned 401. Ask for comment access or a direct export if revisited"
   - name: "Four govtech-barbados-* skills claimed by house-style.md"
     status: "unconfirmed"
-    note: "services, forms, presentations, qr-codes. None exist in bimstack v0.2.0. Same open question as the content-rules source"
+    note: "services, forms, presentations, qr-codes. None exist in xstack v0.2.0. Same open question as the content-rules source"

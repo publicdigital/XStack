@@ -1,5 +1,5 @@
 {
-  "name": "bimstack",
+  "name": "xstack",
   "owner": {
     "name": "GovTech Barbados",
     "url": "https://govtech.bb"
@@ -10,7 +10,7 @@
   },
   "plugins": [
     {
-      "name": "bimstack",
+      "name": "xstack",
       "source": "./",
       "description": "Five opinionated specialists, nine slash commands, eight shared skills. Turn a brief into testable prototypes, then iterate from transcripts.",
       "version": "0.1.1",

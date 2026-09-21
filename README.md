@@ -1,8 +1,8 @@
-# bimstack
+# xstack
 
 > "Government should only do what only government can do." – GOV.UK Design Principle 2
 
-bimstack is how the GovTech Barbados team builds digital services with Claude. Five opinionated specialists – Service Designer, Content & Interaction Designer, Delivery Manager, Developer, and Cybersecurity Engineer – anchored to the [Barbados Digital Service Standards](https://github.com/govtech-bb/Barbados-Digital-Service-Standards), the [GOV.UK Design Principles](https://www.gov.uk/guidance/government-design-principles), and the [GDS Way](https://gds-way.digital.cabinet-office.gov.uk/).
+xstack is how the GovTech Barbados team builds digital services with Claude. Five opinionated specialists – Service Designer, Content & Interaction Designer, Delivery Manager, Developer, and Cybersecurity Engineer – anchored to the [Barbados Digital Service Standards](https://github.com/govtech-bb/Barbados-Digital-Service-Standards), the [GOV.UK Design Principles](https://www.gov.uk/guidance/government-design-principles), and the [GDS Way](https://gds-way.digital.cabinet-office.gov.uk/).
 
 It's a process, not a collection of tools. It bakes in the way GovTech Barbados builds services so that a team can pick it up on day one and ship work that already conforms to the standards.
 
@@ -44,14 +44,14 @@ Each agent reads the same references, cites the same standards by number, and ha
 ## What's in the box
 
 ```
-bimstack/
+xstack/
 ├── README.md                 you are here
 ├── MANUAL.md                 single onboarding doc for new colleagues
-├── PLAYBOOK.md               how a team uses bimstack day to day, phase by phase
+├── PLAYBOOK.md               how a team uses xstack day to day, phase by phase
 ├── ETHOS.md                  the eight ways of working
 ├── AGENTS.md                 detailed roster of the five specialists
 ├── WORKFLOW.md               the sprint mantra, in detail
-├── CONTRIBUTING.md           how to extend bimstack
+├── CONTRIBUTING.md           how to extend xstack
 ├── CHANGELOG.md
 ├── LICENSE                   MIT
 ├── .claude-plugin/
@@ -101,7 +101,7 @@ bimstack/
     └── house-style.md
 ```
 
-## New to bimstack?
+## New to xstack?
 
 Read **[MANUAL.md](./MANUAL.md)** – the single onboarding guide for new GovTech colleagues, sibling MDAs, and vendor teams. About two hours to read and walk the worked example, after which you'll know which command to run, which agent to ask, and what good looks like at each phase.
 
@@ -111,35 +111,35 @@ For the full phase-by-phase rhythm – setup, the weekly cadence, what to type a
 
 ## Install
 
-bimstack is a Claude Code plugin and a public reference repo. You can use either, both, or neither.
+xstack is a Claude Code plugin and a public reference repo. You can use either, both, or neither.
 
 ### As a plugin – from GitHub
 
 ```
-/plugin marketplace add abisola/bimstack
-/plugin install bimstack@bimstack
+/plugin marketplace add publicdigital/XStack
+/plugin install xstack@xstack
 ```
 
 ### As a plugin – from a local folder (for testing before you push)
 
 ```
-/plugin marketplace add /Users/abisola/dev-env/claude/bimstack
-/plugin install bimstack@bimstack
+/plugin marketplace add /Users/abisola/dev-env/pd/xstack
+/plugin install xstack@xstack
 ```
 
 ### Confirm it worked
 
 In any new Claude Code or Cowork session:
 
-- Type `/bimstack:` and autocomplete should reveal all nine commands (Claude Code namespaces plugin commands by plugin name)
+- Type `/xstack:` and autocomplete should reveal all nine commands (Claude Code namespaces plugin commands by plugin name)
 - Run `/agents` to confirm the five agents (service-designer, content-designer, delivery-manager, developer, cyber-engineer) are registered
 - Skills are loaded and trigger automatically on the right phrases (no manual invocation needed)
 
-The plugin leans on the GovTech Barbados skills (`govtech-barbados-services`, `govtech-barbados-forms`, `govtech-barbados-presentations`, `govtech-barbados-qr-codes`) and on the Anthropic `design`, `service-design`, and `frontend-design` plugins. Install those alongside bimstack for the full experience.
+The plugin leans on the GovTech Barbados skills (`govtech-barbados-services`, `govtech-barbados-forms`, `govtech-barbados-presentations`, `govtech-barbados-qr-codes`) and on the Anthropic `design`, `service-design`, and `frontend-design` plugins. Install those alongside xstack for the full experience.
 
 ### As a reference
 
-You can also just read the files. The `references/` folder is the canonical bimstack view of the Standards, the Principles, the GDS Way, and the house style. Print them. Pin them to a wall. Fork the repo. Adapt it for your service.
+You can also just read the files. The `references/` folder is the canonical xstack view of the Standards, the Principles, the GDS Way, and the house style. Print them. Pin them to a wall. Fork the repo. Adapt it for your service.
 
 ## Which agent should I use?
 
@@ -157,27 +157,27 @@ If you're not sure, ask the **delivery manager** first – they'll route you.
 
 | You want to… | Run | Hands off to |
 |---|---|---|
-| Turn a brief into testable prototypes | `/bimstack:build` | content-designer + developer |
-| Roll feedback into the next version | `/bimstack:iterate` | content-designer + developer |
-| Take an iteration to production-ready | `/bimstack:productionise` | developer + cyber-engineer + content-designer |
-| Publish what we did this week | `/bimstack:weeknote` | delivery-manager |
-| Self-assess against the 13 Standards | `/bimstack:assess` | delivery-manager + every other agent |
-| Scaffold a discovery phase | `/bimstack:discover` | service-designer |
-| Plan a show-and-tell | `/bimstack:show` | delivery-manager |
-| Review a piece of copy | `/bimstack:plain-language` | content-designer |
-| Draft or refresh a threat model | `/bimstack:threat-model` | cyber-engineer |
+| Turn a brief into testable prototypes | `/xstack:build` | content-designer + developer |
+| Roll feedback into the next version | `/xstack:iterate` | content-designer + developer |
+| Take an iteration to production-ready | `/xstack:productionise` | developer + cyber-engineer + content-designer |
+| Publish what we did this week | `/xstack:weeknote` | delivery-manager |
+| Self-assess against the 13 Standards | `/xstack:assess` | delivery-manager + every other agent |
+| Scaffold a discovery phase | `/xstack:discover` | service-designer |
+| Plan a show-and-tell | `/xstack:show` | delivery-manager |
+| Review a piece of copy | `/xstack:plain-language` | content-designer |
+| Draft or refresh a threat model | `/xstack:threat-model` | cyber-engineer |
 
-## How bimstack relates to other things
+## How xstack relates to other things
 
-- **The Barbados Digital Service Standards** are the contract bimstack delivers against. bimstack assumes you'll be assessed against them and bakes them into every agent's reasoning. The Standards are the source of truth; bimstack is one way of meeting them.
-- **The GovBB design system** is the visual and interaction layer bimstack builds on. Agents fetch components from the published library and use `govbb-`-prefixed classes. They don't reinvent the chrome.
-- **The GovTech Barbados skills** (`govtech-barbados-services`, `-forms`, `-presentations`, `-qr-codes`) are what the bimstack agents call into when they need to produce alpha.gov.bb pages, slide decks, or QR codes in the house style. bimstack agents *use* those skills, they don't replace them.
-- **The Anthropic design and service-design plugins** (`design`, `service-design`, `frontend-design`) are the deeper skill libraries. bimstack agents reach for them where they're the best tool for the job.
-- **gstack** is the Garry Tan repo this format was inspired by. It's for startups; bimstack is for governments. They share a structure but not a worldview.
+- **The Barbados Digital Service Standards** are the contract xstack delivers against. xstack assumes you'll be assessed against them and bakes them into every agent's reasoning. The Standards are the source of truth; xstack is one way of meeting them.
+- **The GovBB design system** is the visual and interaction layer xstack builds on. Agents fetch components from the published library and use `govbb-`-prefixed classes. They don't reinvent the chrome.
+- **The GovTech Barbados skills** (`govtech-barbados-services`, `-forms`, `-presentations`, `-qr-codes`) are what the xstack agents call into when they need to produce alpha.gov.bb pages, slide decks, or QR codes in the house style. xstack agents *use* those skills, they don't replace them.
+- **The Anthropic design and service-design plugins** (`design`, `service-design`, `frontend-design`) are the deeper skill libraries. xstack agents reach for them where they're the best tool for the job.
+- **gstack** is the Garry Tan repo this format was inspired by. It's for startups; xstack is for governments. They share a structure but not a worldview.
 
 ## Working in the open
 
-bimstack itself works the way the services it builds work.
+xstack itself works the way the services it builds work.
 
 - Public repo. Standard 9.
 - Weeknotes for changes to the stack.
@@ -186,9 +186,9 @@ bimstack itself works the way the services it builds work.
 
 ## Status
 
-**bimstack v0.1.** First public cut. Expect changes. File issues. The Standards drift, the design system drifts, the team learns – bimstack drifts with them.
+**xstack v0.1.** First public cut. Expect changes. File issues. The Standards drift, the design system drifts, the team learns – xstack drifts with them.
 
-If you ship something with bimstack, write us a weeknote about it.
+If you ship something with xstack, write us a weeknote about it.
 
 ## Licence
 

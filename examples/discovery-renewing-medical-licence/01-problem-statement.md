@@ -2,7 +2,7 @@
 
 **Working title:** Renewing a medical licence
 **Phase:** Discovery (strawman, week 0)
-**Owner:** Service designer, bimstack
+**Owner:** Service designer, xstack
 **Date:** 2026-05-16
 
 > This is a working hypothesis, not a finding. Every claim marked `[TO VERIFY]` becomes the discovery's job to confirm, refine, or replace.

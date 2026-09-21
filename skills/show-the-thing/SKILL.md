@@ -186,7 +186,7 @@ Honest. Generous to people who helped. Specific about what's next.
 
 ---
 
-## Where show-and-tells fit in the bimstack workflow
+## Where show-and-tells fit in the xstack workflow
 
 ```
 Listen → Map → Make → Test → Ship → Show → Iterate

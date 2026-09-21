@@ -2,20 +2,20 @@
 name: synthetic-research
 description: >-
   Generate synthetic personas grounded in real population data and run them
-  against a bimstack prototype to surface comprehension, logic, and edge-case
+  against an xstack prototype to surface comprehension, logic, and edge-case
   failures before real user testing – raising the floor, never replacing it.
   Use when a prototype is ready for a pre-flight check, when the team wants to
   stress-test a form before recruiting participants, or when a phase gate is
   approaching and the team needs confidence that the obvious failures are already
   caught. Complements real research – it never substitutes for it. Triggers on
-  "/bimstack:synthetic", "synthetic personas", "synthetic research", "test this
+  "/xstack:synthetic", "synthetic personas", "synthetic research", "test this
   form automatically", "pre-flight check", "robot user testing", "who might
   struggle with this form", "run the personas against it".
 ---
 
 # Synthetic research
 
-Generate synthetic personas for a government service and run automated user research against a bimstack prototype, producing a friction report the team can act on before real testing begins.
+Generate synthetic personas for a government service and run automated user research against an xstack prototype, producing a friction report the team can act on before real testing begins.
 
 This skill raises the floor. It catches the comprehension failures, logic gaps, and edge-case exclusions that real participants shouldn't have to discover. It cannot tell you what real Barbadians feel, fear, or misunderstand in ways nobody predicted – only real research does that.
 
@@ -24,18 +24,18 @@ It supports Barbados Digital Service Standards 1 (meet user needs – by stress-
 For the larger workflow this sits inside, read `PLAYBOOK.md` – the *Rapid prototyping loop* section. The natural flow is:
 
 ```
-/bimstack:build  →  /bimstack:synthetic  →  fix blockers  →  real user testing  →  /bimstack:iterate
+/xstack:build  →  /xstack:synthetic  →  fix blockers  →  real user testing  →  /xstack:iterate
 ```
 
-The `synthetic-findings.md` this skill produces can be fed directly to `bimstack:prototype-iteration` as structured feedback (Path B), so the loop closes without extra glue.
+The `synthetic-findings.md` this skill produces can be fed directly to `xstack:prototype-iteration` as structured feedback (Path B), so the loop closes without extra glue.
 
 ---
 
 ## When to use
 
-- After `/bimstack:build` produces prototypes and before the first round of real user testing
+- After `/xstack:build` produces prototypes and before the first round of real user testing
 - Before a show-and-tell or MDA review, to catch embarrassing failures early
-- Before a phase gate (`/bimstack:assess`), as a deeper pre-flight
+- Before a phase gate (`/xstack:assess`), as a deeper pre-flight
 - When the team has iterated a prototype and wants a quick check before the next testing round
 - When recruiting real participants will take time and the team wants to use the gap productively
 
@@ -93,7 +93,7 @@ Two modes. Mode A always runs. Mode B runs when asked or when the prototype is a
 
 Each persona "reads" every page of the prototype and flags:
 
-- **Questions they wouldn't understand** – jargon, civil-service register, reading-age failures. Cross-reference the `bimstack:plain-language-check` word-swap list where relevant.
+- **Questions they wouldn't understand** – jargon, civil-service register, reading-age failures. Cross-reference the `xstack:plain-language-check` word-swap list where relevant.
 - **Answer options that don't fit them** – radio buttons with no matching option, dropdowns that assume a standard situation, checkboxes that force a false choice.
 - **Assumptions that exclude them** – the form assumes a document they don't have, a device they don't use, a living situation that doesn't match theirs.
 - **Points where they'd abandon** – where anxiety, confusion, or frustration would cause them to close the tab. Be specific about why.
@@ -162,7 +162,7 @@ Themes that appear across multiple personas, ranked by severity. For each theme:
 - **What the theme is** – one sentence.
 - **Which personas it affects** – names and why.
 - **Severity** – blocker / major / minor, based on the most severe instance.
-- **Suggested fix** – a specific rewrite, design change, or structural change. For copy rewrites, reference `bimstack:plain-language-check`. For interaction changes, reference the GovBB design system patterns.
+- **Suggested fix** – a specific rewrite, design change, or structural change. For copy rewrites, reference `xstack:plain-language-check`. For interaction changes, reference the GovBB design system patterns.
 - **Standard** – the Barbados Digital Service Standard this theme pushes against (1, 3, 4, 5, etc.).
 
 #### 4. Question-protocol failures
@@ -219,15 +219,15 @@ Round numbering (`K`) increments with each run of the skill against the same pro
 
 ---
 
-## Integration with bimstack
+## Integration with xstack
 
 | Skill | Relationship |
 |---|---|
-| `bimstack:brief-to-prototypes` | Upstream – produces the prototypes this skill tests |
-| `bimstack:prototype-iteration` | Downstream – `synthetic-findings.md` feeds in as Path B structured feedback |
-| `bimstack:plain-language-check` | Referenced in Mode A and in suggested rewrites |
-| `bimstack:service-standard-assessment` | The friction report cites standards; the assessment can reference synthetic rounds as evidence of pre-flight diligence |
-| `bimstack:research-planning` | Downstream – the "Test this with real people" section feeds recruitment and session planning for real research |
+| `xstack:brief-to-prototypes` | Upstream – produces the prototypes this skill tests |
+| `xstack:prototype-iteration` | Downstream – `synthetic-findings.md` feeds in as Path B structured feedback |
+| `xstack:plain-language-check` | Referenced in Mode A and in suggested rewrites |
+| `xstack:service-standard-assessment` | The friction report cites standards; the assessment can reference synthetic rounds as evidence of pre-flight diligence |
+| `xstack:research-planning` | Downstream – the "Test this with real people" section feeds recruitment and session planning for real research |
 
 ---
 

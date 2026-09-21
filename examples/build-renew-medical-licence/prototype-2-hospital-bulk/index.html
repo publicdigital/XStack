@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Confirm your medical licence renewal – alpha.gov.bb</title>
 <!--
-  bimstack prototype – Variant 2 of 3 – Hospital-mediated bulk renewal
+  xstack prototype – Variant 2 of 3 – Hospital-mediated bulk renewal
   Hypothesis: the doctor's employer (QEH, polyclinic, private hospital) pre-fills
   most of the renewal from HR data and CPD records the hospital already holds.
   The doctor's job becomes confirmation, not data entry. Single-tap renewal
@@ -28,9 +28,9 @@ body { font-family: 'Figtree', system-ui, sans-serif; background: var(--bb-off-w
 .govbb-header__service { font-size: 14px; color: var(--bb-charcoal); margin-left: auto; }
 .govbb-status-banner--alpha { background: #FCF1D4; padding: 12px 24px; font-size: 15px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--bb-grey-light); }
 .govbb-status-banner--alpha strong { background: var(--bb-charcoal); color: var(--bb-white); padding: 3px 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-.bimstack-banner { background: var(--bb-navy); color: var(--bb-white); padding: 10px 24px; font-size: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.bimstack-banner__variant { font-weight: 600; }
-.bimstack-banner button { background: var(--bb-gold); color: var(--bb-charcoal); border: 0; padding: 6px 14px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit; }
+.xstack-banner { background: var(--bb-navy); color: var(--bb-white); padding: 10px 24px; font-size: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.xstack-banner__variant { font-weight: 600; }
+.xstack-banner button { background: var(--bb-gold); color: var(--bb-charcoal); border: 0; padding: 6px 14px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit; }
 main.govbb-container { max-width: 720px; width: 100%; margin: 32px auto; padding: 0 24px; flex: 1; }
 .govbb-back-link { display: inline-block; color: var(--bb-navy); margin-bottom: 24px; font-size: 16px; text-decoration: underline; cursor: pointer; background: none; border: 0; padding: 0; font-family: inherit; }
 .govbb-back-link::before { content: "← "; }
@@ -73,14 +73,14 @@ ul.govbb-list li { font-size: 18px; margin-bottom: 6px; }
 .govbb-footer__inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; }
 .govbb-footer a { color: var(--bb-gold); }
 .govbb-footer__crest { width: 40px; height: 40px; background: var(--bb-gold); color: var(--bb-navy); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; }
-.bimstack-assumptions { position: fixed; right: -440px; top: 0; width: 420px; height: 100vh; background: #FFFBEA; border-left: 3px solid var(--bb-charcoal); padding: 24px; overflow-y: auto; transition: right 0.25s ease-out; z-index: 100; box-shadow: -2px 0 8px rgba(0,0,0,0.1); }
-.bimstack-assumptions--open { right: 0; }
-.bimstack-assumptions__close { position: absolute; top: 16px; right: 16px; background: var(--bb-charcoal); color: var(--bb-white); border: 0; width: 32px; height: 32px; font-size: 18px; cursor: pointer; font-family: inherit; }
-.bimstack-assumptions h2 { font-size: 20px; margin-bottom: 12px; margin-top: 0; }
-.bimstack-assumptions p { font-size: 13px; margin-bottom: 12px; }
-.bimstack-assumptions ul { padding-left: 0; list-style: none; }
-.bimstack-assumptions li { margin-bottom: 14px; font-size: 13px; line-height: 1.5; }
-.bimstack-assumptions h3 { font-size: 13px; margin: 18px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--bb-grey-mid); }
+.xstack-assumptions { position: fixed; right: -440px; top: 0; width: 420px; height: 100vh; background: #FFFBEA; border-left: 3px solid var(--bb-charcoal); padding: 24px; overflow-y: auto; transition: right 0.25s ease-out; z-index: 100; box-shadow: -2px 0 8px rgba(0,0,0,0.1); }
+.xstack-assumptions--open { right: 0; }
+.xstack-assumptions__close { position: absolute; top: 16px; right: 16px; background: var(--bb-charcoal); color: var(--bb-white); border: 0; width: 32px; height: 32px; font-size: 18px; cursor: pointer; font-family: inherit; }
+.xstack-assumptions h2 { font-size: 20px; margin-bottom: 12px; margin-top: 0; }
+.xstack-assumptions p { font-size: 13px; margin-bottom: 12px; }
+.xstack-assumptions ul { padding-left: 0; list-style: none; }
+.xstack-assumptions li { margin-bottom: 14px; font-size: 13px; line-height: 1.5; }
+.xstack-assumptions h3 { font-size: 13px; margin: 18px 0 8px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--bb-grey-mid); }
 .verify-tag { display: inline-block; background: var(--bb-charcoal); color: var(--bb-gold); font-size: 10px; padding: 2px 6px; font-weight: 700; margin-right: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
 .verify-tag--user { background: var(--bb-navy); color: var(--bb-white); }
 .verify-tag--mda { background: #8B4513; color: var(--bb-white); }
@@ -96,7 +96,7 @@ ul.govbb-list li { font-size: 18px; margin-bottom: 6px; }
   h1 { font-size: 28px; }
   h2 { font-size: 20px; }
   p, ul.govbb-list li { font-size: 17px; }
-  .bimstack-assumptions { width: 100vw; right: -100vw; }
+  .xstack-assumptions { width: 100vw; right: -100vw; }
   .govbb-summary-list__row { flex-direction: column; }
   .govbb-summary-list__key, .govbb-summary-list__value, .govbb-summary-list__actions { width: 100%; padding: 4px 0; text-align: left; }
   .govbb-header { flex-wrap: wrap; }
@@ -120,8 +120,8 @@ ul.govbb-list li { font-size: 18px; margin-bottom: 6px; }
   <span>This is a prototype. Don't use it for a real renewal.</span>
 </div>
 
-<div class="bimstack-banner">
-  <span><span class="bimstack-banner__variant">Variant 2 of 3</span> · Hospital-mediated bulk renewal</span>
+<div class="xstack-banner">
+  <span><span class="xstack-banner__variant">Variant 2 of 3</span> · Hospital-mediated bulk renewal</span>
   <button onclick="toggleAssumptions()">Show assumptions (15)</button>
 </div>
 
@@ -312,8 +312,8 @@ ul.govbb-list li { font-size: 18px; margin-bottom: 6px; }
   </div>
 </footer>
 
-<aside id="assumptions" class="bimstack-assumptions" aria-hidden="true">
-  <button class="bimstack-assumptions__close" onclick="toggleAssumptions()" aria-label="Close assumptions panel">×</button>
+<aside id="assumptions" class="xstack-assumptions" aria-hidden="true">
+  <button class="xstack-assumptions__close" onclick="toggleAssumptions()" aria-label="Close assumptions panel">×</button>
   <h2>Assumptions to verify</h2>
   <p>This variant trades speed for institutional coverage. Almost every assumption depends on hospital HR data being good enough to base a regulatory decision on.</p>
 
@@ -357,8 +357,8 @@ function goTo(id) {
 }
 function toggleAssumptions() {
   var panel = document.getElementById('assumptions');
-  panel.classList.toggle('bimstack-assumptions--open');
-  panel.setAttribute('aria-hidden', !panel.classList.contains('bimstack-assumptions--open'));
+  panel.classList.toggle('xstack-assumptions--open');
+  panel.setAttribute('aria-hidden', !panel.classList.contains('xstack-assumptions--open'));
 }
 </script>
 

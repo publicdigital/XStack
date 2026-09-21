@@ -17,13 +17,13 @@ A journey map is the team's shared answer to "what actually happens?" Walk the c
 - **Alpha:** map the future state – what the redesigned journey should be, so prototypes have a spine to hang off
 - **Any phase:** when the team is arguing about a step and needs to see the whole thing
 
-For the actors and systems around the journey, defer to `bimstack:ecosystem-map`. For the backstage processes underneath it, defer to `bimstack:service-blueprint`. When the scope is broader than one service, defer to `bimstack:experience-map`.
+For the actors and systems around the journey, defer to `xstack:ecosystem-map`. For the backstage processes underneath it, defer to `xstack:service-blueprint`. When the scope is broader than one service, defer to `xstack:experience-map`.
 
 ---
 
 ## Rules
 
-1. **Evidence per step, or mark it as assumption.** Every step cites where it came from – a transcript, a front-line shadow, analytics, or `[ASSUMPTION]` in bold. A journey map with no citations is fiction with columns. Pull evidence from research via `bimstack:transcript-analysis` where transcripts exist.
+1. **Evidence per step, or mark it as assumption.** Every step cites where it came from – a transcript, a front-line shadow, analytics, or `[ASSUMPTION]` in bold. A journey map with no citations is fiction with columns. Pull evidence from research via `xstack:transcript-analysis` where transcripts exist.
 2. **Start before the service and end after it.** The journey starts when the citizen first realises they need the thing (often a letter, a deadline, a friend's warning) and ends when they've got what they needed and believe it – not at "form submitted".
 3. **Every channel, not just digital.** Phone, counter, WhatsApp, the neighbour who "knows somebody". If 60% of the journey happens offline, the map shows 60% offline.
 4. **Emotions are data.** Record what citizens said they felt at each step, quoted or closely paraphrased – not what the team imagines they felt.
@@ -62,7 +62,7 @@ For the actors and systems around the journey, defer to `bimstack:ecosystem-map`
 
 ## What we still don't know
 
-[Steps that are thin on evidence. Feed these into the next research round via `bimstack:research-planning`.]
+[Steps that are thin on evidence. Feed these into the next research round via `xstack:research-planning`.]
 ```
 
 Keep it to 5–9 steps. If you need more, the scope is probably two journeys – split them.
@@ -71,7 +71,7 @@ Keep it to 5–9 steps. If you need more, the scope is probably two journeys –
 
 ## Optional: single-file HTML visual
 
-When the team wants a wall-sized or shareable visual, render the same content as one self-contained HTML file (`journey-map.html`) following the bimstack prototype pattern: single file, renders in any browser, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` class prefix, navy `#00267F` for headings, design-system tokens – no Tailwind, no invented colours). Lay the steps out as horizontal columns with the Doing/Feeling/Pain rows aligned across them; render pain points and workarounds so they stand out at a distance. The Markdown remains the canonical, diffable artefact – the HTML is a rendering of it, regenerated when the Markdown changes.
+When the team wants a wall-sized or shareable visual, render the same content as one self-contained HTML file (`journey-map.html`) following the xstack prototype pattern: single file, renders in any browser, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` class prefix, navy `#00267F` for headings, design-system tokens – no Tailwind, no invented colours). Lay the steps out as horizontal columns with the Doing/Feeling/Pain rows aligned across them; render pain points and workarounds so they stand out at a distance. The Markdown remains the canonical, diffable artefact – the HTML is a rendering of it, regenerated when the Markdown changes.
 
 ---
 

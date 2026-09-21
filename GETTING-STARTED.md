@@ -1,14 +1,14 @@
-# bimstack — quick start
+# xstack — quick start
 
-bimstack is a team of five specialists and a set of commands for building government digital services in Barbados, anchored to the Barbados Digital Service Standards, the GOV.UK Design Principles, and the GDS Way. This is the short version. For the full detail, see `MANUAL.md` and `PLAYBOOK.md`.
+xstack is a team of five specialists and a set of commands for building government digital services in Barbados, anchored to the Barbados Digital Service Standards, the GOV.UK Design Principles, and the GDS Way. This is the short version. For the full detail, see `MANUAL.md` and `PLAYBOOK.md`.
 
 ## Install
 
-Upload `bimstack.zip` via **Customize → Plugins → upload a custom plugin file**, or install it from your marketplace. Once installed, type `/` in chat or Cowork to see the bimstack skills.
+Upload `xstack.zip` via **Customize → Plugins → upload a custom plugin file**, or install it from your marketplace. Once installed, type `/` in chat or Cowork to see the xstack skills.
 
 > **Important — which name to type.** In the Claude app and Cowork, the `/` menu runs **skills**. Invoke the skill names below (e.g. `/discovery-kit`), not the verb-style command names like `/discover` — those only work in the Claude Code terminal and will return "Unknown command" in the app.
 
-> **If `/` invocations fail with "Unknown command" (even for valid skills):** there's a known Cowork bug where the slash-command resolver breaks — skills appear in the `/` menu but won't run, and even the built-in `/feedback` fails. When that happens, **trigger skills by natural language instead.** Don't type the slash name; just describe what you want and Claude picks the right skill from its description. For example, instead of `/discovery-kit`, write: *"Using bimstack, scope a discovery for … — give me the problem statement, stakeholder map, research plan, and interview guide."* Fully quitting and reopening the app or starting a fresh conversation sometimes clears it.
+> **If `/` invocations fail with "Unknown command" (even for valid skills):** there's a known Cowork bug where the slash-command resolver breaks — skills appear in the `/` menu but won't run, and even the built-in `/feedback` fails. When that happens, **trigger skills by natural language instead.** Don't type the slash name; just describe what you want and Claude picks the right skill from its description. For example, instead of `/discovery-kit`, write: *"Using xstack, scope a discovery for … — give me the problem statement, stakeholder map, research plan, and interview guide."* Fully quitting and reopening the app or starting a fresh conversation sometimes clears it.
 
 ## The core loop
 

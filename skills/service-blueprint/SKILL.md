@@ -17,9 +17,9 @@ Most service failures citizens experience are backstage failures – the paper f
 
 - **Alpha onwards** – once a future-state journey exists and the team needs to know what has to be true operationally to deliver it
 - **Current state** – when a discovery has found that the pain is backstage (long waits, lost files, repeat visits) and the team needs to see why
-- **Before `bimstack:build-for-production`** – the blueprint names the integrations and operational dependencies the production build must handle
+- **Before `xstack:build-for-production`** – the blueprint names the integrations and operational dependencies the production build must handle
 
-Build the blueprint **on top of** a journey map from `bimstack:journey-map` – the citizen row of the blueprint should match it. For actors and systems as a network rather than a sequence, defer to `bimstack:ecosystem-map`.
+Build the blueprint **on top of** a journey map from `xstack:journey-map` – the citizen row of the blueprint should match it. For actors and systems as a network rather than a sequence, defer to `xstack:ecosystem-map`.
 
 ---
 
@@ -66,7 +66,7 @@ A blueprint is the journey's steps as columns, with swimlane rows separated by t
 
 ## Optional: single-file HTML visual
 
-For workshops and MDA walkthroughs, render the blueprint as one self-contained HTML file (`service-blueprint.html`) in the bimstack prototype pattern: single file, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` prefix, navy `#00267F`, design-system tokens – no Tailwind, no invented colours). Draw the three lines as full-width horizontal rules labelled *line of interaction*, *line of visibility*, *line of internal interaction*, with the swimlanes between them and failure points visually flagged. The Markdown is canonical; regenerate the HTML from it.
+For workshops and MDA walkthroughs, render the blueprint as one self-contained HTML file (`service-blueprint.html`) in the xstack prototype pattern: single file, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` prefix, navy `#00267F`, design-system tokens – no Tailwind, no invented colours). Draw the three lines as full-width horizontal rules labelled *line of interaction*, *line of visibility*, *line of internal interaction*, with the swimlanes between them and failure points visually flagged. The Markdown is canonical; regenerate the HTML from it.
 
 ---
 

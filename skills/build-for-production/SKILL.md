@@ -1,18 +1,18 @@
 ---
 name: build-for-production
-description: Take a validated prototype iteration and produce a production-ready front-end – per-page HTML files, the published GovBB stylesheet linked (not inlined), the assumptions panel and mock markers stripped, plus a comprehensive test suite (E2E regression, accessibility, security, load). Use when an alpha prototype has earned its place through testing and the team is moving toward beta. Triggers on "/bimstack:productionise", "build for production", "harden this prototype", "alpha to beta", "production readiness", "regression tests", "load test the service".
+description: Take a validated prototype iteration and produce a production-ready front-end – per-page HTML files, the published GovBB stylesheet linked (not inlined), the assumptions panel and mock markers stripped, plus a comprehensive test suite (E2E regression, accessibility, security, load). Use when an alpha prototype has earned its place through testing and the team is moving toward beta. Triggers on "/xstack:productionise", "build for production", "harden this prototype", "alpha to beta", "production readiness", "regression tests", "load test the service".
 ---
 
 # Build for production
 
 This skill is the bridge between a validated alpha prototype and the front-end of a beta service. It takes the prototype the team has chosen to take forward (typically after three or four iteration rounds with users), and produces:
 
-1. **Per-page HTML files** with proper URLs, real navigation (links and forms, not JS state), the published GovBB stylesheet linked rather than inlined, the bimstack assumptions panel and mock-data markers stripped.
+1. **Per-page HTML files** with proper URLs, real navigation (links and forms, not JS state), the published GovBB stylesheet linked rather than inlined, the xstack assumptions panel and mock-data markers stripped.
 2. **A comprehensive test suite** – E2E regression (Playwright), accessibility (axe-core), security (headers, CSP, basic OWASP checks), and load (k6).
 3. **A runner** that orchestrates the suite locally and in CI.
 4. **A production-readiness report** assessed against Standards 5 (works first time), 6 (right tools), 11 (trust, safety), and 13 (monitor and measure).
 
-It supports the transition from Barbados Digital Service Standards alpha to beta. It explicitly does **not** make the service production-ready end to end – the backend, the integrations, the threat model, the runbook, and the operational readiness are owned by the developer, the cyber engineer, and the delivery manager via other parts of bimstack. This skill is the front-end's half of beta-readiness.
+It supports the transition from Barbados Digital Service Standards alpha to beta. It explicitly does **not** make the service production-ready end to end – the backend, the integrations, the threat model, the runbook, and the operational readiness are owned by the developer, the cyber engineer, and the delivery manager via other parts of xstack. This skill is the front-end's half of beta-readiness.
 
 For the larger workflow, read `PLAYBOOK.md` – the *alpha to beta transition* section.
 
@@ -27,7 +27,7 @@ For the larger workflow, read `PLAYBOOK.md` – the *alpha to beta transition* s
 
 **Do not use this skill** if:
 
-- The prototype hasn't been tested with users yet (run `/bimstack:iterate` rounds first)
+- The prototype hasn't been tested with users yet (run `/xstack:iterate` rounds first)
 - The team is still comparing prototypes (this commits one prototype as the chosen path)
 - The backend isn't yet decided (the test suite assumes a backend; if it's not designed yet, the load tests can't be meaningful)
 
@@ -81,10 +81,10 @@ The single-file prototype becomes a multi-file site. Specifically:
 | `<button onclick="goTo('page-id-lookup')">Start now</button>` | `<a href="/id-lookup" class="govbb-btn">Start now</a>` – a real link |
 | `<button onclick="this.parentElement.querySelector(...).select()">Yes that's me</button>` | `<form method="POST" action="/api/confirm-details">` with proper inputs |
 | Inline `<style>` block ~1000 lines | `<link rel="stylesheet" href="/assets/govbb.css">` |
-| `<aside id="assumptions" class="bimstack-assumptions">…` | **Removed.** Production users never see this. |
+| `<aside id="assumptions" class="xstack-assumptions">…` | **Removed.** Production users never see this. |
 | `<span class="fake-data">Dr. Sarah K. Williams</span>` | `<span data-source="trident-id">{{ user.name }}</span>` (or the equivalent for whichever templating layer is chosen) |
 | JS-driven navigation | Server-side navigation; JS only as progressive enhancement |
-| `<div class="bimstack-banner">` | **Removed.** Production users never see this. |
+| `<div class="xstack-banner">` | **Removed.** Production users never see this. |
 
 The production HTML is **progressive enhancement**: every flow works without JavaScript. JS adds polish (animations, immediate validation feedback) but never gates the journey.
 
@@ -140,7 +140,7 @@ If thresholds fail, the beta gate is not met for Standard 5 (works first time).
 ### Does
 
 - Splits the chosen prototype iteration into per-page HTML
-- Strips alpha-only chrome (bimstack banner, assumptions panel, mock markers)
+- Strips alpha-only chrome (xstack banner, assumptions panel, mock markers)
 - Links to the published GovBB stylesheet instead of inlining
 - Generates the four test categories above
 - Writes a runnable orchestrator
@@ -165,7 +165,7 @@ When invoked, the skill:
 3. **Splits the HTML** into per-page files, mapping each `.page` section to its own `.html`
 4. **Extracts the inline CSS** into `public/assets/govbb.css` (with a comment about swapping for the published `@govtech-bb/styles` CDN when MIST confirms the URL)
 5. **Rewires navigation** – `onclick` becomes `<a href>` or `<form action>`; JS state becomes server-side navigation
-6. **Strips alpha-only markup** – assumptions panel out, bimstack banner out, fake-data markers replaced with semantic placeholders
+6. **Strips alpha-only markup** – assumptions panel out, xstack banner out, fake-data markers replaced with semantic placeholders
 7. **Generates the test suite** based on the journey it just split
 8. **Writes the scripts and config**
 9. **Runs the static checks** – HTML validity, link integrity (do internal links resolve?), design-system class usage (are we using `govbb-` consistently?)
@@ -228,4 +228,4 @@ By the end of the skill's run, the team should have:
 - A `PRODUCTION-READINESS.md` with each Standard marked Met / Partly met / Not met, with evidence
 - A clear next-step list: what the cyber engineer needs to do, what the developer needs to wire up to the backend, what the delivery manager needs to set up for operational readiness
 
-If the report has `Not met` for Standards 5, 6, 11, or 13, the team is not ready for the beta gate. Standard 11 is the most common reason – the front-end can pass and the backend can still fail. That's a `/bimstack:threat-model` and pen-test conversation, not a `/bimstack:productionise` retry.
+If the report has `Not met` for Standards 5, 6, 11, or 13, the team is not ready for the beta gate. Standard 11 is the most common reason – the front-end can pass and the backend can still fail. That's a `/xstack:threat-model` and pen-test conversation, not a `/xstack:productionise` retry.

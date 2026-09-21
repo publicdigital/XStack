@@ -106,11 +106,11 @@ For each prototype:
 - What is the biggest unaddressed issue?
 - What single change would make the most difference?
 
-Output: feedback files per prototype, ready for `/bimstack:iterate`.
+Output: feedback files per prototype, ready for `/xstack:iterate`.
 
 ## After the round
 
-Run `/bimstack:iterate prototype-1`, `/bimstack:iterate prototype-2`, `/bimstack:iterate prototype-3` (only on the prototypes still worth iterating). Each invocation takes the feedback file and produces the next version.
+Run `/xstack:iterate prototype-1`, `/xstack:iterate prototype-2`, `/xstack:iterate prototype-3` (only on the prototypes still worth iterating). Each invocation takes the feedback file and produces the next version.
 
 Then schedule round 2. By round 3, the team should have enough evidence to recommend one path into beta.
 

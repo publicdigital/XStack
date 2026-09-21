@@ -17,7 +17,7 @@ It supports Barbados Digital Service Standard 1 (meet user needs), Standard 2 (m
 - When a service keeps failing at an organisational boundary and nobody can see why
 - Before integration decisions – the map shows which systems exist and who owns them
 
-The stakeholder map in `bimstack:discovery-kit` lists who has skin in the game; the ecosystem map shows how they're connected in practice. For the sequence a citizen moves through, defer to `bimstack:journey-map`; for the machinery under one service, `bimstack:service-blueprint`.
+The stakeholder map in `xstack:discovery-kit` lists who has skin in the game; the ecosystem map shows how they're connected in practice. For the sequence a citizen moves through, defer to `xstack:journey-map`; for the machinery under one service, `xstack:service-blueprint`.
 
 ---
 
@@ -61,16 +61,16 @@ The stakeholder map in `bimstack:discovery-kit` lists who has skin in the game; 
 ## Rules
 
 1. **Put the citizen need at the centre, not the MDA.** An ecosystem map organised around the department reproduces the org chart. Organised around the need, it reveals intermediaries and informal actors the org chart doesn't know about.
-2. **Hunt for the informal actors.** The cousin who fills in forms, the fixer outside the office, the Facebook group where everyone actually learns the process. Research transcripts (via `bimstack:transcript-analysis`) are the best source – citizens name these people when asked what they actually did.
+2. **Hunt for the informal actors.** The cousin who fills in forms, the fixer outside the office, the Facebook group where everyone actually learns the process. Research transcripts (via `xstack:transcript-analysis`) are the best source – citizens name these people when asked what they actually did.
 3. **Map what flows, not just who exists.** A list of actors is a phonebook. The value is in the flows – especially the chasing, the re-submissions, and the informal data flows that carry personal information outside any system (flag those for the cyber engineer – Standard 11).
 4. **Every system gets a Standard 7 note.** Reusable platform? Owned register? Dead-end spreadsheet? This map is where the reuse conversation starts.
-5. **Evidence or `[ASSUMPTION]`**, same as every bimstack map.
+5. **Evidence or `[ASSUMPTION]`**, same as every xstack map.
 
 ---
 
 ## Optional: single-file HTML visual
 
-Render as one self-contained HTML file (`ecosystem-map.html`) in the bimstack prototype pattern: single file, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` prefix, navy `#00267F`, no Tailwind, no invented colours). Place the citizen need at the centre, actors grouped in rings or clusters by type (citizen-side, intermediaries, government, systems), and draw the flows as labelled connections – informal flows visibly distinct (e.g. dashed). The Markdown is canonical; regenerate the HTML from it.
+Render as one self-contained HTML file (`ecosystem-map.html`) in the xstack prototype pattern: single file, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` prefix, navy `#00267F`, no Tailwind, no invented colours). Place the citizen need at the centre, actors grouped in rings or clusters by type (citizen-side, intermediaries, government, systems), and draw the flows as labelled connections – informal flows visibly distinct (e.g. dashed). The Markdown is canonical; regenerate the HTML from it.
 
 ---
 

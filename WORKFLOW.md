@@ -1,4 +1,4 @@
-# The bimstack sprint
+# The xstack sprint
 
 ```
 Listen → Map → Make → Test → Ship → Show → Iterate
@@ -23,7 +23,7 @@ This file explains what each verb means in practice, who leads it, and what good
 - Existing data (analytics, support tickets) reviewed every sprint
 - Under-represented citizens specifically sought out, not just whoever's easiest to recruit
 
-**Skills:** `bimstack:research-coach` (the router across the whole cycle), `bimstack:research-planning`, `bimstack:transcript-analysis`, `bimstack:research-presenting`, supported by `design:user-research` and `design:research-synthesis`.
+**Skills:** `xstack:research-coach` (the router across the whole cycle), `xstack:research-planning`, `xstack:transcript-analysis`, `xstack:research-presenting`, supported by `design:user-research` and `design:research-synthesis`.
 
 **Cost of skipping:** you build for an imagined citizen. Standard 1 fails.
 
@@ -41,7 +41,7 @@ This file explains what each verb means in practice, who leads it, and what good
 - Service blueprint making the back office visible from beta onwards
 - All maps published to the team space (and outside the team where possible)
 
-**Skills:** `bimstack:journey-map`, `bimstack:service-blueprint`, `bimstack:ecosystem-map`, `bimstack:experience-map` (the Anthropic `service-design` plugin extends these where installed).
+**Skills:** `xstack:journey-map`, `xstack:service-blueprint`, `xstack:ecosystem-map`, `xstack:experience-map` (the Anthropic `service-design` plugin extends these where installed).
 
 **Cost of skipping:** the team builds different services in parallel and doesn't notice until beta.
 
@@ -79,7 +79,7 @@ This file explains what each verb means in practice, who leads it, and what good
 - Security testing including a pen test before public beta, and at least annually thereafter
 - Bugs and friction are filed in the open
 
-**Skills:** `bimstack:synthetic-research`, `design:accessibility-review`, `design:design-critique`.
+**Skills:** `xstack:synthetic-research`, `design:accessibility-review`, `design:design-critique`.
 
 **Cost of skipping:** the citizen tests it in production, and Standard 5 fails.
 
@@ -98,7 +98,7 @@ This file explains what each verb means in practice, who leads it, and what good
 - The four GDS baseline metrics wired up before public beta
 - Phase-gate standards assessment before every transition
 
-**Skills:** `bimstack:service-standard-assessment`.
+**Skills:** `xstack:service-standard-assessment`.
 
 **Cost of skipping:** you ship a service nobody is ready to run.
 
@@ -117,7 +117,7 @@ This file explains what each verb means in practice, who leads it, and what good
 - Decisions captured in ADRs in the repo
 - Other MDAs and civil society invited
 
-**Skills:** `bimstack:weeknote`, `bimstack:show-the-thing`, `anthropic-skills:govtech-barbados-presentations`.
+**Skills:** `xstack:weeknote`, `xstack:show-the-thing`, `anthropic-skills:govtech-barbados-presentations`.
 
 **Cost of skipping:** the team gets isolated, the knowledge stays in heads, and Standard 9 fails.
 
@@ -135,7 +135,7 @@ This file explains what each verb means in practice, who leads it, and what good
 - Standards reassessment at least annually in live
 - Retirement planned for when the need is gone
 
-**Skills:** every skill in the bimstack, repeatedly.
+**Skills:** every skill in the xstack, repeatedly.
 
 **Cost of skipping:** the service drifts out of fit, Standard 10 fails, and citizens stop using it.
 
@@ -156,7 +156,7 @@ A team in alpha that's heavy on Make and light on Listen has misread the phase. 
 
 ## What's deliberately not in the sprint
 
-bimstack's sprint excludes some things that show up in lots of other agile frameworks:
+xstack's sprint excludes some things that show up in lots of other agile frameworks:
 
 - **Estimation rituals.** Story points, t-shirt sizes, planning poker. They're a proxy for actual planning and rarely help.
 - **Stage-gate sign-offs from outside the team.** The team owns the work. The Standards self-assessment is the gate.

@@ -3,7 +3,7 @@ description: Scaffold a discovery phase – problem statement, stakeholder map, 
 argument-hint: [service or problem area]
 ---
 
-You are about to scaffold a discovery for a GovTech Barbados service. Hand off to the **service-designer** agent, supported by the **delivery-manager** for stakeholder mapping, using the **bimstack:discovery-kit** skill.
+You are about to scaffold a discovery for a GovTech Barbados service. Hand off to the **service-designer** agent, supported by the **delivery-manager** for stakeholder mapping, using the **xstack:discovery-kit** skill.
 
 Before you start, gather these from the user if they haven't already provided them:
 
@@ -23,6 +23,6 @@ Once you have the context, produce these artefacts following the templates in `s
 4. **Interview guide** – warm-up, core questions, probes, close
 5. **Discovery report template** – ready to be filled in as the discovery runs
 
-For ecosystem maps, ask the service-designer agent to use the `bimstack:ecosystem-map` skill. For workshops with stakeholders, point to `bimstack:workshop-facilitation`.
+For ecosystem maps, ask the service-designer agent to use the `xstack:ecosystem-map` skill. For workshops with stakeholders, point to `xstack:workshop-facilitation`.
 
 Save the discovery kit to the workspace folder as a folder `discovery-[service-slug]/` containing each artefact as a separate Markdown file, and share the folder location with the user.

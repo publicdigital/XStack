@@ -119,7 +119,7 @@
 
 ## Standards self-assessment for the discovery phase
 
-Use the `bimstack:service-standard-assessment` skill. Briefly here:
+Use the `xstack:service-standard-assessment` skill. Briefly here:
 
 | Standard | Rating | Evidence pointer |
 |---|---|---|

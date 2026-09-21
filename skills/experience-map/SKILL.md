@@ -17,7 +17,7 @@ It supports Barbados Digital Service Standard 1 (meet user needs) and Standard 1
 - When research keeps surfacing pain that belongs to a neighbouring service ("the form was fine, but I'd already been to three other offices that week")
 - When multiple MDAs each own a piece of one citizen goal and nobody owns the seams
 
-For one service's step-by-step sequence, defer to `bimstack:journey-map`. For the actors and systems as a network, `bimstack:ecosystem-map`. The experience map sits above both: it's the map of maps.
+For one service's step-by-step sequence, defer to `xstack:journey-map`. For the actors and systems as a network, `xstack:ecosystem-map`. The experience map sits above both: it's the map of maps.
 
 ---
 
@@ -65,14 +65,14 @@ Keep to 4–7 stages. Stages are the citizen's chapters, not organisational phas
 1. **Name the map after the citizen's goal, verb-led, in their language.** If the title contains an MDA's name or a programme name, start again.
 2. **Include the non-government actors.** Banks, employers, insurers, churches, family. Citizens don't experience a "government journey" – they experience their life, in which government is one (often slow) participant.
 3. **The seams are the findings.** Within one service things are usually survivable; between services is where citizens repeat themselves, re-prove things government already knows, and give up. Evidence the seams hardest.
-4. **Use it to scope honestly.** The experience map's job in bimstack is to keep a discovery from pretending its slice is the whole goal – and to record which seams the team is knowingly leaving unfixed. That goes in the problem statement's out-of-scope section (`bimstack:discovery-kit`).
+4. **Use it to scope honestly.** The experience map's job in xstack is to keep a discovery from pretending its slice is the whole goal – and to record which seams the team is knowingly leaving unfixed. That goes in the problem statement's out-of-scope section (`xstack:discovery-kit`).
 5. **Evidence or `[ASSUMPTION]`.** Research from neighbouring services counts – cite it.
 
 ---
 
 ## Optional: single-file HTML visual
 
-Render as one self-contained HTML file (`experience-map.html`) in the bimstack prototype pattern: single file, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` prefix, navy `#00267F`, no Tailwind, no invented colours). Stages as broad horizontal chapters, the services touched shown as blocks within each stage, seams drawn explicitly as marked gaps between blocks, and a highlighted band showing where our service sits. The Markdown is canonical; regenerate the HTML from it.
+Render as one self-contained HTML file (`experience-map.html`) in the xstack prototype pattern: single file, Figtree via Google Fonts, inline CSS approximating the GovBB design system (`govbb-` prefix, navy `#00267F`, no Tailwind, no invented colours). Stages as broad horizontal chapters, the services touched shown as blocks within each stage, seams drawn explicitly as marked gaps between blocks, and a highlighted band showing where our service sits. The Markdown is canonical; regenerate the HTML from it.
 
 ---
 

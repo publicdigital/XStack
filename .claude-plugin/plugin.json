@@ -1,13 +1,13 @@
 {
-  "name": "bimstack",
+  "name": "xstack",
   "version": "0.2.0",
   "description": "Five opinionated specialists for building government digital services in Barbados – anchored to the Barbados Digital Service Standards, the GOV.UK Design Principles, and the GDS Way.",
   "author": {
     "name": "GovTech Barbados",
     "url": "https://govtech.bb"
   },
-  "homepage": "https://github.com/abisola/bimstack",
-  "repository": "https://github.com/abisola/bimstack.git",
+  "homepage": "https://github.com/publicdigital/XStack",
+  "repository": "https://github.com/publicdigital/XStack.git",
   "license": "MIT",
   "keywords": [
     "govtech",

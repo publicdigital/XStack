@@ -1,6 +1,6 @@
 # Discovery kit – Renewing a medical licence
 
-**Strawman, not a finished discovery.** This kit was scaffolded by the bimstack `service-designer` agent against the `discovery-kit` skill, before any conversation with the Medical Council of Barbados or the Ministry of Health and Wellness. It is a starting point for a real discovery, not a substitute for one.
+**Strawman, not a finished discovery.** This kit was scaffolded by the xstack `service-designer` agent against the `discovery-kit` skill, before any conversation with the Medical Council of Barbados or the Ministry of Health and Wellness. It is a starting point for a real discovery, not a substitute for one.
 
 Every uncertain claim is marked `[TO VERIFY]`. The first job of the discovery team is to talk to people and turn those into facts (or strike them out).
 
