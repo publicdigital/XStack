@@ -25,7 +25,7 @@ Then read these references:
 - `references/house-style.md` – the xstack voice and patterns
 - `references/govuk-design-principles.md` – the 10 principles
 
-If you're building a prototype, use the design system named in the profile, and any house-style skills listed in the profile's Related skills section. Without a profile, use the xstack neutral style in `references/house-style.md`.
+If you're building a prototype, use the design system named in the profile, and any house-style skills listed in the profile's Related skills section. Without a profile, use the xstack neutral style in `references/house-style.md`. If the government has a design system but the profile doesn't record it, suggest `/xstack:design-system`.
 
 ---
 

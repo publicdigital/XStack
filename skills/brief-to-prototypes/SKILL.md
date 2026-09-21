@@ -40,7 +40,7 @@ For every run, a folder containing:
 | `assumptions.md` | Consolidated list of assumptions across prototypes, each tagged with severity and validation method |
 | `test-plan.md` | User-testing plan for the three prototypes |
 
-The prototypes are **self-contained single-file HTML**. They render in any browser. Their look comes from the profile's design system: when the profile names a published stylesheet that is reachable, link to it; otherwise inline an approximation of its tokens from the profile's design-system files. When there is no profile, or the profile has no design system, use the **xstack neutral style** from `references/house-style.md` (the inline CSS below).
+The prototypes are **self-contained single-file HTML**. They render in any browser. Their look comes from the profile's design system. If the profile has a `design-system.md` (written by `/xstack:design-system`), follow it exactly: its tier says whether to link the published stylesheet (tier 1), inline an approximation of its tokens (tier 2) or use the neutral style (tier 3), and it gives the page chrome and the component markup to use. Otherwise, when the profile names a published stylesheet that is reachable, link to it, or inline an approximation of its tokens from the profile's design-system files. When there is no profile, or the profile has no design system, use the **xstack neutral style** from `references/house-style.md` (the inline CSS below).
 
 ---
 
@@ -109,9 +109,9 @@ Mock data is clearly labelled mock. Mock buttons that "send" or "pay" go to fake
 
 ## The standard CSS / chrome
 
-**With a profile that names a design system:** use it. Link its published stylesheet when the profile gives one and it is reachable, and use its class names and chrome. If the stylesheet isn't reachable, inline an approximation built from the profile's token values, and tag it `[KNOWN GAP]` so the team knows to swap in the real thing.
+**With a profile that names a design system:** use it. If there's a `design-system.md`, use its stylesheet, chrome and component map rather than working them out again. Link its published stylesheet when the profile gives one and it is reachable, and use its class names and chrome. If the stylesheet isn't reachable, inline an approximation built from the profile's token values, and tag it `[KNOWN GAP]` so the team knows to swap in the real thing.
 
-**Without one:** inline the xstack neutral style below. The tokens are the ones in `references/house-style.md`. It is plain, accessible and deliberately unbranded, so testing focuses on the journey. Keep the `.xstack-banner`, `.xstack-assumptions`, `.verify-tag` and `.fake-data` classes exactly as named – whichever design system you use – because audit scripts and `/xstack:productionise` look for them.
+**Without one:** inline the xstack neutral style below, and mention once in the build's README that `/xstack:design-system` can switch the prototypes to the government's own design system. The tokens are the ones in `references/house-style.md`. It is plain, accessible and deliberately unbranded, so testing focuses on the journey. Keep the `.xstack-banner`, `.xstack-assumptions`, `.verify-tag` and `.fake-data` classes exactly as named – whichever design system you use – because audit scripts and `/xstack:productionise` look for them.
 
 ```css
 * { box-sizing: border-box; margin: 0; padding: 0; }

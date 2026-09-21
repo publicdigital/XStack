@@ -71,13 +71,13 @@ Every page of a government service has:
 - **A phase banner** – "alpha" or "beta", with a link to give feedback
 - **A footer** – supporting links, including privacy, accessibility and contact
 
-If the profile names a design system, use its chrome and components. Don't redraw them. Don't introduce one-off colours.
+If the profile names a design system, use its chrome and components. Don't redraw them. Don't introduce one-off colours. To choose one, run `/xstack:design-system` – it picks from the Government Design Systems List and records how prototypes load it in `.xstack/design-system.md`.
 
 ---
 
 ## Prototypes without a design system
 
-When there is no profile, or the profile has no design system, prototypes use the **xstack neutral style**. It is plain, accessible and deliberately unbranded, so testing focuses on the journey, not the look. Replace it with the government's own design system as soon as one is available.
+When there is no profile, the profile has no design system, or the government's design system publishes no code prototypes can use, prototypes use the **xstack neutral style**. It is plain, accessible and deliberately unbranded, so testing focuses on the journey, not the look. Replace it with the government's own design system as soon as one is available.
 
 ```css
 :root {

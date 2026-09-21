@@ -75,6 +75,7 @@ Cite them as "Standard 4 (Use simple and relatable language)".
 - **Colours and fonts:** Navy `#00267F`, Gold `#FFC726`, Off-white `#F7F3F3`, Charcoal `#2C2C2C`. Figtree for all text. Full palette in `house-style.md`.
 - **Token and component files:** `design-tokens.yaml` (values) and `design-guide.md` (reasoning). Figma is the source of truth: the GOV.BB Pattern Library file.
 - **Service patterns:** `service-patterns.md`
+- **Government Design Systems List:** Barbados isn't in the list yet (checked September 2026). This profile records the design system directly. Consider contributing the GOV.BB design system to the list.
 
 ## Shared platforms
 

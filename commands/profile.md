@@ -16,7 +16,7 @@ Ask briefly, using the AskUserQuestion tool where the answers are choices. Don't
 
 1. **Country and languages** – which country, and which languages people are most comfortable in
 2. **Service standard** – does the government have one? If yes, get the link or the text
-3. **Design system** – is there one? If yes, get the link, and how a prototype should load it
+3. **Design system** – follow the `xstack:government-design-systems` skill (the same flow as `/xstack:design-system`): find the government in the Government Design Systems List, confirm the entry with the user, and write `.xstack/design-system.md`. If the government isn't in the list, ask for the link
 4. **Terms** – what departments are called, and who owns shared platforms such as identity and payments
 5. **Shared platforms** – identity, payments, notifications, registers and lookups
 6. **Data formats** – national ID, addresses and regions, postcodes, currency
