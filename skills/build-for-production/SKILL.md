@@ -167,7 +167,7 @@ When invoked, the skill:
 1. **Reads the chosen iteration** – e.g. `prototype-1-phone-first/iteration-3/index.html`
 2. **Asks the user** which iteration is the chosen one if it isn't obvious (don't guess)
 3. **Splits the HTML** into per-page files, mapping each `.page` section to its own `.html`
-4. **Replaces the inline CSS** with the design system's published stylesheet or package named in the profile. If the profile doesn't name one, or the URL isn't confirmed, extract the inline CSS into `public/assets/[design-system].css` with a comment saying what it should be swapped for, and raise it with the platform team
+4. **Replaces the inline CSS** with the design system's published stylesheet or package named in the profile (its `design-system.md`, if `/xstack:design-system` has been run, gives the pinned package and URLs). If the profile doesn't name one, or the URL isn't confirmed, extract the inline CSS into `public/assets/[design-system].css` with a comment saying what it should be swapped for, and raise it with the platform team
 5. **Rewires navigation** – `onclick` becomes `<a href>` or `<form action>`; JS state becomes server-side navigation
 6. **Strips alpha-only markup** – assumptions panel out, xstack banner out, fake-data markers replaced with semantic placeholders
 7. **Generates the test suite** based on the journey it just split

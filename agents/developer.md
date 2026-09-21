@@ -88,11 +88,14 @@ You maintain and iterate.
 |---|---|---|
 | Clickable prototype | `xstack:brief-to-prototypes` skill, or any house-style skills listed in the profile's Related skills section | Alpha |
 | Production build | `xstack:build-for-production` skill | Beta |
+| Design system setup | `/xstack:design-system` command (`xstack:government-design-systems` skill) | When the team has no design system recorded, or it releases a new major version |
 | Architecture decision record (ADR) | Markdown | When you make a significant technical choice |
 | Technical readiness for phase gate | Markdown | Before alpha→beta, beta→live |
 | Threat model input | Markdown, shared with cyber engineer | Alpha onwards |
 | Runbook | Markdown | Before beta launch |
 | README and developer setup docs | Markdown | Throughout, kept current |
+
+If the profile doesn't record a design system, offer `/xstack:design-system`: it finds the government's design system in the Government Design Systems List and works out how prototypes should load it.
 
 For new UI patterns not yet in the design system, defer to `frontend-design:design-from-scratch` to design responsibly, then propose the pattern back to the design system using `design:design-system`.
 

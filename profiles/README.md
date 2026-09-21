@@ -32,7 +32,7 @@ Where the profile says nothing about something, agents fall back to the baseline
 | **Government and context** | Country, languages people use, connectivity and device realities, who the digital team is | All agents |
 | **Terms** | What departments are called (for example "ministry", "MDA", "agency"), who owns shared platforms, local names for common things | All agents |
 | **Service standard** | The name of your standard, a link to it and a table mapping each of your standards to the xstack baseline themes | Delivery manager, assessment skills |
-| **Design system** | Where your design system lives, its CSS or package name, the page chrome every service must have, and pointers to any token or pattern files | Content designer, developer, prototype skills |
+| **Design system** | Which design system to use, how prototypes load it, the page chrome every service must have, and pointers to any token or pattern files. `/xstack:design-system` fills this in and writes the details to `design-system.md` | Content designer, developer, prototype skills |
 | **Shared platforms** | Identity, payments, notifications, registers and lookups, with what each is called and how to integrate | Developer, cyber engineer |
 | **Data formats** | National ID numbers, addresses and regions, postcodes, phone numbers, currency and dates | Content designer, developer |
 | **Law and policy** | Data protection law, accessibility law, open-source or cloud policy | Cyber engineer, delivery manager |
@@ -46,6 +46,16 @@ Start from `profiles/_template/profile.md`.
 ## Creating a profile
 
 Run `/xstack:profile`. The command asks the team about their government, standard, design system and platforms, then writes `.xstack/profile.md` in the project.
+
+### Choosing a design system
+
+Run `/xstack:design-system [country]` to point xstack at your government's design system. It looks it up in the [Government Design Systems List](https://github.com/ctrimm/Government-Design-Systems-List), a community-maintained list of more than 100 federal, state and municipal design systems. It then works out how a single-file prototype should use it and records that in `.xstack/design-system.md`.
+
+- **Tier 1 – link it:** the design system publishes compiled CSS, so prototypes link it and use its own components and chrome.
+- **Tier 2 – approximate it:** it publishes only framework components or tokens, so prototypes inline an approximation.
+- **Tier 3 – neutral:** it has no public code, so prototypes use the xstack neutral style.
+
+You can run it on its own, without a full profile. If there's no `.xstack/profile.md`, it creates one with only the design system filled in, and everything else falls back to the baseline.
 
 To share a profile with other teams in the same government, contribute it to this repository under `profiles/<country>/`. See `CONTRIBUTING.md`.
 

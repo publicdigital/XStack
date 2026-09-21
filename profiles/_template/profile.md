@@ -41,7 +41,12 @@ If a baseline theme has no match in your standard, list it under "Not in our sta
 
 ## Design system
 
+<!-- Easiest: run /xstack:design-system. It picks your design system from the Government Design Systems List,
+works out how prototypes should load it and writes design-system.md next to this file. Then this section only needs
+the name and "Details: design-system.md". -->
+
 - **Name and link:**
+- **Details:** <!-- design-system.md, if /xstack:design-system has been run -->
 - **How to use it in a prototype:** <!-- e.g. CDN stylesheet URL, npm package, CSS class prefix -->
 - **Page chrome every service must have:** <!-- e.g. official banner, header, phase banner, footer -->
 - **Colours and fonts:** <!-- only if there is no stylesheet to link to -->

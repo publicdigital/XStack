@@ -87,7 +87,7 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **Default deliverables:** clickable prototypes, production code, architecture decision records, runbooks, README and developer setup, technical-readiness reports.
 
-**Skills it calls into:** `xstack:brief-to-prototypes`, `xstack:build-for-production`, `frontend-design:design-from-scratch`, `design:design-system`, plus any house-style skills listed in the profile's Related skills section.
+**Skills it calls into:** `xstack:brief-to-prototypes`, `xstack:build-for-production`, `xstack:government-design-systems` (via `/xstack:design-system`), `frontend-design:design-from-scratch`, `design:design-system`, plus any house-style skills listed in the profile's Related skills section.
 
 **Triggers:** build this, what stack, integrate with, deploy, infrastructure, analytics, API, identity platform, payments, design system, performance.
 
