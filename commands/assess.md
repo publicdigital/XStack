@@ -3,7 +3,7 @@ description: Run a self-assessment against the 13 Barbados Digital Service Stand
 argument-hint: [service name and phase being assessed for]
 ---
 
-You are about to run a service-standard self-assessment for a GovTech Barbados service. Hand off to the **delivery-manager** agent, coordinated with the other bimstack agents per standard, using the **bimstack:service-standard-assessment** skill.
+You are about to run a service-standard self-assessment for a GovTech Barbados service. Hand off to the **delivery-manager** agent, coordinated with the other xstack agents per standard, using the **xstack:service-standard-assessment** skill.
 
 Before you start, gather these from the user if they haven't already provided them:
 

@@ -50,7 +50,7 @@ A good insight is memorable and repeatable – something a team member could say
 - Bad: "Several participants expressed some difficulty in understanding the process for requesting a callback, which may indicate room for improvement in the communication of this feature"
 - Better: "People don't realise they can ask for a callback – three out of four didn't know it existed, and worked around it by calling the main line instead"
 
-Keep the language plain – short sentences, active voice, specific numbers where you have them ("3 of 4", not "most"), no hedge-everything academic tone. Run the final copy through `bimstack:plain-language-check` if in doubt.
+Keep the language plain – short sentences, active voice, specific numbers where you have them ("3 of 4", not "most"), no hedge-everything academic tone. Run the final copy through `xstack:plain-language-check` if in doubt.
 
 ---
 
@@ -72,4 +72,4 @@ Before finalising, have the researcher think through:
 
 ## Output
 
-Depending on what the researcher needs, help them produce either a short written readout (markdown, following the structure above) or a slide-shaped outline they can build into a deck. Keep it short – a readout that's hard to skim won't get read by a busy delivery team. If they're building an actual slide deck, point them to the `govtech-barbados-presentations` skill for the deck build itself; this skill is about getting the content and framing right first. If the readout is part of a show-and-tell, `bimstack:show-the-thing` handles the session itself.
+Depending on what the researcher needs, help them produce either a short written readout (markdown, following the structure above) or a slide-shaped outline they can build into a deck. Keep it short – a readout that's hard to skim won't get read by a busy delivery team. If they're building an actual slide deck, point them to the `govtech-barbados-presentations` skill for the deck build itself; this skill is about getting the content and framing right first. If the readout is part of a show-and-tell, `xstack:show-the-thing` handles the session itself.

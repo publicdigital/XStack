@@ -27,7 +27,7 @@ Both files are a curated snapshot. Figma is the origin. That gap is where drift 
 - **Decisions get changed deliberately.** The judgements Figma cannot express – what is deferred, what is a known issue, how the scope guard classifies a component – are human-owned. Change them with a reason recorded, not in passing.
 - **A value that looks wrong may be a deliberate edit, not corruption.** Several tokens in the YAML (`text-tertiary`, `text-error`, `text-success`, `border-default`, `border-strong`) carry a note that they were set intentionally by the design lead and should not be "corrected" back to an assumed value without asking first. This applies more broadly than those five: if a value in Figma does not match what this guide or the YAML says, that is a signal to ask, not to fix unilaterally. This applies doubly after any bulk operation on the primitive collection, which can silently break a downstream alias without changing its name.
 - **Drift gets caught by the skills.** The cross-check skill compares Figma against the code and tells us when a value has gone stale. The audit skill runs that check on a schedule.
-- **Updates go through a pull request.** These are bimstack references. They change in the open, anchored to a Standard, in house style. Every refresh bumps `last_verified` in the YAML, so a reader can always see how old the snapshot is.
+- **Updates go through a pull request.** These are xstack references. They change in the open, anchored to a Standard, in house style. Every refresh bumps `last_verified` in the YAML, so a reader can always see how old the snapshot is.
 
 ---
 
@@ -151,14 +151,14 @@ The rest are naming-only matches, scoping gaps, and one intentional divergence i
 
 ## External ecosystem
 
-Sources beyond Figma and the CSS, found while cross-referencing bimstack. Relevant to any content, IA, or handoff work these skills touch.
+Sources beyond Figma and the CSS, found while cross-referencing xstack. Relevant to any content, IA, or handoff work these skills touch.
 
 - **Barbados Digital Toolkit** (`barbados-digital-toolkit.alpha.gov.bb`) – the official hub for designing and building government digital services. Confirmed live.
-- **"Writing content for Barbadians"** (`barbados-digital-toolkit.alpha.gov.bb/design-and-build/writing-content-for-barbadians.html`) – a live plain-language content guide with its own word-swap list and sentence-length rules. It overlaps but is not identical to bimstack's `house-style.md`: each carries swaps the other does not. If these skills are ever asked to review or generate citizen-facing copy, check both. Neither has been confirmed as authoritative over the other.
+- **"Writing content for Barbadians"** (`barbados-digital-toolkit.alpha.gov.bb/design-and-build/writing-content-for-barbadians.html`) – a live plain-language content guide with its own word-swap list and sentence-length rules. It overlaps but is not identical to xstack's `house-style.md`: each carries swaps the other does not. If these skills are ever asked to review or generate citizen-facing copy, check both. Neither has been confirmed as authoritative over the other.
 - **Design System Storybook** (`govtech-bb.github.io/design-system`) – live but stale, sitting at the old pre-rename repo name. `govbb-design-system` is the real source of truth.
 - **A Google Doc** was shared as a possible source on content rules. Access returned a 401, so its contents are unconfirmed. If revisited, ask for comment access or a direct export.
 
-**Two structural gaps, unresolved.** `house-style.md` claims to be maintained across four `govtech-barbados-*` skills (`-services`, `-forms`, `-presentations`, `-qr-codes`). None of them exist in the bimstack package as of v0.2.0. Whether they live elsewhere is unconfirmed. This is the same open question as the content-rules source: two references to the same rules will drift the moment one is updated and the other is not. Ask Abisola or Amoge before building content-rule logic anywhere.
+**Two structural gaps, unresolved.** `house-style.md` claims to be maintained across four `govtech-barbados-*` skills (`-services`, `-forms`, `-presentations`, `-qr-codes`). None of them exist in the xstack package as of v0.2.0. Whether they live elsewhere is unconfirmed. This is the same open question as the content-rules source: two references to the same rules will drift the moment one is updated and the other is not. Ask Abisola or Amoge before building content-rule logic anywhere.
 
 ---
 

@@ -36,7 +36,7 @@ These are the seven artefacts a discovery should produce. Use the templates belo
 | Current-state journey | What citizens do today, step by step | Week 2–6 |
 | Discovery report | The thing the MDA reads to make a decision | Last 2 weeks of discovery |
 
-For ecosystem maps, defer to `bimstack:ecosystem-map`. For current-state journeys, defer to `bimstack:journey-map`. For research objectives and the discussion guide itself, defer to `bimstack:research-planning` (with `design:user-research` as a supporting library). For transcript analysis and synthesis, defer to `bimstack:transcript-analysis` (with `design:research-synthesis` as a supporting library). For the research readout, defer to `bimstack:research-presenting`. This skill provides the connective tissue and the report shape.
+For ecosystem maps, defer to `xstack:ecosystem-map`. For current-state journeys, defer to `xstack:journey-map`. For research objectives and the discussion guide itself, defer to `xstack:research-planning` (with `design:user-research` as a supporting library). For transcript analysis and synthesis, defer to `xstack:transcript-analysis` (with `design:research-synthesis` as a supporting library). For the research readout, defer to `xstack:research-presenting`. This skill provides the connective tissue and the report shape.
 
 ---
 

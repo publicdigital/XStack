@@ -3,7 +3,7 @@ description: Run a plain-language check on a piece of text. Hands off to the con
 argument-hint: [text to review, or a file path to a document]
 ---
 
-You are about to run a plain-language review on a piece of text from a GovTech Barbados service. Hand off to the **content-designer** agent, using the **bimstack:plain-language-check** skill.
+You are about to run a plain-language review on a piece of text from a GovTech Barbados service. Hand off to the **content-designer** agent, using the **xstack:plain-language-check** skill.
 
 Before you start, gather these from the user if they haven't already provided them:
 

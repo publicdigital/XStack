@@ -9,7 +9,7 @@ This skill coaches a junior user researcher to analyse transcripts the way an ex
 
 It supports Barbados Digital Service Standard 1 (meet user needs), Standard 10 (continuously improved), and Standard 11 (protect citizens' data), and GOV.UK Principle 1 (start with user needs) and Principle 10 (make things better with data).
 
-If the goal is specifically to fold transcript feedback into the next version of a prototype, `bimstack:prototype-iteration` handles that loop – it synthesises transcripts into structured feedback and produces the next iteration. Use this skill when the researcher needs the analysis itself: themes, evidence, and how the findings sit against prior research.
+If the goal is specifically to fold transcript feedback into the next version of a prototype, `xstack:prototype-iteration` handles that loop – it synthesises transcripts into structured feedback and produces the next iteration. Use this skill when the researcher needs the analysis itself: themes, evidence, and how the findings sit against prior research.
 
 ---
 
@@ -69,7 +69,7 @@ Help them distinguish signal from noise explicitly: one person's edge case is no
 
 ## Step 4: Summarise clearly
 
-Once the researcher has worked through interpretation, help them write a short, evidence-backed summary: themes, the evidence for each, how confident they should be (single mention vs recurring), and how this sits against prior research. Keep this factual and plain – save persuasive framing for `bimstack:research-presenting`.
+Once the researcher has worked through interpretation, help them write a short, evidence-backed summary: themes, the evidence for each, how confident they should be (single mention vs recurring), and how this sits against prior research. Keep this factual and plain – save persuasive framing for `xstack:research-presenting`.
 
 ---
 

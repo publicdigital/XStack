@@ -35,7 +35,7 @@
 | Trident ID team | Provides citizen identity. Need to confirm whether doctor identity is in scope. | `[TO IDENTIFY]` | None yet, brief in week 2 |
 | Queen Elizabeth Hospital and other public hospitals | Employ many of the doctors; their HR processes feed the renewal | `[TO IDENTIFY]` | None yet |
 | Polyclinics | Same as above for community-based public health | `[TO IDENTIFY]` | None yet |
-| GovTech Barbados internal | Engineering and design capacity, design system | bimstack team | Continuous |
+| GovTech Barbados internal | Engineering and design capacity, design system | xstack team | Continuous |
 
 ## Outside government
 

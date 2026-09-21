@@ -1,6 +1,6 @@
-# The bimstack playbook
+# The xstack playbook
 
-How a team uses bimstack to take a service from "the Ministry wants something" to a running live service. Worked through using the medical-licence-renewal example from `examples/discovery-renewing-medical-licence/`.
+How a team uses xstack to take a service from "the Ministry wants something" to a running live service. Worked through using the medical-licence-renewal example from `examples/discovery-renewing-medical-licence/`.
 
 > The plugin is opinionated, not magical. It nudges the team toward the right thing at the right phase, but the team still has to talk to citizens, write the code, and ship the work. If you're looking for a generator that turns a brief into a service, this isn't it. If you're looking for a way to make sure the team builds something that actually meets a need, passes the Standards, and is maintainable five years from now – read on.
 
@@ -13,7 +13,7 @@ Idea  →  Discovery  →  Alpha  →  Private beta  →  Public beta  →  Live
  (1d)     (6–12 wk)   (8–12 wk)   (8–16 wk)        (12–26 wk)    (∞)                          (when no longer needed)
                           │              │              │           │
                        Gate 1         Gate 2         Gate 3      Gate 4 (annual)
-                       /bimstack:assess        /bimstack:assess        /bimstack:assess     /bimstack:assess
+                       /xstack:assess        /xstack:assess        /xstack:assess     /xstack:assess
 ```
 
 Realistic timelines for a service the size of a medical-licence renewal: **discovery 8 weeks, alpha 10 weeks, private beta 12 weeks, public beta open-ended, first live release around month 9 from kickoff**. Anyone telling you a citizen service can go from brief to live in six weeks is selling you a brochure.
@@ -25,8 +25,8 @@ Realistic timelines for a service the size of a medical-licence renewal: **disco
 Install the plugin in Claude Code:
 
 ```
-/plugin marketplace add /Users/abisola/dev-env/claude/bimstack
-/plugin install bimstack
+/plugin marketplace add /Users/abisola/dev-env/pd/xstack
+/plugin install xstack
 ```
 
 Confirm the five agents and six slash commands are loaded:
@@ -64,10 +64,10 @@ You're now ready to start.
 
 ## The rapid prototyping loop
 
-bimstack has a fast inner loop that runs *inside* the multi-week phases. Use it when the team has a brief and needs to feel testable prototypes within days, not weeks.
+xstack has a fast inner loop that runs *inside* the multi-week phases. Use it when the team has a brief and needs to feel testable prototypes within days, not weeks.
 
 ```
-Brief  →  /bimstack:build  →  3 prototypes (+ assumptions + test plan)  →  /bimstack:synthetic (pre-flight)  →  fix blockers  →  user testing  →  /bimstack:iterate  →  v2  →  testing  →  /bimstack:iterate  →  v3  →  …
+Brief  →  /xstack:build  →  3 prototypes (+ assumptions + test plan)  →  /xstack:synthetic (pre-flight)  →  fix blockers  →  user testing  →  /xstack:iterate  →  v2  →  testing  →  /xstack:iterate  →  v3  →  …
   └──────────────────────────── 5 working days ──────────────────────────────────────────────────────────────┘                  └─── 3 working days ───┘
 ```
 
@@ -75,57 +75,57 @@ By round 3 (≈ 4 weeks of elapsed time), the team should have one prototype wit
 
 ### Each loop has four parts
 
-**1. /bimstack:build.** Takes a brief and produces 2–3 candidate HTML prototypes, each in the GovBB house style, each surfacing its assumptions in a toggleable panel. Worked example: `examples/build-renew-medical-licence/` – three genuinely different design hypotheses for renewing a doctor's licence.
+**1. /xstack:build.** Takes a brief and produces 2–3 candidate HTML prototypes, each in the GovBB house style, each surfacing its assumptions in a toggleable panel. Worked example: `examples/build-renew-medical-licence/` – three genuinely different design hypotheses for renewing a doctor's licence.
 
 The skill (`brief-to-prototypes`) deliberately produces more than one prototype. A single prototype is a guess made visible. Three is real signal.
 
-**1½. Pre-flight (optional but recommended).** Run `/bimstack:synthetic` against the prototypes before recruiting real participants. Synthetic personas stress-test the form for comprehension failures, logic gaps, and edge-case exclusions – the failures real users shouldn't have to discover. Fix the blockers first; then recruit. This step raises the floor before real research, never replaces it.
+**1½. Pre-flight (optional but recommended).** Run `/xstack:synthetic` against the prototypes before recruiting real participants. Synthetic personas stress-test the form for comprehension failures, logic gaps, and edge-case exclusions – the failures real users shouldn't have to discover. Fix the blockers first; then recruit. This step raises the floor before real research, never replaces it.
 
 **2. Test.** The build comes with a `test-plan.md`. 5–6 doctors per prototype, mixed cohorts, comparative. Capture quotes, hesitations, surprises. Don't pick a winner in round 1.
 
-**3. /bimstack:iterate.** Hand the feedback to `/bimstack:iterate [prototype]`. The skill (`prototype-iteration`) produces the next version *and* a `CHANGES.md` linking every change to a specific piece of feedback and to the relevant Standards. Each iteration is stored as `iteration-N/` next to the original so the team can compare and the next team can see how the thinking evolved.
+**3. /xstack:iterate.** Hand the feedback to `/xstack:iterate [prototype]`. The skill (`prototype-iteration`) produces the next version *and* a `CHANGES.md` linking every change to a specific piece of feedback and to the relevant Standards. Each iteration is stored as `iteration-N/` next to the original so the team can compare and the next team can see how the thinking evolved.
 
 **4. Repeat.** Three to four rounds, getting tighter each time. Resolved assumptions move out of the panel; new ones move in.
 
 ### What you do not do in the rapid loop
 
-- **Don't skip the brief.** /bimstack:build assumes the brief is evidence-led. Use `/bimstack:discover` first if it isn't.
-- **Don't merge prototypes mid-cycle.** Each prototype iterates on its own. Merging is the alpha-gate decision (`/bimstack:assess`).
-- **Don't promote a prototype to production without a phase gate.** /bimstack:build produces throwaway HTML. Beta needs production code on the GovTech stack, threat-modelled and accessibility-audited.
+- **Don't skip the brief.** /xstack:build assumes the brief is evidence-led. Use `/xstack:discover` first if it isn't.
+- **Don't merge prototypes mid-cycle.** Each prototype iterates on its own. Merging is the alpha-gate decision (`/xstack:assess`).
+- **Don't promote a prototype to production without a phase gate.** /xstack:build produces throwaway HTML. Beta needs production code on the GovTech stack, threat-modelled and accessibility-audited.
 - **Don't run iterations without structured feedback.** "Make it nicer" is not feedback. The skill refuses.
 
 ### Worked example in this repo
 
-[`examples/build-renew-medical-licence/`](./examples/build-renew-medical-licence/) is a complete `/bimstack:build` output for the medical-licence brief. Three clickable HTML prototypes, an assumptions register (42 items across all three), a test plan for 18 doctors across 6 cohorts. Open any of the `index.html` files in a browser to feel the loop.
+[`examples/build-renew-medical-licence/`](./examples/build-renew-medical-licence/) is a complete `/xstack:build` output for the medical-licence brief. Three clickable HTML prototypes, an assumptions register (42 items across all three), a test plan for 18 doctors across 6 cohorts. Open any of the `index.html` files in a browser to feel the loop.
 
-This is bimstack's answer to "how do I take a brief and produce something I can actually test?" – not in 10 weeks, in 10 hours.
+This is xstack's answer to "how do I take a brief and produce something I can actually test?" – not in 10 weeks, in 10 hours.
 
 ### Closing the loop with transcripts
 
-`/bimstack:iterate` accepts two kinds of input – pre-structured feedback files or **raw research transcripts**. When fed transcripts, the skill synthesises them first (saving the result as `feedback-round-K.md` next to the prototype) and the team reviews the synthesis before the new iteration is produced. The worked example at `examples/build-renew-medical-licence/prototype-1-phone-first/` shows two rounds: round 1 with structured feedback, round 2 with 5 raw transcripts including a Medical Council renewals officer whose insights reshaped the entire mental model of "a doctor renews".
+`/xstack:iterate` accepts two kinds of input – pre-structured feedback files or **raw research transcripts**. When fed transcripts, the skill synthesises them first (saving the result as `feedback-round-K.md` next to the prototype) and the team reviews the synthesis before the new iteration is produced. The worked example at `examples/build-renew-medical-licence/prototype-1-phone-first/` shows two rounds: round 1 with structured feedback, round 2 with 5 raw transcripts including a Medical Council renewals officer whose insights reshaped the entire mental model of "a doctor renews".
 
 ---
 
-## Alpha to beta – /bimstack:productionise
+## Alpha to beta – /xstack:productionise
 
-When one prototype has earned its place through three or four iteration rounds, the team is ready to take it production. That's what `/bimstack:productionise` does.
+When one prototype has earned its place through three or four iteration rounds, the team is ready to take it production. That's what `/xstack:productionise` does.
 
 ```
-Validated iteration → /bimstack:productionise → per-page HTML + test suite + PRODUCTION-READINESS.md
+Validated iteration → /xstack:productionise → per-page HTML + test suite + PRODUCTION-READINESS.md
                        (a few hours)
 ```
 
 The skill produces:
 
 - **Per-page HTML files** with proper URLs, real navigation (links and forms, not JS state), the published GovBB stylesheet linked rather than inlined
-- **The bimstack chrome stripped** – no assumptions panel, no fake-data markers
+- **The xstack chrome stripped** – no assumptions panel, no fake-data markers
 - **A comprehensive test suite** – Playwright E2E regression (3 specs), axe-core accessibility, security headers + CSP, k6 load tests (peak + 8-hour soak)
 - **A runner** (`scripts/run-all.sh`) orchestrating everything locally and in CI
 - **A production-readiness report** assessed against Standards 5, 6, 11, and 13
 
 The worked example at [`examples/production-renew-medical-licence/`](./examples/production-renew-medical-licence/) takes prototype-1 iteration-3 through this skill: 9 separate HTML files, an inlined CSS file extracted to `public/assets/govbb.css`, 5 test files across the 4 categories, configuration for Playwright running across 5 device profiles (desktop Chromium / Firefox / WebKit + mobile Chrome + mobile Safari), k6 load profiles matching the Oct–Dec peak Sandra Layne described in the round-2 transcripts.
 
-### What /bimstack:productionise does not do
+### What /xstack:productionise does not do
 
 For honesty:
 
@@ -133,9 +133,9 @@ For honesty:
 - **Not the pen test.** The cyber engineer plans it with an external supplier before public beta.
 - **Not the CI config.** The team picks GitHub Actions / GitLab CI / similar. `scripts/run-all.sh` is the entry point.
 - **Not the deployment.** Hosting and operational readiness is the delivery manager's territory.
-- **Not the Council's review interface.** That's its own `/bimstack:build` track, briefed from the round-2 transcript with Sandra Layne.
+- **Not the Council's review interface.** That's its own `/xstack:build` track, briefed from the round-2 transcript with Sandra Layne.
 
-### When to run /bimstack:productionise
+### When to run /xstack:productionise
 
 - After at least 3 iteration rounds with users
 - When the standards self-assessment for the alpha gate is `Met` or `Partly met with a plan` on every standard
@@ -148,7 +148,7 @@ For honesty:
 
 ## The day-to-day rhythm
 
-bimstack assumes a two-week sprint and one daily stand-up. Inside that, the rhythm is:
+xstack assumes a two-week sprint and one daily stand-up. Inside that, the rhythm is:
 
 | Day | Default activity |
 |---|---|
@@ -156,9 +156,9 @@ bimstack assumes a two-week sprint and one daily stand-up. Inside that, the rhyt
 | Tuesday | Research / build / test work; user sessions tend to land here |
 | Wednesday | Research / build / test work |
 | Thursday | Research / build / test work; design crit before lunch |
-| Friday | Standards check-in (15 min), `/bimstack:weeknote`, end-of-fortnight `/bimstack:show` |
+| Friday | Standards check-in (15 min), `/xstack:weeknote`, end-of-fortnight `/xstack:show` |
 
-Every Friday: `/bimstack:weeknote`. Every second Friday: `/bimstack:show`. Every phase gate: `/bimstack:assess`. Every quarter: a deeper retrospective.
+Every Friday: `/xstack:weeknote`. Every second Friday: `/xstack:show`. Every phase gate: `/xstack:assess`. Every quarter: a deeper retrospective.
 
 The agents are tools the team reaches for inside this rhythm – not a process the team marches through.
 
@@ -177,7 +177,7 @@ The agents are tools the team reaches for inside this rhythm – not a process t
 The first thing you type:
 
 ```
-/bimstack:discover renewing a medical licence in Barbados
+/xstack:discover renewing a medical licence in Barbados
 ```
 
 That invokes the **service-designer** agent and the **discovery-kit** skill, and produces the six artefacts you already have in `examples/discovery-renewing-medical-licence/`. The agent will ask you a couple of clarifying questions (MDA, timeline, existing context) – answer briefly or tell it to use flagged assumptions.
@@ -197,7 +197,7 @@ Book the first conversations. Specifically:
 - A briefing meeting with BAMP
 - A briefing call with MIST about Trident ID feasibility for doctors
 
-End of week 1: first `/bimstack:weeknote`. Even if all you did was scaffold and book meetings, publish it.
+End of week 1: first `/xstack:weeknote`. Even if all you did was scaffold and book meetings, publish it.
 
 ### Weeks 2–4
 
@@ -214,14 +214,14 @@ After each interview, file the anonymised notes (with the objectives copied into
 After every fortnight:
 
 ```
-/bimstack:show end of sprint 2 for the medical-licence discovery. We've talked to
+/xstack:show end of sprint 2 for the medical-licence discovery. We've talked to
 8 doctors and shadowed the Council for a half-day. Here's what surprised
 us: [bullets]. Here's the prototype we want to show: [link or n/a].
 ```
 
 That produces the running order and the deck brief, then hands off to the `govtech-barbados-presentations` skill for the .pptx.
 
-Every Friday: `/bimstack:weeknote`.
+Every Friday: `/xstack:weeknote`.
 
 ### Weeks 5–7
 
@@ -243,7 +243,7 @@ Bring the content & interaction designer in:
 
 ```
 @content-designer audit the current Medical Council renewal copy
-(attached or linked) using /bimstack:plain-language. Tell me which words and
+(attached or linked) using /xstack:plain-language. Tell me which words and
 patterns to swap and which already work.
 ```
 
@@ -252,7 +252,7 @@ patterns to swap and which already work.
 Fill in the `05-discovery-report-template.md` from the kit. Then:
 
 ```
-/bimstack:assess for the alpha gate. Service: renew medical licence.
+/xstack:assess for the alpha gate. Service: renew medical licence.
 Phase being assessed for: alpha. Evidence lives in
 services/renew-medical-licence/discovery/.
 ```
@@ -317,7 +317,7 @@ change before testing Candidate 3?
 Threat horizon, in parallel:
 
 ```
-/bimstack:threat-model for the medical-licence renewal. Phase: alpha.
+/xstack:threat-model for the medical-licence renewal. Phase: alpha.
 Personal data inventory: [doctor name, NRN, contact, CPD evidence, fee
 payment record, registration history]. Shared platforms in scope:
 Trident ID, payment gateway, Medical Council register.
@@ -350,7 +350,7 @@ services/renew-medical-licence/decisions/.
 ### Week 18: the alpha gate
 
 ```
-/bimstack:assess for the beta gate. Service: renew medical licence.
+/xstack:assess for the beta gate. Service: renew medical licence.
 Phase being assessed for: beta. Evidence lives in
 services/renew-medical-licence/alpha/.
 ```
@@ -388,13 +388,13 @@ Production copy, by the content designer:
 @content-designer take the alpha copy to production. Every state – happy
 path, every error, the confirmation, the assisted-digital fallback, the
 suspension state, the lapsed state, the renewal-from-abroad state. Run
-/bimstack:plain-language across everything.
+/xstack:plain-language across everything.
 ```
 
 Threat model refresh:
 
 ```
-/bimstack:threat-model refresh for beta. Service: renew medical licence.
+/xstack:threat-model refresh for beta. Service: renew medical licence.
 Phase: beta. New since alpha: real Trident ID integration, real
 payment integration, real register write-back. Plan a pen test
 before private beta closes.
@@ -446,7 +446,7 @@ results. If we're not within SLO, name the bottleneck and the fix.
 Then:
 
 ```
-/bimstack:assess for the live gate. Service: renew medical licence.
+/xstack:assess for the live gate. Service: renew medical licence.
 Phase being assessed for: live. Evidence lives in
 services/renew-medical-licence/beta/.
 ```
@@ -459,7 +459,7 @@ Open the service. Communicate. Keep iterating. Watch the metrics.
 
 By this point the delivery manager is the busiest agent in the stack – wrangling the comms, the cadence, the metrics, the standards reassessment.
 
-Every Friday: `/bimstack:weeknote`. Every second Friday: `/bimstack:show`. Every six weeks: a `/bimstack:assess` lite – the same template but a temperature check, not a gate.
+Every Friday: `/xstack:weeknote`. Every second Friday: `/xstack:show`. Every six weeks: a `/xstack:assess` lite – the same template but a temperature check, not a gate.
 
 ---
 
@@ -498,7 +498,7 @@ incident-response tabletop twice a year.
 
 ```
 @delivery-manager publish the four GDS baseline metrics monthly.
-Annual /bimstack:assess against the Standards. Annual conversation with the
+Annual /xstack:assess against the Standards. Annual conversation with the
 MDA about whether the service still fits the need.
 ```
 
@@ -518,7 +518,7 @@ Standards retirement is rare but possible. It's still a deliberate decision, not
 
 ## What you do not do
 
-Things bimstack actively pushes against, even when senior people ask.
+Things xstack actively pushes against, even when senior people ask.
 
 - **Skip discovery.** Even if "we've done this before". Standard 1 starts with research, not with the team's prior beliefs.
 - **Build production code in alpha.** Throwaway is the point. If you can't bear to throw it away, you haven't prototyped enough.
@@ -533,22 +533,22 @@ Things bimstack actively pushes against, even when senior people ask.
 
 | You want to… | You type… | It produces… |
 |---|---|---|
-| Start a discovery | `/bimstack:discover [service]` | The six-artefact discovery kit |
-| Turn a brief into testable prototypes | `/bimstack:build [brief]` | 2–3 clickable HTML prototypes + assumptions + test plan |
-| Roll feedback into the next version | `/bimstack:iterate [prototype]` | Next version + CHANGES.md changelog |
-| Take an iteration to production-ready | `/bimstack:productionise [iteration]` | Per-page HTML + 4-category test suite + readiness report |
+| Start a discovery | `/xstack:discover [service]` | The six-artefact discovery kit |
+| Turn a brief into testable prototypes | `/xstack:build [brief]` | 2–3 clickable HTML prototypes + assumptions + test plan |
+| Roll feedback into the next version | `/xstack:iterate [prototype]` | Next version + CHANGES.md changelog |
+| Take an iteration to production-ready | `/xstack:productionise [iteration]` | Per-page HTML + 4-category test suite + readiness report |
 | Plan a research session | `@service-designer plan…` (uses `research-planning`) | Decision-linked objectives + a behavioural discussion guide |
 | Get unstuck anywhere in the research cycle | "research coach" / "how am I doing" (uses `research-coach`) | Coaching, handoff checks, direct feedback |
 | Analyse transcripts | `@service-designer analyse…` (uses `transcript-analysis`) | Themes with evidence, confirmed/contradicted/new against prior rounds |
 | Turn findings into a readout | "research readout" (uses `research-presenting`) | 2–4 themes, owned recommendations, honest unknowns |
-| Review copy | `/bimstack:plain-language [text]` | A marked-up rewrite with citations |
+| Review copy | `/xstack:plain-language [text]` | A marked-up rewrite with citations |
 | Build a prototype | `@content-designer scaffold…` or `@developer scaffold…` | A GovBB-compliant HTML prototype |
 | Make a tech choice | `@developer recommend a stack for…` | An ADR draft with trade-offs |
-| Threat-model | `/bimstack:threat-model [service]` | A STRIDE/LINDDUN model with controls |
-| Write a weeknote | `/bimstack:weeknote` | A draft weeknote in the team's voice |
-| Prepare a show-and-tell | `/bimstack:show` | A running order and a deck brief |
-| Assess against the Standards | `/bimstack:assess` | A 13-standard self-assessment with a recommendation |
-| Decide whether to ship | `/bimstack:assess` for the relevant phase gate | Same |
+| Threat-model | `/xstack:threat-model [service]` | A STRIDE/LINDDUN model with controls |
+| Write a weeknote | `/xstack:weeknote` | A draft weeknote in the team's voice |
+| Prepare a show-and-tell | `/xstack:show` | A running order and a deck brief |
+| Assess against the Standards | `/xstack:assess` | A 13-standard self-assessment with a recommendation |
+| Decide whether to ship | `/xstack:assess` for the relevant phase gate | Same |
 
 ---
 
@@ -562,7 +562,7 @@ Three things that make the agents more useful, learned the hard way.
 
 ---
 
-## What bimstack is not
+## What xstack is not
 
 For full honesty:
 
@@ -582,4 +582,4 @@ For full honesty:
 - `references/gds-way-phases.md` – the phase model with what each phase does and doesn't include
 - `examples/discovery-renewing-medical-licence/` – a worked example of the discovery kit
 
-If you ship something with bimstack, write us a weeknote about it.
+If you ship something with xstack, write us a weeknote about it.

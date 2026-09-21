@@ -2,7 +2,7 @@
 
 The 13 standards by which public-facing digital services in Barbados are assessed before they are published. Maintained by GovTech Barbados at <https://github.com/govtech-bb/Barbados-Digital-Service-Standards>.
 
-Every bimstack agent uses these as the canonical checklist. When an agent is unsure whether a piece of work is ready to ship, it self-assesses against this list first.
+Every xstack agent uses these as the canonical checklist. When an agent is unsure whether a piece of work is ready to ship, it self-assesses against this list first.
 
 | # | Standard | One-line | Owns it most |
 |---|----------|----------|--------------|
@@ -231,6 +231,6 @@ Every bimstack agent uses these as the canonical checklist. When an agent is uns
 
 ## Using this reference
 
-Every bimstack agent reads this file before assessing work, and cites the relevant standard by number ("Standard 4: simple and relatable language") in its outputs.
+Every xstack agent reads this file before assessing work, and cites the relevant standard by number ("Standard 4: simple and relatable language") in its outputs.
 
 When in doubt, the agent asks: *Could a citizen with limited literacy, on a £20 phone, on a slow connection, with no help, complete this service successfully?* If the answer is no, at least one standard is failing.

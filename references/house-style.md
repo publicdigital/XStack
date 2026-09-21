@@ -1,6 +1,6 @@
 # GovTech Barbados house style (quick reference)
 
-A pocket reference to the GovTech Barbados visual identity, voice, and pattern library. Maintained in detail across the `govtech-barbados-services`, `govtech-barbados-forms`, `govtech-barbados-presentations`, and `govtech-barbados-qr-codes` skills. This file gives bimstack agents the essentials they need without reading every skill front to back.
+A pocket reference to the GovTech Barbados visual identity, voice, and pattern library. Maintained in detail across the `govtech-barbados-services`, `govtech-barbados-forms`, `govtech-barbados-presentations`, and `govtech-barbados-qr-codes` skills. This file gives xstack agents the essentials they need without reading every skill front to back.
 
 If anything here ever drifts from those skills, **trust the skills**.
 

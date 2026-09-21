@@ -4,7 +4,7 @@ The four-phase agile delivery model used by the UK Government Digital Service an
 
 Source: <https://www.gov.uk/service-manual/agile-delivery> and <https://gds-way.digital.cabinet-office.gov.uk/>.
 
-Every bimstack agent knows which phase the team is in and adjusts what it produces accordingly. A discovery deliverable in beta is a waste; a beta deliverable in discovery is dangerous.
+Every xstack agent knows which phase the team is in and adjusts what it produces accordingly. A discovery deliverable in beta is a waste; a beta deliverable in discovery is dangerous.
 
 ---
 
@@ -146,7 +146,7 @@ Every bimstack agent knows which phase the team is in and adjusts what it produc
 
 Between each phase there's a gate. In the UK, this is the Service Standard Assessment – a panel reviews the service against the Service Standard and either passes it through, sends it back, or stops it.
 
-In Barbados, the equivalent is the Barbados Digital Service Standards assessment. bimstack's `service-standard-assessment` skill walks an agent (or a human reading the output) through the 13 standards with evidence. A pass requires a yes-with-evidence on all 13.
+In Barbados, the equivalent is the Barbados Digital Service Standards assessment. xstack's `service-standard-assessment` skill walks an agent (or a human reading the output) through the 13 standards with evidence. A pass requires a yes-with-evidence on all 13.
 
 | Gate | Question |
 |---|---|
@@ -157,7 +157,7 @@ In Barbados, the equivalent is the Barbados Digital Service Standards assessment
 
 ---
 
-## How bimstack uses the phases
+## How xstack uses the phases
 
 Each agent has a default mode but adapts based on phase:
 

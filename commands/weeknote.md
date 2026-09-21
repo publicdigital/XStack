@@ -3,7 +3,7 @@ description: Draft a weeknote in the GovTech Barbados / GDS style. Hands off to 
 argument-hint: [week dates or sprint number, optional]
 ---
 
-You are about to draft a weeknote for a GovTech Barbados service team. Hand off to the **delivery-manager** agent, which will use the **bimstack:weeknote** skill to produce the draft.
+You are about to draft a weeknote for a GovTech Barbados service team. Hand off to the **delivery-manager** agent, which will use the **xstack:weeknote** skill to produce the draft.
 
 Before you start, gather these from the user if they haven't already provided them:
 

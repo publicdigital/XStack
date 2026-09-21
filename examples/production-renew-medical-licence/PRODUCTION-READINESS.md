@@ -1,11 +1,11 @@
 # Production-readiness report – Renew medical licence (front-end)
 
 **Generated:** 2026-05-16
-**Skill:** `bimstack:build-for-production` via `/bimstack:productionise`
+**Skill:** `xstack:build-for-production` via `/xstack:productionise`
 **Source iteration:** `examples/build-renew-medical-licence/prototype-1-phone-first/iteration-3/index.html`
 **Target phase gate:** Alpha → Beta
 
-> This report covers the **front-end's contribution** to the alpha-to-beta gate. The backend, threat model, pen test, dependency scans, operational readiness, and the SLA negotiation with the Medical Council are owned by the developer, the cyber engineer, and the delivery manager via other parts of bimstack. Standards 5, 6, 11, and 13 are where this report carries the most weight; the others are scaffolded for the wider beta-gate assessment.
+> This report covers the **front-end's contribution** to the alpha-to-beta gate. The backend, threat model, pen test, dependency scans, operational readiness, and the SLA negotiation with the Medical Council are owned by the developer, the cyber engineer, and the delivery manager via other parts of xstack. Standards 5, 6, 11, and 13 are where this report carries the most weight; the others are scaffolded for the wider beta-gate assessment.
 
 ## Headline
 
@@ -82,7 +82,7 @@ package.json               ← npm scripts for everything
 - **Cookie security** – when the back end is wired and sets cookies, the existing Playwright test will check Secure / HttpOnly / SameSite
 - **DPIA** – with the Council's DPO before public beta
 
-**Next action:** cyber-engineer agent refresh threat model and plan pen test. `/bimstack:threat-model` for the refresh.
+**Next action:** cyber-engineer agent refresh threat model and plan pen test. `/xstack:threat-model` for the refresh.
 
 ### Standard 13 – Monitor, manage, measure performance
 
@@ -111,7 +111,7 @@ package.json               ← npm scripts for everything
 | 9 HTML pages produced | ✅ PASS |
 | HTML boilerplate (DOCTYPE, lang, title, description, stylesheet, main, skip link, landmarks) on every page | ✅ PASS – all 9 pages |
 | CSS linked not inlined | ✅ PASS – all 9 pages |
-| No bimstack chrome in production (no banner, no assumptions panel, no fake-data spans, no Show-assumptions button, no verify-tag) | ✅ PASS – 5 of 5 forbidden terms absent |
+| No xstack chrome in production (no banner, no assumptions panel, no fake-data spans, no Show-assumptions button, no verify-tag) | ✅ PASS – 5 of 5 forbidden terms absent |
 | govbb- design-system class prefix used consistently | ✅ PASS |
 | No m-dashes (house-style rule) | ✅ PASS – 0 found across 9 pages |
 | Stylesheet present | ✅ PASS – `assets/govbb.css` (13KB) |
@@ -149,24 +149,24 @@ Each of these is a single CI step. The test code is ready; the runner script (`s
 
 ## Where the rest of beta readiness lives
 
-Front-end readiness is a slice of beta readiness. The other slices, owned by other bimstack agents and commands:
+Front-end readiness is a slice of beta readiness. The other slices, owned by other xstack agents and commands:
 
-| Workstream | Owner | bimstack tool |
+| Workstream | Owner | xstack tool |
 |---|---|---|
 | Backend architecture and ADRs | developer | direct invocation |
 | Trident ID integration | developer + MIST briefing | direct invocation |
 | Payment gateway integration | developer + MIST briefing | direct invocation |
-| Council review backstage interface | **needs its own `/bimstack:build` track** – brief from `feedback-round-2.md` round-2 transcript with Sandra Layne | `/bimstack:build` |
-| Threat model refresh | cyber engineer | `/bimstack:threat-model` |
+| Council review backstage interface | **needs its own `/xstack:build` track** – brief from `feedback-round-2.md` round-2 transcript with Sandra Layne | `/xstack:build` |
+| Threat model refresh | cyber engineer | `/xstack:threat-model` |
 | Pen test plan and execution | cyber engineer + external supplier | direct invocation |
 | DPIA | cyber engineer + Medical Council DPO | direct invocation |
 | Incident runbook | cyber engineer + delivery manager | direct invocation |
 | Operational readiness | delivery manager | direct invocation |
 | Analytics wiring (4 GDS metrics) | developer + delivery manager | direct invocation |
-| Standards self-assessment | delivery manager (orchestrating all agents) | `/bimstack:assess` |
-| Phase gate | delivery manager | `/bimstack:assess` |
+| Standards self-assessment | delivery manager (orchestrating all agents) | `/xstack:assess` |
+| Phase gate | delivery manager | `/xstack:assess` |
 
-The Standards self-assessment (`/bimstack:assess for the beta gate`) is the formal moment where this report's `Partly met with a plan` ratings get either evidence to become `Met`, or a documented reason to remain partly met.
+The Standards self-assessment (`/xstack:assess for the beta gate`) is the formal moment where this report's `Partly met with a plan` ratings get either evidence to become `Met`, or a documented reason to remain partly met.
 
 ---
 
@@ -179,7 +179,7 @@ The Standards self-assessment (`/bimstack:assess for the beta gate`) is the form
 3. **Run the k6 peak load test against staging** (twice expected Oct–Dec volume). Required for Standards 5 and 13.
 4. **Refresh the threat model** to cover the production form actions and the address-override flow. Required for Standard 11.
 5. **Pen test plan signed off** before public beta. Cyber engineer owns; external supplier executes.
-6. **Council backstage interface** scoped as a parallel `/bimstack:build` track. Not blocking for private beta if Sandra and one or two officers can review applications manually; blocking for public beta.
+6. **Council backstage interface** scoped as a parallel `/xstack:build` track. Not blocking for private beta if Sandra and one or two officers can review applications manually; blocking for public beta.
 
 If conditions 1–4 are met, the team is ready for private beta on the front end. Conditions 5–6 must be met before public beta.
 

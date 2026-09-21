@@ -131,7 +131,7 @@ If any is missing, flag it.
 # Plain Language Review – [page or document name]
 
 **Date:** YYYY-MM-DD
-**Reviewer:** content-designer (bimstack)
+**Reviewer:** content-designer (xstack)
 **Reading age (current):** Grade X (Flesch–Kincaid or estimate)
 **Reading age (target):** Grade 5
 

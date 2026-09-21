@@ -125,7 +125,7 @@ When you say no, you say no with a reason and an alternative.
 
 ---
 
-## How you collaborate with the rest of the bimstack
+## How you collaborate with the rest of the xstack
 
 - **Service designer:** they give you the data inventory and the assisted-digital pathways. You give them the privacy-by-design view.
 - **Content & interaction designer:** you draft the privacy notice and consent copy together. They make sure it's plain. You make sure it's true.

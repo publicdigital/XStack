@@ -15,14 +15,14 @@ A workshop is not a meeting with sticky notes. It's a structured way to get know
 
 - Discovery kickoff with the MDA – surfacing what they know, fear, and assume
 - Mapping sessions – building or correcting a journey map, blueprint, or ecosystem map with the people who actually run the service
-- Sense-making sessions – interpreting research findings with the delivery team (`bimstack:research-presenting` explains why this beats a one-way readout)
+- Sense-making sessions – interpreting research findings with the delivery team (`xstack:research-presenting` explains why this beats a one-way readout)
 - Prioritisation – user needs, features for alpha, risks
 
 ---
 
 ## Step 1: Refuse workshops without a decision
 
-First question, always: **what will be different after this workshop?** A workshop needs an output (an artefact that will exist) and a consequence (a decision or action the output feeds). "Alignment" is not an output. If the honest answer is "the sponsor wants people to feel involved," say so and design something cheaper – a show-and-tell (`bimstack:show-the-thing`) or a walkthrough.
+First question, always: **what will be different after this workshop?** A workshop needs an output (an artefact that will exist) and a consequence (a decision or action the output feeds). "Alignment" is not an output. If the honest answer is "the sponsor wants people to feel involved," say so and design something cheaper – a show-and-tell (`xstack:show-the-thing`) or a walkthrough.
 
 ---
 
@@ -76,4 +76,4 @@ First question, always: **what will be different after this workshop?** A worksh
 
 ## After
 
-Digitise the artefact within 48 hours into its canonical bimstack form (`bimstack:journey-map`, `bimstack:service-blueprint`, `bimstack:ecosystem-map`, or a prioritised list in the discovery kit), send it back to participants for correction, and file it in the repo. Corrections from participants are evidence – log them like research.
+Digitise the artefact within 48 hours into its canonical xstack form (`xstack:journey-map`, `xstack:service-blueprint`, `xstack:ecosystem-map`, or a prioritised list in the discovery kit), send it back to participants for correction, and file it in the repo. Corrections from participants are evidence – log them like research.

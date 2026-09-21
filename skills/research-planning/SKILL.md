@@ -9,7 +9,7 @@ This skill coaches a junior user researcher on a GovTech Barbados team. Its job 
 
 It supports Barbados Digital Service Standard 1 (meet user needs) and GOV.UK Principle 1 (start with user needs) and Principle 2 (do less – research what will change a decision).
 
-For the discovery-phase research plan and interview guide templates, see `bimstack:discovery-kit`. This skill is about the quality of the thinking that fills those templates. For coaching across the whole research cycle, see `bimstack:research-coach`.
+For the discovery-phase research plan and interview guide templates, see `xstack:discovery-kit`. This skill is about the quality of the thinking that fills those templates. For coaching across the whole research cycle, see `xstack:research-coach`.
 
 ---
 
@@ -87,7 +87,7 @@ Check every question in the draft guide against this test: could someone answer 
 Government research often deals with sensitive or high-stakes services (benefits, health, licensing, justice). Check for:
 
 - Leading questions that assume a problem exists ("What's frustrating about X?" assumes frustration)
-- Jargon or internal service names the participant won't recognise (run doubtful copy through `bimstack:plain-language-check`)
+- Jargon or internal service names the participant won't recognise (run doubtful copy through `xstack:plain-language-check`)
 - Questions that require the participant to evaluate government policy rather than describe their experience of it
 
 ---
@@ -104,4 +104,4 @@ Include a short note on this technique with every guide you produce, since it's 
 
 ## Output
 
-Produce the discussion guide as a clean markdown document the researcher can take into the session, with objectives listed at the top (for their own reference, not to read aloud) and questions grouped as above. If this research will be logged in a research repo, remind them to carry these objectives into the transcript's front matter afterwards, word for word – that's what lets `bimstack:transcript-analysis` trace findings back to what was being tested.
+Produce the discussion guide as a clean markdown document the researcher can take into the session, with objectives listed at the top (for their own reference, not to read aloud) and questions grouped as above. If this research will be logged in a research repo, remind them to carry these objectives into the transcript's front matter afterwards, word for word – that's what lets `xstack:transcript-analysis` trace findings back to what was being tested.

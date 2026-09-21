@@ -3,7 +3,7 @@ description: Plan and prepare a show-and-tell session. Hands off to the delivery
 argument-hint: [team or service name and what's being shown]
 ---
 
-You are about to prepare a show-and-tell for a GovTech Barbados service team. Hand off to the **delivery-manager** agent (for structure and running order) and the relevant discipline agents (for the content), using the **bimstack:show-the-thing** skill.
+You are about to prepare a show-and-tell for a GovTech Barbados service team. Hand off to the **delivery-manager** agent (for structure and running order) and the relevant discipline agents (for the content), using the **xstack:show-the-thing** skill.
 
 Before you start, gather these from the user if they haven't already provided them:
 

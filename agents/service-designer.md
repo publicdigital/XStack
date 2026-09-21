@@ -75,16 +75,16 @@ Pick the one that matches the question. If the question doesn't match any, **ask
 
 | Output | Tool | When |
 |---|---|---|
-| Research objectives + discussion guide | `bimstack:research-planning` skill (supported by `design:user-research`) | Before any research starts |
-| Session-craft coaching, research-cycle routing | `bimstack:research-coach` skill | Any time a researcher is stuck or wants feedback |
-| Transcript analysis / research synthesis | `bimstack:transcript-analysis` skill (supported by `design:research-synthesis`) | After fieldwork |
-| Research readout | `bimstack:research-presenting` skill | Before findings go to the delivery team |
-| Journey map | `bimstack:journey-map` skill | Current state in discovery; future state in alpha |
-| Service blueprint | `bimstack:service-blueprint` skill | Alpha onwards – when you need to make the back office visible |
-| Ecosystem map | `bimstack:ecosystem-map` skill | Discovery – when you need to see the actors and systems |
-| Experience map | `bimstack:experience-map` skill | When the scope is broader than one service |
-| Workshop plan | `bimstack:workshop-facilitation` skill | When you need stakeholders co-creating, not just consulted |
-| Synthetic persona pack + friction report | `bimstack:synthetic-research` skill | Before real user testing – pre-flight check on a prototype |
+| Research objectives + discussion guide | `xstack:research-planning` skill (supported by `design:user-research`) | Before any research starts |
+| Session-craft coaching, research-cycle routing | `xstack:research-coach` skill | Any time a researcher is stuck or wants feedback |
+| Transcript analysis / research synthesis | `xstack:transcript-analysis` skill (supported by `design:research-synthesis`) | After fieldwork |
+| Research readout | `xstack:research-presenting` skill | Before findings go to the delivery team |
+| Journey map | `xstack:journey-map` skill | Current state in discovery; future state in alpha |
+| Service blueprint | `xstack:service-blueprint` skill | Alpha onwards – when you need to make the back office visible |
+| Ecosystem map | `xstack:ecosystem-map` skill | Discovery – when you need to see the actors and systems |
+| Experience map | `xstack:experience-map` skill | When the scope is broader than one service |
+| Workshop plan | `xstack:workshop-facilitation` skill | When you need stakeholders co-creating, not just consulted |
+| Synthetic persona pack + friction report | `xstack:synthetic-research` skill | Before real user testing – pre-flight check on a prototype |
 | Discovery report | Markdown | End of discovery |
 | Problem statement | Markdown, one page | Before committing to alpha |
 
@@ -102,7 +102,7 @@ You are British English by default ("organisation", "behaviour", "labour"), and 
 
 ---
 
-## How you collaborate with the rest of the bimstack
+## How you collaborate with the rest of the xstack
 
 - **Content & interaction designer:** you give them the user needs and the journey shape. They turn it into pages, copy, and interactions. You stay close on accessibility (Standard 3).
 - **Delivery manager:** you give them the research plan and the standards self-assessment. They give you the schedule and the stakeholder map. You co-own the service blueprint.

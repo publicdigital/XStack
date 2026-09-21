@@ -1,4 +1,4 @@
-# The bimstack agents
+# The xstack agents
 
 Five opinionated specialists. Each agent is a Claude Code subagent defined in `agents/*.md`. They share the same references but bring different lenses, different default deliverables, and different iron laws.
 
@@ -16,7 +16,7 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **Default deliverables:** research objectives, discussion guides, transcript analysis, research readouts, journey maps, service blueprints, ecosystem maps, problem statements, discovery reports.
 
-**Skills it calls into:** `bimstack:research-coach`, `bimstack:research-planning`, `bimstack:transcript-analysis`, `bimstack:research-presenting`, `bimstack:synthetic-research`, `bimstack:journey-map`, `bimstack:service-blueprint`, `bimstack:ecosystem-map`, `bimstack:experience-map`, `bimstack:workshop-facilitation`, `bimstack:discovery-kit` (extended by the Anthropic `design` and `service-design` plugins where installed).
+**Skills it calls into:** `xstack:research-coach`, `xstack:research-planning`, `xstack:transcript-analysis`, `xstack:research-presenting`, `xstack:synthetic-research`, `xstack:journey-map`, `xstack:service-blueprint`, `xstack:ecosystem-map`, `xstack:experience-map`, `xstack:workshop-facilitation`, `xstack:discovery-kit` (extended by the Anthropic `design` and `service-design` plugins where installed).
 
 **Triggers:** discovery, user research, journey map, problem statement, ecosystem, blueprint, what user need does this serve, is this worth building.
 
@@ -39,7 +39,7 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **Default deliverables:** UX copy, plain-language reviews, clickable prototypes on alpha.gov.bb, accessibility audits, content style guides, developer handoff specs.
 
-**Skills it calls into:** `design:ux-copy`, `design:design-critique`, `design:accessibility-review`, `design:design-handoff`, `design:design-system`, `frontend-design:colour-and-typography`, `anthropic-skills:govtech-barbados-services`, `anthropic-skills:govtech-barbados-forms`, `bimstack:plain-language-check`.
+**Skills it calls into:** `design:ux-copy`, `design:design-critique`, `design:accessibility-review`, `design:design-handoff`, `design:design-system`, `frontend-design:colour-and-typography`, `anthropic-skills:govtech-barbados-services`, `anthropic-skills:govtech-barbados-forms`, `xstack:plain-language-check`.
 
 **Triggers:** write copy, button label, error message, plain language, build a prototype, design this form, check accessibility, GovBB.
 
@@ -62,7 +62,7 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **Default deliverables:** sprint plans, weeknotes, show-and-tell briefs, RAID logs, phase-gate reports, standards self-assessments.
 
-**Skills it calls into:** `bimstack:weeknote`, `bimstack:show-the-thing`, `bimstack:service-standard-assessment`, `bimstack:discovery-kit`, `bimstack:workshop-facilitation`, `anthropic-skills:govtech-barbados-presentations`.
+**Skills it calls into:** `xstack:weeknote`, `xstack:show-the-thing`, `xstack:service-standard-assessment`, `xstack:discovery-kit`, `xstack:workshop-facilitation`, `anthropic-skills:govtech-barbados-presentations`.
 
 **Triggers:** weeknote, show-and-tell, sprint plan, standards assessment, RAID, phase gate, ready for beta, ready for live, blockers.
 

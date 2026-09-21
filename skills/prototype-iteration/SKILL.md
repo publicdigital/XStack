@@ -1,11 +1,11 @@
 ---
 name: prototype-iteration
-description: Take a prototype and either structured feedback or raw research transcripts, produce the next version, with a changelog explaining what changed and why. Handles real-world messy inputs – when given transcripts, the skill synthesises first, then iterates. Use whenever the team has tested a bimstack prototype with users, the MDA, or each other and is ready for the next round. Triggers on "/bimstack:iterate", "next version of this prototype", "fold this feedback in", "v2 of the prototype", "improve this based on what we heard", "here are the transcripts".
+description: Take a prototype and either structured feedback or raw research transcripts, produce the next version, with a changelog explaining what changed and why. Handles real-world messy inputs – when given transcripts, the skill synthesises first, then iterates. Use whenever the team has tested an xstack prototype with users, the MDA, or each other and is ready for the next round. Triggers on "/xstack:iterate", "next version of this prototype", "fold this feedback in", "v2 of the prototype", "improve this based on what we heard", "here are the transcripts".
 ---
 
 # Prototype iteration
 
-This skill closes the feedback loop in the bimstack rapid-prototyping cycle. It takes a prototype (from `brief-to-prototypes` or any prior iteration), takes either **raw research transcripts** or **structured feedback**, and produces the next version of the prototype – with a clear changelog of what changed and why.
+This skill closes the feedback loop in the xstack rapid-prototyping cycle. It takes a prototype (from `brief-to-prototypes` or any prior iteration), takes either **raw research transcripts** or **structured feedback**, and produces the next version of the prototype – with a clear changelog of what changed and why.
 
 It supports Barbados Digital Service Standard 10 (continuously improved) and GOV.UK Principle 5 (iterate, then iterate again). Iteration is how a service moves from a guess to a thing that meets the need.
 
@@ -15,11 +15,11 @@ For the larger workflow, read the *Rapid prototyping loop* section in `PLAYBOOK.
 
 ## When to use
 
-- After every round of user testing on a bimstack prototype
+- After every round of user testing on an xstack prototype
 - After an MDA review session
 - After a show-and-tell where the audience surfaced new constraints
 - After an internal critique with the content & interaction designer or service designer
-- When the team has run /bimstack:build and wants to take one of the candidates forward through several iterations
+- When the team has run /xstack:build and wants to take one of the candidates forward through several iterations
 
 **Do not use this skill to merge multiple candidates into one.** That's a different decision (typically the "pick the path into beta" decision at the alpha gate). Each candidate iterates on its own terms until one is chosen.
 
@@ -52,7 +52,7 @@ prototype-N-name/feedback-round-K.md
 
 This is the structured feedback (themes, what worked, what didn't, observed-but-unresolved, constraints) extracted from the transcripts. It carries verbatim quotes back to the participant who said them. **Review this file before the iteration**. If the synthesis got something wrong, fix it and re-run the iteration step. The synthesis is the team's chance to catch the skill making the wrong call.
 
-The service-designer agent leads the synthesis, applying the behavioural discipline from `bimstack:transcript-analysis` – weight what participants did over what they said, flag workarounds and friction that changed behaviour, and cross-reference prior rounds where transcripts exist. The content-designer + developer agents lead the iteration. If the team wants the analysis itself (themes, evidence, confidence) rather than a prototype change, use `bimstack:transcript-analysis` directly.
+The service-designer agent leads the synthesis, applying the behavioural discipline from `xstack:transcript-analysis` – weight what participants did over what they said, flag workarounds and friction that changed behaviour, and cross-reference prior rounds where transcripts exist. The content-designer + developer agents lead the iteration. If the team wants the analysis itself (themes, evidence, confidence) rather than a prototype change, use `xstack:transcript-analysis` directly.
 
 ### Path B – Structured feedback you wrote yourself
 
@@ -175,7 +175,7 @@ prototype-1-phone-first/
 ├── iteration-1/
 │   ├── index.html  (existing)
 │   ├── assumptions.md
-│   └── (no CHANGES.md – this was the initial /bimstack:build output)
+│   └── (no CHANGES.md – this was the initial /xstack:build output)
 ├── iteration-2/
 │   ├── index.html  (new)
 │   ├── assumptions.md  (updated)
@@ -236,7 +236,7 @@ Default cadence:
 
 | Round | Typical activities |
 |---|---|
-| 1 | First version from `/bimstack:build`; 5–6 users in testing |
+| 1 | First version from `/xstack:build`; 5–6 users in testing |
 | 2 | Apply critical changes; 5–6 users |
 | 3 | Apply important changes; 8–10 users; first round with under-represented voices specifically recruited |
 | 4 | Refinement and edge cases; usually the last round before picking a path into beta |
@@ -253,4 +253,4 @@ Every iteration's `CHANGES.md` cites the standards that drove the change. Exampl
 > Standard 4 (simple language) – swapped "Resume application" for "Pick up where you left off".
 > Standard 7 (open platforms) – flagged Trident ID session-state behaviour for MIST.
 
-That way the alpha gate `/bimstack:assess` can trace every iteration back to the standards work.
+That way the alpha gate `/xstack:assess` can trace every iteration back to the standards work.

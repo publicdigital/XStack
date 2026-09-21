@@ -1,11 +1,11 @@
 ---
 name: brief-to-prototypes
-description: Turn a brief or a problem statement into multiple clickable HTML prototypes ready for user testing, in the GovTech Barbados house style, with assumptions surfaced inline. Use this when the team has a brief and wants to skip straight to testable artefacts instead of waiting weeks for the first prototype. Triggers on "build me a prototype", "turn this into a service", "give me something to test", "what could this look like", "/bimstack:build", "alpha prototypes for", "candidate alphas", "multiple alphas".
+description: Turn a brief or a problem statement into multiple clickable HTML prototypes ready for user testing, in the GovTech Barbados house style, with assumptions surfaced inline. Use this when the team has a brief and wants to skip straight to testable artefacts instead of waiting weeks for the first prototype. Triggers on "build me a prototype", "turn this into a service", "give me something to test", "what could this look like", "/xstack:build", "alpha prototypes for", "candidate alphas", "multiple alphas".
 ---
 
 # Brief → testable prototypes
 
-This skill is the build engine in bimstack. It takes a brief and produces **multiple** working HTML prototypes the team can put in front of citizens within hours, not weeks. Each prototype encodes a different design hypothesis. Each surfaces its assumptions so the team knows exactly what to validate in testing.
+This skill is the build engine in xstack. It takes a brief and produces **multiple** working HTML prototypes the team can put in front of citizens within hours, not weeks. Each prototype encodes a different design hypothesis. Each surfaces its assumptions so the team knows exactly what to validate in testing.
 
 It supports Barbados Digital Service Standards 1 (meet user needs), 3 (everyone can use it), 4 (simple, relatable language), 5 (works first time), and 7 (open, interoperable platforms). It explicitly does **not** replace user research – it makes user research faster to feed back into.
 
@@ -21,7 +21,7 @@ For the larger workflow this sits inside, read `PLAYBOOK.md` – the *Rapid prot
 - Discovery is ending and the team needs alphas to take into testing
 - A senior decision-maker is asking "what would it look like?" and the team needs an honest answer
 
-**Do not use this skill to skip discovery.** A prototype built without research is a guess made visible. Standard 1 still applies – the brief feeding into `/bimstack:build` should be evidence-led even when the build is fast.
+**Do not use this skill to skip discovery.** A prototype built without research is a guess made visible. Standard 1 still applies – the brief feeding into `/xstack:build` should be evidence-led even when the build is fast.
 
 ---
 
@@ -73,7 +73,7 @@ Every prototype has:
 - The official government banner ("This is the official government service of Barbados")
 - The yellow GovBB header with logo and navigation
 - The yellow alpha status banner ("alpha – this is a prototype, don't use it for real")
-- A second navy bimstack banner naming the prototype variant and offering a toggle for the assumptions panel
+- A second navy xstack banner naming the prototype variant and offering a toggle for the assumptions panel
 - The navy GovBB footer
 
 The chrome stays consistent across the three prototypes. That way the team is testing the journey, not the chrome.
@@ -88,7 +88,7 @@ Pages live in the same HTML file, shown one at a time via JavaScript navigation.
 
 ### 3. The assumptions panel (always, toggleable)
 
-Slide-out panel on the right, hidden by default so user testing sees a clean service, toggleable by a button in the bimstack banner. Lists every assumption the prototype makes, tagged:
+Slide-out panel on the right, hidden by default so user testing sees a clean service, toggleable by a button in the xstack banner. Lists every assumption the prototype makes, tagged:
 
 - `[VERIFY WITH USERS]` – needs a citizen to confirm in testing
 - `[VERIFY WITH MDA]` – needs an MDA conversation to confirm
@@ -164,13 +164,13 @@ The user then either:
 
 - Tests the prototypes with users (see `test-plan.md`)
 - Reviews them with the MDA before testing
-- Asks the agent to refine one variant using `/bimstack:iterate`
+- Asks the agent to refine one variant using `/xstack:iterate`
 
 ---
 
 ## What this skill does not do
 
-- **It does not write production code.** These prototypes are throwaway. They look like production but they are not. Standard 8 starts in beta, not in `/bimstack:build`.
+- **It does not write production code.** These prototypes are throwaway. They look like production but they are not. Standard 8 starts in beta, not in `/xstack:build`.
 - **It does not invent the user need.** The brief must come from research or from a clear MDA ask. The skill flags every gap as `[VERIFY WITH USERS]` – it does not paper over them.
 - **It does not skip the standards check.** Each prototype is generated with Standards 1, 3, 4, 5, 7 baked in. If a hypothesis violates one of these (e.g. an inaccessible prototype), the skill says so and either refuses or explicitly flags it as a known violation to test against.
 - **It does not lock in the design system gaps.** When the prototype reaches for a pattern the design system doesn't yet have, the skill marks it as `[KNOWN GAP]` and proposes the pattern back to the design system maintainers.
@@ -197,8 +197,8 @@ The prototype HTML has this skeleton.
   <div class="govbb-official-banner">This is the official government service of Barbados</div>
   <header class="govbb-header">…</header>
   <div class="govbb-status-banner govbb-status-banner--alpha">alpha – this is a prototype, don't use it for real renewals</div>
-  <div class="bimstack-banner">
-    <span>bimstack prototype: Variant 1 of 3 – Phone-first individual renewal</span>
+  <div class="xstack-banner">
+    <span>xstack prototype: Variant 1 of 3 – Phone-first individual renewal</span>
     <button onclick="toggleAssumptions()">Show assumptions (12)</button>
   </div>
   <main class="govbb-container">
@@ -211,7 +211,7 @@ The prototype HTML has this skeleton.
     <section id="page-confirmation" class="page">…</section>
   </main>
   <footer class="govbb-footer">…</footer>
-  <aside id="assumptions" class="bimstack-assumptions">…</aside>
+  <aside id="assumptions" class="xstack-assumptions">…</aside>
   <script>
     function goTo(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('page--active'));
@@ -219,7 +219,7 @@ The prototype HTML has this skeleton.
       window.scrollTo(0, 0);
     }
     function toggleAssumptions() {
-      document.getElementById('assumptions').classList.toggle('bimstack-assumptions--open');
+      document.getElementById('assumptions').classList.toggle('xstack-assumptions--open');
     }
   </script>
 </body>
@@ -235,9 +235,9 @@ The team should:
 1. Open each prototype in a browser. Click through it. Read the assumptions panel.
 2. Walk the journey on a phone, on a slow connection. Standard 3 begins here.
 3. Run the test plan with citizens. The skill produces this in `test-plan.md`.
-4. Bring feedback into `/bimstack:iterate` for the next version.
+4. Bring feedback into `/xstack:iterate` for the next version.
 
-The output of `/bimstack:build` is not the alpha. The output is the **starting point** for the alpha. The alpha is what the team learns from testing.
+The output of `/xstack:build` is not the alpha. The output is the **starting point** for the alpha. The alpha is what the team learns from testing.
 
 ---
 
@@ -247,7 +247,7 @@ Every prototype carries an inline comment in its `<head>` block citing the stand
 
 ```html
 <!--
-  bimstack prototype – Variant N of M
+  xstack prototype – Variant N of M
   Anchored to Barbados Digital Service Standards:
     1 (meet user needs)
     3 (everyone can use it)
@@ -259,4 +259,4 @@ Every prototype carries an inline comment in its `<head>` block citing the stand
 -->
 ```
 
-This is for the next team that reads the HTML – they should be able to see the bimstack lineage without having to dig.
+This is for the next team that reads the HTML – they should be able to see the xstack lineage without having to dig.

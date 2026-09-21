@@ -7,7 +7,7 @@ description: Self-assess a service against the 13 Barbados Digital Service Stand
 
 This skill walks an agent (or a human reading the output) through the 13 Barbados Digital Service Standards with evidence. It produces a structured report that names what's working, what isn't, and what the team should do next.
 
-The Barbados Digital Service Standards are at <https://github.com/govtech-bb/Barbados-Digital-Service-Standards>. The canonical bimstack reference is `references/barbados-service-standards.md`.
+The Barbados Digital Service Standards are at <https://github.com/govtech-bb/Barbados-Digital-Service-Standards>. The canonical xstack reference is `references/barbados-service-standards.md`.
 
 ---
 
