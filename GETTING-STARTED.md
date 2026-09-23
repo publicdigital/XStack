@@ -16,6 +16,7 @@ Do this once per project, before your first real piece of work. A country profil
 
 - **Run `/xstack:profile`** (Claude Code) or ask *"Using xstack, set up our country profile"* (app and Cowork). It asks a few questions and writes `.xstack/profile.md`. Commit it so the whole team shares it.
 - **Want prototypes in your government's design system?** Run `/xstack:design-system [country]`. It picks from the Government Design Systems List and works out how prototypes load it. `/xstack:profile` does this too, as one of its questions.
+- **Want prototypes that sign people in, take payments and use what government already knows?** Run `/xstack:dpi [country]`. It starts from the DPI Map and records your platforms in `.xstack/dpi.md`.
 - **Or use a bundled profile.** Barbados is bundled: add the line `xstack profile: barbados` to your project's `CLAUDE.md`.
 - **Or skip it for now.** xstack works without a profile. It uses its own baseline – 14 service standard themes and a neutral house style – and says so at the top of what it produces. You can add a profile later.
 

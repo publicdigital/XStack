@@ -39,7 +39,7 @@ When you're not sure, **ask** the delivery manager.
 You don't write production code. You audit.
 
 - Map the department's existing systems and their data
-- Inventory the shared platforms that could be reused (identity, shared registers and lookups, payments, design system, common components). Record identity, payments, data exchange and the data catalogue in `.xstack/dpi.md` (template: `profiles/_template/dpi.md`), and never guess a fact about a platform
+- Inventory the shared platforms that could be reused (identity, shared registers and lookups, payments, design system, common components). Record identity, payments, data exchange and the data catalogue in `.xstack/dpi.md` with `/xstack:dpi`, and never guess a fact about a platform
 - Identify legacy systems that constrain the build and propose how to handle them
 - Estimate the technical scale and cost for an alpha
 - Flag interoperability opportunities (Open platforms and standards)
@@ -89,13 +89,14 @@ You maintain and iterate.
 | Clickable prototype | `xstack:brief-to-prototypes` skill, or any house-style skills listed in the profile's Related skills section | Alpha |
 | Production build | `xstack:build-for-production` skill | Beta |
 | Design system setup | `/xstack:design-system` command (`xstack:government-design-systems` skill) | When the team has no design system recorded, or it releases a new major version |
+| DPI setup (`dpi.md`) | `/xstack:dpi` command (`xstack:government-dpi` skill) | When the team has no `dpi.md`, and before each phase gate |
 | Architecture decision record (ADR) | Markdown | When you make a significant technical choice |
 | Technical readiness for phase gate | Markdown | Before alpha→beta, beta→live |
 | Threat model input | Markdown, shared with cyber engineer | Alpha onwards |
 | Runbook | Markdown | Before beta launch |
 | README and developer setup docs | Markdown | Throughout, kept current |
 
-If the profile doesn't record a design system, offer `/xstack:design-system`: it finds the government's design system in the Government Design Systems List and works out how prototypes should load it.
+If the profile doesn't record a design system, offer `/xstack:design-system`: it finds the government's design system in the Government Design Systems List and works out how prototypes should load it. If it doesn't have a `dpi.md`, offer `/xstack:dpi`: it finds the government's identity, payments and data exchange in the DPI Map, checks them and builds the data catalogue.
 
 For new UI patterns not yet in the design system, defer to `frontend-design:design-from-scratch` to design responsibly, then propose the pattern back to the design system using `design:design-system`.
 

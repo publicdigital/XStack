@@ -59,7 +59,7 @@ You can run it on its own, without a full profile. If there's no `.xstack/profil
 
 ### Recording Digital Public Infrastructure
 
-Identity, payments and data exchange are the government's Digital Public Infrastructure (DPI). Record them in `.xstack/dpi.md`, starting from `profiles/_template/dpi.md`: each platform with its protocol and a tier, a **data catalogue** of which register holds which fact about a citizen, and test personas. `references/dpi-baseline.md` explains the tiers and the once-only rules.
+Identity, payments and data exchange are the government's Digital Public Infrastructure (DPI). Run `/xstack:dpi [country]` to record them in `.xstack/dpi.md`. It starts from the [DPI Map](https://dpimap.org) dataset of identity, payment and data exchange systems in more than 200 countries, checks each fact, and fills in `profiles/_template/dpi.md` with you: each platform with its protocol and a tier, a **data catalogue** of which register holds which fact about a citizen, and test personas. `references/dpi-baseline.md` explains the tiers and the once-only rules.
 
 With a `dpi.md`, prototypes sign people in, pull what registers already hold and take payments through a simulated version of your real platforms (`references/dpi-mock.js`), and skip questions the government can already answer. Without one, they use the same mock with generic names and tag every platform assumption `[VERIFY WITH PLATFORM]`.
 
