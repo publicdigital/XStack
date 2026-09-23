@@ -55,11 +55,18 @@ the name and "Details: design-system.md". -->
 
 ## Shared platforms
 
+<!-- Identity, payments and data exchange are your Digital Public Infrastructure (DPI). Record them in
+dpi.md next to this file (template: profiles/_template/dpi.md), including the data catalogue of which
+register holds which fact. Then this table only needs the names and "Details: dpi.md". -->
+
+- **Details:** <!-- dpi.md -->
+
 | Need | Platform | How to integrate |
 |---|---|---|
 | Identity and sign-in | | |
 | Personal details lookup | | |
 | Payments | | |
+| Data exchange between registers | | |
 | Notifications (email, SMS) | | |
 | Registers and lookups (businesses, vehicles, addresses) | | |
 

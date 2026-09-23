@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get a fishing licence – xstack DPI mock demo</title>
+  <!--
+    xstack prototype – DPI mock demo (not a candidate alpha)
+    Shows the once-only pattern from references/dpi-baseline.md with references/dpi-mock.js inlined:
+    sign in, ask to share, confirm pulled details, route without the platform, pay, and the unhappy paths.
+    Anchored to the xstack baseline themes:
+      Whole problem
+      Open platforms and standards
+      Trust, security and privacy
+      Inclusion
+    Design system: xstack neutral style
+    Assumptions surfaced in the right-hand panel.
+    references/dpi-mock.js is inlined in full in the first script tag, as every prototype does.
+  -->
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --xs-text: #0B0C0C;
+  --xs-text-secondary: #505A5F;
+  --xs-background: #FFFFFF;
+  --xs-surface: #F3F2F1;
+  --xs-border: #B1B4B6;
+  --xs-primary: #1D4F91;
+  --xs-primary-hover: #143A6B;
+  --xs-success: #00703C;
+  --xs-error: #D4351C;
+  --xs-focus: #FFDD00;
+  --xs-font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+}
+body { font-family: var(--xs-font); background: var(--xs-background); color: var(--xs-text); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+a:focus, button:focus, input:focus, select:focus, textarea:focus { outline: 3px solid var(--xs-focus); box-shadow: inset 0 0 0 2px var(--xs-text); }
+.xs-official-banner { background: var(--xs-surface); color: var(--xs-text); font-size: 14px; padding: 8px 24px; }
+.xs-header { background: var(--xs-primary); color: #FFFFFF; padding: 16px 24px; }
+.xs-header__service { font-size: 20px; font-weight: 700; color: #FFFFFF; text-decoration: none; }
+.xs-phase-banner { padding: 10px 24px; font-size: 15px; border-bottom: 1px solid var(--xs-border); }
+.xs-phase-banner strong { background: var(--xs-primary); color: #FFFFFF; padding: 2px 8px; font-size: 13px; text-transform: uppercase; margin-right: 8px; }
+.xstack-banner { background: var(--xs-text); color: #FFFFFF; padding: 10px 24px; font-size: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.xstack-banner__variant { font-weight: 600; }
+.xstack-banner button { background: var(--xs-focus); color: var(--xs-text); border: 0; padding: 6px 14px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit; }
+main.xs-container { max-width: 720px; width: 100%; margin: 32px auto; padding: 0 24px; flex: 1; }
+.xs-back-link { color: var(--xs-primary); text-decoration: underline; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; margin-bottom: 24px; }
+.xs-back-link::before { content: "← "; }
+h1 { font-size: 36px; line-height: 1.2; margin-bottom: 20px; }
+h2 { font-size: 24px; margin: 24px 0 12px; }
+p { font-size: 19px; margin-bottom: 16px; }
+.xs-label { display: block; font-size: 19px; font-weight: 700; margin-bottom: 6px; }
+.xs-hint { display: block; color: var(--xs-text-secondary); margin-bottom: 10px; }
+.xs-input { width: 100%; max-width: 480px; padding: 8px; font-size: 19px; border: 2px solid var(--xs-text); font-family: inherit; }
+.xs-error-summary { border: 4px solid var(--xs-error); padding: 16px; margin-bottom: 24px; }
+.xs-error-message { color: var(--xs-error); font-weight: 700; display: block; margin-bottom: 6px; }
+.xs-input[aria-invalid="true"] { border-color: var(--xs-error); }
+.xs-button { background: var(--xs-success); color: #FFFFFF; border: 0; padding: 10px 20px; font-size: 19px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 2px 0 #002D18; }
+.xs-summary-list { border-top: 1px solid var(--xs-border); margin-bottom: 24px; }
+.xs-summary-list__row { display: flex; border-bottom: 1px solid var(--xs-border); padding: 12px 0; }
+.xs-footer { background: var(--xs-surface); border-top: 1px solid var(--xs-border); padding: 32px 24px; margin-top: 48px; font-size: 16px; }
+.xs-footer a { color: var(--xs-primary); }
+.xstack-assumptions { position: fixed; right: -440px; top: 0; width: 420px; height: 100vh; background: #FFFBEA; border-left: 3px solid var(--xs-text); padding: 24px; overflow-y: auto; transition: right 0.25s ease-out; z-index: 100; box-shadow: -2px 0 8px rgba(0,0,0,0.1); }
+.xstack-assumptions--open { right: 0; }
+.xstack-assumptions__close { position: absolute; top: 16px; right: 16px; background: var(--xs-text); color: #FFFFFF; border: 0; width: 32px; height: 32px; font-size: 18px; cursor: pointer; }
+.xstack-assumptions h2 { font-size: 20px; margin: 0 0 12px; }
+.xstack-assumptions ul { list-style: none; }
+.xstack-assumptions li { margin-bottom: 14px; font-size: 14px; }
+.verify-tag { display: inline-block; background: var(--xs-text); color: #FFFFFF; font-size: 11px; padding: 2px 6px; font-weight: 700; margin-right: 6px; text-transform: uppercase; }
+.verify-tag--user { background: var(--xs-primary); }
+.verify-tag--department { background: #6B3E26; }
+.verify-tag--platform { background: #4A148C; }
+.verify-tag--policy { background: var(--xs-error); }
+.verify-tag--data { background: var(--xs-success); }
+.verify-tag--gap { background: var(--xs-focus); color: var(--xs-text); }
+.fake-data { display: inline-block; background: #FFF8DC; border: 1px dashed var(--xs-text-secondary); padding: 1px 4px; }
+.page { display: none; }
+.page--active { display: block; }
+@media (max-width: 720px) {
+  main.xs-container { padding: 0 16px; margin: 16px auto; }
+  h1 { font-size: 28px; }
+  .xstack-assumptions { width: 100vw; right: -100vw; }
+  .xs-summary-list__row { flex-direction: column; }
+}
+.xs-radio { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; font-size: 19px; }
+.xs-radio input { width: 24px; height: 24px; }
+.xs-fieldset { border: 0; margin-bottom: 24px; }
+.xs-legend { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+.xs-summary-list__key { font-weight: 700; width: 35%; padding-right: 16px; }
+.xs-summary-list__value { flex: 1; }
+.xs-summary-list__actions { padding-left: 16px; }
+.xs-source { display: block; font-size: 15px; color: var(--xs-text-secondary); }
+.xs-inset { border-left: 5px solid var(--xs-border); padding: 8px 16px; margin-bottom: 24px; }
+.xs-panel { background: var(--xs-success); color: #FFFFFF; padding: 24px; text-align: center; margin-bottom: 24px; }
+.xs-panel h1 { margin-bottom: 8px; }
+.xs-panel p { margin: 0; }
+.xs-secondary-link { color: var(--xs-primary); font-size: 19px; }
+  </style>
+</head>
+<body>
+  <div class="xs-official-banner">This is a prototype of a government service.</div>
+  <header class="xs-header"><a class="xs-header__service" href="#">Get a fishing licence</a></header>
+  <div class="xs-phase-banner"><strong>alpha</strong> This is a prototype – don't use it for real applications</div>
+  <div class="xstack-banner">
+    <span class="xstack-banner__variant">xstack DPI mock demo – sign in, share, confirm, pay</span>
+    <button type="button" onclick="toggleAssumptions()">Show assumptions (6)</button>
+  </div>
+
+  <main class="xs-container">
+
+    <section id="page-start" class="page page--active">
+      <h1>Get a fishing licence</h1>
+      <p>You need a licence to fish in rivers and lakes. It costs <span class="fake-data">$40</span> for 12 months or <span class="fake-data">$10</span> for 1 month. It's half price if you're 65 or over.</p>
+      <p>If you sign in with National ID, we'll use details the government already has, so you won't need to type them.</p>
+      <button type="button" class="xs-button" onclick="signIn()">Start now</button>
+      <p style="margin-top:24px"><a href="#" class="xs-secondary-link" onclick="startManual(); return false;">Continue without National ID</a></p>
+    </section>
+
+    <section id="page-confirm" class="page">
+      <button type="button" class="xs-back-link" onclick="goTo('page-start')">Back</button>
+      <h1>Check these details are correct</h1>
+      <p>We got these from government records.</p>
+      <dl class="xs-summary-list" id="confirm-list"></dl>
+      <form novalidate onsubmit="submitConfirm(event)">
+        <div id="confirm-errors"></div>
+        <fieldset class="xs-fieldset" id="confirm-field">
+          <legend class="xs-label">Is your address correct?</legend>
+          <span class="xs-error-message" id="confirm-error" hidden>Select yes if your address is correct</span>
+          <label class="xs-radio"><input type="radio" name="confirm" value="yes"> Yes</label>
+          <label class="xs-radio"><input type="radio" name="confirm" value="no"> No, I've moved or it's wrong</label>
+        </fieldset>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-manual-identity" class="page">
+      <button type="button" class="xs-back-link" onclick="goTo('page-start')">Back</button>
+      <div id="manual-intro"></div>
+      <form novalidate onsubmit="submitManualIdentity(event)">
+        <div id="identity-errors"></div>
+        <label class="xs-label" for="full-name">Full name</label>
+        <span class="xs-error-message" id="full-name-error" hidden>Enter your full name</span>
+        <input class="xs-input" id="full-name" name="full-name" autocomplete="name" style="margin-bottom:24px">
+        <fieldset class="xs-fieldset" id="dob-field">
+          <legend class="xs-label">Date of birth</legend>
+          <span class="xs-hint">For example, 27 3 1985</span>
+          <span class="xs-error-message" id="dob-error" hidden>Enter your date of birth</span>
+          <div style="display:flex;gap:12px">
+            <label>Day<br><input class="xs-input" id="dob-day" inputmode="numeric" style="width:4em" autocomplete="bday-day"></label>
+            <label>Month<br><input class="xs-input" id="dob-month" inputmode="numeric" style="width:4em" autocomplete="bday-month"></label>
+            <label>Year<br><input class="xs-input" id="dob-year" inputmode="numeric" style="width:6em" autocomplete="bday-year"></label>
+          </div>
+        </fieldset>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-address" class="page">
+      <button type="button" class="xs-back-link" onclick="goTo(state.fromConfirm ? 'page-confirm' : (state.signedIn ? 'page-start' : 'page-manual-identity'))">Back</button>
+      <div id="address-intro"></div>
+      <form novalidate onsubmit="submitAddress(event)">
+        <div id="address-errors"></div>
+        <label class="xs-label" for="address">What is your address?</label>
+        <span class="xs-hint">We'll send your licence here</span>
+        <span class="xs-error-message" id="address-error" hidden>Enter your address</span>
+        <textarea class="xs-input" id="address" rows="3" autocomplete="street-address" style="margin-bottom:24px"></textarea>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-length" class="page">
+      <button type="button" class="xs-back-link" onclick="goTo(state.backFromLength)">Back</button>
+      <form novalidate onsubmit="submitLength(event)">
+        <div id="length-errors"></div>
+        <fieldset class="xs-fieldset" id="length-field">
+          <legend class="xs-legend"><h1 style="font-size:inherit;margin:0">How long do you want your licence for?</h1></legend>
+          <p id="concession-note" class="xs-inset" hidden></p>
+          <span class="xs-error-message" id="length-error" hidden>Select how long you want your licence for</span>
+          <label class="xs-radio"><input type="radio" name="length" value="12"> <span>12 months – <span data-price="12"></span></span></label>
+          <label class="xs-radio"><input type="radio" name="length" value="1"> <span>1 month – <span data-price="1"></span></span></label>
+        </fieldset>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-check" class="page">
+      <button type="button" class="xs-back-link" onclick="goTo('page-length')">Back</button>
+      <h1>Check your answers</h1>
+      <dl class="xs-summary-list" id="check-list"></dl>
+      <h2>Now pay</h2>
+      <p>You'll go to Government payments to pay <strong id="check-fee"></strong>.</p>
+      <button type="button" class="xs-button" onclick="pay()">Continue to payment</button>
+    </section>
+
+    <section id="page-pay-problem" class="page">
+      <h1>Your payment did not go through</h1>
+      <p>You have not been charged.</p>
+      <p>You can try again with a different card, or pay at any fisheries office with reference <strong class="fake-data" id="problem-ref"></strong>.</p>
+      <button type="button" class="xs-button" onclick="pay()">Try again</button>
+    </section>
+
+    <section id="page-confirmation" class="page">
+      <div class="xs-panel">
+        <h1>Licence paid for</h1>
+        <p>Your reference is <strong class="fake-data" id="done-ref"></strong></p>
+      </div>
+      <p>We've taken <strong id="done-fee"></strong>. Your payment reference is <span class="fake-data" id="done-txn"></span>.</p>
+      <h2>What happens next</h2>
+      <p>We'll post your licence to the address you gave us within 5 working days. You can fish from today if you carry this reference.</p>
+    </section>
+
+  </main>
+
+  <footer class="xs-footer"><a href="#">Privacy</a> · <a href="#">Accessibility</a> · <a href="#">Contact</a></footer>
+
+  <aside id="assumptions" class="xstack-assumptions" aria-label="Assumptions">
+    <button type="button" class="xstack-assumptions__close" onclick="toggleAssumptions()" aria-label="Close assumptions">×</button>
+    <h2>Question map</h2>
+    <ul>
+      <li><strong>Name, date of birth:</strong> known, from National ID. Fallback: ask.</li>
+      <li><strong>Address:</strong> known, from the Civil Registry via the data exchange. Confirmed, not prefilled. Fallback: ask.</li>
+      <li><strong>Half-price concession:</strong> derived from date of birth. Never asked.</li>
+      <li><strong>Licence length:</strong> ask.</li>
+    </ul>
+    <h2>Assumptions</h2>
+    <ul>
+      <li><span class="verify-tag verify-tag--platform">Verify with platform</span> National ID returns name and date of birth at an assurance level this service accepts.</li>
+      <li><span class="verify-tag verify-tag--platform">Verify with platform</span> The Civil Registry address is reachable through the data exchange for this purpose.</li>
+      <li><span class="verify-tag verify-tag--policy">Verify with policy</span> There is a lawful basis to pull the address with the citizen's consent.</li>
+      <li><span class="verify-tag verify-tag--user">Verify with users</span> People read pulled details before confirming, and notice an old address.</li>
+      <li><span class="verify-tag verify-tag--user">Verify with users</span> People who continue without National ID don't feel it's a lesser route.</li>
+      <li><span class="verify-tag verify-tag--department">Verify with department</span> Fisheries offices can take payment with a reference when card payment fails.</li>
+    </ul>
+    <h2>Researcher notes</h2>
+    <ul>
+      <li>Choose the test person on the simulated National ID screen. Each one runs a different scenario.</li>
+      <li>Daniel Mensah is 65 or over, so he also shows the half-price concession worked out from his date of birth.</li>
+      <li>Tomás Rivera's payment is declined every time, so "Try again" declines too. Watch what they do next.</li>
+      <li>To refuse sharing, sign in as anyone and choose "No, I will type them in".</li>
+    </ul>
+  </aside>
+
+  <script>
+/*
+  xstack DPI mock – v1
+  Simulated identity, data exchange (with consent) and payments for single-file alpha prototypes.
+  Implements the contract in references/dpi-baseline.md. Inline this whole file in a <script> tag.
+
+  Nothing here talks to a real platform. Every citizen is made up. Every screen says it is simulated.
+
+  Usage:
+    const dpi = xstackDpi.create({
+      serviceName: 'Renew your vehicle licence',
+      locale: 'en-US',                    // optional – formats amounts on the payment screen
+      platforms: {
+        identity: { name: 'National ID' },
+        exchange: { name: 'Government data exchange' },
+        payments: { name: 'Government payments', currency: 'USD' }
+      },
+      attributes: {                       // the slice of the data catalogue this service uses
+        address: { label: 'Home address', source: 'Civil Registry' },
+        vehicle: { label: 'Vehicle', source: 'Licensing Authority' }
+      },
+      personas: [ … ]                     // optional – see DEFAULT_PERSONAS for the shape
+    });
+
+    const who = await dpi.identity.signIn({ purpose: 'renew your vehicle licence' });
+    //  { status: 'signed_in' | 'cancelled' | 'failed', subject, claims, level }
+    const got = await dpi.data.fetch({ subject: who.subject, attributes: ['address', 'vehicle'], purpose: '…' });
+    //  { status: 'ok' | 'not_found' | 'refused', consentId, values: { address: { value, source, asOf } }, missing: [] }
+    const paid = await dpi.payments.create({ amount: 120, reference: 'VL-4821', description: 'Vehicle licence, 12 months' });
+    //  { status: 'paid' | 'declined' | 'cancelled', receipt }
+*/
+(function (global) {
+  'use strict';
+
+  // Placeholder personas, one per research scenario. Replace them with locally realistic
+  // people in the profile's data formats. Keep every value obviously fake.
+  var DEFAULT_PERSONAS = [
+    { id: 'found', label: 'Everything found and correct',
+      claims: { fullName: 'Test Citizen A', dateOfBirth: '1984-03-12', nationalId: 'MOCK-000-0001' },
+      data: { address: '[Mock] 1 Example Street, Central District' } },
+    { id: 'stale', label: 'Address is out of date (has moved)',
+      claims: { fullName: 'Test Citizen B', dateOfBirth: '1991-11-02', nationalId: 'MOCK-000-0002' },
+      data: { address: '[Mock] 22 Old Road, North District' }, note: 'Now lives somewhere else. Should correct the address.' },
+    { id: 'no-record', label: 'No record in the registers',
+      claims: { fullName: 'Test Citizen C', dateOfBirth: '2001-06-30', nationalId: 'MOCK-000-0003' },
+      data: {} },
+    { id: 'declined', label: 'Payment is declined',
+      claims: { fullName: 'Test Citizen D', dateOfBirth: '1976-01-19', nationalId: 'MOCK-000-0004' },
+      data: { address: '[Mock] 5 Sample Lane, South District' }, payment: 'declined' },
+    { id: 'no-sign-in', label: 'Can\'t be verified',
+      claims: {}, data: {}, signIn: 'failed' }
+  ];
+
+  var CSS = [
+    '.xsdpi{position:fixed;inset:0;z-index:1000;background:#F4F4F6;color:#1B1B1F;overflow-y:auto;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;line-height:1.5}',
+    '.xsdpi__sim{background:#4A148C;color:#FFF;padding:8px 16px;font-size:14px;font-weight:600}',
+    '.xsdpi__bar{background:#FFF;border-bottom:1px solid #C8C8D0;padding:14px 16px;font-weight:700;font-size:18px}',
+    '.xsdpi__body{max-width:560px;margin:24px auto;padding:0 16px}',
+    '.xsdpi h2{font-size:26px;line-height:1.25;margin:0 0 16px}',
+    '.xsdpi p,.xsdpi li,.xsdpi label,.xsdpi dd,.xsdpi dt{font-size:18px}',
+    '.xsdpi p{margin:0 0 16px}',
+    '.xsdpi ul{margin:0 0 16px 20px}',
+    '.xsdpi fieldset{border:0;padding:0;margin:0 0 20px}',
+    '.xsdpi legend{font-weight:700;font-size:18px;margin-bottom:8px}',
+    '.xsdpi__opt{display:flex;gap:10px;align-items:flex-start;padding:10px;border:2px solid #C8C8D0;background:#FFF;margin-bottom:8px;cursor:pointer}',
+    '.xsdpi__opt input{width:22px;height:22px;margin-top:3px;flex:none}',
+    '.xsdpi__opt small{display:block;color:#55555F;font-size:15px}',
+    '.xsdpi__card{background:#FFF;border:1px solid #C8C8D0;padding:16px;margin-bottom:20px}',
+    '.xsdpi dl{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:0}',
+    '.xsdpi dt{font-weight:700}.xsdpi dd{margin:0}',
+    '.xsdpi__actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}',
+    '.xsdpi__btn{background:#4A148C;color:#FFF;border:0;padding:12px 20px;font:inherit;font-size:18px;font-weight:700;cursor:pointer}',
+    '.xsdpi__btn--secondary{background:#FFF;color:#4A148C;border:2px solid #4A148C;padding:10px 18px}',
+    '.xsdpi__link{background:none;border:0;color:#4A148C;text-decoration:underline;font:inherit;font-size:18px;cursor:pointer;padding:0}',
+    '.xsdpi :focus{outline:3px solid #FFDD00;outline-offset:0;box-shadow:inset 0 0 0 2px #1B1B1F}',
+    '.xsdpi__error{border-left:5px solid #D4351C;padding-left:12px}',
+    '.xsdpi__wait{font-size:20px;padding:32px 0}'
+  ].join('\n');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function id(prefix) { return prefix + '-' + Math.random().toString(36).slice(2, 8).toUpperCase(); }
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function today() { return new Date().toISOString().slice(0, 10); }
+  function money(amount, currency, locale) {
+    try { return new Intl.NumberFormat(locale, { style: 'currency', currency: currency }).format(amount); }
+    catch (e) { return currency + ' ' + Number(amount).toFixed(2); }
+  }
+
+  function create(config) {
+    config = config || {};
+    var platforms = config.platforms || {};
+    var identityName = (platforms.identity && platforms.identity.name) || 'National identity platform';
+    var exchangeName = (platforms.exchange && platforms.exchange.name) || 'Government data exchange';
+    var paymentsName = (platforms.payments && platforms.payments.name) || 'Government payments';
+    var currency = (platforms.payments && platforms.payments.currency) || 'USD';
+    var serviceName = config.serviceName || 'This service';
+    var attributes = config.attributes || {};
+    var personas = config.personas || DEFAULT_PERSONAS;
+    var locale = config.locale;               // e.g. 'en-BB', so amounts match the service's own formatting
+    var latency = config.latencyMs == null ? 900 : config.latencyMs;
+    var current = null;
+
+    if (!document.getElementById('xsdpi-style')) {
+      var style = document.createElement('style');
+      style.id = 'xsdpi-style';
+      style.textContent = CSS;
+      document.head.appendChild(style);
+    }
+
+    // One simulated platform screen at a time, as a modal dialog over the service.
+    function screen(platformName, html, bind) {
+      return new Promise(function (resolve) {
+        var opener = document.activeElement;
+        var siblings = Array.prototype.filter.call(document.body.children, function (el) { return !el.hasAttribute('inert'); });
+        siblings.forEach(function (el) { el.setAttribute('inert', ''); });
+        var root = document.createElement('div');
+        root.className = 'xsdpi';
+        root.setAttribute('role', 'dialog');
+        root.setAttribute('aria-modal', 'true');
+        root.setAttribute('aria-labelledby', 'xsdpi-title');
+        root.innerHTML =
+          '<div class="xsdpi__sim">Simulated ' + esc(platformName) + ' – part of an xstack prototype. No real data is used.</div>' +
+          '<div class="xsdpi__bar">' + esc(platformName) + '</div>' +
+          '<div class="xsdpi__body">' + html + '</div>';
+        document.body.appendChild(root);
+        function done(result) {
+          root.remove();
+          siblings.forEach(function (el) { el.removeAttribute('inert'); });
+          if (opener && opener.focus) opener.focus();
+          resolve(result);
+        }
+        root.addEventListener('keydown', function (e) { if (e.key === 'Escape') done({ status: 'cancelled' }); });
+        focusTitle(root);
+        bind(root, done);
+      });
+    }
+
+    // Keep the 'Simulated' strip in view: focus the heading without scrolling past it.
+    function focusTitle(root) {
+      var title = root.querySelector('#xsdpi-title');
+      if (title) { title.setAttribute('tabindex', '-1'); title.focus({ preventScroll: true }); }
+      root.scrollTop = 0;
+    }
+
+    function replace(root, html) {
+      root.querySelector('.xsdpi__body').innerHTML = html;
+      focusTitle(root);
+    }
+
+    function signIn(opts) {
+      opts = opts || {};
+      var options = personas.map(function (p, i) {
+        return '<label class="xsdpi__opt"><input type="radio" name="xsdpi-persona" value="' + i + '"' + (i === 0 ? ' checked' : '') + '>' +
+          '<span>' + esc(p.claims.fullName || 'Unknown person') + '<small>' + esc(p.label) + (p.note ? ' – ' + esc(p.note) : '') + '</small></span></label>';
+      }).join('');
+      var html =
+        '<h2 id="xsdpi-title">Sign in to continue</h2>' +
+        '<p>' + esc(serviceName) + ' uses ' + esc(identityName) + ' to check who you are' + (opts.purpose ? ', so you can ' + esc(opts.purpose) : '') + '.</p>' +
+        '<fieldset><legend>Test person (for the researcher to choose)</legend>' + options + '</fieldset>' +
+        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-go>Continue</button>' +
+        '<button class="xsdpi__link" data-cancel>Go back to the service</button></div>';
+      return screen(identityName, html, function (root, done) {
+        root.querySelector('[data-cancel]').onclick = function () { done({ status: 'cancelled' }); };
+        root.querySelector('[data-go]').onclick = function () {
+          var picked = personas[Number(root.querySelector('input[name="xsdpi-persona"]:checked').value)];
+          replace(root, '<p class="xsdpi__wait" id="xsdpi-title" role="status">Checking your identity…</p>');
+          wait(latency).then(function () {
+            if (picked.signIn === 'failed') {
+              replace(root,
+                '<div class="xsdpi__error"><h2 id="xsdpi-title">We could not confirm who you are</h2>' +
+                '<p>You can go back to the service and continue another way.</p></div>' +
+                '<button class="xsdpi__btn" data-back>Go back to the service</button>');
+              root.querySelector('[data-back]').onclick = function () { done({ status: 'failed' }); };
+              return;
+            }
+            current = picked;
+            done({ status: 'signed_in', subject: 'sub-' + picked.id, claims: Object.assign({}, picked.claims), level: 'substantial', persona: picked.id });
+          });
+        };
+      });
+    }
+
+    function fetchData(opts) {
+      opts = opts || {};
+      var wanted = opts.attributes || [];
+      var bySource = {};
+      wanted.forEach(function (key) {
+        var a = attributes[key] || { label: key, source: exchangeName };
+        (bySource[a.source] = bySource[a.source] || []).push(a.label);
+      });
+      var list = Object.keys(bySource).map(function (src) {
+        return '<li><strong>' + esc(src) + ':</strong> ' + esc(bySource[src].join(', ')) + '</li>';
+      }).join('');
+      var html =
+        '<h2 id="xsdpi-title">Can we get your details from government records?</h2>' +
+        '<p>' + esc(serviceName) + ' wants to get:</p><ul>' + list + '</ul>' +
+        (opts.purpose ? '<p>This is so we can ' + esc(opts.purpose) + '.</p>' : '') +
+        '<p>You will be able to check them and change anything that is wrong. If you say no, you can type them in yourself.</p>' +
+        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-yes>Yes, get my details</button>' +
+        '<button class="xsdpi__btn xsdpi__btn--secondary" data-no>No, I will type them in</button></div>';
+      return screen(exchangeName, html, function (root, done) {
+        root.querySelector('[data-no]').onclick = function () { done({ status: 'refused', values: {}, missing: wanted.slice() }); };
+        root.querySelector('[data-yes]').onclick = function () {
+          var consent = { id: id('CONSENT'), purpose: opts.purpose || '', attributes: wanted.slice(), sources: Object.keys(bySource), grantedAt: new Date().toISOString() };
+          api.consents.push(consent);
+          replace(root, '<p class="xsdpi__wait" id="xsdpi-title" role="status">Getting your details…</p>');
+          wait(latency).then(function () {
+            var data = (current && current.data) || {};
+            var values = {}, missing = [];
+            wanted.forEach(function (key) {
+              if (data[key] == null) { missing.push(key); return; }
+              var a = attributes[key] || { source: exchangeName };
+              values[key] = { value: data[key], source: a.source, asOf: today() };
+            });
+            done({ status: Object.keys(values).length ? 'ok' : 'not_found', consentId: consent.id, values: values, missing: missing });
+          });
+        };
+      });
+    }
+
+    function pay(opts) {
+      opts = opts || {};
+      var cur = opts.currency || currency;
+      var amount = money(opts.amount || 0, cur, locale);
+      var html =
+        '<h2 id="xsdpi-title">Pay ' + esc(amount) + '</h2>' +
+        '<div class="xsdpi__card"><dl>' +
+        '<dt>To</dt><dd>' + esc(serviceName) + '</dd>' +
+        '<dt>For</dt><dd>' + esc(opts.description || '') + '</dd>' +
+        '<dt>Reference</dt><dd>' + esc(opts.reference || '') + '</dd></dl></div>' +
+        '<p>This is a simulated payment page. Nothing will be charged.</p>' +
+        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-pay>Pay ' + esc(amount) + '</button>' +
+        '<button class="xsdpi__link" data-cancel>Cancel payment</button></div>';
+      return screen(paymentsName, html, function (root, done) {
+        root.querySelector('[data-cancel]').onclick = function () { done({ status: 'cancelled' }); };
+        root.querySelector('[data-pay]').onclick = function () {
+          replace(root, '<p class="xsdpi__wait" id="xsdpi-title" role="status">Processing your payment…</p>');
+          wait(latency).then(function () {
+            if (current && current.payment === 'declined') {
+              replace(root,
+                '<div class="xsdpi__error"><h2 id="xsdpi-title">Your payment was declined</h2>' +
+                '<p>You have not been charged. Go back to the service to try again or pay another way.</p></div>' +
+                '<button class="xsdpi__btn" data-back>Go back to the service</button>');
+              root.querySelector('[data-back]').onclick = function () { done({ status: 'declined' }); };
+              return;
+            }
+            done({ status: 'paid', receipt: {
+              transactionId: id('TXN'), reference: opts.reference || '', amount: opts.amount || 0,
+              currency: cur, formatted: amount, paidAt: new Date().toISOString() } });
+          });
+        };
+      });
+    }
+
+    var api = {
+      mode: 'mock',
+      identity: { signIn: signIn },
+      data: { fetch: fetchData },
+      payments: { create: pay },
+      consents: [],
+      persona: function () { return current; },
+      reset: function () { current = null; api.consents.length = 0; }
+    };
+    return api;
+  }
+
+  global.xstackDpi = { create: create, DEFAULT_PERSONAS: DEFAULT_PERSONAS };
+})(window);
+  </script>
+  <script>
+    var dpi = xstackDpi.create({
+      serviceName: 'Get a fishing licence',
+      locale: 'en-US',
+      platforms: {
+        identity: { name: 'National ID' },
+        exchange: { name: 'Government data exchange' },
+        payments: { name: 'Government payments', currency: 'USD' }
+      },
+      attributes: {
+        address: { label: 'your home address', source: 'Civil Registry' }
+      },
+      personas: [
+        { id: 'found', label: 'Everything found and correct',
+          claims: { fullName: 'Amara Okafor', dateOfBirth: '1984-03-12', nationalId: 'MOCK-000-0001' },
+          data: { address: '[Mock] 14 Harbour Road, Eastport' } },
+        { id: 'stale', label: 'Address is out of date', note: 'Moved last year. Should say no and give a new address.',
+          claims: { fullName: 'Daniel Mensah', dateOfBirth: '1958-11-02', nationalId: 'MOCK-000-0002' },
+          data: { address: '[Mock] 3 Mill Lane, Westbridge' } },
+        { id: 'no-record', label: 'No record in the Civil Registry',
+          claims: { fullName: 'Priya Nair', dateOfBirth: '2001-06-30', nationalId: 'MOCK-000-0003' },
+          data: {} },
+        { id: 'declined', label: 'Payment is declined',
+          claims: { fullName: 'Tomás Rivera', dateOfBirth: '1976-01-19', nationalId: 'MOCK-000-0004' },
+          data: { address: '[Mock] 88 Quay Street, Eastport' }, payment: 'declined' },
+        { id: 'no-sign-in', label: 'Can\'t be verified', claims: {}, data: {}, signIn: 'failed' }
+      ]
+    });
+
+    var state = {};
+    var reference = 'FL-' + Math.floor(100000 + Math.random() * 900000);
+
+    function goTo(pageId) {
+      document.querySelectorAll('.page').forEach(function (p) { p.classList.remove('page--active'); });
+      var page = document.getElementById(pageId);
+      page.classList.add('page--active');
+      window.scrollTo(0, 0);
+      var h = page.querySelector('h1');
+      if (h) { h.setAttribute('tabindex', '-1'); h.focus(); }
+    }
+    function toggleAssumptions() {
+      document.getElementById('assumptions').classList.toggle('xstack-assumptions--open');
+    }
+    function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+    function longDate(iso) {
+      var p = iso.split('-');
+      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      return Number(p[2]) + ' ' + months[Number(p[1]) - 1] + ' ' + p[0];
+    }
+    function age(iso) {
+      var b = new Date(iso), n = new Date(), a = n.getFullYear() - b.getFullYear();
+      if (n.getMonth() < b.getMonth() || (n.getMonth() === b.getMonth() && n.getDate() < b.getDate())) a--;
+      return a;
+    }
+    function fee(months) { var full = months === '12' ? 40 : 10; return state.concession ? full / 2 : full; }
+    function money(n) { return '$' + n.toFixed(2); }
+
+    function showErrors(boxId, errors) {
+      var box = document.getElementById(boxId);
+      document.querySelectorAll('.xs-error-message').forEach(function (e) { e.hidden = true; });
+      document.querySelectorAll('[aria-invalid]').forEach(function (e) { e.removeAttribute('aria-invalid'); });
+      document.title = document.title.replace(/^Error: /, '');
+      if (!errors.length) { box.innerHTML = ''; return false; }
+      box.innerHTML = '<div class="xs-error-summary" role="alert" tabindex="-1"><h2 style="margin-top:0">There is a problem</h2><ul>' +
+        errors.map(function (e) { return '<li><a href="#' + e.field + '">' + e.text + '</a></li>'; }).join('') + '</ul></div>';
+      errors.forEach(function (e) {
+        document.getElementById(e.msg).hidden = false;
+        var input = document.getElementById(e.field);
+        if (input) input.setAttribute('aria-invalid', 'true');
+      });
+      document.title = 'Error: ' + document.title;
+      box.firstChild.focus();
+      return true;
+    }
+
+    // Sign in, then ask to share the address.
+    function signIn() {
+      state = {};
+      dpi.identity.signIn({ purpose: 'get a fishing licence' }).then(function (who) {
+        if (who.status !== 'signed_in') {
+          startManual(who.status === 'failed' ? 'We could not confirm who you are with National ID. You can still get a licence by telling us your details.' : null);
+          return;
+        }
+        state.signedIn = true;
+        state.fullName = { value: who.claims.fullName, source: 'National ID' };
+        state.dateOfBirth = { value: who.claims.dateOfBirth, source: 'National ID' };
+        return dpi.data.fetch({ subject: who.subject, attributes: ['address'], purpose: 'send your licence to your home' }).then(function (got) {
+          if (got.status === 'ok') {
+            state.pulledAddress = got.values.address;
+            renderConfirm();
+            goTo('page-confirm');
+          } else {
+            state.fromConfirm = false;
+            document.getElementById('address-intro').innerHTML = got.status === 'refused'
+              ? '<p class="xs-inset">You chose to type your address yourself.</p>'
+              : '<p class="xs-inset">We could not find your address in government records. Please tell us where you live.</p>';
+            goTo('page-address');
+          }
+        });
+      });
+    }
+
+    function startManual(message) {
+      state = { signedIn: false };
+      document.getElementById('manual-intro').innerHTML =
+        (message ? '<p class="xs-inset">' + esc(message) + '</p>' : '') + '<h1>Your details</h1>';
+      document.getElementById('address-intro').innerHTML = '';
+      goTo('page-manual-identity');
+    }
+
+    function renderConfirm() {
+      var rows = [
+        ['Name', state.fullName], ['Date of birth', { value: longDate(state.dateOfBirth.value), source: state.dateOfBirth.source }],
+        ['Address', state.pulledAddress]
+      ];
+      document.getElementById('confirm-list').innerHTML = rows.map(function (r) {
+        return '<div class="xs-summary-list__row"><dt class="xs-summary-list__key">' + r[0] + '</dt><dd class="xs-summary-list__value">' +
+          '<span class="fake-data">' + esc(r[1].value) + '</span><span class="xs-source">From ' + esc(r[1].source) + '</span></dd></div>';
+      }).join('');
+    }
+
+    function submitConfirm(e) {
+      e.preventDefault();
+      var picked = document.querySelector('input[name="confirm"]:checked');
+      if (showErrors('confirm-errors', picked ? [] : [{ field: 'confirm-field', msg: 'confirm-error', text: 'Select yes if your address is correct' }])) return;
+      if (picked.value === 'yes') { state.address = state.pulledAddress; toLength('page-confirm'); return; }
+      state.fromConfirm = true;
+      document.getElementById('address-intro').innerHTML = '<p class="xs-inset">We\'ll use the address you give us for this licence, and tell the Civil Registry so you can update your record.</p>';
+      goTo('page-address');
+    }
+
+    function submitManualIdentity(e) {
+      e.preventDefault();
+      var name = document.getElementById('full-name').value.trim();
+      var d = document.getElementById('dob-day').value.trim(), m = document.getElementById('dob-month').value.trim(), y = document.getElementById('dob-year').value.trim();
+      var errors = [];
+      if (!name) errors.push({ field: 'full-name', msg: 'full-name-error', text: 'Enter your full name' });
+      var validDob = /^\d{1,2}$/.test(d) && /^\d{1,2}$/.test(m) && /^\d{4}$/.test(y) && +m >= 1 && +m <= 12 && +d >= 1 && +d <= 31;
+      if (!validDob) errors.push({ field: 'dob-day', msg: 'dob-error', text: 'Enter your date of birth' });
+      if (showErrors('identity-errors', errors)) return;
+      state.fullName = { value: name, source: 'you' };
+      state.dateOfBirth = { value: y + '-' + ('0' + m).slice(-2) + '-' + ('0' + d).slice(-2), source: 'you' };
+      state.fromConfirm = false;
+      goTo('page-address');
+    }
+
+    function submitAddress(e) {
+      e.preventDefault();
+      var a = document.getElementById('address').value.trim();
+      if (showErrors('address-errors', a ? [] : [{ field: 'address', msg: 'address-error', text: 'Enter your address' }])) return;
+      state.address = { value: a, source: 'you' };
+      toLength('page-address');
+    }
+
+    function toLength(from) {
+      state.backFromLength = from;
+      state.concession = age(state.dateOfBirth.value) >= 65;
+      var note = document.getElementById('concession-note');
+      note.hidden = !state.concession;
+      note.textContent = state.concession ? 'You get half price because you are 65 or over.' : '';
+      document.querySelectorAll('[data-price]').forEach(function (el) { el.textContent = money(fee(el.getAttribute('data-price'))); });
+      goTo('page-length');
+    }
+
+    function submitLength(e) {
+      e.preventDefault();
+      var picked = document.querySelector('input[name="length"]:checked');
+      if (showErrors('length-errors', picked ? [] : [{ field: 'length-field', msg: 'length-error', text: 'Select how long you want your licence for' }])) return;
+      state.months = picked.value;
+      renderCheck();
+      goTo('page-check');
+    }
+
+    function renderCheck() {
+      var source = function (s) { return s === 'you' ? 'You told us' : 'From ' + s; };
+      var rows = [
+        ['Name', state.fullName.value, source(state.fullName.source), 'page-manual-identity'],
+        ['Date of birth', longDate(state.dateOfBirth.value), source(state.dateOfBirth.source), 'page-manual-identity'],
+        ['Address', state.address.value, source(state.address.source), 'page-address'],
+        ['Licence', (state.months === '12' ? '12 months' : '1 month') + (state.concession ? ', half price' : ''), 'You told us', 'page-length']
+      ];
+      document.getElementById('check-list').innerHTML = rows.map(function (r) {
+        var canChange = !(r[2].indexOf('From National ID') === 0);
+        return '<div class="xs-summary-list__row"><dt class="xs-summary-list__key">' + r[0] + '</dt><dd class="xs-summary-list__value">' +
+          esc(r[1]) + '<span class="xs-source">' + esc(r[2]) + '</span></dd>' +
+          '<dd class="xs-summary-list__actions">' + (canChange ? '<a href="#" onclick="goTo(\'' + r[3] + '\'); return false;">Change<span class="visually-hidden" style="position:absolute;left:-9999px"> ' + r[0].toLowerCase() + '</span></a>' : '') + '</dd></div>';
+      }).join('');
+      document.getElementById('check-fee').textContent = money(fee(state.months));
+    }
+
+    function pay() {
+      var amount = fee(state.months);
+      dpi.payments.create({ amount: amount, reference: reference, description: 'Fishing licence, ' + (state.months === '12' ? '12 months' : '1 month') }).then(function (paid) {
+        if (paid.status === 'paid') {
+          document.getElementById('done-ref').textContent = reference;
+          document.getElementById('done-fee').textContent = paid.receipt.formatted;
+          document.getElementById('done-txn').textContent = paid.receipt.transactionId;
+          goTo('page-confirmation');
+        } else if (paid.status === 'declined') {
+          document.getElementById('problem-ref').textContent = reference;
+          goTo('page-pay-problem');
+        }
+        // cancelled: stay on Check your answers
+      });
+    }
+  </script>
+</body>
+</html>

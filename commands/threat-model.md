@@ -10,7 +10,8 @@ Before you start, gather these from the user if they haven't already provided th
 - Service name and the department that owns it
 - Phase – alpha (first model), beta (refined model), live (quarterly refresh)
 - What personal data the service collects, processes, stores, and shares
-- Which shared platforms are integrated – identity, registers and lookups, payments (names from the country profile, where there is one)
+- Which shared platforms are integrated – identity, registers and lookups, payments (names from the country profile and its `dpi.md`, where there is one)
+- The question map from the build's `assumptions.md`, if there is one – every fact pulled from a register is a data flow to model
 - Any existing threat model, DPIA, or security assessment to build on
 - Known constraints – legal (the country's data protection law, from the profile where there is one), regulatory, department-specific
 

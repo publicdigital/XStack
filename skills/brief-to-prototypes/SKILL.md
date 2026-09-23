@@ -37,7 +37,7 @@ For every run, a folder containing:
 | `prototype-1-[name]/index.html` | Candidate 1 as a single clickable HTML file |
 | `prototype-2-[name]/index.html` | Candidate 2 |
 | `prototype-3-[name]/index.html` | Candidate 3 (when warranted; sometimes 2 is enough) |
-| `assumptions.md` | Consolidated list of assumptions across prototypes, each tagged with severity and validation method |
+| `assumptions.md` | The question map (which questions government data answers), then a consolidated list of assumptions across prototypes, each tagged with severity and validation method |
 | `test-plan.md` | User-testing plan for the three prototypes |
 
 The prototypes are **self-contained single-file HTML**. They render in any browser. Their look comes from the profile's design system. If the profile has a `design-system.md` (written by `/xstack:design-system`), follow it exactly: its tier says whether to link the published stylesheet (tier 1), inline an approximation of its tokens (tier 2) or use the neutral style (tier 3), and it gives the page chrome and the component markup to use. Otherwise, when the profile names a published stylesheet that is reachable, link to it, or inline an approximation of its tokens from the profile's design-system files. When there is no profile, or the profile has no design system, use the **xstack neutral style** from `references/house-style.md` (the inline CSS below).
@@ -103,7 +103,7 @@ The assumptions panel is what makes these prototypes honest. A prototype without
 
 ### 4. The "this is fake" markers (always)
 
-Mock data is clearly labelled mock. Mock buttons that "send" or "pay" go to fake confirmation pages. The identity lookup that "finds" a citizen shows an obviously made-up person, because no real citizen's data should ever be in an alpha prototype. Make mock names, ID numbers, addresses and regions locally realistic – use the formats in the profile's data formats section, and names that fit the country – so testers aren't thrown by foreign-looking data. Without a profile, use clearly placeholder formats and tag them `[VERIFY WITH DATA]`.
+Mock data is clearly labelled mock. Sign-in, data sharing and payment go through the DPI mock, whose screens say they are simulated, and "send" buttons go to fake confirmation pages. The identity platform that "finds" a citizen returns an obviously made-up person, because no real citizen's data should ever be in an alpha prototype. Make mock names, ID numbers, addresses and regions locally realistic – use the formats in the profile's data formats section, and names that fit the country – so testers aren't thrown by foreign-looking data. Without a profile, use clearly placeholder formats and tag them `[VERIFY WITH DATA]`.
 
 ---
 
@@ -183,16 +183,55 @@ For a full worked example built on a real design system, see `examples/build-ren
 
 ---
 
-## The identity, register and payment lookups
+## Identity, payments and data exchange (DPI)
 
-Mock them. The skill assumes every prototype will integrate with the national identity platform for personal details (**Open platforms and standards**), and with shared registers and lookups (vehicles, businesses) where the service needs them. The profile's shared platforms section names them – for example, Trident ID in Barbados. The mock looks like:
+Every prototype assumes the service uses the government's Digital Public Infrastructure: the identity platform to sign people in, the data exchange to pull what registers already hold, and the shared payment platform to take fees (**Open platforms and standards**, **Whole problem**). Read `references/dpi-baseline.md` for the contract and the once-only rules. The platforms, their names on screen and the data catalogue come from the profile's `dpi.md`, or from its shared platforms section when there is no `dpi.md`.
 
-1. The citizen enters their national ID number (in the format from the profile)
-2. The prototype shows "Looking up your details…" for ~1 second
-3. The prototype displays a mock citizen card: name, national ID number, contact, address
-4. The citizen confirms or asks to correct
+### 1. Map the questions before you build pages
 
-Never ask for citizen identity details as separate manual fields when a lookup would provide them. That goes against the **Open platforms and standards** theme. If the profile doesn't name an identity platform, or there isn't one, still mock the lookup but tag it `[VERIFY WITH PLATFORM]`, and show the manual-entry fallback alongside it.
+List every question the service would ask. Check each one against the data catalogue in `dpi.md` and sort it:
+
+- **known:** a register holds it. Pull it, and ask the citizen to confirm it
+- **derived:** it can be worked out from known facts. Work it out and show the result
+- **ask:** only the citizen knows it. Ask it
+
+Write the result as a **question map** at the top of `assumptions.md`:
+
+| Question | Map | Source | Fallback when it's missing or refused | Tag |
+|---|---|---|---|---|
+| What is your address? | known | Civil Registry, through the data exchange | Ask for it | `[VERIFY WITH PLATFORM]` |
+| Are you over 18? | derived | Date of birth, from the identity platform | Ask for date of birth | |
+| Why are you applying? | ask | – | – | |
+
+Only the **ask** rows and the fallbacks become question pages. When the brief has no catalogue to check against, still map the questions, mark every known and derived row `[VERIFY WITH PLATFORM]`, and name the register you expect holds it. Pull only what the service needs for its decision, not everything the register has.
+
+### 2. Use the DPI mock
+
+Inline `references/dpi-mock.js` in a `<script>` tag in every prototype, and create it with the service name, the platform names from `dpi.md`, the attributes from the question map, and test personas in the profile's data formats (the personas in `dpi.md` when it lists them). Without a profile, the mock's placeholder personas are fine.
+
+The mock shows simulated sign-in, consent and payment screens over the prototype. Each screen says it is simulated and uses the platform's own name, so testers see the hand-off to another government site. On the sign-in screen the researcher picks a test persona, and the persona decides what happens next: everything found, a fact out of date, no record, payment declined, or can't sign in. That lets one prototype run every scenario in the test plan.
+
+```js
+const dpi = xstackDpi.create({ serviceName, platforms, attributes, personas });
+
+const who = await dpi.identity.signIn({ purpose: 'apply for a fishing licence' });
+if (who.status !== 'signed_in') return goTo('page-manual-details');
+
+const got = await dpi.data.fetch({ subject: who.subject, attributes: ['address'], purpose: 'send your licence to your home' });
+// got.status is 'ok', 'not_found' or 'refused'. Ask for anything in got.missing.
+
+const paid = await dpi.payments.create({ amount: 25, reference, description: 'Fishing licence, 12 months' });
+// paid.status is 'paid', 'declined' or 'cancelled'.
+```
+
+### 3. Build the pages the once-only rules need
+
+- **Confirm your details:** show each pulled fact with its source ("From the Civil Registry") and ask "Is this correct?" with a way to change it. Never prefill a question page silently.
+- **A route without the platform:** a page for people who can't sign in, have no record or say no to sharing. Manual entry or an assisted channel, never a dead end.
+- **Payment declined or cancelled:** say they haven't been charged and how to try again or pay another way.
+- **Check your answers:** mark which answers came from government records and which the citizen typed.
+
+Never ask for details as separate manual fields when the identity platform or a register would provide them. If the profile doesn't name the platforms, or they don't exist yet, still use the mock, tag every platform assumption `[VERIFY WITH PLATFORM]`, and show the manual route next to it.
 
 ---
 
@@ -202,12 +241,13 @@ When invoked, the skill:
 
 1. **Resolves the profile.** Standard, design system, platforms, terms, data formats – or the baseline and the neutral style.
 2. **Reads the brief.** This can be a paragraph in the prompt, a link to a problem statement, or a discovery report.
-3. **Identifies 2–3 design hypotheses.** Different enough that testing them produces real signal. Names them.
-4. **Lists the assumptions** each hypothesis makes, tagged.
-5. **Generates each prototype** as a complete HTML file with the standard chrome, the candidate journey, the assumptions panel, and the "this is fake" markers.
-6. **Writes the consolidated assumptions list** across prototypes.
-7. **Writes the test plan** – what to test with users, how many users per prototype, where, how to recruit, what good signal looks like.
-8. **Writes the README** for the build folder.
+3. **Maps the questions.** Every question the service would ask, sorted into known, derived and ask against the profile's data catalogue (see *Identity, payments and data exchange*).
+4. **Identifies 2–3 design hypotheses.** Different enough that testing them produces real signal. Names them.
+5. **Lists the assumptions** each hypothesis makes, tagged.
+6. **Generates each prototype** as a complete HTML file with the standard chrome, the candidate journey, the DPI mock, the assumptions panel, and the "this is fake" markers.
+7. **Writes `assumptions.md`**: the question map, then the consolidated assumptions across prototypes.
+8. **Writes the test plan** – what to test with users, how many users per prototype, where, how to recruit, what good signal looks like. It includes the DPI scenarios in `references/dpi-baseline.md`, and which test persona to pick for each.
+9. **Writes the README** for the build folder.
 
 The user then either:
 
@@ -259,7 +299,9 @@ The prototype HTML has this skeleton. The class names shown are the neutral styl
   </main>
   <footer class="xs-footer">…</footer>
   <aside id="assumptions" class="xstack-assumptions">…</aside>
+  <script>/* references/dpi-mock.js, inlined in full */</script>
   <script>
+    const dpi = xstackDpi.create({ serviceName: '[Service name]', platforms: { /* from dpi.md */ }, attributes: { /* from the question map */ } });
     function goTo(pageId) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('page--active'));
       document.getElementById(pageId).classList.add('page--active');

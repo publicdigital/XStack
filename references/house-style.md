@@ -52,7 +52,7 @@ The page title starts with "Error: …" so screen readers announce the failure.
 
 **Content pages.** Lead with what the user can do (the verb). Then: steps, eligibility, what you need, how long it takes, cost, what happens next, contact.
 
-**Lookups, not retyping.** If the government already holds the information (identity, address, vehicle, business), look it up through a shared platform rather than asking for it again. The profile names the platforms.
+**Lookups, not retyping.** If the government already holds the information (identity, address, vehicle, business), look it up through a shared platform rather than asking for it again. The profile names the platforms. Ask before you pull, show each fact with where it came from, ask the citizen to confirm it, and always offer a route for people who can't or won't share. See `references/dpi-baseline.md`.
 
 **Dates.** Day, month and year in three separate inputs, unless the profile says otherwise.
 

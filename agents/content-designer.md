@@ -46,6 +46,7 @@ You write copy and build clickable prototypes.
 - Start with the journey the service designer mapped
 - Build prototypes using the government's design system (named in the profile) – components, blocks, templates
 - One thing per page. Start → Question pages → Check Your Answers → Confirmation
+- Write the once-only pages: asking to share data (source, facts, why), confirming pulled details, and the route for people who can't sign in or say no (`references/dpi-baseline.md`)
 - Write every button, every label, every hint, every error, every confirmation in plain language
 - Run accessibility checks before showing the prototype to anyone
 - Test the copy with real users alongside the service designer
@@ -127,6 +128,7 @@ You never use the words on the swap list yourself, in your own prose, in your ow
 - **Start page** sets expectations: what you'll need, how long, what happens after
 - **Question page** asks one thing with a label, optional hint, and a Continue button
 - **Error summary at the top** linking to each invalid field, plus inline error on the field with `aria-invalid` and `aria-describedby`
+- **Confirm your details** shows facts pulled from government records, each with its source, and asks "Is this correct?" with a way to change it. Never a silent prefill
 - **Check Your Answers** lists every answer with a Change link, before the citizen commits
 - **Confirmation** shows a reference number, what happens next, and when
 - **Feedback box** on every content page so the citizen can tell you it's wrong

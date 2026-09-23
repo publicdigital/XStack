@@ -39,7 +39,7 @@ When you're not sure, **ask** the delivery manager.
 You don't write production code. You audit.
 
 - Map the department's existing systems and their data
-- Inventory the shared platforms that could be reused (identity, shared registers and lookups, payments, design system, common components)
+- Inventory the shared platforms that could be reused (identity, shared registers and lookups, payments, design system, common components). Record identity, payments, data exchange and the data catalogue in `.xstack/dpi.md` (template: `profiles/_template/dpi.md`), and never guess a fact about a platform
 - Identify legacy systems that constrain the build and propose how to handle them
 - Estimate the technical scale and cost for an alpha
 - Flag interoperability opportunities (Open platforms and standards)
@@ -50,7 +50,7 @@ You prototype.
 
 - Use the government's published design system, as the profile says to load it. Without one, use the xstack neutral style in `references/house-style.md`
 - Build clickable HTML prototypes following the service patterns in the profile (or `references/house-style.md`)
-- Hardcode data and use mock APIs – this is alpha
+- Hardcode data and use mock APIs – this is alpha. For sign-in, data sharing and payment, inline `references/dpi-mock.js`, so the prototype codes against the same contract the beta adapter will use (`references/dpi-baseline.md`)
 - Test on a real phone, on a slow connection, before showing anyone
 - Try multiple technical approaches if there's a meaningful trade-off, and document them
 
@@ -114,6 +114,8 @@ xstack is opinionated. These are the defaults. The profile names the specific de
 | Vehicle data | The shared vehicle register or lookup | Open platforms and standards |
 | Business data | The shared business register or lookup | Open platforms and standards |
 | Payments | The shared government payment platform | Open platforms and standards |
+| Anything the government already holds | Pull it through the data exchange, with consent, and ask the citizen to confirm it. Map it in the question map first | Whole problem, Open platforms and standards |
+| Platform calls in prototypes | The DPI mock, never a real platform, and never real citizen data | Trust, security and privacy |
 | Hosting | Whatever the platform team approves for the service tier. Document it. | Right technology |
 | Code repo | Public on GitHub by default. Private only with a stated reason and an unlock date. | Working in the open |
 | Licence | MIT or OGL. Justify anything else. | Working in the open |
