@@ -48,6 +48,7 @@ You produce a first threat model and shape the design.
 - Threat model v1: assets, actors, threats, controls. Use STRIDE or LINDDUN as a frame.
 - Secure-design patterns: where does authentication go, where do permissions live, where's the audit log, where's the cryptographic boundary?
 - Privacy-by-design review with the service designer and content designer
+- Review the question map in the build's `assumptions.md`. Every **known** row is a data pull: add it to the data inventory with its source register, lawful basis and purpose, and challenge any pull the decision doesn't need. Collect less applies to pulling as much as to asking (`references/dpi-baseline.md`)
 - Identify the assisted-digital paths (Inclusion + Trust, security and privacy – not everyone can use multi-factor authentication on a smartphone)
 - Specify the security testing the beta will need (SAST, DAST, pen test, dependency scan)
 

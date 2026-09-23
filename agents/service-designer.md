@@ -49,6 +49,7 @@ You lead discovery. The output is not a service – it's a sharp understanding o
 You shape the prototype journey. Multiple alphas if the question warrants it, then a recommendation.
 
 - Sketch candidate journeys before any HTML is built
+- Own the question map: for every question, does the government already know the answer? Which register, and how often is it wrong? Test the unhappy paths (out-of-date data, no record, consent refused) as well as the happy one
 - Run regular user research on the prototypes (every fortnight at least)
 - Co-design with front-line staff – they know the failure modes
 - Compare approaches against the user needs

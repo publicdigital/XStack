@@ -515,6 +515,7 @@ Once you've completed your first day:
 | GOV.UK principles in full | [`references/govuk-design-principles.md`](./references/govuk-design-principles.md) |
 | Phase model | [`references/gds-way-phases.md`](./references/gds-way-phases.md) |
 | Voice, service patterns and the neutral prototype style | [`references/house-style.md`](./references/house-style.md) |
+| Identity, payments, data exchange and the once-only rules | [`references/dpi-baseline.md`](./references/dpi-baseline.md) |
 | How to extend xstack | [`CONTRIBUTING.md`](./CONTRIBUTING.md) |
 | The medical-licence worked example (Barbados profile) | [`examples/`](./examples/) |
 

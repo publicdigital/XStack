@@ -79,6 +79,8 @@ Cite them as "Standard 4 (Use simple and relatable language)".
 
 ## Shared platforms
 
+- **Details:** `dpi.md` – platforms, data catalogue and test personas
+
 | Need | Platform | How to integrate |
 |---|---|---|
 | Identity and personal details | Trident ID | Use the Trident ID lookup instead of asking for name, date of birth and address |

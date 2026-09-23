@@ -111,7 +111,9 @@ xstack/
 │   ├── service-standard-baseline.md   the 14 themes
 │   ├── govuk-design-principles.md
 │   ├── gds-way-phases.md
-│   └── house-style.md
+│   ├── house-style.md
+│   ├── dpi-baseline.md            identity, payments, data exchange and the once-only rules
+│   └── dpi-mock.js                simulated DPI for single-file prototypes
 └── profiles/                 country profiles
     ├── README.md             what a profile is and how agents find it
     ├── _template/            start your own profile here
@@ -200,6 +202,7 @@ If you're not sure, ask the **delivery manager** first – they'll route you.
 
 - **Your government's service standard** is the contract xstack delivers against. xstack assumes you'll be assessed against it and bakes it into every agent's reasoning, through your country profile. If you don't have one, the xstack baseline stands in. The standard is the source of truth; xstack is one way of meeting it.
 - **Your government's design system**, named in the profile, is the visual and interaction layer xstack builds on. Agents use its published components and don't reinvent the chrome. Without one, prototypes use the xstack neutral style in `references/house-style.md`.
+- **Your government's Digital Public Infrastructure** – identity, payments and data exchange – is recorded in the profile's `dpi.md`. Prototypes sign people in, pull what registers already hold and take payments through a simulated version of it, so citizens aren't asked for what the government already knows. See `references/dpi-baseline.md`.
 - **Your own house-style skills**, if your profile lists any, are what the xstack agents call into when they need pages, slide decks or other artefacts in your house style. xstack agents *use* those skills, they don't replace them.
 - **The Anthropic design and service-design plugins** (`design`, `service-design`, `frontend-design`) are the deeper skill libraries. xstack agents reach for them where they're the best tool for the job.
 - **gstack** is the Garry Tan repo this format was inspired by. It's for startups; xstack is for governments. They share a structure but not a worldview.

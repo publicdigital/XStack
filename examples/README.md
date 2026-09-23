@@ -11,5 +11,6 @@ With your own country profile, the same commands produce the same kinds of outpu
 | `discovery-renewing-medical-licence/` | Discovery | `/xstack:discover` |
 | `build-renew-medical-licence/` | Alpha: three candidate prototypes, then two rounds of iteration | `/xstack:build`, `/xstack:iterate` |
 | `production-renew-medical-licence/` | Moving to beta: production front end and test suite | `/xstack:productionise` |
+| `dpi-mock-demo/` | Alpha: sign in, share data, confirm, pay, with every unhappy path. No profile, neutral style | `references/dpi-mock.js` |
 
 Some tags and terms in these examples come from before the rename. `[VERIFY WITH MDA]` is now `[VERIFY WITH DEPARTMENT]`, and `[VERIFY WITH MIST]` is now `[VERIFY WITH PLATFORM]`.
