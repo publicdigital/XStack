@@ -44,7 +44,7 @@ dpi.payments.create({ amount, currency, reference, description })
   // → { status: 'paid' | 'declined' | 'cancelled', receipt }
 ```
 
-Every call returns a `status`, and every status other than the happy one needs a page in the prototype. A fetch can also come back `ok` with some facts in `missing`, so ask for just those. That is where most real-world DPI services break, so it is where research should look.
+Every call returns a `status`, and every status other than the happy one needs a page in the prototype. A fetch can also come back `ok` with some facts in `missing`, so ask for just those. The unhappy paths are where most real-world DPI services break, so it is where research should look.
 
 | Mode | Phase | What sits behind the contract |
 |---|---|---|
@@ -105,7 +105,7 @@ The happy path shows that the prototype works. These scenarios show whether the 
 
 | Work | Primary | Supporting |
 |---|---|---|
-| Which platforms exist and how to reach them (`dpi.md`) | Developer | Delivery manager (profile owner) |
+| Which platforms exist and how to reach them (`dpi.md`, via `/xstack:dpi`) | Developer | Delivery manager (profile owner) |
 | The question map | Service designer | Content designer, developer |
 | Consent, source and confirm-your-details wording | Content & interaction designer | Cyber engineer |
 | Data inventory, lawful basis, DPIA for each pull | Cyber engineer | Developer |

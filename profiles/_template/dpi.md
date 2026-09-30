@@ -1,7 +1,8 @@
 # [Country] Digital Public Infrastructure
 
 <!--
-Copy this file to `.xstack/dpi.md` in your project, next to profile.md.
+Easiest: run /xstack:dpi. It starts from the DPI Map, checks each fact and fills this in with you.
+Or copy this file to `.xstack/dpi.md` in your project, next to profile.md.
 It records the government's shared platforms for identity, payments and data exchange, and the data catalogue:
 which register holds which fact about a citizen. Prototypes use it to sign people in, take payments and
 avoid asking for anything the government already holds. See references/dpi-baseline.md.
@@ -9,19 +10,26 @@ Never guess a fact about a platform. Leave it blank, and agents will tag it [VER
 Delete these comments when you're done.
 -->
 
+## Sources
+
+- **DPI Map:** <!-- e.g. DPI Map (2026-03-31). Institute for Innovation and Public Purpose, UCL. https://dpimap.org/data -->
+- **Checks:** <!-- what verify.py checked, and when -->
+- **Team:** <!-- who on the team confirmed what, and when -->
+
 ## Platforms
 
-| Pillar | Platform | Owner | Protocol | Tier | Docs and sandbox |
-|---|---|---|---|---|---|
-| Identity | | | <!-- e.g. OpenID Connect --> | <!-- 1 sandbox, 2 spec only, 3 unknown --> | |
-| Payments | | | <!-- e.g. redirect + webhook, ISO 20022 --> | | |
-| Data exchange | | | <!-- e.g. X-Road REST, an API gateway --> | | |
-| Consent | | | | | |
+| Pillar | Platform | Family | Owner | Protocol | Tier | Docs and sandbox | Source |
+|---|---|---|---|---|---|---|---|
+| Identity | | <!-- e.g. MOSIP with eSignet --> | | <!-- e.g. OpenID Connect --> | <!-- 1 sandbox, 2 spec only, 3 unknown --> | | <!-- DPI Map, a checked URL, or Team --> |
+| Payments – gateway services use | | | | <!-- e.g. hosted payment page + status API --> | | | |
+| Payments – national rail | | <!-- e.g. Mojaloop --> | | | | | |
+| Data exchange | | <!-- e.g. X-Road --> | | | | | |
+| Consent | | | | | | | |
 
 ### Identity
 
 - **What it's called on screen:** <!-- the name citizens recognise, e.g. on the sign-in button -->
-- **Claims it returns:** <!-- e.g. full name, date of birth, national ID number, photo -->
+- **Claims it returns:** <!-- from the OpenID Connect discovery document where there is one (verify.py oidc) -->
 - **Assurance levels:** <!-- e.g. low / substantial / high, and which one a service like this needs -->
 - **Who can't use it:** <!-- e.g. under-18s, people without a smartphone, non-citizens -->
 - **Assisted or offline route:** <!-- e.g. verify at a counter, an intermediary acting for someone -->
