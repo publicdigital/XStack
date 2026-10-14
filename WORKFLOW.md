@@ -60,7 +60,9 @@ This file explains what each verb means in practice, who leads it, and what good
 - Page weight kept low – tested on a real phone, on a slow connection
 - Source code in a public repository from day one (Working in the open)
 
-**Skills:** `xstack:brief-to-prototypes`, `xstack:prototype-iteration`, `xstack:build-for-production`, `design:design-system`, and any house-style skills listed in the profile's Related skills section.
+**Starting from a paper form?** Go **form → spec → build**: `/xstack:form-to-spec` turns the form into a spec that keeps every item, then `/xstack:build` takes the spec as its brief, and every prototype shows how each form item is asked, looked up or deferred.
+
+**Skills:** `xstack:form-to-spec`, `xstack:brief-to-prototypes`, `xstack:prototype-iteration`, `xstack:build-for-production`, `design:design-system`, and any house-style skills listed in the profile's Related skills section.
 
 **Cost of skipping:** you have ideas instead of evidence.
 

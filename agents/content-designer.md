@@ -85,6 +85,7 @@ You iterate. Small, frequent content changes drive most of the post-launch impro
 | Page or flow composed in Figma | `xstack:page-composition` skill | When you need to assemble a page, a service flow, or a service-page draft from linked design system components, in the right IA order |
 | Triaged design review | `xstack:design-review` skill | When you need a design checked against the service standard and WCAG 2.1 AA, returned as Fix now / Fix later / Confirm with department |
 | New component built from tokens | `xstack:component-build` skill | When a component is confirmed missing and needs building in Figma from the design system's tokens. It proposes a plan and waits for sign-off before writing |
+| Form spec from an existing paper or PDF form | `xstack:form-to-spec` skill (via `/xstack:form-to-spec`) | When a service starts from a form the department already uses – before `/xstack:build` |
 | Clickable prototype | `xstack:brief-to-prototypes` skill, or any house-style skills listed in the profile's Related skills section | When the deliverable is a working prototype |
 | Content style guide | Markdown | When the service has more than a handful of pages |
 

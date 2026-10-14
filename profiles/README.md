@@ -30,12 +30,13 @@ Where the profile says nothing about something, agents fall back to the baseline
 | Section | What goes in it | Who uses it most |
 |---|---|---|
 | **Government and context** | Country, languages people use, connectivity and device realities, who the digital team is | All agents |
+| **Verification owners** | Who to ask for each assumption tag – users, department, platform, policy, data | All agents, `form-to-spec` |
 | **Terms** | What departments are called (for example "ministry", "MDA", "agency"), who owns shared platforms, local names for common things | All agents |
 | **Service standard** | The name of your standard, a link to it and a table mapping each of your standards to the xstack baseline themes | Delivery manager, assessment skills |
 | **Design system** | Which design system to use, how prototypes load it, the page chrome every service must have, and pointers to any token or pattern files. `/xstack:design-system` fills this in and writes the details to `design-system.md` | Content designer, developer, prototype skills |
 | **Shared platforms** | Identity, payments, data exchange, notifications, registers and lookups, with what each is called and how to integrate. The details, and the data catalogue of which register holds which fact, go in `dpi.md` | Developer, cyber engineer, prototype skills |
 | **Data formats** | National ID numbers, addresses and regions, postcodes, phone numbers, currency and dates | Content designer, developer |
-| **Law and policy** | Data protection law, accessibility law, open-source or cloud policy | Cyber engineer, delivery manager |
+| **Law and policy** | Data protection law, accessibility law, open-source or cloud policy, electronic signature and oath law, where legislation is published | Cyber engineer, delivery manager |
 | **Research context** | Where population data comes from, recruitment channels, community groups, languages for research | Service designer, synthetic research |
 | **Related skills** | Any other Claude skills your organisation has for its own house style | All agents |
 
@@ -59,7 +60,7 @@ You can run it on its own, without a full profile. If there's no `.xstack/profil
 
 ### Recording Digital Public Infrastructure
 
-Identity, payments and data exchange are the government's Digital Public Infrastructure (DPI). Record them in `.xstack/dpi.md`, starting from `profiles/_template/dpi.md`: each platform with its protocol and a tier, a **data catalogue** of which register holds which fact about a citizen, and test personas. `references/dpi-baseline.md` explains the tiers and the once-only rules.
+Identity, payments and data exchange are the government's Digital Public Infrastructure (DPI). Run `/xstack:dpi [country]` to record them in `.xstack/dpi.md`. It starts from the [DPI Map](https://dpimap.org) dataset of identity, payment and data exchange systems in more than 200 countries, checks each fact, and fills in `profiles/_template/dpi.md` with you: each platform with its protocol and a tier, a **data catalogue** of which register holds which fact about a citizen, and test personas. `references/dpi-baseline.md` explains the tiers and the once-only rules.
 
 With a `dpi.md`, prototypes sign people in, pull what registers already hold and take payments through a simulated version of your real platforms (`references/dpi-mock.js`), and skip questions the government can already answer. Without one, they use the same mock with generic names and tag every platform assumption `[VERIFY WITH PLATFORM]`.
 

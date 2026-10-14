@@ -16,6 +16,7 @@ Do this once per project, before your first real piece of work. A country profil
 
 - **Run `/xstack:profile`** (Claude Code) or ask *"Using xstack, set up our country profile"* (app and Cowork). It asks a few questions and writes `.xstack/profile.md`. Commit it so the whole team shares it.
 - **Want prototypes in your government's design system?** Run `/xstack:design-system [country]`. It picks from the Government Design Systems List and works out how prototypes load it. `/xstack:profile` does this too, as one of its questions.
+- **Want prototypes that sign people in, take payments and use what government already knows?** Run `/xstack:dpi [country]`. It starts from the DPI Map and records your platforms in `.xstack/dpi.md`.
 - **Or use a bundled profile.** Barbados is bundled: add the line `xstack profile: barbados` to your project's `CLAUDE.md`.
 - **Or skip it for now.** xstack works without a profile. It uses its own baseline – 14 service standard themes and a neutral house style – and says so at the top of what it produces. You can add a profile later.
 
@@ -26,7 +27,8 @@ See `profiles/README.md` for what goes in a profile.
 Most work follows one path, from a vague idea to a service you can ship:
 
 1. **`/discovery-kit`** — scope a discovery. Produces a problem statement, stakeholder map, research plan, interview guide, and a discovery report template. Use this when a department asks for a new service and you need to find out whether (and what) to build.
-2. **`/brief-to-prototypes`** — turn a brief or problem statement into several clickable HTML prototypes, each in your design system (or the xstack neutral style) with its assumptions surfaced inline. This is the build engine: feel three approaches in hours, not weeks.
+1½. **`/form-to-spec`** *(when the service starts from a paper form)* — turn a PDF, scan, photo or Word form into a form spec that keeps every item, uses your profile's lookups and flags legal status, oaths, fees and sensitive questions. Hand the spec to the next step as its brief: **form → spec → build**.
+2. **`/brief-to-prototypes`** — turn a brief, problem statement or form spec into several clickable HTML prototypes, each in your design system (or the xstack neutral style) with its assumptions surfaced inline. This is the build engine: feel three approaches in hours, not weeks.
 2½. **`/synthetic-research`** *(optional but recommended)* — before recruiting real participants, generate synthetic personas and run them against the prototype to surface comprehension, logic, and edge-case failures. Fixes the obvious before real testing begins. Complements real research – never replaces it.
 3. **`/prototype-iteration`** — fold in what you heard. Give it a prototype plus either structured feedback or raw research transcripts, and it produces the next version with a changelog of what changed and why. Run it after every test round.
 4. **`/build-for-production`** — take the iteration you've chosen to carry forward and produce a production-ready front-end: per-page HTML, your design system's published stylesheet linked, the prototype chrome stripped, plus a test suite (regression, accessibility, security, load).

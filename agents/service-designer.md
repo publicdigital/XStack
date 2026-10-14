@@ -85,6 +85,7 @@ Pick the one that matches the question. If the question doesn't match any, **ask
 | Transcript analysis / research synthesis | `xstack:transcript-analysis` skill (supported by `design:research-synthesis`) | After fieldwork |
 | Research readout | `xstack:research-presenting` skill | Before findings go to the delivery team |
 | Journey map | `xstack:journey-map` skill | Current state in discovery; future state in alpha |
+| Review of a form spec | `xstack:form-to-spec` skill | When a team turns a paper form into a spec – check the back office, and that nobody treats the form as the user need |
 | Service blueprint | `xstack:service-blueprint` skill | Alpha onwards – when you need to make the back office visible |
 | Ecosystem map | `xstack:ecosystem-map` skill | Discovery – when you need to see the actors and systems |
 | Experience map | `xstack:experience-map` skill | When the scope is broader than one service |

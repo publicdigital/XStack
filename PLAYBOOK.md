@@ -80,6 +80,12 @@ Brief  →  /xstack:build  →  3 prototypes (+ assumptions + test plan)  →  /
   └──────────────────────────── 5 working days ──────────────────────────────────────────────────────────────┘                  └─── 3 working days ───┘
 ```
 
+**Starting from a paper form?** Most government services already exist as a form. Go **form → spec → build**: run `/xstack:form-to-spec` on the PDF, scan or Word file first. It keeps every item on the form, sorts each one into ask, lookup, conditional, add-another, already held, drop or back office using your profile's lookups, and flags legal status, oaths and signatures, fees and sensitive questions. Then hand `form-spec.md` to `/xstack:build` as the brief. Every prototype carries a coverage table, so nothing on the form is lost without a decision. The spec tells you what the department asks – not what users need – so it sits alongside discovery, not instead of it. Worked examples: `examples/form-to-spec-firearm-licence-barbados/` and `examples/form-to-spec-tr1-uk/`.
+
+```
+Paper form  →  /xstack:form-to-spec  →  form-spec.md (+ questions for the department)  →  /xstack:build  →  …
+```
+
 By round 3 (≈ 4 weeks of elapsed time), the team should have one prototype with most of its assumptions resolved and a clear case for taking it into beta. If you don't, the brief was probably too thin – go back to discovery, not into another round.
 
 ### Each loop has four parts
@@ -99,6 +105,7 @@ The skill (`brief-to-prototypes`) deliberately produces more than one prototype.
 ### What you do not do in the rapid loop
 
 - **Don't skip the brief.** /xstack:build assumes the brief is evidence-led. Use `/xstack:discover` first if it isn't.
+- **Don't treat the paper form as the brief on its own.** A form spec shows what the department asks today. Pair it with research about what users need.
 - **Don't merge prototypes mid-cycle.** Each prototype iterates on its own. Merging is the alpha-gate decision (`/xstack:assess`).
 - **Don't promote a prototype to production without a phase gate.** /xstack:build produces throwaway HTML. Beta needs production code on the stack your platform team approves, threat-modelled and accessibility-audited.
 - **Don't run iterations without structured feedback.** "Make it nicer" is not feedback. The skill refuses.

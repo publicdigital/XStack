@@ -24,6 +24,18 @@ Delete these comments when you're done.
 | National identity platform | |
 | Government website | |
 
+## Verification owners
+
+Who to ask when an assumption carries each xstack tag. Agents add the owner after the tag, for example `[VERIFY WITH PLATFORM] (national digital agency)`. Leave a row blank if you don't know – agents then use the tag alone.
+
+| Tag | Who owns it here |
+|---|---|
+| `[VERIFY WITH USERS]` | <!-- e.g. the team's user researcher --> |
+| `[VERIFY WITH DEPARTMENT]` | <!-- e.g. the department that owns the service --> |
+| `[VERIFY WITH PLATFORM]` | <!-- e.g. the team that runs identity, payments and data exchange --> |
+| `[VERIFY WITH POLICY]` | <!-- e.g. the department's legal adviser, the drafting office --> |
+| `[VERIFY WITH DATA]` | <!-- e.g. the performance analyst, the statistics office --> |
+
 ## Service standard
 
 - **Name:**
@@ -87,6 +99,8 @@ register holds which fact. Then this table only needs the names and "Details: dp
 - **Accessibility law or standard:**
 - **Open source, open data or cloud policy:**
 - **Records and retention rules:**
+- **Electronic signatures, declarations and oaths:** <!-- e.g. an electronic transactions act, and whether it covers oaths, witnesses and deeds -->
+- **Where legislation is published:** <!-- e.g. the official legislation website, so agents can check a form's legal citation -->
 
 ## Research context
 

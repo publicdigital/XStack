@@ -37,7 +37,7 @@ For every run, a folder containing:
 | `prototype-1-[name]/index.html` | Candidate 1 as a single clickable HTML file |
 | `prototype-2-[name]/index.html` | Candidate 2 |
 | `prototype-3-[name]/index.html` | Candidate 3 (when warranted; sometimes 2 is enough) |
-| `assumptions.md` | The question map (which questions government data answers), then a consolidated list of assumptions across prototypes, each tagged with severity and validation method |
+| `assumptions.md` | The question map (which questions government data answers), then a consolidated list of assumptions across prototypes, each tagged with severity and validation method. When the brief is a form spec, it starts with the form coverage table |
 | `test-plan.md` | User-testing plan for the three prototypes |
 
 The prototypes are **self-contained single-file HTML**. They render in any browser. Their look comes from the profile's design system. If the profile has a `design-system.md` (written by `/xstack:design-system`), follow it exactly: its tier says whether to link the published stylesheet (tier 1), inline an approximation of its tokens (tier 2) or use the neutral style (tier 3), and it gives the page chrome and the component markup to use. Otherwise, when the profile names a published stylesheet that is reachable, link to it, or inline an approximation of its tokens from the profile's design-system files. When there is no profile, or the profile has no design system, use the **xstack neutral style** from `references/house-style.md` (the inline CSS below).
@@ -183,6 +183,29 @@ For a full worked example built on a real design system, see `examples/build-ren
 
 ---
 
+## When the brief is a form spec
+
+A team that starts from an existing paper or PDF form runs `/xstack:form-to-spec` first, so the brief arrives as a `form-spec.md` (**form → spec → build**). Recognise it by its ten numbered sections and its coverage check. The spec records what the department asks today – it is not a user need, so still read it alongside the research.
+
+Use it like this:
+
+- **The question map starts from the spec.** Every row in the spec's section 4 tables becomes a row in the question map. Treat its digital treatments as the starting point: **Lookup** rows are known (only if the lookup is in the profile – check), **Ask** rows are ask, **Conditional** and **Add-another** shape the pages, **Back office** rows never become citizen pages. **Lookup opportunity** and **Government already holds this** rows are ask for now, tagged `[VERIFY WITH PLATFORM]` or `[VERIFY WITH DEPARTMENT]`.
+- **Carry the flags over.** Every flag in the spec goes into `assumptions.md` and the assumptions panel with the same tag. Don't silently resolve a `[VERIFY WITH POLICY]` – if the form is set out in legislation, keep its legal wording where the spec says it may be fixed, and say where a variant rewords it.
+- **Variants can differ, coverage can't.** Hypotheses can ask in a different order, split or merge pages, or defer items to a later step. They can't lose an item.
+
+**Every prototype built from a form spec carries a coverage table** – in its assumptions panel, and once for all prototypes at the top of `assumptions.md`. One row per item in the spec's coverage check:
+
+| Form item | Paper asks (short) | Prototype 1 | Prototype 2 | Prototype 3 |
+|---|---|---|---|---|
+| 1 | Full name | Looked up – identity platform, confirm page | Looked up | Asked – page-name |
+| 9 | Mental disorder? | Asked – page-health-1 | Asked – page-health | Asked – page-health |
+| 27 | Prescribed fee | Deferred – fee unknown `[VERIFY WITH DEPARTMENT]` | Deferred | Deferred |
+| [Oath] | Sworn before a JP | Deferred – declaration page, legal status `[VERIFY WITH POLICY]` | … | … |
+
+Each cell says **Asked** (with the page id), **Looked up** (with the lookup), **Derived**, **Back office** or **Deferred** (with why – dropped, challenged, waiting on a policy answer, offline step). Count the rows and say the count matches the spec's coverage check. A prototype with a missing row isn't finished.
+
+---
+
 ## Identity, payments and data exchange (DPI)
 
 Every prototype assumes the service uses the government's Digital Public Infrastructure: the identity platform to sign people in, the data exchange to pull what registers already hold, and the shared payment platform to take fees (**Open platforms and standards**, **Whole problem**). Read `references/dpi-baseline.md` for the contract and the once-only rules. The platforms, their names on screen and the data catalogue come from the profile's `dpi.md`, or from its shared platforms section when there is no `dpi.md`.
@@ -240,12 +263,12 @@ Never ask for details as separate manual fields when the identity platform or a 
 When invoked, the skill:
 
 1. **Resolves the profile.** Standard, design system, platforms, terms, data formats – or the baseline and the neutral style.
-2. **Reads the brief.** This can be a paragraph in the prompt, a link to a problem statement, or a discovery report.
+2. **Reads the brief.** This can be a paragraph in the prompt, a link to a problem statement, a discovery report, or a form spec from `/xstack:form-to-spec`.
 3. **Maps the questions.** Every question the service would ask, sorted into known, derived and ask against the profile's data catalogue (see *Identity, payments and data exchange*).
 4. **Identifies 2–3 design hypotheses.** Different enough that testing them produces real signal. Names them.
 5. **Lists the assumptions** each hypothesis makes, tagged.
-6. **Generates each prototype** as a complete HTML file with the standard chrome, the candidate journey, the DPI mock, the assumptions panel, and the "this is fake" markers.
-7. **Writes `assumptions.md`**: the question map, then the consolidated assumptions across prototypes.
+6. **Generates each prototype** as a complete HTML file with the standard chrome, the candidate journey, the DPI mock, the assumptions panel, and the "this is fake" markers – plus the form coverage table when the brief is a form spec.
+7. **Writes `assumptions.md`**: the form coverage table (when the brief is a form spec), the question map, then the consolidated assumptions across prototypes.
 8. **Writes the test plan** – what to test with users, how many users per prototype, where, how to recruit, what good signal looks like. It includes the DPI scenarios in `references/dpi-baseline.md`, and which test persona to pick for each.
 9. **Writes the README** for the build folder.
 

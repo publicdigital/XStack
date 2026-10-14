@@ -18,7 +18,7 @@ Ask briefly, using the AskUserQuestion tool where the answers are choices. Don't
 2. **Service standard** – does the government have one? If yes, get the link or the text
 3. **Design system** – follow the `xstack:government-design-systems` skill (the same flow as `/xstack:design-system`): find the government in the Government Design Systems List, confirm the entry with the user, and write `.xstack/design-system.md`. If the government isn't in the list, ask for the link
 4. **Terms** – what departments are called, and who owns shared platforms such as identity and payments
-5. **Shared platforms** – identity, payments, data exchange, notifications, registers and lookups. Write identity, payments and data exchange to `.xstack/dpi.md` from `profiles/_template/dpi.md`, with a tier for each and a data catalogue of which register holds which fact. Record only what the user or a published source confirms
+5. **Shared platforms** – for identity, payments and data exchange, follow the `xstack:government-dpi` skill (the same flow as `/xstack:dpi`): start from the DPI Map, confirm each entry with the user, check it and write `.xstack/dpi.md`. Ask about notifications and other registers and lookups directly
 6. **Data formats** – national ID, addresses and regions, postcodes, currency
 7. **Law** – data protection and accessibility law
 8. **Research context** – population data sources and recruitment channels

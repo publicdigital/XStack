@@ -1,0 +1,37 @@
+{
+  "_about": "Every numbered item on each test form, for the coverage check. ids are matched against the first cell of rows in section 10 of form-spec.md, ignoring spaces, brackets and case, so '5(a)', '5a' and '5 (a)' all match. 'unnumbered' items must be mentioned somewhere in the spec (matched by any of the words given).",
+  "forms": {
+    "bb-firearm-licence-form-a.pdf": {
+      "numbered": ["1", "2", "3", "4", "5", "5a", "5b", "5c", "5d", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27"],
+      "unnumbered": [["oath", "swear", "sworn"], ["justice of the peace"], ["s.p.o", "spo"]],
+      "form_text_facts": ["5 years", "1998-32"],
+      "has_legal_citation": true,
+      "has_signature_or_oath": true,
+      "fee_amount_on_form": false
+    },
+    "uk-tr1.pdf": {
+      "numbered": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+      "unnumbered": [["witness"], ["deed", "execut"]],
+      "form_text_facts": ["2002", "2003", "2006", "1925", "2022", "10 years"],
+      "has_legal_citation": true,
+      "has_signature_or_oath": true,
+      "fee_amount_on_form": false
+    },
+    "uk-tr1-welsh.pdf": {
+      "numbered": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+      "unnumbered": [["witness", "tyst"], ["deed", "gweithred", "execut"]],
+      "form_text_facts": ["2002", "2003", "2006", "1925", "2022", "10 mlynedd", "10 years"],
+      "has_legal_citation": true,
+      "has_signature_or_oath": true,
+      "fee_amount_on_form": false
+    },
+    "bb-police-accident-report-photo.jpg": {
+      "numbered": ["1", "2", "3", "4", "5", "6", "7", "8"],
+      "unnumbered": [["signed by", "signature"], ["official use"], ["our reference"], ["received by"], ["prepared by"], ["delivered to"]],
+      "form_text_facts": [],
+      "has_legal_citation": false,
+      "has_signature_or_oath": true,
+      "fee_amount_on_form": false
+    }
+  }
+}
