@@ -86,6 +86,7 @@ You maintain and iterate.
 
 | Output | Tool | When |
 |---|---|---|
+| Form spec (lookups and lookup opportunities) | `xstack:form-to-spec` skill | When a service starts from a paper form – check which items the profile's lookups really replace |
 | Clickable prototype | `xstack:brief-to-prototypes` skill, or any house-style skills listed in the profile's Related skills section | Alpha |
 | Production build | `xstack:build-for-production` skill | Beta |
 | Design system setup | `/xstack:design-system` command (`xstack:government-design-systems` skill) | When the team has no design system recorded, or it releases a new major version |

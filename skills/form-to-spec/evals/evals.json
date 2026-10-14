@@ -1,0 +1,76 @@
+{
+  "skill_name": "form-to-spec",
+  "_about": "Run each prompt with the repo root as the working directory. Paths are relative to the repo root. `grade` drives evals/grade.py: which form's ground truth to use, which lookups the profile allows, and which country-specific terms must not appear because the profile didn't supply them.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "flat-pdf-barbados-firearm-form-a",
+      "prompt": "We're digitising the firearm licence application for the Royal Barbados Police Force. Here's the paper form: skills/form-to-spec/evals/files/bb-firearm-licence-form-a.pdf. Our project uses the Barbados profile (profiles/barbados/). Turn it into a form spec I can hand to /xstack:build, and save it as form-spec.md.",
+      "expected_output": "A 10-section form-spec.md covering items 1–27 and 5(a)–(d), the oath before a justice of the peace and the S.P.O. report. Trident ID used as a lookup for name and date of birth; legal status callout for the Firearms Act First Schedule; oath called out as the blocker; fee recorded as unknown; mental health and conviction questions flagged for policy.",
+      "files": ["skills/form-to-spec/evals/files/bb-firearm-licence-form-a.pdf"],
+      "grade": {
+        "form": "bb-firearm-licence-form-a.pdf",
+        "profile_dir": "profiles/barbados",
+        "allowed_lookups": ["Trident", "vehicle lookup", "business lookup", "Government Service Bus"],
+        "banned_terms": ["GOV.UK One Login", "Companies House", "CitizenPass", "National Insurance Number lookup"]
+      },
+      "assertions": []
+    },
+    {
+      "id": 2,
+      "name": "fillable-acroform-uk-tr1",
+      "prompt": "I've got HM Land Registry's TR1 transfer form as a fillable PDF: skills/form-to-spec/evals/files/uk-tr1.pdf. We work to the UK profile in examples/form-to-spec-tr1-uk/.xstack/profile.md. Can you spec out every panel so we can prototype a digital version? Write it to form-spec.md.",
+      "expected_output": "A 10-section form-spec.md covering panels 1–12, using the AcroForm field list as a checklist. No national ID lookup; title number as a lookup opportunity; Companies House lookup only for company numbers; execution as a deed with a witness called out as the blocker; legal status callout citing the Land Registration Rules 2003; no fee invented.",
+      "files": ["skills/form-to-spec/evals/files/uk-tr1.pdf"],
+      "grade": {
+        "form": "uk-tr1.pdf",
+        "profile_dir": "examples/form-to-spec-tr1-uk/.xstack",
+        "allowed_lookups": ["One Login", "Companies House"],
+        "banned_terms": ["Trident", "MIST", "GovTech", "alpha.gov.bb", "NRN", "National Registration Number", "MDA", "CitizenPass", "National Insurance number lookup", "GOV.UK Verify"]
+      },
+      "assertions": []
+    },
+    {
+      "id": 3,
+      "name": "scanned-photo-no-profile-accident-report",
+      "prompt": "Someone took a photo of the police accident report request form at the front desk: skills/form-to-spec/evals/files/bb-police-accident-report-photo.jpg. We don't have a country profile set up yet. Please produce a form spec for it (form-spec.md) so we can start prototyping.",
+      "expected_output": "A 10-section form-spec.md read visually from the photo, covering items 1–8, the signature and the official-use block as back office. Says no profile was found and assumes no lookups – vehicle and identity details are lookup opportunities. Legal status check finds no citation. No fee or processing time invented.",
+      "files": ["skills/form-to-spec/evals/files/bb-police-accident-report-photo.jpg"],
+      "grade": {
+        "form": "bb-police-accident-report-photo.jpg",
+        "profile_dir": null,
+        "allowed_lookups": [],
+        "banned_terms": ["Trident", "MIST", "GovTech", "alpha.gov.bb", "NRN", "Barbados Digital Service Standards", "Government Service Bus", "BimPay", "GOV.UK", "One Login", "CitizenPass"]
+      },
+      "assertions": []
+    },
+    {
+      "id": 4,
+      "name": "same-form-second-profile-testland",
+      "prompt": "Run the firearm licence form skills/form-to-spec/evals/files/bb-firearm-licence-form-a.pdf against a different profile: skills/form-to-spec/evals/profiles/testland/profile.md. We're testing whether the spec adapts to the profile's platforms. Save the result as form-spec.md.",
+      "expected_output": "A 10-section form-spec.md with the same coverage as eval 1, but lookups only from CitizenPass (name and date of birth – not address, nationality or place of birth). No Barbados platforms, agencies or standards anywhere except where the form itself says Barbados. Testland Service Promise cited; ODS / Legal Drafting Office as verification owners.",
+      "files": ["skills/form-to-spec/evals/files/bb-firearm-licence-form-a.pdf"],
+      "grade": {
+        "form": "bb-firearm-licence-form-a.pdf",
+        "profile_dir": "skills/form-to-spec/evals/profiles/testland",
+        "allowed_lookups": ["CitizenPass"],
+        "banned_terms": ["Trident", "MIST", "GovTech", "alpha.gov.bb", "GovBB", "NRN", "National Registration", "MDA", "Barbados Digital Service Standards", "Government Service Bus", "BimPay", "GOV.UK", "One Login", "Royal Barbados Police Force"]
+      },
+      "assertions": []
+    },
+    {
+      "id": 5,
+      "name": "welsh-language-tr1-uk",
+      "prompt": "Our team works in English but the Welsh-language TR1 is a separate form: skills/form-to-spec/evals/files/uk-tr1-welsh.pdf. Use the UK profile at examples/form-to-spec-tr1-uk/.xstack/profile.md and write a form spec (form-spec.md) for it.",
+      "expected_output": "A 10-section form-spec.md covering panels 1–12, keeping the Welsh wording in Paper asks with any translation marked as the spec's own, a language note that the form is in Welsh and may differ from the English version, and the legal and execution checks firing as for eval 2.",
+      "files": ["skills/form-to-spec/evals/files/uk-tr1-welsh.pdf"],
+      "grade": {
+        "form": "uk-tr1-welsh.pdf",
+        "profile_dir": "examples/form-to-spec-tr1-uk/.xstack",
+        "allowed_lookups": ["One Login", "Companies House"],
+        "banned_terms": ["Trident", "MIST", "GovTech", "alpha.gov.bb", "NRN", "MDA", "CitizenPass"]
+      },
+      "assertions": []
+    }
+  ]
+}

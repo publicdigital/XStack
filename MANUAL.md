@@ -107,7 +107,7 @@ Then in any Claude Code or Cowork session:
 
 In a new session:
 
-- Type `/xstack:` and the autocomplete should reveal the commands, including `/xstack:profile`, `/xstack:design-system`, `/xstack:dpi`, `/xstack:build`, `/xstack:iterate`, `/xstack:productionise`, `/xstack:discover`, `/xstack:weeknote`, `/xstack:assess`, `/xstack:show`, `/xstack:plain-language`, `/xstack:threat-model`. (Claude Code namespaces plugin commands by plugin name, so the bare `/discover` form won't appear – type the `/xstack:` prefix first.)
+- Type `/xstack:` and the autocomplete should reveal the commands, including `/xstack:profile`, `/xstack:design-system`, `/xstack:dpi`, `/xstack:form-to-spec`, `/xstack:build`, `/xstack:iterate`, `/xstack:productionise`, `/xstack:discover`, `/xstack:weeknote`, `/xstack:assess`, `/xstack:show`, `/xstack:plain-language`, `/xstack:threat-model`. (Claude Code namespaces plugin commands by plugin name, so the bare `/discover` form won't appear – type the `/xstack:` prefix first.)
 - Run `/agents` to list the agents Claude Code can route to. You should see service-designer, content-designer, delivery-manager, developer, cyber-engineer alongside the agents you already had.
 - Try a task that matches an agent's description, e.g. *"Plan a discovery for renewing a fishing licence."* Claude Code routes it to the service-designer automatically – you don't `@-mention` agents in Claude Code, you describe the task.
 
@@ -255,7 +255,8 @@ xstack adds these slash commands: one for setup, four for major workflows, five 
 | Command | What it does | When to run |
 |---|---|---|
 | `/xstack:discover [service]` | Scaffolds a discovery: problem statement, stakeholder map, research plan, interview guide, ecosystem map starter, discovery report template | A department's brief has landed and no research has been done yet |
-| `/xstack:build [brief]` | Turns a brief into 2–3 clickable HTML prototypes in your profile's design system (or the xstack neutral style), with assumptions surfaced inline and a test plan attached | Discovery is done and the team wants testable artefacts in hours, not weeks |
+| `/xstack:form-to-spec [form]` | Turns an existing paper or PDF form (fillable, flat, scanned or Word) into `form-spec.md`: every item kept with the form's own numbering, a digital treatment for each using your profile's lookups, checks for legal status, signatures, fees, sensitive questions and language, questions for the department, and a coverage check | The service starts from a form the department already uses – run it before `/xstack:build` |
+| `/xstack:build [brief]` | Turns a brief (or a form spec) into 2–3 clickable HTML prototypes in your profile's design system (or the xstack neutral style), with assumptions surfaced inline and a test plan attached | Discovery is done and the team wants testable artefacts in hours, not weeks |
 | `/xstack:iterate [prototype]` | Takes user-testing feedback (structured notes or raw transcripts) and produces the next version with a changelog linking every change to the feedback that drove it | After every round of user testing |
 | `/xstack:productionise [iteration]` | Splits a validated prototype iteration into per-page HTML, removes the alpha-only chrome, generates a comprehensive test suite (E2E, accessibility, security, load), produces a production-readiness report | When a prototype has earned its place through several iteration rounds and the team is ready for beta |
 
@@ -326,7 +327,9 @@ This is the xstack rapid-prototyping loop. Cycle time is days, not weeks.
 Brief → /xstack:build → 3 testable HTML prototypes → user testing → /xstack:iterate → v2 → testing → /xstack:iterate → v3 → … → /xstack:productionise
 ```
 
-**Step 1 – Build.** Type `/xstack:build` followed by your brief or a pointer to your discovery report. The skill produces 2–3 candidate prototypes with the assumptions surfaced inline and a test plan attached.
+**Starting from a paper form?** Run `/xstack:form-to-spec` on it first, then pass `form-spec.md` to `/xstack:build` – **form → spec → build**. Each prototype then shows, in a coverage table, how every item on the form is asked, looked up or deferred.
+
+**Step 1 – Build.** Type `/xstack:build` followed by your brief, a pointer to your discovery report, or a form spec. The skill produces 2–3 candidate prototypes with the assumptions surfaced inline and a test plan attached.
 
 ```
 /xstack:build renewing a fishing licence

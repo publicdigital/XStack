@@ -39,11 +39,11 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **Owns:** Inclusion, Plain language, Findable. Supports Works first time and Whole problem.
 
-**Default deliverables:** UX copy, plain-language reviews, clickable prototypes in the government's design system, accessibility audits, content style guides, developer handoff specs.
+**Default deliverables:** form specs from existing paper and PDF forms, UX copy, plain-language reviews, clickable prototypes in the government's design system, accessibility audits, content style guides, developer handoff specs.
 
-**Skills it calls into:** `design:ux-copy`, `design:design-critique`, `design:accessibility-review`, `design:design-handoff`, `design:design-system`, `frontend-design:colour-and-typography`, `xstack:brief-to-prototypes`, `xstack:plain-language-check`, plus any house-style skills listed in the profile's Related skills section.
+**Skills it calls into:** `design:ux-copy`, `design:design-critique`, `design:accessibility-review`, `design:design-handoff`, `design:design-system`, `frontend-design:colour-and-typography`, `xstack:form-to-spec` (via `/xstack:form-to-spec`), `xstack:brief-to-prototypes`, `xstack:plain-language-check`, plus any house-style skills listed in the profile's Related skills section.
 
-**Triggers:** write copy, button label, error message, plain language, build a prototype, design this form, check accessibility, design system.
+**Triggers:** write copy, button label, error message, plain language, build a prototype, design this form, digitise this paper form, check accessibility, design system.
 
 **Iron laws:**
 1. No copy without a citizen in mind

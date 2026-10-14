@@ -18,6 +18,18 @@ All notable changes to xstack will be recorded here. Format inspired by [Keep a 
 
 ### Added
 
+- **`/xstack:form-to-spec`** and the `form-to-spec` skill – a new entry point, **form → spec → build**. Most government services already exist as a paper or PDF form. The skill turns one – fillable PDF, flat PDF, scan, photo or Word document – into a `form-spec.md` that `/xstack:build` takes as its brief
+  - Keeps every item with the form's own numbering, groups items into sections a citizen would recognise, and gives each a digital treatment: ask (with the component), lookup, lookup opportunity, conditional, add-another, government already holds this, drop or challenge, or back office
+  - Uses only the lookups the country profile lists. Anything government plausibly holds but the profile doesn't cover becomes a lookup opportunity, never an assumed lookup
+  - Runs six checks every time: legal status (forms set out in legislation may have fixed wording), signatures, oaths and witnesses (the likely blocker to a fully digital service), fees (never invented), sensitive questions, ambiguity a citizen would hit, and language
+  - Ends with the questions for the owning department that unblock the most assumptions, and a coverage check that maps every numbered item to a row, so nothing is silently lost
+  - States that the spec describes what the department asks, not what users need
+  - `scripts/inventory.py` lists fillable fields, extracts text with layout, spots scanned pages, renders pages for visual reading and points to likely legal citations, fees and signatures
+  - Evals in `skills/form-to-spec/evals/`: a flat PDF, a fillable PDF, a photographed form, a Welsh-language form, and one form run against two profiles, with a grading script for coverage, invented facts, the legal and signature checks, lookups and country-specific terms
+  - Worked examples: `examples/form-to-spec-firearm-licence-barbados/` (Barbados profile) and `examples/form-to-spec-tr1-uk/` (a minimal, project-local UK profile with no national ID lookup)
+- **Form coverage tables in prototypes** – when the brief is a form spec, `brief-to-prototypes` starts its question map from the spec and every prototype carries a coverage table showing how each form item is asked, looked up or deferred
+- **Verification owners in profiles** – the profile template has a table saying who to ask for each assumption tag, and the Barbados profile fills it in. Law and policy gains optional lines for electronic signature and oath law, and where legislation is published
+
 - **Digital Public Infrastructure (DPI) in prototypes** – prototypes can now sign citizens in, pull what government registers already hold and take payments, so people aren't asked the same questions again
   - **`references/dpi-baseline.md`** – the country-agnostic DPI baseline: identity, payments, data exchange and consent, described with the GovStack building blocks. It covers the contract prototypes code against, platform tiers (sandbox, spec only, unknown) and the once-only rules: ask before you pull, confirm rather than prefill, let people correct, and always have a route without the platform
   - **`references/dpi-mock.js`** – a simulated identity platform, data exchange with consent, and payment platform, for single-file prototypes. The researcher picks a test persona on the sign-in screen to run each scenario: everything found, out-of-date data, no record, consent refused, payment declined and can't sign in. Every screen says it is simulated

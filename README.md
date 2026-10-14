@@ -26,7 +26,7 @@ Seven verbs. Every sprint, every phase, every service.
 
 - **Listen** – user research, stakeholder interviews, front-line shadowing
 - **Map** – journeys, blueprints, ecosystems, problem statements
-- **Make** – plain-language copy, prototypes in your design system, production code
+- **Make** – plain-language copy, prototypes in your design system, production code. Starting from a paper form? **Form → spec → build**: `/xstack:form-to-spec`, then `/xstack:build`
 - **Test** – usability, accessibility, security, performance
 - **Ship** – discovery → alpha → beta → live, one small release at a time
 - **Show** – weeknotes, show-and-tells, source in the open
@@ -78,7 +78,8 @@ xstack/
 │   ├── threat-model.md
 │   ├── profile.md            /xstack:profile – set up your country profile
 │   ├── design-system.md      /xstack:design-system – choose your government's design system
-│   └── dpi.md                /xstack:dpi – record your government's identity, payments and data exchange
+│   ├── dpi.md                /xstack:dpi – record your government's identity, payments and data exchange
+│   └── form-to-spec.md       /xstack:form-to-spec – turn a paper or PDF form into a spec for /xstack:build
 ├── skills/                   shared skills the agents call into
 │   ├── service-standard-assessment/
 │   ├── plain-language-check/
@@ -98,6 +99,7 @@ xstack/
 │   ├── ecosystem-map/        actors, systems, and flows as a network
 │   ├── experience-map/       the whole citizen goal, across services
 │   ├── workshop-facilitation/ co-creation sessions that produce artefacts
+│   ├── form-to-spec/         paper or PDF form → form spec, every item kept, ready for the build
 │   ├── brief-to-prototypes/
 │   ├── synthetic-research/   synthetic personas + automated pre-flight
 │   ├── prototype-iteration/
@@ -190,7 +192,8 @@ If you're not sure, ask the **delivery manager** first – they'll route you.
 | Set up your country profile | `/xstack:profile` | delivery-manager |
 | Use your government's design system | `/xstack:design-system` | developer |
 | Sign people in, pull what government knows and take payments | `/xstack:dpi` | developer |
-| Turn a brief into testable prototypes | `/xstack:build` | content-designer + developer |
+| Turn an existing paper or PDF form into a spec for the build | `/xstack:form-to-spec` | content-designer |
+| Turn a brief (or a form spec) into testable prototypes | `/xstack:build` | content-designer + developer |
 | Roll feedback into the next version | `/xstack:iterate` | content-designer + developer |
 | Take an iteration to production-ready | `/xstack:productionise` | developer + cyber-engineer + content-designer |
 | Publish what we did this week | `/xstack:weeknote` | delivery-manager |

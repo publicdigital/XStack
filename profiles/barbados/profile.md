@@ -41,6 +41,16 @@ xstack profile: barbados
 
 In assumption tags, `[VERIFY WITH DEPARTMENT]` means the MDA and `[VERIFY WITH PLATFORM]` means MIST. Older Barbados work, including the examples, uses `[VERIFY WITH MDA]` and `[VERIFY WITH MIST]`.
 
+## Verification owners
+
+| Tag | Who owns it here |
+|---|---|
+| `[VERIFY WITH USERS]` | The service team's user researcher, with GovTech Barbados |
+| `[VERIFY WITH DEPARTMENT]` | The owning MDA |
+| `[VERIFY WITH PLATFORM]` | MIST and the GovTech Barbados platform team |
+| `[VERIFY WITH POLICY]` | The owning MDA's legal adviser |
+| `[VERIFY WITH DATA]` | GovTech Barbados, and the Barbados Statistical Service for population data |
+
 ## Service standard
 
 - **Name:** Barbados Digital Service Standards (13 standards)
