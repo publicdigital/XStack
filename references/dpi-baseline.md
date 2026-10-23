@@ -34,8 +34,9 @@ Registers are the sources behind data exchange: civil registration, tax, social 
 Prototypes never call a real platform. They call three functions, which behave the same way whatever sits behind them. `references/dpi-mock.js` implements them for alpha.
 
 ```js
-dpi.identity.signIn({ purpose })
-  // → { status: 'signed_in' | 'cancelled' | 'failed', subject, claims: { fullName, dateOfBirth, nationalId }, level }
+dpi.identity.signIn({ purpose, actingFor })
+  // → { status: 'signed_in' | 'cancelled' | 'failed', subject, claims: { fullName, dateOfBirth, nationalId }, level, actor }
+  //   actor is null, unless actingFor is true and the person chose to act for someone (see below)
 
 dpi.data.fetch({ subject, attributes: ['address', 'vehicle'], purpose })
   // → { status: 'ok' | 'not_found' | 'refused', consentId, values: { address: { value, source, asOf } }, missing: [] }
@@ -53,6 +54,32 @@ Every call returns a `status`, and every status other than the happy one needs a
 | `live` | Live | The same adapter with production credentials, after the cyber engineer's review |
 
 The page code stays the same from mock to live. Only the adapter changes.
+
+### Acting for someone else
+
+Many citizens use services through someone else, for example:
+- a grandchild helping an older person
+- a parent acting for a child
+- a carer or a legal guardian
+
+**The contract keeps two people apart:** the **subject**, who the service is about, and the **actor**, who is signed in and acting. Never merge them. Merging them puts one person's data in another person's record, and loses who actually did what.
+
+- **Ask for it.** A service that lets people act for others calls `signIn({ purpose, actingFor: true })`.
+- **The actor proves who *they* are first.** Then they choose whose behalf they're acting on, from the authorities the government holds for them. In the mock, these come from the persona's `actsFor` list.
+- **What the service gets back:**
+  - `subject` and `claims` belong to the **person being acted for**
+  - `actor` describes the person acting:
+
+    ```js
+    actor: { subject, claims, relationship, authority: { type, reference, validUntil, canDo: ['apply', 'report changes'] } }
+    ```
+
+  - `actor` is `null` when people act for themselves, and services that don't ask for `actingFor` always get `null`.
+- **The service enforces `authority.canDo`.** If the authority says "apply, report changes", the actor can't, say, change where money is paid. Show the actor that limit at the point it matters, not in a list at the start.
+- **Where the mock sends things.** `dpi.data.fetch()` pulls the **subject's** data, and the consent screen names them: "Can we get [their name]'s details…". The consent record keeps both `subject` and `grantedBy`. `dpi.payments.create()` is paid by the **actor**.
+- **When an authority has ended,** it's shown but can't be chosen, with when it ended. The service needs a route for that person: act for themselves, or renew the authority.
+
+Real platforms model this in different ways. Some use a delegation or mandate register, some a guardian or representative record, and some a separate account for the intermediary. Record which one the government uses in `dpi.md`, under Identity. Where it doesn't exist yet, tag acting-for flows `[VERIFY WITH PLATFORM]` and `[VERIFY WITH POLICY]`.
 
 ---
 
@@ -98,6 +125,8 @@ The happy path shows that the prototype works. These scenarios show whether the 
 | No record found | Does the manual route feel like a failure, or like a normal option? |
 | Consent refused | Can they still finish? |
 | Payment declined | Do they understand what happened and what to do? Is anything charged twice? |
+| Acting for someone else (with `actingFor: true`) | Does the person acting understand whose details they're seeing, and what they can and can't do for them? Is the person they're acting for still at the centre of the service? |
+| Their authority to act has ended | Do they understand why they can't act, and how to renew it? Can they still help another way? |
 
 ---
 

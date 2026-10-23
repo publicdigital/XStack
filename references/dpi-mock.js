@@ -1,5 +1,5 @@
 /*
-  xstack DPI mock – v1
+  xstack DPI mock – v1.1 (adds acting for someone else)
   Simulated identity, data exchange (with consent) and payments for single-file alpha prototypes.
   Implements the contract in references/dpi-baseline.md. Inline this whole file in a <script> tag.
 
@@ -22,7 +22,11 @@
     });
 
     const who = await dpi.identity.signIn({ purpose: 'renew your vehicle licence' });
-    //  { status: 'signed_in' | 'cancelled' | 'failed', subject, claims, level }
+    //  { status: 'signed_in' | 'cancelled' | 'failed', subject, claims, level, actor }
+    //  Pass actingFor: true to let someone act for another person. A persona's actsFor list says
+    //  whom; subject and claims are then the other person's, and actor is
+    //  { subject, claims, relationship, authority: { type, reference, validUntil, canDo } }.
+    //  actor is null when people act for themselves.
     const got = await dpi.data.fetch({ subject: who.subject, attributes: ['address', 'vehicle'], purpose: '…' });
     //  { status: 'ok' | 'not_found' | 'refused', consentId, values: { address: { value, source, asOf } }, missing: [] }
     const paid = await dpi.payments.create({ amount: 120, reference: 'VL-4821', description: 'Vehicle licence, 12 months' });
@@ -47,7 +51,18 @@
       claims: { fullName: 'Test Citizen D', dateOfBirth: '1976-01-19', nationalId: 'MOCK-000-0004' },
       data: { address: '[Mock] 5 Sample Lane, South District' }, payment: 'declined' },
     { id: 'no-sign-in', label: 'Can\'t be verified',
-      claims: {}, data: {}, signIn: 'failed' }
+      claims: {}, data: {}, signIn: 'failed' },
+    // Acting for someone else. Only offered when the service calls signIn({ actingFor: true }).
+    // One authority is current; the other has ended, so research can see what that looks like.
+    { id: 'helper', label: 'Acts for someone else (with authority)',
+      claims: { fullName: 'Test Citizen E', dateOfBirth: '1990-07-08', nationalId: 'MOCK-000-0005' },
+      data: { address: '[Mock] 1 Example Street, Central District' },
+      actsFor: [
+        { persona: 'found', relationship: 'parent',
+          authority: { type: 'Authorised intermediary', reference: 'MOCK-AUTH-0001', validUntil: '2099-12-31', canDo: ['apply', 'report changes'] } },
+        { persona: 'stale', relationship: 'neighbour',
+          authority: { type: 'Authorised intermediary', reference: 'MOCK-AUTH-0002', validUntil: '2020-01-31', canDo: ['apply'] } }
+      ] }
   ];
 
   var CSS = [
@@ -84,6 +99,10 @@
   function id(prefix) { return prefix + '-' + Math.random().toString(36).slice(2, 8).toUpperCase(); }
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
   function today() { return new Date().toISOString().slice(0, 10); }
+  function longDate(iso, locale) {
+    try { return new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(iso + 'T00:00:00Z')); }
+    catch (e) { return iso; }
+  }
   function money(amount, currency, locale) {
     try { return new Intl.NumberFormat(locale, { style: 'currency', currency: currency }).format(amount); }
     catch (e) { return currency + ' ' + Number(amount).toFixed(2); }
@@ -101,7 +120,8 @@
     var personas = config.personas || DEFAULT_PERSONAS;
     var locale = config.locale;               // e.g. 'en-BB', so amounts match the service's own formatting
     var latency = config.latencyMs == null ? 900 : config.latencyMs;
-    var current = null;
+    var current = null;                       // the person the service is about (the subject)
+    var actor = null;                         // the person acting for them, when it isn't the subject
 
     if (!document.getElementById('xsdpi-style')) {
       var style = document.createElement('style');
@@ -176,11 +196,55 @@
               root.querySelector('[data-back]').onclick = function () { done({ status: 'failed' }); };
               return;
             }
-            current = picked;
-            done({ status: 'signed_in', subject: 'sub-' + picked.id, claims: Object.assign({}, picked.claims), level: 'substantial', persona: picked.id });
+            var asSelf = function () {
+              current = picked;
+              actor = null;
+              done({ status: 'signed_in', subject: 'sub-' + picked.id, claims: Object.assign({}, picked.claims), level: 'substantial', persona: picked.id, actor: null });
+            };
+            var links = (picked.actsFor || []).map(function (link) {
+              return { link: link, person: personas.filter(function (p) { return p.id === link.persona; })[0] };
+            }).filter(function (x) { return x.person; });
+            if (!opts.actingFor || !links.length) return asSelf();
+            whoFor(root, picked, links, asSelf, done);
           });
         };
       });
+    }
+
+    // Acting for someone: after the person proves who *they* are, they choose whose behalf they are
+    // using the service on, from the authorities recorded against them. The service gets the
+    // subject's claims, and an `actor` saying who is acting and under what authority.
+    function whoFor(root, picked, links, asSelf, done) {
+      var now = today();
+      var options = links.map(function (x, i) {
+        var a = x.link.authority || {};
+        var ended = a.validUntil && a.validUntil < now;
+        return '<label class="xsdpi__opt"><input type="radio" name="xsdpi-for" value="' + i + '"' + (ended ? ' disabled' : '') + '>' +
+          '<span>' + esc(x.person.claims.fullName || 'Unknown person') + (x.link.relationship ? ' (your ' + esc(x.link.relationship) + ')' : '') +
+          '<small>' + (ended
+            ? 'Your authority to act for them ended on ' + esc(longDate(a.validUntil, locale)) + '. You need to renew it before you can act for them.'
+            : esc(a.type || 'Authority') + (a.canDo && a.canDo.length ? '. You can: ' + esc(a.canDo.join(', ')) : '') + (a.validUntil ? '. Until ' + esc(longDate(a.validUntil, locale)) : '') + '.') +
+          '</small></span></label>';
+      }).join('');
+      replace(root,
+        '<h2 id="xsdpi-title">Who are you using ' + esc(serviceName) + ' for?</h2>' +
+        '<p>You are signed in as ' + esc(picked.claims.fullName || 'yourself') + '.</p>' +
+        '<fieldset><legend>Choose one</legend>' +
+        '<label class="xsdpi__opt"><input type="radio" name="xsdpi-for" value="self" checked><span>Myself</span></label>' +
+        options + '</fieldset>' +
+        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-for>Continue</button>' +
+        '<button class="xsdpi__link" data-cancel>Go back to the service</button></div>');
+      root.querySelector('[data-cancel]').onclick = function () { done({ status: 'cancelled' }); };
+      root.querySelector('[data-for]').onclick = function () {
+        var choice = root.querySelector('input[name="xsdpi-for"]:checked').value;
+        if (choice === 'self') return asSelf();
+        var x = links[Number(choice)];
+        current = x.person;
+        actor = picked;
+        done({ status: 'signed_in', subject: 'sub-' + x.person.id, claims: Object.assign({}, x.person.claims), level: 'substantial', persona: x.person.id,
+          actor: { subject: 'sub-' + picked.id, claims: Object.assign({}, picked.claims), persona: picked.id,
+            relationship: x.link.relationship || null, authority: Object.assign({}, x.link.authority) } });
+      };
     }
 
     function fetchData(opts) {
@@ -194,17 +258,22 @@
       var list = Object.keys(bySource).map(function (src) {
         return '<li><strong>' + esc(src) + ':</strong> ' + esc(bySource[src].join(', ')) + '</li>';
       }).join('');
+      var forName = actor && current ? current.claims.fullName : null;
       var html =
-        '<h2 id="xsdpi-title">Can we get your details from government records?</h2>' +
-        '<p>' + esc(serviceName) + ' wants to get:</p><ul>' + list + '</ul>' +
+        (forName
+          ? '<h2 id="xsdpi-title">Can we get ' + esc(forName) + '’s details from government records?</h2>' +
+            '<p>You are acting for ' + esc(forName) + '. ' + esc(serviceName) + ' wants to get their:</p><ul>' + list + '</ul>'
+          : '<h2 id="xsdpi-title">Can we get your details from government records?</h2>' +
+            '<p>' + esc(serviceName) + ' wants to get:</p><ul>' + list + '</ul>') +
         (opts.purpose ? '<p>This is so we can ' + esc(opts.purpose) + '.</p>' : '') +
         '<p>You will be able to check them and change anything that is wrong. If you say no, you can type them in yourself.</p>' +
-        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-yes>Yes, get my details</button>' +
+        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-yes>' + (forName ? 'Yes, get their details' : 'Yes, get my details') + '</button>' +
         '<button class="xsdpi__btn xsdpi__btn--secondary" data-no>No, I will type them in</button></div>';
       return screen(exchangeName, html, function (root, done) {
         root.querySelector('[data-no]').onclick = function () { done({ status: 'refused', values: {}, missing: wanted.slice() }); };
         root.querySelector('[data-yes]').onclick = function () {
-          var consent = { id: id('CONSENT'), purpose: opts.purpose || '', attributes: wanted.slice(), sources: Object.keys(bySource), grantedAt: new Date().toISOString() };
+          var consent = { id: id('CONSENT'), purpose: opts.purpose || '', attributes: wanted.slice(), sources: Object.keys(bySource), grantedAt: new Date().toISOString(),
+            subject: current ? 'sub-' + current.id : null, grantedBy: actor ? 'sub-' + actor.id : null };
           api.consents.push(consent);
           replace(root, '<p class="xsdpi__wait" id="xsdpi-title" role="status">Getting your details…</p>');
           wait(latency).then(function () {
@@ -239,7 +308,8 @@
         root.querySelector('[data-pay]').onclick = function () {
           replace(root, '<p class="xsdpi__wait" id="xsdpi-title" role="status">Processing your payment…</p>');
           wait(latency).then(function () {
-            if (current && current.payment === 'declined') {
+            var payer = actor || current;             // whoever is acting pays
+            if (payer && payer.payment === 'declined') {
               replace(root,
                 '<div class="xsdpi__error"><h2 id="xsdpi-title">Your payment was declined</h2>' +
                 '<p>You have not been charged. Go back to the service to try again or pay another way.</p></div>' +
@@ -262,7 +332,8 @@
       payments: { create: pay },
       consents: [],
       persona: function () { return current; },
-      reset: function () { current = null; api.consents.length = 0; }
+      actor: function () { return actor; },
+      reset: function () { current = null; actor = null; api.consents.length = 0; }
     };
     return api;
   }
