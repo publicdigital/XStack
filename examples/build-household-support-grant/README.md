@@ -45,7 +45,7 @@ All three have the same chrome, so the test is about the journey:
 - the xstack banner
 - the footer with the CSC finder
 
-They use the xstack neutral style because Kestria has no design system yet.
+Iterations 1 and 2 use the xstack neutral style, because Kestria had no design system then. **Iteration 3 uses the GovKestria design system** (`profiles/kestria/design-system/`) – see below. Iteration 3 loads Noto Sans from Google Fonts, and falls back to Arial offline.
 
 ## What was checked
 
@@ -97,6 +97,57 @@ Each prototype now has `iteration-2/` with `index.html`, `CHANGES.md` and `assum
 - a screen reader
 - the 320px layout of iteration 2
 
+## Iteration 3 (2026-10-23) – GovKestria design system
+
+Each prototype now has `iteration-3/` with `index.html`, `CHANGES.md` and `assumptions.md`. The feedback is `feedback-round-2.md` in each prototype folder: KDS published the GovKestria design system, and the profile now names it. **This is a styling change.** The journeys, page ids, validation, data, rules and DPI calls are the same as iteration 2. Each `CHANGES.md` lists every copy change.
+
+**What changed in all three:**
+- **Stylesheets:** `tokens.css`, then `kestria.css`, are inlined exactly. The neutral style is gone, and the service CSS has no hard-coded colours.
+- **Chrome:** the GovKestria chrome from `DESIGN.md`:
+  - the fictional banner, repeated in the footer
+  - the plain-type GovKestria wordmark
+  - language links for Kestrian, Vell and Sora
+  - an "Alpha" phase line (from `design-system.md`)
+  - then the xstack banner
+- **Components:** `kg-` components throughout, including the error notice and field errors, the success notice on confirmation, tags and radios. The gaps use the stopgaps in `design-system.md`.
+- **`DESIGN.md` rules:**
+  - one primary button per page
+  - a help panel (CSC, district office, helpline) on the start page and every question page
+  - icons on notices and primary actions
+- **Helpline:** `0800 400 400` is replaced by the GovKestria helpline, `+999 77 100 2000`.
+- **Not changed:** the DPI mock is still v1. Acting-for (mock v1.1, Mina Vorlek) is a behaviour change and is deferred.
+
+**What was checked:**
+- `node --check` passes.
+- `tokens.css` and `kestria.css` are inlined verbatim, in order.
+- The DPI mock and `KESTRIA_PERSONAS` are byte-identical to iteration 2.
+- Every iteration-2 page still exists: 24, 37 and 25.
+- No `--xs-` CSS is left, and no hex colours are in the service CSS.
+- Each prototype was clicked through from start to confirmation in a browser, with one primary button on every page and the help panel where `DESIGN.md` wants it:
+  - P1 as Ines
+  - P2 as Aru, via the fingerprint route
+  - P3 as Tessa
+- Every page of every prototype was shown at 320px wide, and none scrolls sideways.
+- P3's error pattern was checked on the new-baby page.
+
+**Not checked:**
+- every other route
+- a screen reader
+- 200% and 400% zoom
+- whether every primary button carries an icon
+
+**Departures from `DESIGN.md`:** these are recorded in each `CHANGES.md`. Several belong back in the design system.
+- **Page CSS restyles some `kg-` components.** All three add page CSS for patterns the design system lacks: the officer strip, read-aloud blocks and slip, the household strip, date widths, and the summary list. `DESIGN.md` says not to restyle components in page CSS.
+- **The language switcher is inconsistent.** P2 and P3 raise it to 48px to meet the target-size rule. P1 leaves it at `kestria.css`'s `min-height: 40px`. The fix belongs in `kestria.css`.
+- **Some sentences are over 15 words,** including the fixed declaration wording.
+- **P3 still has four pages that ask two things.** P1 keeps "Me" preselected for who receives the money, which matches the service sheet's default but goes against "never preselect".
+- **There's no fixed "Question N of M",** because the journeys branch. P1 and P3 use part or section tags instead.
+- **A warning notice would use the accent a second time** on that page.
+- **`*999#` isn't a `+999` number.** The rule doesn't cover USSD codes yet.
+
 ## Next
 
-The builders found new gaps in the service sheet while iterating (see `profile-findings.md`, "Round 2"). Answer those, then test with people before iteration 3.
+- Answer the round-2 service-sheet gaps (see `profile-findings.md`, "Round 2").
+- Feed the design-system departures above back into `DESIGN.md` and `kestria.css`.
+- Move to mock v1.1 so P2 can use Mina's acting-for sign-in.
+- Then test with people.
