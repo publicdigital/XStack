@@ -16,6 +16,7 @@ xstack profile: kestria
 | `world.md` | The world bible: geography, regions, institutions, population and inclusion statistics, laws, the service backlog. Every fact about Kestria comes from here. | Research, synthetic personas, discovery, or any time you need a fact about Kestria |
 | `service-standards.md` | The Kestria Digital Service Standard, with how an agent checks each point | Assessing or citing standards |
 | `dpi.md` | KestriaID, KesPay, GovPay Kestria and KesLink: protocols, the payout model, the data catalogue with value shapes, and test personas | Building anything that signs people in, pulls data or takes or makes payments |
+| `design-system.md` and `design-system/` | The GovKestria design system: `DESIGN.md` (rules, tokens, components, patterns), `tokens.css` and `tokens.json`, `kestria.css` (`kg-` components) and `example.html`. `design-system.md` says how xstack prototypes use it. | Building any Kestria page, prototype or service |
 | `services/*.md` | Service sheets – the rules of a particular service (eligibility, who can apply and be paid, sign-in levels, timings, declaration wording, which personas fit). So far: `household-support-grant.md` | Building or researching that service. Its rules win over a brief's guesses. |
 
 ## Government and context
@@ -97,15 +98,21 @@ Cite points as "Point 5 (Don't ask for what government already knows)".
 
 ## Design system
 
-- **Name and link:** none yet. Kestria has no published design system, so prototypes use the **xstack neutral style** (Tier 3).
-- **Details:** run `/xstack:design-system kestria` once a Kestria design system exists, or create a token set for it as a later demo step
-- **Page chrome every service must have:**
-  - a "Kestria is a fictional country, used for demonstration" banner above everything else
-  - a GovKestria header with the service name
-  - an alpha or beta phase banner
-  - a language switcher: Kestrian, English, and Vell or Sora where the service offers them
-  - a footer linking to the privacy notice, accessibility statement, contact details and nearest-CSC finder
-- **Colours and fonts:** use the xstack neutral style. Don't invent a crest or flag.
+- **Name and link:** the **GovKestria design system** (fictional), in `design-system/`. `design-system/DESIGN.md` is the source of truth: rules, tokens, component markup, page patterns, writing and accessibility rules, and a checklist.
+- **Details:** `design-system.md` – how xstack prototypes use it, the chrome, and which component to use for each pattern, including the gaps
+- **How to use it in a prototype:**
+  - A single-file prototype inlines `design-system/tokens.css`, then `design-system/kestria.css`, exactly as they are. It doesn't approximate them.
+  - A multi-file service links them in that order.
+  - Start new pages from `design-system/example.html`.
+  - Never hard-code a colour or size that has a token. Add new tokens to `tokens.json` and `tokens.css` first.
+- **Page chrome every service must have:** the `ServiceHeader` and footer from `DESIGN.md`:
+  - the fictional-country banner, repeated in the footer
+  - the GovKestria wordmark (plain type, no crest)
+  - the service name
+  - a language switcher
+  - a footer with privacy and accessibility links
+  - prototypes also need an alpha or beta phase line (see `design-system.md`)
+- **Colours and fonts:** Lake Kerrow blue (`--brand`) with a dry-season-sun accent (`--accent`, once per screen), and Noto Sans. Don't invent a crest or flag.
 
 ## Shared platforms
 

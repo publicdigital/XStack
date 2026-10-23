@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who looks after the money? – Apply for the Household Support Grant – GovKestria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="kestria.css">
+</head>
+<body class="kg-body">
+<a class="kg-link kg-skip-link" href="#main">Skip to main content</a>
+
+<div class="kg-banner"><div class="kg-width">Kestria is a fictional country, used for demonstration.</div></div>
+<header class="kg-header">
+  <div class="kg-width kg-header__inner">
+    <a class="kg-header__mark" href="#">GovKestria</a>
+    <a class="kg-header__service" href="#">Apply for the Household Support Grant</a>
+    <a class="kg-header__lang" href="#">Kestrian</a>
+  </div>
+</header>
+
+<div class="kg-width">
+  <main class="kg-main" id="main">
+    <p><a class="kg-link" href="#">Back</a></p>
+
+    <div class="kg-notice kg-notice--error" role="alert">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      <div><span class="kg-notice__title">Error:</span><p><a href="#money">Choose who looks after the money</a></p></div>
+    </div>
+
+    <span class="kg-tag">Question 3 of 6</span>
+
+    <form>
+      <fieldset class="kg-fieldset kg-field kg-field--error" id="money">
+        <legend><h1 class="heading-l">Who looks after the money in your household?</h1></legend>
+        <span class="kg-hint">We will pay the grant into this person's mobile money or bank account.</span>
+        <span class="kg-error-message"><span class="kg-visually-hidden">Error:</span> Choose who looks after the money</span>
+        <label class="kg-radio"><input type="radio" name="money" value="me"><span>Me</span></label>
+        <label class="kg-radio"><input type="radio" name="money" value="other"><span>Someone else in my household</span></label>
+      </fieldset>
+
+      <div class="kg-field">
+        <label class="kg-label" for="kuin">KestriaID number (KUIN)</label>
+        <span class="kg-hint" id="kuin-hint">It has 10 numbers. It is on the front of your KestriaID card.</span>
+        <input class="kg-input kg-input--width-10" id="kuin" name="kuin" inputmode="numeric" autocomplete="off" aria-describedby="kuin-hint">
+      </div>
+
+      <div class="kg-button-group">
+        <button class="kg-button" type="submit">Continue</button>
+        <button class="kg-button kg-button--secondary" type="button">Save and come back later</button>
+      </div>
+    </form>
+
+    <div class="kg-help" style="margin-top:48px">
+      <h2 class="heading-m">Get help</h2>
+      <p>Visit any Citizen Service Centre or your district office. Staff can apply for you.</p>
+      <p>Call the GovKestria helpline on +999 77 100 2000. You can speak Kestrian, English, Vell or Sora.</p>
+    </div>
+  </main>
+</div>
+
+<footer class="kg-footer">
+  <div class="kg-width">
+    <p>Kestria is a fictional country, used for demonstration.</p>
+    <p>Run by the Kestria Digital Service. <a class="kg-link" href="#">Privacy</a> · <a class="kg-link" href="#">Accessibility</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,43 @@
+/* GovKestria — generated from tokens.json */
+/* Kestria is a fictional country, used for demonstration. */
+:root, [data-theme="light"] {
+  --surface: #ffffff;
+  --surface-alt: #edf3f6;
+  --ink: #0f1e26;
+  --ink-muted: #4a5a63;
+  --brand: #0b4f6c;
+  --brand-strong: #073a50;
+  --on-brand: #ffffff;
+  --accent: #f2b33d;
+  --on-accent: #0f1e26;
+  --link: #0b5a85;
+  --link-visited: #5b3a87;
+  --focus: #ffbf47;
+  --border: #687984;
+  --hairline: #d2dde3;
+  --success: #18693f;
+  --error: #b0261e;
+  --warning: #f2b33d;
+  --banner: #0f1e26;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+  --target-min: 48px;
+  --measure: 640px;
+  --page-max: 960px;
+  --font-sans: "Noto Sans", Arial, sans-serif;
+}
+.heading-xl { font-family: var(--font-sans); font-size: 34px; line-height: 42px; font-weight: 700; }
+.heading-l { font-family: var(--font-sans); font-size: 26px; line-height: 34px; font-weight: 700; }
+.heading-m { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 600; }
+.body { font-family: var(--font-sans); font-size: 18px; line-height: 28px; font-weight: 400; }
+.body-s { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
+.caption { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
