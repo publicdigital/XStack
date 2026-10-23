@@ -14,6 +14,7 @@ xstack profile: kestria
 |---|---|---|
 | `profile.md` | This file: context, terms, standards mapping, platforms, data formats | Always, first |
 | `world.md` | The world bible: geography, regions, institutions, population and inclusion statistics, laws, the service backlog. Every fact about Kestria comes from here. | Research, synthetic personas, discovery, or any time you need a fact about Kestria |
+| `kestrian.md` | Kestrian (*kestrin*), the invented national language: sounds, grammar, numbers, place-name meanings and a glossary of service words | Writing or testing a page in Kestrian, sizing layouts for longer strings, or labelling the language switcher |
 | `service-standards.md` | The Kestria Digital Service Standard, with how an agent checks each point | Assessing or citing standards |
 | `dpi.md` | KestriaID, KesPay, GovPay Kestria and KesLink: protocols, the payout model, the data catalogue with value shapes, and test personas | Building anything that signs people in, pulls data or takes or makes payments |
 | `design-system.md` and `design-system/` | The GovKestria design system: `DESIGN.md` (rules, tokens, components, patterns), `tokens.css` and `tokens.json`, `kestria.css` (`kg-` components) and `example.html`. `design-system.md` says how xstack prototypes use it. | Building any Kestria page, prototype or service |
