@@ -166,7 +166,7 @@ Where the gaps are:
 
 ## Languages
 
-- **Kestrian:** the lingua franca. 88% of people speak it and 52% speak it as their first language. Written in the Latin alphabet with a few diacritics (`ä`, `ö`, `š`). It's the default language of every service.
+- **Kestrian:** the lingua franca. 88% of people speak it and 52% speak it as their first language. Written in the Latin alphabet with a few diacritics (`ä`, `ö`, `š`). It's the default language of every service. Its sounds, grammar and a glossary of service words are in `kestrian.md`.
 - **English:** official, and used in law, higher education and business. Don't assume people read it well outside the Capital Region.
 - **Vell:** the first language of about 18% of people, mostly in the Northern Plains. Spoken more than written. Audio, pictures and community radio reach people better than text.
 - **Sora:** the first language of about 13% of people, in the Coastal South, Lake Region and Eastern Islands.
