@@ -60,7 +60,7 @@
   - non-citizen residents who haven't enrolled
 - **Assisted or offline route:**
   - a CSC officer signs the person in at level 3 with their fingerprint, and completes the service with them
-  - a family member can act for someone through an authorised intermediary record made at a CSC. Each service sheet says what an intermediary may do in that service. For SPA services, see `services/household-support-grant.md`.
+  - a family member can act for someone through an authorised intermediary record made at a CSC. The NIA holds these records, and KestriaID offers them at sign-in: the intermediary signs in as themselves, then chooses "act for" the person. Prototypes use `signIn({ actingFor: true })` and the persona's `actsFor` list (see `references/dpi-baseline.md`, Acting for someone else). Each service sheet says what an intermediary may do in that service. For SPA services, see `services/household-support-grant.md`.
   - every service also needs a manual route for people with no KUIN (National Identity Act 2020, s.19)
 
 ### Payments
@@ -214,6 +214,7 @@ These are the **general** personas, one for each DPI scenario. Each service shee
 | Aru Danvell, 61 | `9900 644 181` | Dunmar, NP | Can't sign in online | The phone number on record is an old one, so no one-time code arrives. A CSC can sign him in with his fingerprint (level 3). The mock can't do that yet: see `dpi-mock.js` gaps. Gets paid in cash. |
 | Jory Benmara, 25 | `9900 773 655` | Saltholm, EI | Says no to a consent-based pull | For services that pull on consent (DPA s.12), such as qualifications for a job application. The researcher chooses "No" on the consent screen. **Not for public-task pulls (s.13)**, where there's no consent to refuse. |
 | Anaïs Vorlek, about 78 | `9900 962 518` | Corran Isle, EI | Acting through someone else | Her granddaughter Mina, 19, helps her as an authorised intermediary. They share a basic phone. Gets the Older Persons Grant. Date of birth estimated: 01 01 1948. Speaks Sora. |
+| Mina Vorlek, 19 | `9900 274 665` | Corran Isle, EI | Acts for someone else | Anaïs's granddaughter and authorised intermediary (reference `AI-EI-2026-00418`, until 31 03 2027, can apply and report changes). Signs in as herself, then chooses to act for Anaïs. Only offered when the service calls `signIn({ actingFor: true })`. |
 | Kel Varrin, about 34 | none | Orsk, NP | Adult with no KUIN | Pastoralist. Has a birth record but no KestriaID. Shares a phone with his brother. His household isn't in the registry. Any service he needs must work without KestriaID. |
 | Pell Marrow, 15 | none | Kessel Hill, CR | Child with no KUIN | Too young to enrol. Has a birth record. |
 
@@ -285,6 +286,16 @@ const KESTRIA_PERSONAS = [
       programmes: [ { programme: 'Older Persons Grant', member: 'Anaïs Vorlek', status: 'active', since: '2021-07' } ], hsgAssessment: 'already_supported',
       payoutAccount: { route: 'kuin', provider: 'Postbank Kestria', providerId: 'postbank', last4: '0154', maskedPhone: null } },
     note: 'Shares a basic phone with her granddaughter Mina, her authorised intermediary. Speaks Sora.' },
+  { id: 'mina', label: 'Acts for her grandmother (authorised intermediary)', claims: { fullName: 'Mina Vorlek', givenName: 'Mina', familyName: 'Vorlek', dateOfBirth: '2007-05-21', nationalId: '9900 274 665', phone: '+999 76 409 0021' },
+    data: {
+      address: { region: 'Eastern Islands', regionCode: 'EI', district: 'Corran Isle', village: 'Corran', street: '[Fictional] Harbour Row', landmark: 'Blue house by the jetty', postcode: 'EI 409', recordedOn: '2023-06-02' },
+      household: { number: 'HH-EI-0051736', district: 'Corran Isle', village: 'Corran', lastSurveyed: '2024-02', registeredPerson: 'Anaïs Vorlek',
+        members: [ { name: 'Anaïs Vorlek', relationship: 'self', age: 78, hasKuin: true }, { name: 'Mina Vorlek', relationship: 'grandchild', age: 19, hasKuin: true } ] },
+      programmes: [ { programme: 'Older Persons Grant', member: 'Anaïs Vorlek', status: 'active', since: '2021-07' } ], hsgAssessment: 'already_supported',
+      payoutAccount: { route: 'msisdn', provider: 'Kora Wallet', providerId: 'korawallet', last4: null, maskedPhone: '+999 76 ··· ·021' } },
+    actsFor: [ { persona: 'anais', relationship: 'grandmother',
+      authority: { type: 'Authorised intermediary', reference: 'AI-EI-2026-00418', validUntil: '2027-03-31', canDo: ['apply', 'report changes'] } } ],
+    note: 'Signs in as herself, then chooses to act for Anaïs. Needs signIn({ actingFor: true }).' },
   { id: 'aru', label: 'Can\'t sign in online (old phone number on record)', claims: { fullName: 'Aru Danvell' }, signIn: 'failed',
     data: {   // used once the mock can sign him in at a CSC (level 3)
       address: { region: 'Northern Plains', regionCode: 'NP', district: 'Dunmar', village: 'East Wells', street: null, landmark: 'Near the water point', postcode: 'NP 501', recordedOn: '2022-04-18' },
@@ -310,6 +321,11 @@ const dpi = xstackDpi.create({
     hsgAssessment: { label: 'Whether you can probably get it', source: 'National Social Registry' },
     payoutAccount: { label: 'Where we would pay',              source: 'KesPay' }
   },
-  personas: KESTRIA_PERSONAS.filter(p => ['ines', 'tessa', 'talin', 'sefa', 'desa', 'mirel', 'anais', 'aru'].includes(p.id))
+  personas: KESTRIA_PERSONAS.filter(p => ['ines', 'tessa', 'talin', 'sefa', 'desa', 'mirel', 'anais', 'mina', 'aru'].includes(p.id))
 });
+
+// Then, in a service that lets an intermediary act (the Household Support Grant does):
+// const who = await dpi.identity.signIn({ purpose: 'apply for the Household Support Grant', actingFor: true });
+// who.actor is null, or { subject, claims, relationship, authority: { type, reference, validUntil, canDo } }
+// for Mina acting for Anaïs. Enforce authority.canDo – she can't name herself as recipient or change the route.
 ```

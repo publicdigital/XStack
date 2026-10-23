@@ -129,7 +129,14 @@ These showed up because Kestria pushed harder on the DPI than Barbados does.
 - **The mock always returns assurance level `substantial`.** Personas can't carry a level, and there's no way to say what level an action needs.
 - **The mock always shows a consent screen.** There's no "notice" mode for public-task (s.13) pulls.
 - **Data values are flat strings.** Structured values, such as an address with a district or a household with members, would remove the `PERSONA_EXTRAS` workarounds.
-- **The mock signs in one person.** It can't model acting for someone else.
+- ~~**The mock signs in one person.** It can't model acting for someone else.~~ **Fixed in `dpi-mock.js` v1.1:**
+  - `signIn({ actingFor: true })` lets a persona with an `actsFor` list choose whose behalf they're acting on
+  - the result carries the subject's `claims`, plus an `actor` with the relationship and authority (`type`, `reference`, `validUntil`, `canDo`)
+  - ended authorities are shown but can't be chosen
+  - data and consent are about the subject, payment is by the actor
+  - the contract is in `references/dpi-baseline.md`, and Kestria has a new persona, Mina Vorlek, who acts for Anaïs
+
+  The prototypes in this folder still inline v1, so they act for someone with their own pages.
 - **The `xstack:developer` agent has no shell.** It can't run `node --check`, so all three builders shipped unchecked JavaScript. The orchestrator checked it afterwards and it was clean.
 
 ## Suggested next steps for the profile

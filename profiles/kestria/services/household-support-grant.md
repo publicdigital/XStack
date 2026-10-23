@@ -126,7 +126,7 @@ The lawful basis is **public task** (Data Protection Act 2022, s.13; Social Prot
 
 ## Test personas for this service
 
-Use these people from `../dpi.md`. In the mock: `KESTRIA_PERSONAS.filter(p => ['ines', 'tessa', 'talin', 'sefa', 'desa', 'mirel', 'anais', 'aru'].includes(p.id))`. Kel Varrin has no KUIN, so he's tested on the route without KestriaID, not in the mock.
+Use these people from `../dpi.md`. In the mock: `KESTRIA_PERSONAS.filter(p => ['ines', 'tessa', 'talin', 'sefa', 'desa', 'mirel', 'anais', 'mina', 'aru'].includes(p.id))`, and sign in with `signIn({ purpose, actingFor: true })` so Mina can act for Anaïs. Kel Varrin has no KUIN, so he's tested on the route without KestriaID, not in the mock.
 
 | Persona | Scenario | Assessment | Payout |
 |---|---|---|---|
@@ -137,6 +137,7 @@ Use these people from `../dpi.md`. In the mock: `KESTRIA_PERSONAS.filter(p => ['
 | Desa Haldry, Belmar CS | Household found, but no account linked to her KUIN (the pull returns `ok` with `payoutAccount` in `missing`) | `likely` | Ask for the phone number her Kora Wallet is on (route 2) |
 | Mirel Okand, Aranport Central CR | Probably can't get it (band D) | `not_likely` | – |
 | Anaïs Vorlek, Corran Isle EI | Gets the Older Persons Grant. Her granddaughter Mina helps her as an authorised intermediary. | `already_supported` | Postbank Kestria |
+| Mina Vorlek, Corran Isle EI | Signs in as herself and acts for Anaïs. `who.actor` is Mina, and `who.claims` are Anaïs's. She can apply and report changes, but can't be the recipient or change the route. | Anaïs's: `already_supported` | Anaïs's: Postbank Kestria |
 | Aru Danvell, Dunmar NP | Can't sign in online (old phone number). Can at a CSC with his fingerprint. | `likely` once signed in at a CSC | No account, so cash at a post office |
 | Kel Varrin, Orsk NP | Adult with no KUIN (pastoralist, birth record only) | No-KUIN route, so `needs_survey` | Cash collection voucher |
 
