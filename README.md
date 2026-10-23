@@ -121,7 +121,8 @@ xstack/
 └── profiles/                 country profiles
     ├── README.md             what a profile is and how agents find it
     ├── _template/            start your own profile here
-    └── barbados/             the first bundled profile
+    ├── barbados/             the first bundled profile
+    └── kestria/              a fictional country for demos, on MOSIP, Mojaloop and X-Road
 ```
 
 ## Country profiles
@@ -131,7 +132,7 @@ xstack's agents, skills and commands are country-agnostic. Everything specific t
 - **Without a profile**, xstack works to its own baseline: the 14 themes in [`references/service-standard-baseline.md`](./references/service-standard-baseline.md) and the generic conventions in [`references/house-style.md`](./references/house-style.md).
 - **With a profile**, agents cite your standard by your numbering, build prototypes in your design system and use your shared platforms by name.
 
-Run `/xstack:profile` to set one up for your project. It writes `.xstack/profile.md`, which the whole team can commit and share. To point prototypes at your government's design system, run `/xstack:design-system [country]`. It picks from the community-maintained [Government Design Systems List](https://github.com/ctrimm/Government-Design-Systems-List) of more than 100 national, state and city design systems. To set up identity, payments and data exchange, run `/xstack:dpi [country]`. It starts from the [DPI Map](https://dpimap.org) and checks every fact before recording it. Barbados is the first bundled profile: add `xstack profile: barbados` to your project's `CLAUDE.md` to use it. See [profiles/README.md](./profiles/README.md) for how profiles work and how to contribute one.
+Run `/xstack:profile` to set one up for your project. It writes `.xstack/profile.md`, which the whole team can commit and share. To point prototypes at your government's design system, run `/xstack:design-system [country]`. It picks from the community-maintained [Government Design Systems List](https://github.com/ctrimm/Government-Design-Systems-List) of more than 100 national, state and city design systems. To set up identity, payments and data exchange, run `/xstack:dpi [country]`. It starts from the [DPI Map](https://dpimap.org) and checks every fact before recording it. Barbados is the first bundled profile: add `xstack profile: barbados` to your project's `CLAUDE.md` to use it. For demos, use `xstack profile: kestria`, a fictional country that runs on MOSIP, Mojaloop and X-Road. See [profiles/README.md](./profiles/README.md) for how profiles work and how to contribute one.
 
 ## New to xstack?
 

@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help someone apply for the Household Support Grant – GovKestria</title>
+  <!--
+    xstack prototype – Variant 2 of 3 – Assisted at a Citizen Service Centre
+    Anchored to the Kestria Digital Service Standard:
+      Point 1 (Start with the people who use the service)
+      Point 3 (Make it work for everyone, in their language)
+      Point 4 (Keep it simple and in plain words)
+      Point 5 (Don't ask for what government already knows)
+      Point 6 (Protect people's data and earn their trust)
+      Point 7 (Build on the national platforms)
+      Point 11 (Keep it running, on any network)
+    Anchored to GOV.UK Design Principles 1, 2, 4, 7
+    Design system: xstack neutral style (Kestria has no published design system)
+    The user of the screens is the CSC officer, with the citizen beside them.
+    Kestria is a fictional country. Every person, number and place here is made up.
+    references/dpi-mock.js is inlined in full in the first script tag.
+    Assumptions surfaced in the right-hand panel.
+  -->
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --xs-text: #0B0C0C;
+  --xs-text-secondary: #505A5F;
+  --xs-background: #FFFFFF;
+  --xs-surface: #F3F2F1;
+  --xs-border: #B1B4B6;
+  --xs-primary: #1D4F91;
+  --xs-primary-hover: #143A6B;
+  --xs-success: #00703C;
+  --xs-error: #D4351C;
+  --xs-focus: #FFDD00;
+  --xs-font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+}
+body { font-family: var(--xs-font); background: var(--xs-background); color: var(--xs-text); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+a:focus, button:focus, input:focus, select:focus, textarea:focus, summary:focus { outline: 3px solid var(--xs-focus); box-shadow: inset 0 0 0 2px var(--xs-text); }
+.xs-official-banner { background: var(--xs-surface); color: var(--xs-text); font-size: 14px; padding: 8px 24px; }
+.xs-header { background: var(--xs-primary); color: #FFFFFF; padding: 16px 24px; }
+.xs-header__service { font-size: 20px; font-weight: 700; color: #FFFFFF; text-decoration: none; }
+.xs-phase-banner { padding: 10px 24px; font-size: 15px; border-bottom: 1px solid var(--xs-border); }
+.xs-phase-banner strong { background: var(--xs-primary); color: #FFFFFF; padding: 2px 8px; font-size: 13px; text-transform: uppercase; margin-right: 8px; }
+.xstack-banner { background: var(--xs-text); color: #FFFFFF; padding: 10px 24px; font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; }
+.xstack-banner__variant { font-weight: 600; }
+.xstack-banner button { background: var(--xs-focus); color: var(--xs-text); border: 0; padding: 6px 14px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit; }
+main.xs-container { max-width: 720px; width: 100%; margin: 32px auto; padding: 0 24px; flex: 1; }
+.xs-back-link { color: var(--xs-primary); text-decoration: underline; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; margin-bottom: 24px; display: inline-block; }
+.xs-back-link::before { content: "← "; }
+h1 { font-size: 36px; line-height: 1.2; margin-bottom: 20px; }
+h2 { font-size: 24px; margin: 24px 0 12px; }
+p { font-size: 19px; margin-bottom: 16px; }
+ul.xs-list { margin: 0 0 16px 24px; font-size: 19px; }
+ul.xs-list li { margin-bottom: 6px; }
+.xs-label { display: block; font-size: 19px; font-weight: 700; margin-bottom: 6px; }
+.xs-hint { display: block; color: var(--xs-text-secondary); margin-bottom: 10px; font-size: 17px; }
+.xs-input { width: 100%; max-width: 480px; padding: 8px; font-size: 19px; border: 2px solid var(--xs-text); font-family: inherit; background: #FFFFFF; color: var(--xs-text); }
+.xs-error-summary { border: 4px solid var(--xs-error); padding: 16px; margin-bottom: 24px; }
+.xs-error-summary h2 { margin-top: 0; }
+.xs-error-summary a { color: var(--xs-error); font-weight: 700; }
+.xs-error-message { color: var(--xs-error); font-weight: 700; display: block; margin-bottom: 6px; font-size: 19px; }
+.xs-input[aria-invalid="true"] { border-color: var(--xs-error); }
+.xs-button { background: var(--xs-success); color: #FFFFFF; border: 0; padding: 10px 20px; font-size: 19px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 2px 0 #002D18; margin: 0 12px 12px 0; }
+.xs-button--secondary { background: #FFFFFF; color: var(--xs-primary); border: 2px solid var(--xs-primary); box-shadow: none; }
+.xs-summary-list { border-top: 1px solid var(--xs-border); margin-bottom: 24px; }
+.xs-summary-list__row { display: flex; border-bottom: 1px solid var(--xs-border); padding: 12px 0; }
+.xs-footer { background: var(--xs-surface); border-top: 1px solid var(--xs-border); padding: 32px 24px; margin-top: 48px; font-size: 16px; }
+.xs-footer a { color: var(--xs-primary); }
+.xs-footer ul { list-style: none; }
+.xs-footer li { margin-bottom: 8px; }
+.xstack-assumptions { position: fixed; right: -440px; top: 0; width: 420px; height: 100vh; background: #FFFBEA; border-left: 3px solid var(--xs-text); padding: 24px; overflow-y: auto; transition: right 0.25s ease-out, visibility 0s 0.25s; z-index: 100; box-shadow: -2px 0 8px rgba(0,0,0,0.1); visibility: hidden; }
+.xstack-assumptions--open { right: 0; visibility: visible; transition: right 0.25s ease-out, visibility 0s; }
+.xstack-assumptions__close { position: absolute; top: 16px; right: 16px; background: var(--xs-text); color: #FFFFFF; border: 0; width: 32px; height: 32px; font-size: 18px; cursor: pointer; }
+.xstack-assumptions h2 { font-size: 20px; margin: 16px 0 12px; }
+.xstack-assumptions h2:first-of-type { margin-top: 28px; }
+.xstack-assumptions ul { list-style: none; }
+.xstack-assumptions li { margin-bottom: 14px; font-size: 14px; }
+.verify-tag { display: inline-block; background: var(--xs-text); color: #FFFFFF; font-size: 11px; padding: 2px 6px; font-weight: 700; margin-right: 6px; text-transform: uppercase; }
+.verify-tag--user { background: var(--xs-primary); }
+.verify-tag--department { background: #6B3E26; }
+.verify-tag--platform { background: #4A148C; }
+.verify-tag--policy { background: var(--xs-error); }
+.verify-tag--data { background: var(--xs-success); }
+.verify-tag--gap { background: var(--xs-focus); color: var(--xs-text); }
+.verify-tag--built { background: #1B1B1F; border: 1px solid #FFFFFF; }
+.fake-data { display: inline-block; background: #FFF8DC; border: 1px dashed var(--xs-text-secondary); padding: 1px 4px; }
+.page { display: none; }
+.page--active { display: block; }
+.xs-radio { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 12px; font-size: 19px; }
+.xs-radio input { width: 24px; height: 24px; flex: none; margin-top: 3px; }
+.xs-radio small { display: block; color: var(--xs-text-secondary); font-size: 16px; }
+.xs-fieldset { border: 0; margin-bottom: 24px; min-width: 0; }
+.xs-legend { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+.xs-legend h1 { font-size: inherit; margin: 0; }
+.xs-field { margin-bottom: 24px; }
+.xs-summary-list__key { font-weight: 700; width: 35%; padding-right: 16px; }
+.xs-summary-list__value { flex: 1; overflow-wrap: anywhere; }
+.xs-summary-list__actions { padding-left: 16px; }
+.xs-source { display: block; font-size: 15px; color: var(--xs-text-secondary); }
+.xs-inset { border-left: 5px solid var(--xs-border); padding: 8px 16px; margin-bottom: 24px; }
+.xs-inset p:last-child { margin-bottom: 0; }
+.xs-warning { border-left: 5px solid var(--xs-error); padding: 8px 16px; margin-bottom: 24px; font-weight: 700; }
+.xs-panel { background: var(--xs-success); color: #FFFFFF; padding: 24px; text-align: center; margin-bottom: 24px; }
+.xs-panel h1 { margin-bottom: 8px; }
+.xs-panel p { margin: 0; }
+.xs-linkbtn { background: none; border: 0; color: var(--xs-primary); text-decoration: underline; font: inherit; font-size: 19px; cursor: pointer; padding: 0; text-align: left; }
+.xs-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* Language switcher and notice */
+.xs-header__row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+.xs-lang { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.xs-lang button { background: none; border: 0; color: #FFFFFF; font: inherit; font-size: 16px; text-decoration: underline; cursor: pointer; padding: 4px 0; }
+.xs-lang button[aria-pressed="true"] { font-weight: 700; text-decoration: none; border-bottom: 3px solid #FFFFFF; }
+.xs-lang-notice { background: #FFF8DC; border-bottom: 1px solid var(--xs-border); padding: 8px 24px; font-size: 16px; }
+.xs-lang-notice:empty { display: none; }
+/* Officer context strip: on every page */
+.xs-officer { background: #E8F1F8; border-bottom: 3px solid var(--xs-primary); padding: 10px 24px; font-size: 16px; }
+/* Read aloud boxes */
+.xs-aloud { border: 3px solid var(--xs-primary); background: #F5F9FD; padding: 16px; margin-bottom: 24px; }
+.xs-aloud__label { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--xs-primary); margin-bottom: 8px; }
+.xs-aloud p:last-child { margin-bottom: 0; }
+.xs-sim { border: 3px dashed #4A148C; padding: 16px; margin-bottom: 24px; background: #F6F0FB; }
+.xs-sim__label { display: inline-block; background: #4A148C; color: #FFFFFF; font-size: 14px; font-weight: 700; padding: 2px 8px; margin-bottom: 8px; }
+.xs-bigfact { font-size: 22px; font-weight: 700; }
+/* The slip the citizen takes away */
+.xs-slip { border: 2px dashed var(--xs-text); background: #FFFFFF; padding: 16px; margin-bottom: 24px; font-size: 17px; }
+.xs-slip h2 { margin: 0 0 8px; font-size: 22px; }
+.xs-slip p { font-size: 17px; margin-bottom: 8px; }
+.xs-slip dl { margin: 0 0 12px; }
+.xs-slip dt { font-weight: 700; margin-top: 8px; }
+.xs-slip dd { margin: 0; overflow-wrap: anywhere; }
+.xs-slip__ref { font-size: 28px; font-weight: 700; letter-spacing: 0.04em; }
+details { margin-bottom: 16px; font-size: 17px; }
+details summary { cursor: pointer; font-weight: 700; margin-bottom: 8px; }
+details ul { margin-left: 24px; }
+@media (max-width: 720px) {
+  main.xs-container { padding: 0 16px; margin: 16px auto; }
+  h1 { font-size: 28px; }
+  .xs-legend { font-size: 22px; }
+  .xstack-assumptions { width: 100vw; right: -100vw; }
+  .xs-summary-list__row { flex-direction: column; }
+  .xs-summary-list__key { width: 100%; }
+  .xs-summary-list__actions { padding-left: 0; padding-top: 6px; }
+  .xs-official-banner, .xs-header, .xs-phase-banner, .xstack-banner, .xs-officer, .xs-lang-notice, .xs-footer { padding-left: 16px; padding-right: 16px; }
+  .xs-button { width: 100%; margin-right: 0; }
+}
+@media print {
+  body * { visibility: hidden; }
+  #slip, #slip * { visibility: visible; }
+  #slip { position: absolute; left: 0; top: 0; width: 100%; border: 2px dashed #000000; }
+}
+  </style>
+</head>
+<body>
+  <div class="xs-official-banner">Kestria is a fictional country, used for demonstration. This is a prototype of a Kestria government service.</div>
+  <header class="xs-header">
+    <div class="xs-header__row">
+      <a class="xs-header__service" href="#">GovKestria – Apply for the Household Support Grant</a>
+      <div class="xs-lang" role="group" aria-label="Language of the screens">
+        <button type="button" data-lang="Kestrian" aria-pressed="false">Kestrian</button>
+        <button type="button" data-lang="English" aria-pressed="true">English</button>
+        <button type="button" data-lang="Vell" aria-pressed="false">Vell</button>
+        <button type="button" data-lang="Sora" aria-pressed="false">Sora</button>
+      </div>
+    </div>
+  </header>
+  <div id="lang-notice" class="xs-lang-notice" role="status"></div>
+  <div class="xs-phase-banner"><strong>alpha</strong> This is a prototype. Don't use it for real applications.</div>
+  <div class="xstack-banner">
+    <span class="xstack-banner__variant">xstack prototype: Variant 2 of 3 – Assisted at a Citizen Service Centre</span>
+    <button type="button" id="assumptions-toggle" aria-expanded="false" aria-controls="assumptions" onclick="toggleAssumptions()">Show assumptions (0)</button>
+  </div>
+  <div class="xs-officer" id="strip" role="region" aria-label="Who is running this session"></div>
+
+  <main class="xs-container">
+
+    <!-- 1. Start -->
+    <section id="page-start" class="page page--active">
+      <h1>Help someone apply for the Household Support Grant</h1>
+      <p>The Household Support Grant pays <strong>K 1,500</strong> a month to households that need help with money.</p>
+      <p>You run this service on the CSC's certified device. The citizen sits beside you. Read the blue boxes out loud to them.</p>
+      <h2>Before you start</h2>
+      <ul class="xs-list">
+        <li>The citizen is here in person, or a person acting for them is.</li>
+        <li>You use your own name on this device. It is recorded on every page.</li>
+        <li>You never ask for a PIN. Not for a wallet, not for a bank.</li>
+      </ul>
+      <form novalidate onsubmit="submitStart(event)">
+        <div id="start-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset" aria-describedby="kuin-hint">
+            <legend class="xs-label">Does the citizen have a KestriaID?</legend>
+            <span class="xs-hint" id="kuin-hint">A card or a number. If they are not sure, choose No. We will use another way.</span>
+            <span class="xs-error-message" id="kuin-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="kuin" id="kuin-yes" value="yes"> <span>Yes</span></label>
+            <label class="xs-radio"><input type="radio" name="kuin" id="kuin-no" value="no"> <span>No, or not sure</span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Start now</button>
+      </form>
+      <h2>Are you a village digital champion?</h2>
+      <p>You can help someone get ready and book a visit. You cannot sign anyone in or look up their records. A CSC officer does that.</p>
+      <button type="button" class="xs-linkbtn" onclick="startChampion()">Prepare a visit and refer</button>
+    </section>
+
+    <!-- 2. Who is here -->
+    <section id="page-who" class="page">
+      <form novalidate onsubmit="submitWho(event)">
+        <div id="who-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset" aria-describedby="who-hint">
+            <legend class="xs-legend"><h1>Who is here with you?</h1></legend>
+            <span class="xs-hint" id="who-hint">This decides whose fingerprint you check, and what can be changed.</span>
+            <span class="xs-error-message" id="who-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="who" id="who-self" value="self"> <span>The citizen themselves<small>The person the household record is about, or who looks after the household.</small></span></label>
+            <label class="xs-radio"><input type="radio" name="who" id="who-other" value="other"> <span>Someone acting for them<small>For example a son, a daughter or a grandchild. They need an authorised record at a CSC.</small></span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- 3. Acting for -->
+    <section id="page-actor" class="page">
+      <h1>Who is acting for the household?</h1>
+      <div class="xs-warning">Someone acting for a household can apply. They cannot change where the money is paid.</div>
+      <form novalidate onsubmit="submitActor(event)">
+        <div id="actor-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="actor-name">Name of the person acting</label>
+          <span class="xs-error-message" id="actor-name-error" hidden></span>
+          <input class="xs-input" id="actor-name" autocomplete="off">
+        </div>
+        <div class="xs-field">
+          <label class="xs-label" for="actor-rel">How are they related?</label>
+          <span class="xs-error-message" id="actor-rel-error" hidden></span>
+          <select class="xs-input" id="actor-rel">
+            <option value="">Choose one</option>
+            <option>Son or daughter</option>
+            <option>Grandchild</option>
+            <option>Husband or wife</option>
+            <option>Other relative</option>
+            <option>Neighbour or friend</option>
+            <option>Someone else</option>
+          </select>
+        </div>
+        <div class="xs-field">
+          <span class="xs-error-message" id="actor-record-error" hidden></span>
+          <label class="xs-radio"><input type="checkbox" id="actor-record"> <span>I have seen their authorised record at this CSC.<small>This is logged as "acting for".</small></span></label>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- 4. Language -->
+    <section id="page-language" class="page">
+      <form novalidate onsubmit="submitLanguage(event)">
+        <div id="language-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset" aria-describedby="language-hint">
+            <legend class="xs-legend"><h1>Which language does the citizen want to use?</h1></legend>
+            <span class="xs-hint" id="language-hint">The screens are in English. You say everything in the citizen's language. We send text messages in this language. Vell is spoken more than written, so read every blue box out loud.</span>
+            <span class="xs-error-message" id="language-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="lang" id="lang-kestrian" value="Kestrian"> <span>Kestrian</span></label>
+            <label class="xs-radio"><input type="radio" name="lang" id="lang-english" value="English"> <span>English</span></label>
+            <label class="xs-radio"><input type="radio" name="lang" id="lang-vell" value="Vell"> <span>Vell</span></label>
+            <label class="xs-radio"><input type="radio" name="lang" id="lang-sora" value="Sora"> <span>Sora</span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- 5. Fingerprint consent -->
+    <section id="page-fpconsent" class="page">
+      <h1>Ask about the fingerprint check</h1>
+      <div class="xs-aloud">
+        <p class="xs-aloud__label">Read aloud</p>
+        <p>We would like to check your fingerprint, to be sure it is you. We use it only to check who you are today. We do not keep a copy in this application.</p>
+        <p>You can say no. If you say no, you can still apply. We will check your KestriaID card instead.</p>
+        <p>Do you agree to the fingerprint check?</p>
+      </div>
+      <form novalidate onsubmit="submitFpConsent(event)">
+        <div id="fpc-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset">
+            <legend class="xs-label">What did the citizen say?<span class="xs-vh"> (the person whose fingerprint is checked)</span></legend>
+            <span class="xs-error-message" id="fpc-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="fpc" id="fpc-yes" value="yes"> <span>Yes, they agree</span></label>
+            <label class="xs-radio"><input type="radio" name="fpc" id="fpc-no" value="no"> <span>No, they do not agree<small>They keep the service. You check their card instead.</small></span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- 5b. Alternative ID check -->
+    <section id="page-altid" class="page">
+      <h1>Check their KestriaID card instead</h1>
+      <p>Ask to see the KestriaID card. Look at the photo and the person.</p>
+      <div class="xs-warning">This check is not the fingerprint check. You cannot change where the money is paid at this desk.</div>
+      <form novalidate onsubmit="submitAltId(event)">
+        <div id="altid-errors"></div>
+        <div class="xs-field">
+          <span class="xs-error-message" id="altid-error" hidden></span>
+          <label class="xs-radio"><input type="checkbox" id="altid-card"> <span>I have seen the KestriaID card and the photo matches the person.</span></label>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+      <p>No card with them? <button type="button" class="xs-linkbtn" onclick="useNoKuinRoute()">Apply without a KestriaID</button></p>
+    </section>
+
+    <!-- 6. Simulated fingerprint check -->
+    <section id="page-fp" class="page">
+      <h1>Check the fingerprint</h1>
+      <div class="xs-sim">
+        <p class="xs-sim__label">SIMULATED – no fingerprint is read, kept or sent</p>
+        <p>In real life, the citizen puts a finger on the reader. KestriaID checks it. This is assurance <strong>level 3 (high)</strong>.</p>
+        <p id="fp-who"></p>
+      </div>
+      <button type="button" class="xs-button" onclick="fingerprintMatch()">Fingerprint matches (simulate)</button>
+      <button type="button" class="xs-button xs-button--secondary" onclick="fingerprintNoMatch()">Fingerprint does not match (simulate)</button>
+    </section>
+
+    <section id="page-fp-nomatch" class="page">
+      <h1>The fingerprint did not match</h1>
+      <p>This happens. Fingers can be dry, worn or wet. It is not the citizen's fault.</p>
+      <button type="button" class="xs-button" onclick="goTo('page-fp')">Try the reader again</button>
+      <button type="button" class="xs-button xs-button--secondary" onclick="goTo('page-altid')">Check their card instead</button>
+    </section>
+
+    <!-- 7. Sign in (mock) -->
+    <section id="page-signin" class="page">
+      <h1>Sign the citizen in</h1>
+      <div class="xs-sim">
+        <p class="xs-sim__label">SIMULATED KestriaID</p>
+        <p id="signin-level"></p>
+        <p>The next screen is a simulated KestriaID sign-in. For this test, the researcher picks which test person is at the desk.</p>
+      </div>
+      <button type="button" class="xs-button" onclick="startSignIn()">Continue to KestriaID</button>
+    </section>
+
+    <section id="page-signin-cancelled" class="page">
+      <h1>Sign-in was cancelled</h1>
+      <p>Nothing has been looked up. No record was changed.</p>
+      <button type="button" class="xs-button" onclick="goTo('page-signin')">Try again</button>
+      <button type="button" class="xs-button xs-button--secondary" onclick="useNoKuinRoute()">Apply without a KestriaID</button>
+    </section>
+
+    <section id="page-signin-failed" class="page">
+      <h1>KestriaID could not confirm who this is</h1>
+      <p>Nothing has been looked up. This does not stop the citizen from applying.</p>
+      <div class="xs-aloud">
+        <p class="xs-aloud__label">Read aloud</p>
+        <p>The system could not confirm your KestriaID today. That is all right. You can still apply. We will use your household number and your village committee instead.</p>
+      </div>
+      <button type="button" class="xs-button" onclick="useNoKuinRoute()">Apply without a KestriaID</button>
+      <button type="button" class="xs-button xs-button--secondary" onclick="goTo('page-signin')">Try sign-in again</button>
+    </section>
+
+    <!-- 8. Data-use notice -->
+    <section id="page-notice" class="page">
+      <h1>Tell the citizen what we will look up</h1>
+      <div class="xs-aloud">
+        <p class="xs-aloud__label">Read aloud</p>
+        <p>The Social Protection Agency will now look up some details about your household in government records. We will look up:</p>
+        <ul class="xs-list">
+          <li>the district where you live, not your full address</li>
+          <li>who is in your household</li>
+          <li>any support you already get from SPA</li>
+          <li>the account where SPA would pay you</li>
+        </ul>
+        <p>We do this because running this grant is part of SPA's job. The law is the Data Protection Act 2022, section 13. We are telling you. We are not asking for your permission.</p>
+        <p>We will not look up your health, tax, land or vehicles. Every lookup is listed under "Who has used my data" in your GovKestria account. You can ask to see your records and to correct them.</p>
+      </div>
+      <p>The next screen is a simulated KesLink screen.</p>
+      <button type="button" class="xs-button" onclick="lookUp()">I have read this out. Look up the records.</button>
+      <p><button type="button" class="xs-linkbtn" onclick="noLookUp()">The citizen does not want records looked up</button></p>
+    </section>
+
+    <section id="page-fetch-cancelled" class="page">
+      <h1>The lookup was cancelled</h1>
+      <p>Nothing was looked up and nothing was saved.</p>
+      <button type="button" class="xs-button" onclick="goTo('page-notice')">Go back to the notice</button>
+      <button type="button" class="xs-button xs-button--secondary" onclick="noLookUp()">Carry on without the records</button>
+    </section>
+
+    <section id="page-refused" class="page">
+      <h1>We will carry on without the records</h1>
+      <p>Nothing has been looked up. The citizen keeps the service.</p>
+      <div class="xs-aloud">
+        <p class="xs-aloud__label">Read aloud</p>
+        <p>That is fine. We will ask you a few questions instead. SPA will then visit your household to check the details. The visit takes longer than an online check.</p>
+      </div>
+      <button type="button" class="xs-button" onclick="goSurvey('refused')">Continue</button>
+    </section>
+
+    <section id="page-notfound" class="page">
+      <h1>We cannot find a record for this household</h1>
+      <p>That does not mean they cannot get help. Many households that need the grant are not in the registry yet. The next step is a survey visit.</p>
+      <div class="xs-aloud">
+        <p class="xs-aloud__label">Read aloud</p>
+        <p>We could not find your household in the registry. That is not a no. Someone from SPA will visit your household to add you. I will book that visit with you now.</p>
+      </div>
+      <button type="button" class="xs-button" onclick="goSurvey('notfound')">Book a survey visit</button>
+    </section>
+
+    <section id="page-missing" class="page">
+      <h1>Some details are missing</h1>
+      <p>We found some records, but not all of them.</p>
+      <ul class="xs-list" id="missing-list"></ul>
+      <button type="button" class="xs-button" onclick="afterFetch()">Continue</button>
+    </section>
+
+    <!-- District -->
+    <section id="page-district" class="page">
+      <form novalidate onsubmit="submitDistrict(event)">
+        <div id="district-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="district"><h1 style="font-size:inherit;margin:0" id="district-h1">Which district does the household live in now?</h1></label>
+          <span class="xs-hint" id="district-hint">The district only. Not the full address.</span>
+          <span class="xs-error-message" id="district-error" hidden></span>
+          <input class="xs-input" id="district" list="districts" autocomplete="off" aria-describedby="district-hint">
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+    <datalist id="districts">
+      <option value="Aranport Central"><option value="Harbourside"><option value="Millbrook"><option value="Westgate"><option value="Kessel Hill">
+      <option value="Belmar"><option value="Port Ondra"><option value="Calloway"><option value="Sandmere">
+      <option value="Tor Vessa"><option value="Ashgrove"><option value="Hollin"><option value="Upper Brae">
+      <option value="Kerrow"><option value="Reedwater"><option value="Fenmouth">
+      <option value="Dunmar"><option value="Orsk"><option value="Talamir"><option value="Greywell">
+      <option value="Saltholm"><option value="Little Mar"><option value="Corran Isle">
+    </datalist>
+
+    <!-- 9. Confirm facts -->
+    <section id="page-confirm" class="page">
+      <h1>Check these details with the citizen</h1>
+      <div class="acting-slot"></div>
+      <p>We got these from government records. Read them out. Ask if they are right.</p>
+      <dl class="xs-summary-list" id="confirm-list"></dl>
+      <form novalidate onsubmit="submitConfirm(event)">
+        <div id="confirm-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset">
+            <legend class="xs-label">Is this right?</legend>
+            <span class="xs-error-message" id="confirm-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="confirm" id="confirm-ok" value="ok"> <span>Yes, this is right</span></label>
+            <label class="xs-radio"><input type="radio" name="confirm" id="confirm-district" value="district"> <span>No, the district is wrong</span></label>
+            <label class="xs-radio"><input type="radio" name="confirm" id="confirm-people" value="people"> <span>No, the people in the household are wrong</span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- 10. Changes -->
+    <section id="page-changes" class="page">
+      <div class="acting-slot"></div>
+      <form novalidate onsubmit="submitChanges(event)">
+        <div id="changes-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset" aria-describedby="changes-hint">
+            <legend class="xs-legend"><h1>Has anything changed in the household?</h1></legend>
+            <span class="xs-hint" id="changes-hint">Since SPA last visited. Choose all that apply. Do not ask about health or disability.</span>
+            <span class="xs-error-message" id="changes-error" hidden></span>
+            <label class="xs-radio"><input type="checkbox" name="chg" id="chg-birth" value="A baby was born"> <span>A baby was born</span></label>
+            <label class="xs-radio"><input type="checkbox" name="chg" id="chg-death" value="Someone in the household died"> <span>Someone in the household died</span></label>
+            <label class="xs-radio"><input type="checkbox" name="chg" id="chg-moved" value="Someone moved in or out, or the household moved"> <span>Someone moved in or out, or the whole household moved</span></label>
+            <label class="xs-radio"><input type="checkbox" name="chg" id="chg-income" value="The household lost income or work"> <span>The household lost income or work</span></label>
+            <label class="xs-radio"><input type="checkbox" name="chg" id="chg-none" value="None"> <span>None of these</span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- 11. Outcome -->
+    <section id="page-outcome" class="page">
+      <div class="acting-slot"></div>
+      <div id="outcome-body"></div>
+    </section>
+
+    <section id="page-finished" class="page">
+      <h1>Nothing more to do today</h1>
+      <p>This household already gets support from SPA. It cannot get the Household Support Grant as well.</p>
+      <p>If the support has stopped, or the details look wrong, tell the citizen to call <strong>0800 400 400</strong>. The call is free.</p>
+      <button type="button" class="xs-button" onclick="location.reload()">Finish and start again</button>
+    </section>
+
+    <!-- 12. Payout -->
+    <section id="page-payout" class="page">
+      <div class="acting-slot"></div>
+      <h1 id="payout-h1">Is this where we should pay?</h1>
+      <div id="payout-body"></div>
+      <form novalidate onsubmit="submitPayout(event)">
+        <div id="payout-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset">
+            <legend class="xs-label" id="payout-legend">Is that right?</legend>
+            <span class="xs-error-message" id="payout-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="payout" id="payout-yes" value="yes"> <span id="payout-yes-label">Yes, pay here</span></label>
+            <label class="xs-radio"><input type="radio" name="payout" id="payout-no" value="no"> <span id="payout-no-label">No, this is not right</span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-payout-change" class="page">
+      <div class="acting-slot"></div>
+      <form novalidate onsubmit="submitPayoutChange(event)">
+        <div id="pchange-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset" aria-describedby="pchange-hint">
+            <legend class="xs-legend"><h1>Where should we pay instead?</h1></legend>
+            <span class="xs-hint" id="pchange-hint">You can change this here because the fingerprint check was level 3.</span>
+            <span class="xs-error-message" id="pchange-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="pchange" id="pchange-wallet" value="wallet" onchange="togglePchange()"> <span>A mobile money number</span></label>
+            <label class="xs-radio"><input type="radio" name="pchange" id="pchange-post" value="post" onchange="togglePchange()"> <span>Cash at a post office<small>The citizen shows their KestriaID and a one-time code.</small></span></label>
+          </fieldset>
+        </div>
+        <div class="xs-field" id="pchange-phone-wrap" hidden>
+          <label class="xs-label" for="pchange-phone">Mobile money phone number</label>
+          <span class="xs-hint" id="pchange-phone-hint">Any format is fine. In this prototype, type a made-up number.</span>
+          <span class="xs-error-message" id="pchange-phone-error" hidden></span>
+          <input class="xs-input" id="pchange-phone" inputmode="tel" autocomplete="off" aria-describedby="pchange-phone-hint">
+        </div>
+        <div class="xs-inset"><p>We never ask for a PIN or a full account number.</p><p>We will send a text to the number we hold now, to say the payout details changed.</p></div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-payout-blocked" class="page">
+      <div class="acting-slot"></div>
+      <h1>The payout details cannot be changed here</h1>
+      <p id="blocked-why"></p>
+      <div class="xs-aloud">
+        <p class="xs-aloud__label">Read aloud</p>
+        <p>We cannot change where the money goes at this desk today. The person who owns the account can come to a Citizen Service Centre and have their fingerprint checked. We will note that the payout details need a change.</p>
+      </div>
+      <button type="button" class="xs-button" onclick="afterPayoutBlocked()">Continue</button>
+    </section>
+
+    <!-- 13. Who receives -->
+    <section id="page-receiver" class="page">
+      <div class="acting-slot"></div>
+      <form novalidate onsubmit="submitReceiver(event)">
+        <div id="receiver-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset" aria-describedby="receiver-hint">
+            <legend class="xs-legend"><h1>Who should receive the money?</h1></legend>
+            <span class="xs-hint" id="receiver-hint">Often it is the person who looks after the household's money. It does not have to be the person applying.</span>
+            <span class="xs-error-message" id="receiver-error" hidden></span>
+            <div id="receiver-options"></div>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- Contact -->
+    <section id="page-contact" class="page">
+      <div class="acting-slot"></div>
+      <form novalidate onsubmit="submitContact(event)">
+        <div id="contact-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="contact-phone"><h1 style="font-size:inherit;margin:0">What number can we use to contact the household?</h1></label>
+          <span class="xs-hint" id="contact-hint">A number where the text is safe to send. Any format is fine. In this prototype, type a made-up number such as +999 71 234 5678.</span>
+          <span class="xs-error-message" id="contact-phone-error" hidden></span>
+          <input class="xs-input" id="contact-phone" inputmode="tel" autocomplete="off" aria-describedby="contact-hint">
+        </div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset">
+            <legend class="xs-label">Who uses this phone?</legend>
+            <span class="xs-error-message" id="contact-use-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="phoneuse" id="phoneuse-own" value="own"> <span>Only the citizen</span></label>
+            <label class="xs-radio"><input type="radio" name="phoneuse" id="phoneuse-shared" value="shared"> <span>Other people use it too<small>Our texts will say nothing about money or the result.</small></span></label>
+            <label class="xs-radio"><input type="radio" name="phoneuse" id="phoneuse-none" value="none"> <span>There is no phone we can use</span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- 14. Declaration -->
+    <section id="page-declaration" class="page">
+      <div class="acting-slot"></div>
+      <h1>Read the declaration out loud</h1>
+      <div class="xs-aloud" id="declaration-text"></div>
+      <form novalidate onsubmit="submitDeclaration(event)">
+        <div id="declaration-errors"></div>
+        <div class="xs-field">
+          <span class="xs-error-message" id="declaration-error" hidden></span>
+          <label class="xs-radio"><input type="checkbox" id="declaration-ok"> <span id="declaration-label">I read this out loud and the citizen said they agree.</span></label>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- 15. Check answers -->
+    <section id="page-check" class="page">
+      <div class="acting-slot"></div>
+      <h1>Check the answers</h1>
+      <p id="check-intro">Read these out. Ask if anything is wrong.</p>
+      <dl class="xs-summary-list" id="check-list"></dl>
+      <button type="button" class="xs-button" id="check-send" onclick="sendApplication()">Send application</button>
+    </section>
+
+    <!-- 16. Confirmation -->
+    <section id="page-confirmation" class="page">
+      <div id="confirmation-body"></div>
+    </section>
+
+    <!-- No KestriaID route -->
+    <section id="page-nokuin" class="page">
+      <h1>Apply without a KestriaID</h1>
+      <p>No KestriaID does not mean no service. The law says we must find another way.</p>
+      <p>We will use the household number if the citizen knows it. We will ask someone on the village committee to confirm the household. Then SPA will visit.</p>
+      <div class="xs-aloud">
+        <p class="xs-aloud__label">Read aloud</p>
+        <p>You can still apply without a KestriaID. I will ask for your name and, if you know it, your household number. Then we will book a visit to your household. This takes longer than for people who have a KestriaID, usually 8 to 10 weeks.</p>
+      </div>
+      <button type="button" class="xs-button" onclick="goTo('page-name')">Continue</button>
+    </section>
+
+    <section id="page-name" class="page">
+      <h1>What is the citizen's name?</h1>
+      <form novalidate onsubmit="submitName(event)">
+        <div id="name-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="given-name">Given name(s)</label>
+          <span class="xs-hint" id="name-hint">Some people have only one name. Fill in the one they use.</span>
+          <span class="xs-error-message" id="name-error" hidden></span>
+          <input class="xs-input" id="given-name" autocomplete="off" aria-describedby="name-hint">
+        </div>
+        <div class="xs-field">
+          <label class="xs-label" for="family-name">Family name</label>
+          <input class="xs-input" id="family-name" autocomplete="off">
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-hhnumber" class="page">
+      <form novalidate onsubmit="submitHhNumber(event)">
+        <div id="hh-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="hh-number"><h1 style="font-size:inherit;margin:0">What is the household number?</h1></label>
+          <span class="xs-hint" id="hh-hint">It looks like <span class="fake-data">HH-NP-0042917</span>. It may be on an old SPA letter or card.</span>
+          <span class="xs-error-message" id="hh-error" hidden></span>
+          <input class="xs-input" id="hh-number" autocomplete="off" aria-describedby="hh-hint">
+        </div>
+        <div class="xs-field">
+          <label class="xs-radio"><input type="checkbox" id="hh-unknown"> <span>They do not know it</span></label>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-committee" class="page">
+      <form novalidate onsubmit="submitCommittee(event)">
+        <div id="committee-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="committee-name"><h1 style="font-size:inherit;margin:0">Who on the village committee can confirm the household?</h1></label>
+          <span class="xs-hint" id="committee-hint">A name is enough. SPA will get in touch with them.</span>
+          <span class="xs-error-message" id="committee-error" hidden></span>
+          <input class="xs-input" id="committee-name" autocomplete="off" aria-describedby="committee-hint">
+        </div>
+        <div class="xs-field">
+          <label class="xs-radio"><input type="checkbox" id="committee-unknown"> <span>Not sure. SPA will find the committee.</span></label>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- Survey visit details -->
+    <section id="page-survey" class="page">
+      <h1>Book a survey visit</h1>
+      <div id="survey-reason" class="xs-inset"></div>
+      <form novalidate onsubmit="submitSurvey(event)">
+        <div id="survey-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="sv-district">Which district will we visit?</label>
+          <span class="xs-hint" id="sv-district-hint">The district only.</span>
+          <span class="xs-error-message" id="sv-district-error" hidden></span>
+          <input class="xs-input" id="sv-district" list="districts" autocomplete="off" aria-describedby="sv-district-hint">
+        </div>
+        <div class="xs-field">
+          <label class="xs-label" for="sv-landmark">Is there a landmark nearby? (optional)</label>
+          <span class="xs-hint" id="sv-landmark-hint">Most places have no street name. A landmark helps, for example "near the water tank".</span>
+          <input class="xs-input" id="sv-landmark" autocomplete="off" aria-describedby="sv-landmark-hint">
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <!-- Digital champion: prepare and refer -->
+    <section id="page-champ" class="page">
+      <h1>Prepare a visit for someone</h1>
+      <div class="xs-warning">Digital champions prepare and refer. You do not sign anyone in or look up any records.</div>
+      <form novalidate onsubmit="submitChamp(event)">
+        <div id="champ-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="champ-name">Your name</label>
+          <span class="xs-error-message" id="champ-name-error" hidden></span>
+          <input class="xs-input" id="champ-name" autocomplete="off">
+        </div>
+        <div class="xs-field">
+          <label class="xs-label" for="champ-village">Your village</label>
+          <span class="xs-error-message" id="champ-village-error" hidden></span>
+          <input class="xs-input" id="champ-village" autocomplete="off">
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-champ-person" class="page">
+      <form novalidate onsubmit="submitChampPerson(event)">
+        <div id="cperson-errors"></div>
+        <div class="xs-field">
+          <label class="xs-label" for="cperson-name"><h1 style="font-size:inherit;margin:0">What is the first name of the person you are helping?</h1></label>
+          <span class="xs-hint" id="cperson-hint">Only a first name, or the name they like to be called. Do not write down anything else.</span>
+          <span class="xs-error-message" id="cperson-error" hidden></span>
+          <input class="xs-input" id="cperson-name" autocomplete="off" aria-describedby="cperson-hint">
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-champ-type" class="page">
+      <form novalidate onsubmit="submitChampType(event)">
+        <div id="ctype-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset" aria-describedby="ctype-hint">
+            <legend class="xs-legend"><h1>How will they get help?</h1></legend>
+            <span class="xs-hint" id="ctype-hint">The rainy season runs from March to June. Roads in the Northern Plains and parts of the Lake Region are often cut off in April and May. Then choose a mobile CSC day.</span>
+            <span class="xs-error-message" id="ctype-error" hidden></span>
+            <label class="xs-radio"><input type="radio" name="ctype" id="ctype-csc" value="csc"> <span>A visit to a Citizen Service Centre<small>They travel to the CSC.</small></span></label>
+            <label class="xs-radio"><input type="radio" name="ctype" id="ctype-mobile" value="mobile"> <span>A mobile CSC day in the village<small>CSC officers come to the village on a set day.</small></span></label>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-champ-day" class="page">
+      <form novalidate onsubmit="submitChampDay(event)">
+        <div id="cday-errors"></div>
+        <div class="xs-field">
+          <fieldset class="xs-fieldset" aria-describedby="cday-hint">
+            <legend class="xs-legend"><h1>Which day suits them?</h1></legend>
+            <span class="xs-hint" id="cday-hint">These dates are made up for this prototype.</span>
+            <span class="xs-error-message" id="cday-error" hidden></span>
+            <div id="cday-options"></div>
+          </fieldset>
+        </div>
+        <button class="xs-button">Continue</button>
+      </form>
+    </section>
+
+    <section id="page-champ-done" class="page">
+      <div id="champ-done-body"></div>
+    </section>
+
+  </main>
+
+  <footer class="xs-footer">
+    <ul>
+      <li><a href="#">Privacy notice</a></li>
+      <li><a href="#">Accessibility statement</a></li>
+      <li>Contact SPA: dial <strong>*999#</strong> or call the free line <strong>0800 400 400</strong> <span class="fake-data">(fictional)</span></li>
+      <li><a href="#">Find your nearest Citizen Service Centre</a></li>
+      <li>Kestria is a fictional country.</li>
+    </ul>
+  </footer>
+
+  <aside id="assumptions" class="xstack-assumptions" aria-label="Assumptions">
+    <button type="button" class="xstack-assumptions__close" onclick="toggleAssumptions()" aria-label="Close assumptions">×</button>
+    <h2>Question map</h2>
+    <ul>
+      <li><strong>Name:</strong> known (KestriaID claims). No KestriaID: ask.</li>
+      <li><strong>District:</strong> known (National Population Register), shown as district only. Out of date or missing: ask, then flag for a survey.</li>
+      <li><strong>Household members, support already got:</strong> known (National Social Registry via KesLink). No record: book a survey visit.</li>
+      <li><strong>Eligibility:</strong> derived. The band is never shown. Only the outcome.</li>
+      <li><strong>Where we pay:</strong> known (KesPay lookup, provider and last 4 digits). Changing it needs level 3.</li>
+      <li><strong>Changes, who is paid, safe contact number, declaration:</strong> ask.</li>
+      <li><strong>Not pulled or asked:</strong> date of birth, sex, KUIN, TIN, vehicle, tax, land, health, disability.</li>
+    </ul>
+    <h2>Researcher notes</h2>
+    <ul>
+      <li>On the simulated KestriaID screen: Mirel Okand is the happy path. Talin Vorsa has moved (gets a survey visit). Sefa Tormik has no record. Desa Haldry has no household record but other facts (tests the missing page). Ines Kestel already gets the grant. Anaïs Vorlek with "someone acting for them" tests the intermediary rules. Aru Danvell fails sign-in.</li>
+      <li>To refuse the lookup, choose "No, I will type them in" on the simulated KesLink screen, or use the link on the notice page.</li>
+      <li>Everything after sign-in uses made-up people. Don't type real names or numbers.</li>
+    </ul>
+    <h2>Assumptions</h2>
+    <ul id="assumptions-list">
+      <li data-a><span class="verify-tag verify-tag--user">Verify with users</span> Citizens agree to a fingerprint check at the counter, and believe that saying no costs them nothing.</li>
+      <li data-a><span class="verify-tag verify-tag--policy">Verify with policy</span> A fingerprint is sensitive data (Data Protection Act 2022, s.15). We assume consent (s.12) read aloud is enough, and that the print is not kept. Check both.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> The DPI mock always reports level "substantial". The fingerprint page is our own simulated screen and sets level 3 in page code. The mock's sign-in is not tied to it.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> The mock signs in one person. For "acting for someone", the researcher picks the household holder's persona. A real flow has two people: the one at the desk (level 3) and the household.</li>
+      <li data-a><span class="verify-tag verify-tag--policy">Verify with policy</span> An authorised intermediary record at a CSC lets someone act for a person. What it covers is not defined. We assume it covers applying, not changing the payout.</li>
+      <li data-a><span class="verify-tag verify-tag--policy">Verify with policy</span> The "check their card instead" route counts as level 2 (assumed). The profile defines no level for an officer's visual card check.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> Data use is a notice (s.13 public task), but the mock's data screen always asks "Can we get your details?". We show a notice page first and still call the mock. "No" on either becomes manual answers and a survey visit.</li>
+      <li data-a><span class="verify-tag verify-tag--policy">Verify with policy</span> A citizen can object to an s.13 lookup at the counter. We assume "no" means a survey visit, not a refusal of service.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> Payouts: the mock has no payout contract (payments.create takes money in), so it is not called. The payout account page is an ordinary service page with fake data.</li>
+      <li data-a><span class="verify-tag verify-tag--platform">Verify with platform</span> The Treasury disbursement lookup returns only the provider and last 4 digits. It has no published spec (Tier 3).</li>
+      <li data-a><span class="verify-tag verify-tag--platform">Verify with platform</span> How a payout change is made at a CSC is not defined. The profile says citizens link accounts at their provider. We let the officer record a mobile money number or cash at a post office.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> The phone number on record is not in the mock's claims or attributes. "Text the old number" cannot show a number. We ask for a safe contact number instead.</li>
+      <li data-a><span class="verify-tag verify-tag--platform">Verify with platform</span> When someone other than the applicant is paid, we assume the money goes to the account linked to their KestriaID. Nothing in the profile says how that is found.</li>
+      <li data-a><span class="verify-tag verify-tag--department">Verify with department</span> The grant is K 1,500 a month. A complete application takes about 4 weeks. A survey visit takes 8 to 10 weeks.</li>
+      <li data-a><span class="verify-tag verify-tag--policy">Verify with policy</span> Demo eligibility: the household is in the lowest bands and gets no other SPA cash programme. The band and score are never shown. A household that looks higher gets a visit, not a no.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> District, member names and the band are invented in a separate PERSONA_EXTRAS object, not the mock. The mock's address is one full-address string, so we show the district from the extras.</li>
+      <li data-a><span class="verify-tag verify-tag--user">Verify with users</span> People are happy for household names to be read aloud and shown at a counter where others can see or hear. Officer screen angle and queue privacy need testing.</li>
+      <li data-a><span class="verify-tag verify-tag--user">Verify with users</span> Officers will read the blue boxes in full. We think they will shorten them in a busy CSC.</li>
+      <li data-a><span class="verify-tag verify-tag--department">Verify with department</span> Officers can interpret in Vell and Sora, or an interpreter is available. The profile only mentions interpreters for research.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> The language switcher shows a notice for Kestrian, Vell and Sora. The profile has no text in those languages. "Language wanted" is a separate question, for the citizen.</li>
+      <li data-a><span class="verify-tag verify-tag--platform">Verify with platform</span> GovNotify sends the text in the chosen language, and the reply "STATUS" shows progress. The profile gives *999# and the free line only.</li>
+      <li data-a><span class="verify-tag verify-tag--department">Verify with department</span> The slip is printed on the CSC printer. It says nothing about the result, only the reference and next steps, because paper is shared as well as phones.</li>
+      <li data-a><span class="verify-tag verify-tag--policy">Verify with policy</span> A declaration read aloud and agreed to by the officer's record is valid (Electronic Transactions Act 2020, s.6 and s.8). The penalty sentence is invented.</li>
+      <li data-a><span class="verify-tag verify-tag--department">Verify with department</span> References are HSG- plus 7 digits. The booking reference (BK- plus 6 digits) is invented.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> Looking up a household by household number (without a KUIN) is not in the profile. The prototype records the number and goes to a survey. It looks nothing up.</li>
+      <li data-a><span class="verify-tag verify-tag--policy">Verify with policy</span> The village committee still confirms households. We record a name only. Who must confirm, and how, is not defined.</li>
+      <li data-a><span class="verify-tag verify-tag--department">Verify with department</span> Digital champions use this same tool to prepare and refer only. They see no records. Collecting a first name, village and safe phone number needs a lawful basis and a retention rule.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> Mobile CSC days, booking slots and "nearest CSC from district" do not exist in the profile. All dates here are made up.</li>
+      <li data-a><span class="verify-tag verify-tag--data">Verify with data</span> The rainy season (March to June, roads cut in April and May in the Northern Plains and parts of the Lake Region) drives the choice of a mobile CSC day.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> The officer, the champion and the Dunmar CSC are invented. The profile has no CSC list or staff names.</li>
+      <li data-a><span class="verify-tag verify-tag--policy">Verify with policy</span> The audit log shows what is recorded (officer, CSC, acting for, ID method, lookup consent ID). The real fields and retention are not defined.</li>
+      <li data-a><span class="verify-tag verify-tag--gap">Known gap</span> The confirmation page has no Back link on purpose. It stops a second submit. Every other page except Start has one.</li>
+      <li data-a><span class="verify-tag verify-tag--built">Built in</span> Never ask for a PIN, a full account number or a KUIN. The pages say "We will never ask for your PIN" on the payout page and the confirmation page.</li>
+      <li data-a><span class="verify-tag verify-tag--built">Built in</span> No raw score or band is shown. The slip and the text message say nothing about the result, and never say "you qualify".</li>
+      <li data-a><span class="verify-tag verify-tag--built">Built in</span> Fingerprint consent is a separate step. A no goes to a card check, and the citizen keeps the service. Payout changes need level 3 and a person present for themselves.</li>
+      <li data-a><span class="verify-tag verify-tag--built">Built in</span> Every route works without a KUIN. The officer's name and CSC are on every page. "Acting for" is logged. Someone acting for a household cannot change the payout account.</li>
+    </ul>
+  </aside>
+
+  <script>
+/*
+  xstack DPI mock – v1
+  Simulated identity, data exchange (with consent) and payments for single-file alpha prototypes.
+  Implements the contract in references/dpi-baseline.md. Inline this whole file in a <script> tag.
+
+  Nothing here talks to a real platform. Every citizen is made up. Every screen says it is simulated.
+
+  Usage:
+    const dpi = xstackDpi.create({
+      serviceName: 'Renew your vehicle licence',
+      locale: 'en-US',                    // optional – formats amounts on the payment screen
+      platforms: {
+        identity: { name: 'National ID' },
+        exchange: { name: 'Government data exchange' },
+        payments: { name: 'Government payments', currency: 'USD' }
+      },
+      attributes: {                       // the slice of the data catalogue this service uses
+        address: { label: 'Home address', source: 'Civil Registry' },
+        vehicle: { label: 'Vehicle', source: 'Licensing Authority' }
+      },
+      personas: [ … ]                     // optional – see DEFAULT_PERSONAS for the shape
+    });
+
+    const who = await dpi.identity.signIn({ purpose: 'renew your vehicle licence' });
+    //  { status: 'signed_in' | 'cancelled' | 'failed', subject, claims, level }
+    const got = await dpi.data.fetch({ subject: who.subject, attributes: ['address', 'vehicle'], purpose: '…' });
+    //  { status: 'ok' | 'not_found' | 'refused', consentId, values: { address: { value, source, asOf } }, missing: [] }
+    const paid = await dpi.payments.create({ amount: 120, reference: 'VL-4821', description: 'Vehicle licence, 12 months' });
+    //  { status: 'paid' | 'declined' | 'cancelled', receipt }
+*/
+(function (global) {
+  'use strict';
+
+  // Placeholder personas, one per research scenario. Replace them with locally realistic
+  // people in the profile's data formats. Keep every value obviously fake.
+  var DEFAULT_PERSONAS = [
+    { id: 'found', label: 'Everything found and correct',
+      claims: { fullName: 'Test Citizen A', dateOfBirth: '1984-03-12', nationalId: 'MOCK-000-0001' },
+      data: { address: '[Mock] 1 Example Street, Central District' } },
+    { id: 'stale', label: 'Address is out of date (has moved)',
+      claims: { fullName: 'Test Citizen B', dateOfBirth: '1991-11-02', nationalId: 'MOCK-000-0002' },
+      data: { address: '[Mock] 22 Old Road, North District' }, note: 'Now lives somewhere else. Should correct the address.' },
+    { id: 'no-record', label: 'No record in the registers',
+      claims: { fullName: 'Test Citizen C', dateOfBirth: '2001-06-30', nationalId: 'MOCK-000-0003' },
+      data: {} },
+    { id: 'declined', label: 'Payment is declined',
+      claims: { fullName: 'Test Citizen D', dateOfBirth: '1976-01-19', nationalId: 'MOCK-000-0004' },
+      data: { address: '[Mock] 5 Sample Lane, South District' }, payment: 'declined' },
+    { id: 'no-sign-in', label: 'Can\'t be verified',
+      claims: {}, data: {}, signIn: 'failed' }
+  ];
+
+  var CSS = [
+    '.xsdpi{position:fixed;inset:0;z-index:1000;background:#F4F4F6;color:#1B1B1F;overflow-y:auto;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;line-height:1.5}',
+    '.xsdpi__sim{background:#4A148C;color:#FFF;padding:8px 16px;font-size:14px;font-weight:600}',
+    '.xsdpi__bar{background:#FFF;border-bottom:1px solid #C8C8D0;padding:14px 16px;font-weight:700;font-size:18px}',
+    '.xsdpi__body{max-width:560px;margin:24px auto;padding:0 16px}',
+    '.xsdpi h2{font-size:26px;line-height:1.25;margin:0 0 16px}',
+    '.xsdpi p,.xsdpi li,.xsdpi label,.xsdpi dd,.xsdpi dt{font-size:18px}',
+    '.xsdpi p{margin:0 0 16px}',
+    '.xsdpi ul{margin:0 0 16px 20px}',
+    '.xsdpi fieldset{border:0;padding:0;margin:0 0 20px}',
+    '.xsdpi legend{font-weight:700;font-size:18px;margin-bottom:8px}',
+    '.xsdpi__opt{display:flex;gap:10px;align-items:flex-start;padding:10px;border:2px solid #C8C8D0;background:#FFF;margin-bottom:8px;cursor:pointer}',
+    '.xsdpi__opt input{width:22px;height:22px;margin-top:3px;flex:none}',
+    '.xsdpi__opt small{display:block;color:#55555F;font-size:15px}',
+    '.xsdpi__card{background:#FFF;border:1px solid #C8C8D0;padding:16px;margin-bottom:20px}',
+    '.xsdpi dl{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:0}',
+    '.xsdpi dt{font-weight:700}.xsdpi dd{margin:0}',
+    '.xsdpi__actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}',
+    '.xsdpi__btn{background:#4A148C;color:#FFF;border:0;padding:12px 20px;font:inherit;font-size:18px;font-weight:700;cursor:pointer}',
+    '.xsdpi__btn--secondary{background:#FFF;color:#4A148C;border:2px solid #4A148C;padding:10px 18px}',
+    '.xsdpi__link{background:none;border:0;color:#4A148C;text-decoration:underline;font:inherit;font-size:18px;cursor:pointer;padding:0}',
+    '.xsdpi :focus{outline:3px solid #FFDD00;outline-offset:0;box-shadow:inset 0 0 0 2px #1B1B1F}',
+    '.xsdpi__error{border-left:5px solid #D4351C;padding-left:12px}',
+    '.xsdpi__wait{font-size:20px;padding:32px 0}'
+  ].join('\n');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function id(prefix) { return prefix + '-' + Math.random().toString(36).slice(2, 8).toUpperCase(); }
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function today() { return new Date().toISOString().slice(0, 10); }
+  function money(amount, currency, locale) {
+    try { return new Intl.NumberFormat(locale, { style: 'currency', currency: currency }).format(amount); }
+    catch (e) { return currency + ' ' + Number(amount).toFixed(2); }
+  }
+
+  function create(config) {
+    config = config || {};
+    var platforms = config.platforms || {};
+    var identityName = (platforms.identity && platforms.identity.name) || 'National identity platform';
+    var exchangeName = (platforms.exchange && platforms.exchange.name) || 'Government data exchange';
+    var paymentsName = (platforms.payments && platforms.payments.name) || 'Government payments';
+    var currency = (platforms.payments && platforms.payments.currency) || 'USD';
+    var serviceName = config.serviceName || 'This service';
+    var attributes = config.attributes || {};
+    var personas = config.personas || DEFAULT_PERSONAS;
+    var locale = config.locale;               // e.g. 'en-BB', so amounts match the service's own formatting
+    var latency = config.latencyMs == null ? 900 : config.latencyMs;
+    var current = null;
+
+    if (!document.getElementById('xsdpi-style')) {
+      var style = document.createElement('style');
+      style.id = 'xsdpi-style';
+      style.textContent = CSS;
+      document.head.appendChild(style);
+    }
+
+    // One simulated platform screen at a time, as a modal dialog over the service.
+    function screen(platformName, html, bind) {
+      return new Promise(function (resolve) {
+        var opener = document.activeElement;
+        var siblings = Array.prototype.filter.call(document.body.children, function (el) { return !el.hasAttribute('inert'); });
+        siblings.forEach(function (el) { el.setAttribute('inert', ''); });
+        var root = document.createElement('div');
+        root.className = 'xsdpi';
+        root.setAttribute('role', 'dialog');
+        root.setAttribute('aria-modal', 'true');
+        root.setAttribute('aria-labelledby', 'xsdpi-title');
+        root.innerHTML =
+          '<div class="xsdpi__sim">Simulated ' + esc(platformName) + ' – part of an xstack prototype. No real data is used.</div>' +
+          '<div class="xsdpi__bar">' + esc(platformName) + '</div>' +
+          '<div class="xsdpi__body">' + html + '</div>';
+        document.body.appendChild(root);
+        function done(result) {
+          root.remove();
+          siblings.forEach(function (el) { el.removeAttribute('inert'); });
+          if (opener && opener.focus) opener.focus();
+          resolve(result);
+        }
+        root.addEventListener('keydown', function (e) { if (e.key === 'Escape') done({ status: 'cancelled' }); });
+        focusTitle(root);
+        bind(root, done);
+      });
+    }
+
+    // Keep the 'Simulated' strip in view: focus the heading without scrolling past it.
+    function focusTitle(root) {
+      var title = root.querySelector('#xsdpi-title');
+      if (title) { title.setAttribute('tabindex', '-1'); title.focus({ preventScroll: true }); }
+      root.scrollTop = 0;
+    }
+
+    function replace(root, html) {
+      root.querySelector('.xsdpi__body').innerHTML = html;
+      focusTitle(root);
+    }
+
+    function signIn(opts) {
+      opts = opts || {};
+      var options = personas.map(function (p, i) {
+        return '<label class="xsdpi__opt"><input type="radio" name="xsdpi-persona" value="' + i + '"' + (i === 0 ? ' checked' : '') + '>' +
+          '<span>' + esc(p.claims.fullName || 'Unknown person') + '<small>' + esc(p.label) + (p.note ? ' – ' + esc(p.note) : '') + '</small></span></label>';
+      }).join('');
+      var html =
+        '<h2 id="xsdpi-title">Sign in to continue</h2>' +
+        '<p>' + esc(serviceName) + ' uses ' + esc(identityName) + ' to check who you are' + (opts.purpose ? ', so you can ' + esc(opts.purpose) : '') + '.</p>' +
+        '<fieldset><legend>Test person (for the researcher to choose)</legend>' + options + '</fieldset>' +
+        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-go>Continue</button>' +
+        '<button class="xsdpi__link" data-cancel>Go back to the service</button></div>';
+      return screen(identityName, html, function (root, done) {
+        root.querySelector('[data-cancel]').onclick = function () { done({ status: 'cancelled' }); };
+        root.querySelector('[data-go]').onclick = function () {
+          var picked = personas[Number(root.querySelector('input[name="xsdpi-persona"]:checked').value)];
+          replace(root, '<p class="xsdpi__wait" id="xsdpi-title" role="status">Checking your identity…</p>');
+          wait(latency).then(function () {
+            if (picked.signIn === 'failed') {
+              replace(root,
+                '<div class="xsdpi__error"><h2 id="xsdpi-title">We could not confirm who you are</h2>' +
+                '<p>You can go back to the service and continue another way.</p></div>' +
+                '<button class="xsdpi__btn" data-back>Go back to the service</button>');
+              root.querySelector('[data-back]').onclick = function () { done({ status: 'failed' }); };
+              return;
+            }
+            current = picked;
+            done({ status: 'signed_in', subject: 'sub-' + picked.id, claims: Object.assign({}, picked.claims), level: 'substantial', persona: picked.id });
+          });
+        };
+      });
+    }
+
+    function fetchData(opts) {
+      opts = opts || {};
+      var wanted = opts.attributes || [];
+      var bySource = {};
+      wanted.forEach(function (key) {
+        var a = attributes[key] || { label: key, source: exchangeName };
+        (bySource[a.source] = bySource[a.source] || []).push(a.label);
+      });
+      var list = Object.keys(bySource).map(function (src) {
+        return '<li><strong>' + esc(src) + ':</strong> ' + esc(bySource[src].join(', ')) + '</li>';
+      }).join('');
+      var html =
+        '<h2 id="xsdpi-title">Can we get your details from government records?</h2>' +
+        '<p>' + esc(serviceName) + ' wants to get:</p><ul>' + list + '</ul>' +
+        (opts.purpose ? '<p>This is so we can ' + esc(opts.purpose) + '.</p>' : '') +
+        '<p>You will be able to check them and change anything that is wrong. If you say no, you can type them in yourself.</p>' +
+        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-yes>Yes, get my details</button>' +
+        '<button class="xsdpi__btn xsdpi__btn--secondary" data-no>No, I will type them in</button></div>';
+      return screen(exchangeName, html, function (root, done) {
+        root.querySelector('[data-no]').onclick = function () { done({ status: 'refused', values: {}, missing: wanted.slice() }); };
+        root.querySelector('[data-yes]').onclick = function () {
+          var consent = { id: id('CONSENT'), purpose: opts.purpose || '', attributes: wanted.slice(), sources: Object.keys(bySource), grantedAt: new Date().toISOString() };
+          api.consents.push(consent);
+          replace(root, '<p class="xsdpi__wait" id="xsdpi-title" role="status">Getting your details…</p>');
+          wait(latency).then(function () {
+            var data = (current && current.data) || {};
+            var values = {}, missing = [];
+            wanted.forEach(function (key) {
+              if (data[key] == null) { missing.push(key); return; }
+              var a = attributes[key] || { source: exchangeName };
+              values[key] = { value: data[key], source: a.source, asOf: today() };
+            });
+            done({ status: Object.keys(values).length ? 'ok' : 'not_found', consentId: consent.id, values: values, missing: missing });
+          });
+        };
+      });
+    }
+
+    function pay(opts) {
+      opts = opts || {};
+      var cur = opts.currency || currency;
+      var amount = money(opts.amount || 0, cur, locale);
+      var html =
+        '<h2 id="xsdpi-title">Pay ' + esc(amount) + '</h2>' +
+        '<div class="xsdpi__card"><dl>' +
+        '<dt>To</dt><dd>' + esc(serviceName) + '</dd>' +
+        '<dt>For</dt><dd>' + esc(opts.description || '') + '</dd>' +
+        '<dt>Reference</dt><dd>' + esc(opts.reference || '') + '</dd></dl></div>' +
+        '<p>This is a simulated payment page. Nothing will be charged.</p>' +
+        '<div class="xsdpi__actions"><button class="xsdpi__btn" data-pay>Pay ' + esc(amount) + '</button>' +
+        '<button class="xsdpi__link" data-cancel>Cancel payment</button></div>';
+      return screen(paymentsName, html, function (root, done) {
+        root.querySelector('[data-cancel]').onclick = function () { done({ status: 'cancelled' }); };
+        root.querySelector('[data-pay]').onclick = function () {
+          replace(root, '<p class="xsdpi__wait" id="xsdpi-title" role="status">Processing your payment…</p>');
+          wait(latency).then(function () {
+            if (current && current.payment === 'declined') {
+              replace(root,
+                '<div class="xsdpi__error"><h2 id="xsdpi-title">Your payment was declined</h2>' +
+                '<p>You have not been charged. Go back to the service to try again or pay another way.</p></div>' +
+                '<button class="xsdpi__btn" data-back>Go back to the service</button>');
+              root.querySelector('[data-back]').onclick = function () { done({ status: 'declined' }); };
+              return;
+            }
+            done({ status: 'paid', receipt: {
+              transactionId: id('TXN'), reference: opts.reference || '', amount: opts.amount || 0,
+              currency: cur, formatted: amount, paidAt: new Date().toISOString() } });
+          });
+        };
+      });
+    }
+
+    var api = {
+      mode: 'mock',
+      identity: { signIn: signIn },
+      data: { fetch: fetchData },
+      payments: { create: pay },
+      consents: [],
+      persona: function () { return current; },
+      reset: function () { current = null; api.consents.length = 0; }
+    };
+    return api;
+  }
+
+  global.xstackDpi = { create: create, DEFAULT_PERSONAS: DEFAULT_PERSONAS };
+})(window);
+  </script>
+  <script>
+    /* ---------- DPI mock set-up: Kestria (profiles/kestria/dpi.md) ---------- */
+    var dpi = xstackDpi.create({
+      serviceName: 'Apply for the Household Support Grant',
+      locale: 'en-GB',
+      latencyMs: 600,
+      platforms: {
+        identity: { name: 'KestriaID' },
+        exchange: { name: 'KesLink' },
+        payments: { name: 'GovPay Kestria', currency: 'XTS' }
+      },
+      attributes: {
+        address:       { label: 'Home address',            source: 'National Population Register' },
+        household:     { label: 'Your household',          source: 'National Social Registry' },
+        programmes:    { label: 'Support you already get', source: 'National Social Registry' },
+        payoutAccount: { label: 'Where we pay you',        source: 'KesPay' }
+      },
+      personas: [
+        { id: 'found', label: 'Everything found and correct',
+          claims: { fullName: 'Mirel Okand', dateOfBirth: '1988-08-14', nationalId: '9900 214 705' },
+          data: { address: '[Fictional] 12 Quay Road, Aranport Central, Capital Region CR 101',
+                  household: '[Fictional] HH-CR-0204411 – 4 people', programmes: 'None',
+                  payoutAccount: 'Lumo Money, account ending 4417' } },
+        { id: 'stale', label: 'Address is out of date (has moved)',
+          claims: { fullName: 'Talin Vorsa', dateOfBirth: '1991-11-02', nationalId: '9900 318 526' },
+          data: { address: '[Fictional] Near the coffee cooperative, Ashgrove, Highlands HL 214',
+                  household: '[Fictional] HH-HL-0377120 – 3 people', programmes: 'None',
+                  payoutAccount: 'Kora Wallet, account ending 9021' },
+          note: 'Now lives in Port Ondra, Coastal South. Should correct the address.' },
+        { id: 'no-record', label: 'No record in the registers',
+          claims: { fullName: 'Sefa Tormik', dateOfBirth: '1979-01-01', nationalId: '9900 451 261' },
+          data: {}, note: 'Pastoralist. Estimated date of birth. Speaks Vell.' },
+        { id: 'declined', label: 'Payment is declined',
+          claims: { fullName: 'Desa Haldry', dateOfBirth: '1983-05-23', nationalId: '9900 529 036' },
+          data: { address: '[Fictional] 4 Market Lane, Belmar, Coastal South CS 302',
+                  payoutAccount: 'Kora Wallet, account ending 3360' },
+          payment: 'declined', note: 'Wallet balance too low.' },
+        { id: 'wallet-only', label: 'Mobile money but no bank account',
+          claims: { fullName: 'Ines Kestel', dateOfBirth: '1996-03-12', nationalId: '9900 817 347' },
+          data: { address: '[Fictional] Fenside, Reedwater, Lake Region LK 117',
+                  household: '[Fictional] HH-LK-0118302 – 5 people',
+                  programmes: 'Household Support Grant (active)',
+                  payoutAccount: 'Lumo Money, account ending 7782' } },
+        { id: 'elder', label: 'Older person, helped by family',
+          claims: { fullName: 'Anaïs Vorlek', dateOfBirth: '1948-01-01', nationalId: '9900 962 518' },
+          data: { address: '[Fictional] Harbour Row, Corran Isle, Eastern Islands EI 409',
+                  household: '[Fictional] HH-EI-0051736 – 2 people', programmes: 'None',
+                  payoutAccount: 'Postbank Kestria, account ending 0154' },
+          note: 'Shares a basic phone with her granddaughter. Speaks Sora.' },
+        { id: 'no-sign-in', label: 'Can\'t be verified (old phone number on record)',
+          claims: { fullName: 'Aru Danvell' }, data: {}, signIn: 'failed' }
+      ]
+    });
+
+    /* FAKE page-level data keyed by dpi persona id. Not part of the mock contract. KNOWN GAP. */
+    var PERSONA_EXTRAS = {
+      'found':       { district: 'Aranport Central', lowBand: true,
+                       members: [['Mirel Okand', true], ['Jarel Okand', true], ['Lisa Okand', false], ['Beno Okand', false]] },
+      'stale':       { district: 'Ashgrove', lowBand: true,
+                       members: [['Talin Vorsa', true], ['Reno Vorsa', true], ['Kit Vorsa', false]] },
+      'wallet-only': { district: 'Reedwater', lowBand: true,
+                       members: [['Ines Kestel', true], ['Dal Kestel', true], ['Oma Kestel', false], ['Pip Kestel', false], ['Ren Kestel', false]] },
+      'elder':       { district: 'Corran Isle', lowBand: true,
+                       members: [['Anaïs Vorlek', true], ['Mari Vorlek', true]] }
+    };
+
+    /* Fictional people and places for the session. */
+    var OFFICER = { name: 'Neva Ardell', csc: 'Dunmar Citizen Service Centre' };
+    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var TITLE_SUFFIX = ' – Household Support Grant – GovKestria';
+
+    var state;
+    var pageStack = [];
+    var currentPage = 'page-start';
+    var titleBase = '';
+
+    function newState() {
+      return {
+        mode: 'csc', path: 'full', hasKuin: null, actingFor: false, actor: null, lang: null,
+        fpConsent: null, level: null, idMethod: null, who: null, extras: null,
+        got: null, values: {}, missing: [], alreadyGetting: false,
+        district: null, districtNext: null, flagSurvey: false, changes: [], outcome: null,
+        payout: null, payoutIssue: false, receiver: null, contact: null, declaration: false,
+        surveyReason: null, survey: null, name: null, hh: null, committee: null,
+        champ: {}, person: {}, ctype: null, cday: null,
+        ref: null, returnToCheck: false, submitted: false
+      };
+    }
+    state = newState();
+
+    /* ---------- Helpers ---------- */
+    function $(id) { return document.getElementById(id); }
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function radio(name) {
+      var el = document.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : null;
+    }
+    function val(id) { return $(id).value.trim(); }
+    function next(def) {
+      if (state.returnToCheck) { state.returnToCheck = false; return 'page-check'; }
+      return def;
+    }
+    function setTitle(text, isError) {
+      document.title = (isError ? 'Error: ' : '') + text + TITLE_SUFFIX;
+    }
+    function toggleAssumptions() {
+      var a = $('assumptions');
+      var open = a.classList.toggle('xstack-assumptions--open');
+      $('assumptions-toggle').setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) { a.querySelector('.xstack-assumptions__close').focus(); }
+    }
+    function householdLabel() {
+      if (state.who && state.claims) { return state.claims.fullName + "'s household"; }
+      if (state.name) { return nameText() + "'s household"; }
+      return 'the household';
+    }
+    function nameText() {
+      if (state.claims && state.claims.fullName) { return state.claims.fullName; }
+      if (state.name) { return (state.name.given + ' ' + state.name.family).trim(); }
+      return '';
+    }
+    function randomDigits(n) {
+      var s = '';
+      for (var i = 0; i < n; i++) { s += Math.floor(Math.random() * 10); }
+      return s;
+    }
+    function todayLong() {
+      var d = new Date();
+      return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    /* ---------- Navigation ---------- */
+    function show(id) {
+      document.querySelectorAll('.page').forEach(function (p) { p.classList.remove('page--active'); });
+      var page = $(id);
+      page.classList.add('page--active');
+      currentPage = id;
+      if (hooks[id]) { hooks[id](); }
+      renderSlots();
+      renderStrip();
+      window.scrollTo(0, 0);
+      var h = page.querySelector('h1');
+      if (h) {
+        h.setAttribute('tabindex', '-1');
+        h.focus({ preventScroll: true });
+        titleBase = h.textContent;
+        setTitle(titleBase, false);
+      }
+    }
+    function goTo(id) {
+      if (currentPage && currentPage !== id) { pageStack.push(currentPage); }
+      show(id);
+    }
+    function goBack() {
+      var prev = pageStack.pop();
+      if (prev) { show(prev); }
+    }
+    function changeAnswer(pageId) {
+      state.returnToCheck = true;
+      goTo(pageId);
+    }
+
+    /* The officer strip is on every page. It names the officer and the CSC. */
+    function renderStrip() {
+      var h;
+      if (state.mode === 'champion') {
+        h = '<strong>Digital champion (prepare and refer only):</strong> <span class="fake-data">' +
+          esc(state.champ.name || 'name to be entered') + '</span>' +
+          (state.champ.village ? ' · <span class="fake-data">' + esc(state.champ.village) + '</span>' : '') +
+          ' · No records are looked up';
+      } else {
+        h = '<strong>Officer:</strong> <span class="fake-data">' + esc(OFFICER.name) + '</span> · <span class="fake-data">' +
+          esc(OFFICER.csc) + '</span> · Certified device';
+        if (state.actingFor) { h += ' · <strong>Acting for another person</strong> (logged)'; }
+      }
+      $('strip').innerHTML = h;
+    }
+    /* "You're telling us about [household]" and who is acting. Shown only after the household is known. */
+    function renderSlots() {
+      var html = '';
+      if (state.actingFor && (state.who || state.name)) {
+        html = '<div class="xs-inset"><p><strong>You\'re telling us about ' + esc(householdLabel()) + '.</strong></p>' +
+          '<p>Acting for them: ' + esc(state.actor ? state.actor.name : '') + (state.actor ? ' (' + esc(state.actor.rel) + ')' : '') + '</p></div>';
+      }
+      document.querySelectorAll('.acting-slot').forEach(function (el) { el.innerHTML = html; });
+    }
+
+    /* ---------- Errors: summary at the top, message by the field ---------- */
+    function showErrors(boxId, errors) {
+      var box = $(boxId);
+      var page = box.closest('.page');
+      page.querySelectorAll('.xs-error-message').forEach(function (e) { e.hidden = true; e.innerHTML = ''; });
+      page.querySelectorAll('[aria-invalid]').forEach(function (e) {
+        e.removeAttribute('aria-invalid');
+        if (e.getAttribute('data-base-desc')) { e.setAttribute('aria-describedby', e.getAttribute('data-base-desc')); }
+        else { e.removeAttribute('aria-describedby'); }
+        e.removeAttribute('data-base-desc');
+      });
+      setTitle(titleBase, false);
+      if (!errors.length) { box.innerHTML = ''; return false; }
+      var items = errors.map(function (e) { return '<li><a href="#' + e.field + '">' + e.text + '</a></li>'; }).join('');
+      box.innerHTML = '<div class="xs-error-summary" role="alert" tabindex="-1" aria-labelledby="' + boxId + '-title">' +
+        '<h2 id="' + boxId + '-title">There is a problem</h2><ul>' + items + '</ul></div>';
+      errors.forEach(function (e) {
+        var m = $(e.msg);
+        m.innerHTML = '<span class="xs-vh">Error: </span>' + e.text;
+        m.hidden = false;
+        var input = $(e.field);
+        var base = input.getAttribute('aria-describedby') || '';
+        input.setAttribute('data-base-desc', base);
+        input.setAttribute('aria-invalid', 'true');
+        input.setAttribute('aria-describedby', (base + ' ' + e.msg).trim());
+      });
+      setTitle(titleBase, true);
+      box.firstChild.focus();
+      return true;
+    }
+    document.addEventListener('click', function (ev) {
+      var a = ev.target.closest ? ev.target.closest('.xs-error-summary a') : null;
+      if (a) {
+        ev.preventDefault();
+        var target = $(a.getAttribute('href').slice(1));
+        if (target) { target.focus(); }
+      }
+    });
+
+    /* ---------- Start, who, language ---------- */
+    function submitStart(e) {
+      e.preventDefault();
+      var v = radio('kuin');
+      if (showErrors('start-errors', v ? [] : [{ field: 'kuin-yes', msg: 'kuin-error', text: 'Select yes if the citizen has a KestriaID. Select no if they do not, or are not sure.' }])) { return; }
+      state = newState();
+      state.hasKuin = (v === 'yes');
+      goTo('page-who');
+    }
+    function submitWho(e) {
+      e.preventDefault();
+      var v = radio('who');
+      if (showErrors('who-errors', v ? [] : [{ field: 'who-self', msg: 'who-error', text: 'Select who is here with you.' }])) { return; }
+      state.actingFor = (v === 'other');
+      if (!state.actingFor) { state.actor = null; }
+      goTo(state.actingFor ? 'page-actor' : next('page-language'));
+    }
+    function submitActor(e) {
+      e.preventDefault();
+      var errors = [];
+      if (!val('actor-name')) { errors.push({ field: 'actor-name', msg: 'actor-name-error', text: 'Enter the name of the person acting for the household.' }); }
+      if (!val('actor-rel')) { errors.push({ field: 'actor-rel', msg: 'actor-rel-error', text: 'Choose how they are related to the household.' }); }
+      if (!$('actor-record').checked) { errors.push({ field: 'actor-record', msg: 'actor-record-error', text: 'Check their authorised record before you continue. Tick the box when you have seen it.' }); }
+      if (showErrors('actor-errors', errors)) { return; }
+      state.actor = { name: val('actor-name'), rel: val('actor-rel') };
+      goTo(next('page-language'));
+    }
+    function submitLanguage(e) {
+      e.preventDefault();
+      var v = radio('lang');
+      if (showErrors('language-errors', v ? [] : [{ field: 'lang-kestrian', msg: 'language-error', text: 'Choose the language the citizen wants to use.' }])) { return; }
+      state.lang = v;
+      var dest;
+      if (state.mode === 'champion') { dest = 'page-contact'; }
+      else if (state.hasKuin) { dest = 'page-fpconsent'; }
+      else { dest = 'page-nokuin'; }
+      goTo(next(dest));
+    }
+
+    /* ---------- Fingerprint consent and ID check ---------- */
+    function submitFpConsent(e) {
+      e.preventDefault();
+      var v = radio('fpc');
+      if (showErrors('fpc-errors', v ? [] : [{ field: 'fpc-yes', msg: 'fpc-error', text: 'Select what the citizen said about the fingerprint check.' }])) { return; }
+      state.fpConsent = (v === 'yes');
+      goTo(state.fpConsent ? 'page-fp' : 'page-altid');
+    }
+    function submitAltId(e) {
+      e.preventDefault();
+      if (showErrors('altid-errors', $('altid-card').checked ? [] : [{ field: 'altid-card', msg: 'altid-error', text: 'Look at the KestriaID card and the person, then tick the box. If there is no card, use the link below.' }])) { return; }
+      state.level = 2;
+      state.idMethod = 'Officer checked the KestriaID card (level 2, assumed)';
+      goTo('page-signin');
+    }
+    function fingerprintMatch() {
+      state.level = 3;
+      state.idMethod = 'Fingerprint check, level 3 (simulated)';
+      goTo('page-signin');
+    }
+    function fingerprintNoMatch() { goTo('page-fp-nomatch'); }
+    function useNoKuinRoute() {
+      state.hasKuin = false;
+      state.who = null;
+      state.claims = null;
+      state.extras = null;
+      state.level = null;
+      state.idMethod = 'No KestriaID: household number and village committee route';
+      goTo('page-nokuin');
+    }
+
+    /* ---------- Mock sign-in and lookup ---------- */
+    function startSignIn() {
+      dpi.identity.signIn({ purpose: 'apply for the Household Support Grant' }).then(function (who) {
+        if (who.status === 'signed_in') {
+          state.who = who;
+          state.claims = who.claims;
+          state.extras = PERSONA_EXTRAS[who.persona] || null;
+          goTo('page-notice');
+        } else if (who.status === 'cancelled') {
+          goTo('page-signin-cancelled');
+        } else {
+          goTo('page-signin-failed');
+        }
+      });
+    }
+    function lookUp() {
+      dpi.data.fetch({
+        subject: state.who.subject,
+        attributes: ['address', 'household', 'programmes', 'payoutAccount'],
+        purpose: 'see if your household can get the Household Support Grant and where to pay it'
+      }).then(function (got) {
+        state.got = got;
+        state.path = 'full';
+        if (got.status === 'cancelled') { goTo('page-fetch-cancelled'); return; }
+        if (got.status === 'refused') { goTo('page-refused'); return; }
+        if (got.status === 'not_found') { goTo('page-notfound'); return; }
+        state.values = got.values || {};
+        state.missing = got.missing || [];
+        var p = state.values.programmes;
+        state.alreadyGetting = !!p && !/^none$/i.test(String(p.value).trim());
+        if (state.missing.length) { goTo('page-missing'); } else { afterFetch(); }
+      });
+    }
+    function noLookUp() { goTo('page-refused'); }
+    function goSurvey(reason) {
+      state.path = 'survey';
+      state.surveyReason = reason;
+      goTo('page-survey');
+    }
+    function afterFetch() {
+      if (!state.values.household) { goSurvey('missing'); return; }
+      if (!state.values.address && !state.district) {
+        state.districtNext = 'page-confirm';
+        goTo('page-district');
+        return;
+      }
+      goTo('page-confirm');
+    }
+
+    /* ---------- District, confirm, changes, outcome ---------- */
+    function submitDistrict(e) {
+      e.preventDefault();
+      var d = val('district');
+      if (showErrors('district-errors', d ? [] : [{ field: 'district', msg: 'district-error', text: 'Enter the district where the household lives. Start typing and pick from the list.' }])) { return; }
+      state.district = { value: d, source: 'you' };
+      var dest = state.districtNext || 'page-changes';
+      state.districtNext = null;
+      goTo(next(dest));
+    }
+    function districtShown() {
+      if (state.district) { return { value: state.district.value, source: 'You told us' }; }
+      if (state.values.address && state.extras) { return { value: state.extras.district, source: 'From National Population Register' }; }
+      return null;
+    }
+    function memberList() {
+      if (!state.extras) { return ''; }
+      return state.extras.members.map(function (m) { return esc(m[0]) + ' (' + (m[1] ? 'adult' : 'child') + ')'; }).join(', ');
+    }
+    function renderConfirm() {
+      var rows = [];
+      var d = districtShown();
+      if (d) { rows.push(['District', esc(d.value), d.source]); }
+      if (state.values.household) {
+        rows.push(['Household', esc(state.values.household.value) + (state.extras ? '<br>' + memberList() : ''), 'From ' + esc(state.values.household.source)]);
+      }
+      if (state.values.programmes) {
+        rows.push(['Support you already get from SPA', esc(state.values.programmes.value), 'From ' + esc(state.values.programmes.source)]);
+      }
+      $('confirm-list').innerHTML = rows.map(function (r) {
+        return '<div class="xs-summary-list__row"><dt class="xs-summary-list__key">' + r[0] + '</dt><dd class="xs-summary-list__value">' +
+          '<span class="fake-data">' + r[1] + '</span><span class="xs-source">' + r[2] + '</span></dd></div>';
+      }).join('');
+    }
+    function submitConfirm(e) {
+      e.preventDefault();
+      var v = radio('confirm');
+      if (showErrors('confirm-errors', v ? [] : [{ field: 'confirm-ok', msg: 'confirm-error', text: 'Select yes if the details are right. Select no and say what is wrong if they are not.' }])) { return; }
+      if (v === 'district') {
+        state.flagSurvey = true;
+        state.districtNext = 'page-changes';
+        goTo('page-district');
+        return;
+      }
+      if (v === 'people') { state.flagSurvey = true; }
+      goTo(next('page-changes'));
+    }
+    function submitChanges(e) {
+      e.preventDefault();
+      var picked = [];
+      document.querySelectorAll('input[name="chg"]:checked').forEach(function (c) { picked.push(c.value); });
+      if (showErrors('changes-errors', picked.length ? [] : [{ field: 'chg-birth', msg: 'changes-error', text: 'Choose what has changed. Choose "None of these" if nothing has.' }])) { return; }
+      state.changes = picked.indexOf('None') >= 0 ? [] : picked;
+      if (state.changes.length) { state.flagSurvey = true; }
+      state.outcome = computeOutcome();
+      goTo(next('page-outcome'));
+    }
+    function computeOutcome() {
+      if (state.alreadyGetting) { return 'already'; }
+      var low = state.extras && state.extras.lowBand;
+      if (state.flagSurvey || !low) { return 'survey'; }
+      return 'probable';
+    }
+    function renderOutcome() {
+      state.outcome = computeOutcome();
+      var o = state.outcome, h = '';
+      if (o === 'probable') {
+        h = '<h1>You can probably get the grant</h1>' +
+          '<div class="xs-aloud"><p class="xs-aloud__label">Read aloud</p>' +
+          '<p>From what we know, you can probably get the Household Support Grant. SPA still has to check and decide. It is K 1,500 a month. A complete application usually takes about 4 weeks.</p></div>' +
+          '<div class="xs-warning">Say this out loud only. It is not on the slip and not in the text message.</div>' +
+          '<button type="button" class="xs-button" onclick="goTo(\'page-payout\')">Continue to where we pay</button>';
+      } else if (o === 'survey') {
+        h = '<h1>We need to visit your household</h1>' +
+          '<div class="xs-aloud"><p class="xs-aloud__label">Read aloud</p>' +
+          '<p>Our records for your household may be out of date, or something has changed. We need to visit your household before SPA can decide. That visit is not a no. It can take 8 to 10 weeks.</p></div>' +
+          '<div class="xs-warning">Say this out loud only. It is not on the slip and not in the text message.</div>' +
+          '<button type="button" class="xs-button" onclick="goTo(\'page-payout\')">Continue to where we pay</button>';
+      } else {
+        h = '<h1>You already get support from SPA</h1>' +
+          '<div class="xs-aloud"><p class="xs-aloud__label">Read aloud</p>' +
+          '<p>Your household already gets support from SPA. That means you cannot get the Household Support Grant as well. There is nothing more to do today.</p></div>' +
+          '<button type="button" class="xs-button" onclick="goTo(\'page-finished\')">Finish</button>';
+      }
+      $('outcome-body').innerHTML = h;
+    }
+
+    /* ---------- Payout account, who receives, contact, declaration ---------- */
+    function canChangePayout() { return state.level === 3 && !state.actingFor; }
+    function renderPayout() {
+      var pv = state.values.payoutAccount;
+      var body = '';
+      if (pv) {
+        $('payout-h1').textContent = 'Is this where we should pay?';
+        body = '<div class="xs-aloud"><p class="xs-aloud__label">Read aloud</p><p>We would pay you into this account: ' + esc(pv.value) + '. Is that right?</p></div>' +
+          '<p class="xs-bigfact"><span class="fake-data">' + esc(pv.value) + '</span><span class="xs-source">From government records (' + esc(pv.source) + '). Only the provider and the last 4 digits are shown.</span></p>';
+        $('payout-yes-label').textContent = 'Yes, pay here';
+      } else {
+        $('payout-h1').textContent = 'No payout account is linked yet';
+        body = '<p>SPA will pay to the phone number on record. If that does not work, the money can be collected as cash at a post office.</p>';
+        $('payout-yes-label').textContent = 'Yes, that is fine';
+      }
+      if (canChangePayout()) {
+        body += '<p>You can change this here. The fingerprint check was level 3.</p>';
+        $('payout-no-label').textContent = 'No, change where we pay';
+      } else {
+        body += '<p>' + (state.actingFor
+          ? 'You cannot change this while acting for someone else.'
+          : 'You cannot change this at this desk. The check was not a fingerprint check.') + ' If it is wrong, we will note it for later.</p>';
+        $('payout-no-label').textContent = 'No, this is not right';
+      }
+      body += '<div class="xs-inset"><p><strong>We will never ask for your PIN.</strong> Do not ask for it, and do not let anyone type it in here.</p></div>';
+      $('payout-body').innerHTML = body;
+    }
+    function submitPayout(e) {
+      e.preventDefault();
+      var v = radio('payout');
+      if (showErrors('payout-errors', v ? [] : [{ field: 'payout-yes', msg: 'payout-error', text: 'Select yes if this is where to pay. Select no if it is not right.' }])) { return; }
+      var pv = state.values.payoutAccount;
+      if (v === 'yes') {
+        state.payout = pv ? { kind: 'record', label: pv.value, source: pv.source } : { kind: 'fallback', label: 'Phone number on record, or cash at a post office' };
+        state.payoutIssue = false;
+        goTo(next('page-receiver'));
+        return;
+      }
+      if (canChangePayout()) { goTo('page-payout-change'); return; }
+      state.payoutIssue = true;
+      state.payout = { kind: 'flagged', label: 'Not right. The account holder must come to a CSC for a fingerprint check.' };
+      goTo('page-payout-blocked');
+    }
+    function togglePchange() { $('pchange-phone-wrap').hidden = radio('pchange') !== 'wallet'; }
+    function submitPayoutChange(e) {
+      e.preventDefault();
+      var v = radio('pchange');
+      var errors = [];
+      if (!v) { errors.push({ field: 'pchange-wallet', msg: 'pchange-error', text: 'Choose where to pay instead.' }); }
+      if (v === 'wallet' && !val('pchange-phone')) { errors.push({ field: 'pchange-phone', msg: 'pchange-phone-error', text: 'Enter the mobile money phone number.' }); }
+      if (showErrors('pchange-errors', errors)) { return; }
+      if (v === 'wallet') {
+        var digits = val('pchange-phone').replace(/\D/g, '');
+        state.payout = { kind: 'changed', label: 'Mobile money number ending ' + digits.slice(-4) };
+      } else {
+        state.payout = { kind: 'changed', label: 'Cash at a post office' };
+      }
+      state.payoutIssue = false;
+      goTo(next('page-receiver'));
+    }
+    function renderBlocked() {
+      $('blocked-why').textContent = state.actingFor
+        ? 'Someone acting for a household cannot change where the money is paid.'
+        : 'Only a fingerprint check (level 3) lets us change where the money is paid. This was not a fingerprint check.';
+    }
+    function afterPayoutBlocked() { goTo(next('page-receiver')); }
+
+    function adultsOfHousehold() {
+      var list = [];
+      if (state.extras) {
+        state.extras.members.forEach(function (m) { if (m[1]) { list.push(m[0]); } });
+      } else if (state.claims) {
+        list.push(state.claims.fullName);
+      }
+      return list;
+    }
+    function renderReceiver() {
+      var adults = adultsOfHousehold();
+      var applicant = state.claims ? state.claims.fullName : '';
+      var h = '';
+      if (applicant) {
+        h += '<label class="xs-radio"><input type="radio" name="rcv" id="rcv-0" value="' + esc(applicant) + '"> <span>' + esc(applicant) + '<small>The person applying</small></span></label>';
+      }
+      var n = applicant ? 1 : 0;
+      adults.forEach(function (a) {
+        if (a === applicant) { return; }
+        h += '<label class="xs-radio"><input type="radio" name="rcv" id="rcv-' + n + '" value="' + esc(a) + '"> <span>' + esc(a) + '<small>Another adult in the household. We pay the account linked to their KestriaID.</small></span></label>';
+        n++;
+      });
+      $('receiver-options').innerHTML = h;
+      if (state.receiver) {
+        var r = document.querySelector('input[name="rcv"][value="' + state.receiver.name.replace(/"/g, '') + '"]');
+        if (r) { r.checked = true; }
+      }
+    }
+    function submitReceiver(e) {
+      e.preventDefault();
+      var v = radio('rcv');
+      if (showErrors('receiver-errors', v ? [] : [{ field: 'rcv-0', msg: 'receiver-error', text: 'Choose who should receive the money.' }])) { return; }
+      state.receiver = { name: v, self: state.claims && v === state.claims.fullName };
+      goTo(next('page-contact'));
+    }
+    function submitContact(e) {
+      e.preventDefault();
+      var use = radio('phoneuse');
+      var errors = [];
+      if (!use) { errors.push({ field: 'phoneuse-own', msg: 'contact-use-error', text: 'Say who uses the phone, or choose that there is no phone.' }); }
+      if (use && use !== 'none' && !val('contact-phone')) { errors.push({ field: 'contact-phone', msg: 'contact-phone-error', text: 'Enter a phone number we can use, or choose that there is no phone.' }); }
+      if (showErrors('contact-errors', errors)) { return; }
+      state.contact = { phone: use === 'none' ? '' : val('contact-phone'), use: use };
+      if (state.mode === 'champion') { goTo(next('page-champ-type')); } else { goTo(next('page-declaration')); }
+    }
+    function renderDeclaration() {
+      var who = state.actingFor ? 'I am acting for this household, with its permission. ' : '';
+      $('declaration-text').innerHTML = '<p class="xs-aloud__label">Read aloud</p>' +
+        '<p>' + who + 'What I have told SPA is true, as far as I know. I understand SPA may check it, and may visit my household. I understand that if I give false information on purpose, SPA may stop my payments.</p>';
+      $('declaration-label').textContent = 'I read this out loud in ' + (state.lang || 'the citizen\'s language') + ', and ' + (state.actingFor ? 'the person acting for the household' : 'the citizen') + ' said they agree.';
+    }
+    function submitDeclaration(e) {
+      e.preventDefault();
+      if (showErrors('declaration-errors', $('declaration-ok').checked ? [] : [{ field: 'declaration-ok', msg: 'declaration-error', text: 'Read the declaration out loud and get the citizen\'s answer. Then tick the box.' }])) { return; }
+      state.declaration = true;
+      goTo(next('page-check'));
+    }
+
+    /* ---------- No KestriaID route and survey details ---------- */
+    function submitName(e) {
+      e.preventDefault();
+      var g = val('given-name'), f = val('family-name');
+      if (showErrors('name-errors', (g || f) ? [] : [{ field: 'given-name', msg: 'name-error', text: 'Enter a name. One name is fine.' }])) { return; }
+      state.name = { given: g, family: f };
+      goTo(next('page-hhnumber'));
+    }
+    function submitHhNumber(e) {
+      e.preventDefault();
+      var unknown = $('hh-unknown').checked;
+      var raw = val('hh-number');
+      var m = raw.toUpperCase().replace(/\s+/g, '').match(/^HH-?(CR|CS|HL|LK|NP|EI)-?(\d{7})$/);
+      var errors = [];
+      if (!unknown && !raw) { errors.push({ field: 'hh-number', msg: 'hh-error', text: 'Enter the household number, or tick "They do not know it".' }); }
+      else if (!unknown && !m) { errors.push({ field: 'hh-number', msg: 'hh-error', text: 'Check the household number. It looks like HH-NP-0042917.' }); }
+      if (showErrors('hh-errors', errors)) { return; }
+      state.hh = unknown ? null : 'HH-' + m[1] + '-' + m[2];
+      goTo(next('page-committee'));
+    }
+    function submitCommittee(e) {
+      e.preventDefault();
+      var unsure = $('committee-unknown').checked;
+      if (showErrors('committee-errors', (val('committee-name') || unsure) ? [] : [{ field: 'committee-name', msg: 'committee-error', text: 'Enter a name, or tick "Not sure".' }])) { return; }
+      state.committee = unsure && !val('committee-name') ? null : val('committee-name');
+      goSurvey('nokuin');
+    }
+    function renderSurvey() {
+      var why = {
+        notfound: 'We could not find a record for this household. That does not mean they cannot get help.',
+        missing: 'We found some records, but not the household. That does not mean they cannot get help.',
+        refused: 'The citizen did not want records looked up. They keep the service. A visit lets SPA check the details.',
+        nokuin: 'No KestriaID. The visit, and the village committee, take the place of the registry lookup.'
+      };
+      $('survey-reason').innerHTML = '<p>' + why[state.surveyReason || 'notfound'] + '</p>';
+      if (state.survey) {
+        $('sv-district').value = state.survey.district;
+        $('sv-landmark').value = state.survey.landmark;
+      }
+    }
+    function submitSurvey(e) {
+      e.preventDefault();
+      var d = val('sv-district');
+      if (showErrors('survey-errors', d ? [] : [{ field: 'sv-district', msg: 'sv-district-error', text: 'Enter the district we will visit. Start typing and pick from the list.' }])) { return; }
+      state.survey = { district: d, landmark: val('sv-landmark') };
+      goTo(next('page-contact'));
+    }
+
+    /* ---------- Check answers ---------- */
+    function fromGov(src) { return { s: 'gov', src: src }; }
+    function buildRows() {
+      var rows = [];
+      var whoText = state.actingFor
+        ? 'Someone acting for them: ' + (state.actor ? esc(state.actor.name) + ' (' + esc(state.actor.rel) + ')' : '')
+        : 'The citizen themselves';
+      rows.push({ k: 'Who is here', v: whoText, s: 'you', change: 'page-who' });
+      rows.push({ k: 'Language the citizen wants', v: esc(state.lang), s: 'you', change: 'page-language' });
+      rows.push({ k: 'ID check', v: esc(state.idMethod || 'No KestriaID: household number and village committee route'), s: 'officer' });
+      if (state.claims) {
+        rows.push({ k: 'Name', v: esc(state.claims.fullName), s: 'gov', src: 'KestriaID' });
+      } else if (state.name) {
+        rows.push({ k: 'Name', v: esc(nameText()), s: 'you', change: 'page-name' });
+      }
+      if (state.path === 'full') {
+        var d = districtShown();
+        if (d) {
+          rows.push(d.source === 'You told us'
+            ? { k: 'District', v: esc(d.value), s: 'you', change: 'page-district' }
+            : { k: 'District', v: esc(d.value), s: 'gov', src: 'National Population Register', change: 'page-confirm', changeLabel: 'Say it is wrong' });
+        }
+        rows.push({ k: 'Household', v: esc(state.values.household.value) + (state.extras ? '<br>' + memberList() : ''), s: 'gov', src: state.values.household.source, change: 'page-confirm', changeLabel: 'Say it is wrong' });
+        if (state.values.programmes) {
+          rows.push({ k: 'Support already got', v: esc(state.values.programmes.value), s: 'gov', src: state.values.programmes.source });
+        }
+        rows.push({ k: 'Changes in the household', v: state.changes.length ? state.changes.map(esc).join('<br>') : 'None', s: 'you', change: 'page-changes' });
+        if (state.payout) {
+          rows.push({ k: 'Where we pay', v: esc(state.payout.label),
+            s: state.payout.kind === 'record' ? 'gov' : (state.payout.kind === 'fallback' ? 'gov' : 'you'),
+            src: state.payout.source || 'KesPay', change: 'page-payout' });
+        }
+        if (state.receiver) {
+          rows.push({ k: 'Who receives the money', v: esc(state.receiver.name), s: 'you', change: 'page-receiver' });
+        }
+      } else {
+        var reasons = { notfound: 'No record found for the household', missing: 'Household record not found', refused: 'Citizen did not want records looked up', nokuin: 'No KestriaID' };
+        rows.push({ k: 'Why we need a visit', v: reasons[state.surveyReason], s: 'officer' });
+        if (state.surveyReason === 'nokuin') {
+          rows.push({ k: 'Household number', v: state.hh ? esc(state.hh) : 'Not known', s: 'you', change: 'page-hhnumber' });
+          rows.push({ k: 'Village committee contact', v: state.committee ? esc(state.committee) : 'Not sure. SPA will find the committee.', s: 'you', change: 'page-committee' });
+        }
+        rows.push({ k: 'District to visit', v: esc(state.survey.district), s: 'you', change: 'page-survey' });
+        if (state.survey.landmark) { rows.push({ k: 'Landmark', v: esc(state.survey.landmark), s: 'you', change: 'page-survey' }); }
+      }
+      rows.push({ k: 'Safe contact number', v: state.contact.use === 'none' ? 'No phone we can use' : esc(state.contact.phone) + (state.contact.use === 'shared' ? ' (shared phone)' : ''), s: 'you', change: 'page-contact' });
+      rows.push({ k: 'Declaration', v: 'Read aloud in ' + esc(state.lang) + ' and agreed', s: 'you', change: 'page-declaration' });
+      return rows;
+    }
+    function buildChampRows() {
+      return [
+        { k: 'Prepared by', v: esc(state.champ.name) + ', ' + esc(state.champ.village), s: 'you', change: 'page-champ' },
+        { k: 'First name of the person', v: esc(state.person.first), s: 'you', change: 'page-champ-person' },
+        { k: 'Language the citizen wants', v: esc(state.lang), s: 'you', change: 'page-language' },
+        { k: 'Safe contact number', v: state.contact.use === 'none' ? 'No phone we can use' : esc(state.contact.phone) + (state.contact.use === 'shared' ? ' (shared phone)' : ''), s: 'you', change: 'page-contact' },
+        { k: 'Type of visit', v: state.ctype === 'mobile' ? 'Mobile CSC day in the village' : 'Visit to a Citizen Service Centre', s: 'you', change: 'page-champ-type' },
+        { k: 'Day', v: esc(state.cday), s: 'you', change: 'page-champ-day' }
+      ];
+    }
+    function renderCheck() {
+      state.returnToCheck = false;
+      var champ = state.mode === 'champion';
+      var rows = champ ? buildChampRows() : buildRows();
+      $('check-list').innerHTML = rows.map(function (r) {
+        var tag = r.s === 'gov' ? 'From government records (' + esc(r.src) + ')' : (r.s === 'officer' ? 'Recorded by the officer' : 'You told us');
+        var act = r.change
+          ? '<a href="#" onclick="changeAnswer(\'' + r.change + '\'); return false;">' + (r.changeLabel || 'Change') + '<span class="xs-vh"> ' + esc(r.k.toLowerCase()) + '</span></a>'
+          : '';
+        return '<div class="xs-summary-list__row"><dt class="xs-summary-list__key">' + esc(r.k) + '</dt><dd class="xs-summary-list__value">' +
+          '<span class="fake-data">' + r.v + '</span><span class="xs-source">' + tag + '</span></dd><dd class="xs-summary-list__actions">' + act + '</dd></div>';
+      }).join('');
+      $('check-send').textContent = champ ? 'Book the visit' : (state.path === 'survey' ? 'Send request for a survey visit' : 'Send application');
+      $('check-intro').textContent = champ ? 'Read these out. Nothing is looked up. A CSC officer does that on the day.' : 'Read these out. Ask if anything is wrong.';
+    }
+
+    /* ---------- Send and confirmation ---------- */
+    function sendApplication() {
+      if (state.mode === 'champion') {
+        if (!state.submitted) { state.ref = 'BK-' + randomDigits(6); state.submitted = true; }
+        renderChampDone();
+        goTo('page-champ-done');
+        return;
+      }
+      if (!state.submitted) { state.ref = 'HSG-' + randomDigits(7); state.submitted = true; }
+      renderConfirmation();
+      goTo('page-confirmation');
+    }
+    function auditLines() {
+      var l = [];
+      l.push('Officer: ' + esc(OFFICER.name) + ', ' + esc(OFFICER.csc) + ' (certified device)');
+      l.push(state.actingFor
+        ? 'Acting for: ' + esc(state.actor.name) + ' (' + esc(state.actor.rel) + '). Authorised record seen at this CSC.'
+        : 'The citizen applied for themselves.');
+      l.push('Language wanted: ' + esc(state.lang));
+      if (state.hasKuin) {
+        l.push('Fingerprint consent: ' + (state.fpConsent ? 'given' : 'refused. Card check used.'));
+        l.push('ID check: ' + esc(state.idMethod));
+        l.push('KestriaID sign-in: simulated. The mock reported "' + esc(state.who ? state.who.level : '') + '". This page recorded level ' + state.level + '.');
+        l.push('Data-use notice (DPA s.13) read aloud: yes');
+      } else {
+        l.push('Route: no KestriaID (National Identity Act 2020, s.19)');
+      }
+      if (state.got && state.got.consentId) {
+        l.push('KesLink lookup, consent record ' + esc(state.got.consentId) + ': address, household, programmes, payout account');
+      }
+      if (state.payout && state.payout.kind === 'changed') { l.push('Payout details changed at level 3. A text goes to the number we hold now.'); }
+      if (state.payoutIssue) { l.push('Payout details flagged as wrong. Not changed here.'); }
+      l.push('Declaration read aloud and agreed: ' + (state.declaration ? 'yes' : 'no'));
+      return l;
+    }
+    function renderConfirmation() {
+      var survey = state.path === 'survey';
+      var timing = survey
+        ? 'We will visit your household. This can take 8 to 10 weeks.'
+        : 'SPA will check your application. This usually takes about 4 weeks. If we need to visit your household, it can take 8 to 10 weeks.';
+      var paidTo = survey ? 'We will ask when we visit.' : (state.payout ? state.payout.label : '');
+      var first = state.claims ? state.claims.fullName : nameText();
+      var sms = 'SPA: We have your Household Support Grant form. Ref ' + state.ref + '. Dial *999# to check progress. We never ask for your PIN.';
+      var h = '<div class="xs-panel"><h1>' + (survey ? 'Survey visit requested' : 'Application sent') + '</h1>' +
+        '<p>The reference is <strong class="fake-data" style="color:#0B0C0C">' + esc(state.ref) + '</strong></p></div>' +
+        '<h2>Give the citizen their slip</h2>' +
+        '<p>Print it, or write the reference on paper. It says nothing about the result.</p>' +
+        '<div class="xs-slip" id="slip"><h2>Social Protection Agency – Household Support Grant</h2>' +
+        '<p>Kestria is a fictional country. Slip for the citizen. Keep it safe.</p>' +
+        '<p class="xs-slip__ref fake-data">' + esc(state.ref) + '</p>' +
+        '<dl><dt>Date</dt><dd>' + todayLong() + '</dd>' +
+        '<dt>Taken at</dt><dd>' + esc(OFFICER.csc) + ' by ' + esc(OFFICER.name) + '</dd>' +
+        '<dt>Name</dt><dd>' + esc(first) + '</dd>' +
+        '<dt>Language</dt><dd>' + esc(state.lang) + '</dd>' +
+        (state.actingFor ? '<dt>Acting for the household</dt><dd>' + esc(state.actor.name) + '</dd>' : '') +
+        '<dt>Where we pay</dt><dd>' + esc(paidTo) + '</dd>' +
+        '<dt>What happens next</dt><dd>' + timing + '</dd>' +
+        '<dt>Check progress</dt><dd>Dial <strong>*999#</strong>, or call <strong>0800 400 400</strong> (free). Have your reference ready.</dd></dl>' +
+        '<p><strong>We will never ask for your PIN.</strong> Do not share this slip.</p></div>' +
+        '<button type="button" class="xs-button" onclick="window.print()">Print the slip</button>' +
+        '<h2>Read this out</h2>' +
+        '<div class="xs-aloud"><p class="xs-aloud__label">Read aloud</p>' +
+        '<p>' + timing + '</p>' +
+        '<p>We will send a text message in ' + esc(state.lang) + ' to the number you gave us. It will only say we have your form and give the reference. To check progress, dial *999# or reply STATUS to our text.</p>' +
+        '<p>We will never ask for your PIN. If anyone asks, do not give it.</p></div>' +
+        '<h2>The text message we will send</h2>' +
+        '<p class="xs-inset"><span class="fake-data">' + esc(sms) + '</span></p>' +
+        '<details><summary>What we recorded in the audit log</summary><ul>' +
+        auditLines().map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul></details>' +
+        '<button type="button" class="xs-button xs-button--secondary" onclick="location.reload()">Finish and start again</button>';
+      $('confirmation-body').innerHTML = h;
+    }
+
+    /* ---------- Digital champion: prepare and refer ---------- */
+    function startChampion() {
+      state = newState();
+      state.mode = 'champion';
+      goTo('page-champ');
+    }
+    function submitChamp(e) {
+      e.preventDefault();
+      var errors = [];
+      if (!val('champ-name')) { errors.push({ field: 'champ-name', msg: 'champ-name-error', text: 'Enter your name.' }); }
+      if (!val('champ-village')) { errors.push({ field: 'champ-village', msg: 'champ-village-error', text: 'Enter your village.' }); }
+      if (showErrors('champ-errors', errors)) { return; }
+      state.champ = { name: val('champ-name'), village: val('champ-village') };
+      goTo(next('page-champ-person'));
+    }
+    function submitChampPerson(e) {
+      e.preventDefault();
+      if (showErrors('cperson-errors', val('cperson-name') ? [] : [{ field: 'cperson-name', msg: 'cperson-error', text: 'Enter a first name, or the name the person likes to be called.' }])) { return; }
+      state.person = { first: val('cperson-name') };
+      goTo(next('page-language'));
+    }
+    function submitChampType(e) {
+      e.preventDefault();
+      var v = radio('ctype');
+      if (showErrors('ctype-errors', v ? [] : [{ field: 'ctype-csc', msg: 'ctype-error', text: 'Choose how the person will get help.' }])) { return; }
+      if (state.ctype !== v) { state.cday = null; }
+      state.ctype = v;
+      goTo(next('page-champ-day'));
+    }
+    function renderChampDay() {
+      var opts = state.ctype === 'mobile'
+        ? ['Saturday 14 November 2026 – village hall, ' + state.champ.village, 'Saturday 10 April 2027 – village hall, ' + state.champ.village + ' (rainy season day)']
+        : ['Tuesday 3 November 2026, morning – ' + OFFICER.csc, 'Thursday 12 November 2026, morning – ' + OFFICER.csc, 'Tuesday 6 April 2027, morning – ' + OFFICER.csc + ' (rainy season: roads may be cut off)'];
+      $('cday-options').innerHTML = opts.map(function (o, i) {
+        return '<label class="xs-radio"><input type="radio" name="cday" id="cday-' + i + '" value="' + esc(o) + '"> <span>' + esc(o) + '</span></label>';
+      }).join('');
+    }
+    function submitChampDay(e) {
+      e.preventDefault();
+      var v = radio('cday');
+      if (showErrors('cday-errors', v ? [] : [{ field: 'cday-0', msg: 'cday-error', text: 'Choose a day.' }])) { return; }
+      state.cday = v;
+      goTo(next('page-check'));
+    }
+    function renderChampDone() {
+      var sms = 'SPA: Your visit is booked. Ref ' + state.ref + '. Bring your KestriaID card if you have one. Dial *999# for help.';
+      var h = '<div class="xs-panel"><h1>Visit booked</h1><p>The booking reference is <strong class="fake-data" style="color:#0B0C0C">' + esc(state.ref) + '</strong></p></div>' +
+        '<div class="xs-slip" id="slip"><h2>Booking slip – Household Support Grant visit</h2>' +
+        '<p>Kestria is a fictional country. Slip for the citizen.</p>' +
+        '<p class="xs-slip__ref fake-data">' + esc(state.ref) + '</p>' +
+        '<dl><dt>Name</dt><dd>' + esc(state.person.first) + '</dd>' +
+        '<dt>Visit</dt><dd>' + (state.ctype === 'mobile' ? 'Mobile CSC day' : 'Citizen Service Centre') + '</dd>' +
+        '<dt>Day</dt><dd>' + esc(state.cday) + '</dd>' +
+        '<dt>Bring</dt><dd>Your KestriaID card if you have one. Your household number if you know it. Someone who looks after the household\'s money, if that is not you.</dd>' +
+        '<dt>Prepared by</dt><dd>Digital champion ' + esc(state.champ.name) + ', ' + esc(state.champ.village) + '</dd>' +
+        '<dt>Questions</dt><dd>Dial <strong>*999#</strong>, or call <strong>0800 400 400</strong> (free).</dd></dl>' +
+        '<p><strong>We will never ask for your PIN.</strong></p></div>' +
+        '<button type="button" class="xs-button" onclick="window.print()">Print the slip</button>' +
+        '<h2>What happens next</h2>' +
+        '<div class="xs-aloud"><p class="xs-aloud__label">Read aloud</p>' +
+        '<p>A CSC officer will do the application with you on the day. They will check who you are and look up your household. Nothing has been looked up yet. I do not have your records.</p>' +
+        '<p>We will send a text in ' + esc(state.lang) + ' to remind you. It will not say anything about money.</p></div>' +
+        '<p class="xs-inset"><span class="fake-data">' + esc(sms) + '</span></p>' +
+        '<button type="button" class="xs-button xs-button--secondary" onclick="location.reload()">Finish and start again</button>';
+      $('champ-done-body').innerHTML = h;
+    }
+
+    /* ---------- Per-page set-up (runs each time a page is shown) ---------- */
+    var hooks = {
+      'page-fp': function () {
+        $('fp-who').textContent = state.actingFor
+          ? 'Check the fingerprint of the person acting for the household.'
+          : 'Check the fingerprint of the citizen.';
+      },
+      'page-signin': function () {
+        $('signin-level').textContent = 'Fingerprint check passed: level ' + state.level + '. In real life the check itself signs the citizen in. The simulated KestriaID always says "substantial", so this page records the level.';
+      },
+      'page-missing': function () {
+        var why = {
+          address: 'The district was not found. We will ask for it.',
+          household: 'The household was not found. We will book a survey visit.',
+          programmes: 'We could not check other SPA support. We will carry on. SPA checks this later.',
+          payoutAccount: 'No payout account was found. We will say how the money can be paid.'
+        };
+        $('missing-list').innerHTML = state.missing.map(function (m) { return '<li>' + esc(why[m] || m) + '</li>'; }).join('');
+      },
+      'page-district': function () {
+        $('district-h1').textContent = state.districtNext === 'page-changes'
+          ? 'Which district does the household live in now?'
+          : 'Which district does the household live in?';
+        $('district').value = state.district ? state.district.value : '';
+      },
+      'page-confirm': renderConfirm,
+      'page-outcome': renderOutcome,
+      'page-payout': renderPayout,
+      'page-payout-blocked': renderBlocked,
+      'page-receiver': renderReceiver,
+      'page-declaration': renderDeclaration,
+      'page-survey': renderSurvey,
+      'page-check': renderCheck,
+      'page-champ-day': renderChampDay
+    };
+
+    /* ---------- Start-up ---------- */
+    (function init() {
+      // Back link on every page except Start and the two confirmation pages.
+      document.querySelectorAll('.page').forEach(function (p) {
+        if (p.id === 'page-start' || p.id === 'page-confirmation' || p.id === 'page-champ-done') { return; }
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'xs-back-link';
+        b.textContent = 'Back';
+        b.onclick = goBack;
+        p.insertBefore(b, p.firstChild);
+      });
+      // "None of these" clears the others, and any other choice clears "None of these".
+      document.querySelectorAll('input[name="chg"]').forEach(function (c) {
+        c.addEventListener('change', function () {
+          if (!c.checked) { return; }
+          document.querySelectorAll('input[name="chg"]').forEach(function (o) {
+            if (o !== c && ((c.value === 'None') || (o.value === 'None'))) { o.checked = false; }
+          });
+        });
+      });
+      // Language switcher: only English works in this prototype.
+      document.querySelectorAll('.xs-lang button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var lang = b.getAttribute('data-lang');
+          var notice = $('lang-notice');
+          if (lang === 'English') {
+            notice.textContent = '';
+            document.querySelectorAll('.xs-lang button').forEach(function (o) { o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+          } else {
+            notice.textContent = 'Translation not available in this prototype (' + lang + '). The screens stay in English.';
+          }
+        });
+      });
+      var n = document.querySelectorAll('#assumptions-list li[data-a]').length;
+      $('assumptions-toggle').textContent = 'Show assumptions (' + n + ')';
+      renderStrip();
+      show('page-start');
+    })();
+  </script>
+</body>
+</html>

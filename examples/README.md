@@ -13,6 +13,7 @@ With your own country profile, the same commands produce the same kinds of outpu
 | `production-renew-medical-licence/` | Moving to beta: production front end and test suite | `/xstack:productionise` |
 | `form-to-spec-firearm-licence-barbados/` | Before alpha: a paper form (Firearms Act, Form A) turned into a form spec for the build | `/xstack:form-to-spec` |
 | `form-to-spec-tr1-uk/` | Before alpha: HM Land Registry's TR1, with a minimal project-local **UK profile** – no national ID lookup | `/xstack:form-to-spec` |
+| `build-household-support-grant/` | Alpha: three prototypes for a cash transfer in **Kestria**, the fictional demo country (`profiles/kestria/`), plus where the profile fell short | `/xstack:build` |
 | `dpi-mock-demo/` | Alpha: sign in, share data, confirm, pay, with every unhappy path. No profile, neutral style | `references/dpi-mock.js` |
 
 Some tags and terms in these examples come from before the rename. `[VERIFY WITH MDA]` is now `[VERIFY WITH DEPARTMENT]`, and `[VERIFY WITH MIST]` is now `[VERIFY WITH PLATFORM]`.
