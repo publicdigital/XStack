@@ -145,6 +145,49 @@ Each prototype now has `iteration-3/` with `index.html`, `CHANGES.md` and `assum
 - **A warning notice would use the accent a second time** on that page.
 - **`*999#` isn't a `+999` number.** The rule doesn't cover USSD codes yet.
 
+## Iteration 4 (2026-10-23) – Kestrian
+
+Each prototype now has `iteration-4/` with `index.html`, `CHANGES.md` and `assumptions.md`. The feedback is `feedback-round-3.md`: Kestria now has a described language, Kestrian (*kestrin*), in `profiles/kestria/kestrian.md`.
+
+**The language switcher works for Kestrian.**
+- **What switches:** every screen, error and page title, and the simulated KestriaID, KesLink and GovPay screens.
+- **Switching back** restores the original English exactly.
+- **The links:**
+  - In P1, the one link reads **Kestrin** or **English** – the other language, named in that language.
+  - In P2 and P3, "Kestrin" and "English" both appear, and `aria-current` marks the active one.
+  - Vell and Sora still show a notice.
+- **Not changed:** the journeys, the data, the GovKestria styling and the page's own scripts are the same as iteration 3.
+
+**Kestrian is invented.** Nobody speaks it, so the prototypes can show the switcher and the layouts working, but they're no evidence about real people reading in their own language.
+
+**How it's built:**
+- **`kestrin/strings.json`:** 1,381 English → Kestrian entries, shared by all three prototypes. Patterns use `<x>` for text the page fills in at runtime. New words are in the Lexicon in `kestrian.md`.
+- **`kestrin/kestrin.js`:** the switcher.
+  - It translates text on the page, and keeps translating as the page changes.
+  - It never touches the xstack banner, the assumptions panel or fake data.
+  - `xstackKestrin.missing()` in the browser console lists anything still in English.
+  - Adding `#kestrin` to the address should start in Kestrian. That's untested here.
+
+**What was checked:**
+- `node --check` passes, and the page's own scripts are identical to iteration 3.
+- **In a browser, in Kestrian:**
+  - **Journeys to confirmation:**
+    - P1 as Ines, Desa, Mirel and Talin
+    - P2 as Aru, as Anaïs with Mina acting for her, and as Mirel
+    - P3 as Tessa, Talin (new baby) and Ines
+  - every page shown, every question submitted empty to show its errors, and each simulated platform screen opened
+
+  Nothing was left in English apart from names, codes and brands.
+- Switching back restored the English.
+- No page scrolls sideways at 320px in Kestrian.
+
+**Not checked:** a screen reader, zoom, and other routes.
+
+**Costs and findings:**
+- **Size:** the strings add about 145 KB per prototype (40 KB gzipped), which is over `DESIGN.md`'s 100 KB budget. A real service would load one language at a time.
+- **Length:** long Kestrian sentences turned out about as long as the English, not 20–30% longer, and `kestrian.md` now says so.
+- **An existing P3 bug:** P3 repeats "Error:" in the page title on each failed submit. That was already in iteration 3, in English.
+
 ## Next
 
 - Answer the round-2 service-sheet gaps (see `profile-findings.md`, "Round 2").
