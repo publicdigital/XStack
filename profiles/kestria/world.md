@@ -184,6 +184,12 @@ Examples of invented names: Mirel Okand, Talin Vorsa, Desa Haldry, Sefa Tormik, 
 - **4G:** covers 96% of the Capital Region and 41% of the Northern Plains. Elsewhere, 2G or 3G is common, and most people buy data in small daily bundles.
 - **USSD:** works on any phone, and it's how most people use mobile money. `*999#` is the government USSD short code.
 - **SMS:** the most reliable way to reach anyone. GovNotify sends SMS in all four languages.
+- **GovKestria helpline:** `+999 77 100 2000`. This is the official phone line for every service on GovKestria.
+  - It's run by KDS.
+  - It answers in Kestrian, English, Vell and Sora.
+  - It can take people through a service, or refer them to a CSC.
+
+  Use it in help panels, confirmation pages and texts. Services don't have their own numbers.
 - **WhatsApp:** widely used where people have smartphones. Community and church groups use it heavily.
 - **Community radio:** the main media in the Northern Plains and Lake Region.
 - **Assisted channels:**

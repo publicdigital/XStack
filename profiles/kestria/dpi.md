@@ -109,7 +109,7 @@ How government pays money **to** people: benefits, grants, and refunds to someon
 
 **Fraud controls:** these apply to any change of recipient or route, and to a KUIN being relinked at a provider.
 - **A change takes effect from the next payment cycle at least 7 days away.** Until then, the old route is paid.
-- **SMS goes to both the old and the new recipient's numbers:** "SPA: the way your payment is made has changed. If you didn't ask for this, call 0800 400 400 or go to a CSC. SPA never asks for your PIN." It never says the amount or the new account.
+- **SMS goes to both the old and the new recipient's numbers:** "SPA: the way your payment is made has changed. If you didn't ask for this, call the GovKestria helpline on +999 77 100 2000 or go to a CSC. SPA never asks for your PIN." It never says the amount or the new account.
 - **Recent SIM swaps are held.** If the phone network reports a SIM swap on the recipient's number in the last 30 days, a route-2 change, or a KUIN relink to a wallet on that number, is held until someone checks it at a CSC.
 - **An authorised intermediary can never name themselves as recipient,** or change the route.
 - **Treasury pauses payouts to an account that has failed twice in a row,** and texts the recipient to come to a CSC.
