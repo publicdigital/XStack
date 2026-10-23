@@ -1,0 +1,48 @@
+# Applied on top of eSignet's own docker-compose.yaml (fetched into .upstream/ by esignet.sh).
+# Paths here are relative to .upstream/, which is the compose project directory.
+services:
+  # Upstream's database is on an anonymous volume, so 'down' then 'up' starts it empty.
+  database:
+    volumes:
+      - db-data:/var/lib/postgresql
+
+  # Upstream starts eSignet as soon as the mock identity system's container starts, before the
+  # Spring Boot app is listening. eSignet then can't fetch its signing certificates and sign-in
+  # fails until it's restarted. A healthcheck fixes the order.
+  # Both services make their signing keys on first start and keep them in a keystore file inside
+  # the container, while the database remembers the key names. A recreated container then can't
+  # find its keys and won't start ("No such alias"). These volumes keep the keystores.
+  mock-identity-system:
+    environment:
+      - MOSIP_KERNEL_KEYMANAGER_HSM_CONFIG_PATH=/home/mosip/keys/mock_local.p12
+      # eSignet passes the mock's signed identity token through as the signed userinfo. Upstream
+      # leaves its issuer at the mock's default (http://localhost:8088/v1/esignet), which isn't
+      # where eSignet runs, so a relying party checking `iss` rejects it.
+      - MOSIP_MOCKIDENTITYSYSTEM_ESIGNET_ISSUER_ID=http://${ESIGNET_HOSTNAME:-localhost}:8080
+    volumes:
+      - mock-identity-keys:/home/mosip/keys
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8082/v1/mock-identity-system/actuator/health || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 20s
+
+  esignet:
+    depends_on:
+      mock-identity-system:
+        condition: service_healthy
+    environment:
+      # The issuer, and where eSignet sends people to sign in. esignet.sh sets these when you
+      # use the Kestria hostnames (ESIGNET_HOSTNAME=esignet.kestria.test).
+      - MOSIP_ESIGNET_HOST=http://${ESIGNET_HOSTNAME:-localhost}:8080
+      - MOSIP_ESIGNET_OIDC_UI_HOSTNAME=${ESIGNET_HOSTNAME:-localhost}
+    volumes:
+      - esignet-keys:/opt/mosip
+      # eSignet's own sign-in flow with the CAPTCHA taken out (see no-captcha.mjs).
+      - ./flow-esignet.nocaptcha.yaml:/home/mosip/data/flows/flow-esignet.yaml:ro
+
+volumes:
+  db-data:
+  mock-identity-keys:
+  esignet-keys:

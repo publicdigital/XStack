@@ -1,0 +1,14 @@
+{
+  "name": "xstack-sandbox",
+  "private": true,
+  "type": "module",
+  "description": "Local eSignet sandbox for xstack prototypes. The adapter has no dependencies; Playwright is only for the end-to-end check.",
+  "scripts": {
+    "esignet": "./esignet/esignet.sh up",
+    "start": "node adapter/server.mjs",
+    "test": "node test/e2e.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.64.1"
+  }
+}

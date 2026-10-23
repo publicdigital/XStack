@@ -117,12 +117,14 @@ xstack/
 │   ├── gds-way-phases.md
 │   ├── house-style.md
 │   ├── dpi-baseline.md            identity, payments, data exchange and the once-only rules
-│   └── dpi-mock.js                simulated DPI for single-file prototypes
+│   ├── dpi-mock.js                simulated DPI for single-file prototypes
+│   └── dpi-sandbox.js             the same contract, signing in through a real platform sandbox
 └── profiles/                 country profiles
     ├── README.md             what a profile is and how agents find it
     ├── _template/            start your own profile here
     ├── barbados/             the first bundled profile
     └── kestria/              a fictional country for demos, on MOSIP, Mojaloop and X-Road
+sandbox/                      real eSignet running locally for Kestria, and the adapter prototypes sign in through
 ```
 
 ## Country profiles

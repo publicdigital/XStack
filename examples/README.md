@@ -15,5 +15,6 @@ With your own country profile, the same commands produce the same kinds of outpu
 | `form-to-spec-tr1-uk/` | Before alpha: HM Land Registry's TR1, with a minimal project-local **UK profile** – no national ID lookup | `/xstack:form-to-spec` |
 | `build-household-support-grant/` | Alpha: three prototypes for a cash transfer in **Kestria**, the fictional demo country (`profiles/kestria/`), plus where the profile fell short | `/xstack:build` |
 | `dpi-mock-demo/` | Alpha: sign in, share data, confirm, pay, with every unhappy path. No profile, neutral style | `references/dpi-mock.js` |
+| `build-household-support-grant/prototype-1-once-only/sandbox/` | Sandbox: Prototype 1 signing in through real eSignet running on your computer. Needs `sandbox/` running. | `references/dpi-sandbox.js`, `sandbox/use-sandbox.mjs` |
 
 Some tags and terms in these examples come from before the rename. `[VERIFY WITH MDA]` is now `[VERIFY WITH DEPARTMENT]`, and `[VERIFY WITH MIST]` is now `[VERIFY WITH PLATFORM]`.
