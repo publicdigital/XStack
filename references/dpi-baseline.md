@@ -31,7 +31,7 @@ Registers are the sources behind data exchange: civil registration, tax, social 
 
 ## The contract prototypes code against
 
-Prototypes never call a real platform. They call three functions, which behave the same way whatever sits behind them. `references/dpi-mock.js` implements them for alpha.
+Prototypes never call a platform directly. They call three functions, which behave the same way whatever sits behind them. `references/dpi-mock.js` implements them for alpha, in the browser. `references/dpi-sandbox.js` implements them against a platform's test environment, through a server-side adapter: inline it instead of the mock and nothing else on the page changes.
 
 ```js
 dpi.identity.signIn({ purpose, actingFor })
@@ -50,7 +50,7 @@ Every call returns a `status`, and every status other than the happy one needs a
 | Mode | Phase | What sits behind the contract |
 |---|---|---|
 | `mock` | Alpha | `dpi-mock.js`, in the browser. It shows simulated sign-in, consent and payment screens with made-up citizens |
-| `sandbox` | Beta | A server-side adapter calling the platform's test environment (`/xstack:productionise`) |
+| `sandbox` | Beta, or alpha research with real sign-in screens | `dpi-sandbox.js` in the page, and a server-side adapter calling the platform's test environment. For Kestria, eSignet runs locally from the separate `kestria-sandbox` repo, and `sandbox/` holds the adapter: see `sandbox/README.md`. For production, `/xstack:productionise` |
 | `live` | Live | The same adapter with production credentials, after the cyber engineer's review |
 
 The page code stays the same from mock to live. Only the adapter changes.

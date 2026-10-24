@@ -18,6 +18,15 @@ All notable changes to xstack will be recorded here. Format inspired by [Keep a 
 
 ### Added
 
+- **Register a SIM card, a new Kestria service** – `examples/sim-registration/`. Sign in with KestriaID, see the SIM cards registered to you, prove you have the new one with a code, and register it. The prototype comes in a mock version and a sandbox version that signs in through real eSignet
+  - `profiles/kestria/services/sim-registration.md` – the rules: free, a 31 March 2027 deadline, 5 SIM cards per person, children's SIM cards registered to a parent, other ID at a network shop for people with no KUIN, and KCA's fixed declaration
+  - `world.md` gains the Kestria Communications Authority, the Communications Act 2019 and its SIM Registration Regulations, and the two mobile networks. `dpi.md` gains the `simRegistrations` fact, from the National SIM Register, with data for each persona
+- **A local KestriaID sandbox: real eSignet sign-in for prototypes** – the `sandbox` mode in `references/dpi-baseline.md`, working for Kestria. KestriaID is now Tier 1 locally
+  - **eSignet runs outside xstack,** from the separate `kestria-sandbox` repo, which seeds it with the `KESTRIA_PERSONAS` from `profiles/kestria/dpi.md`. xstack is a relying party: **`sandbox/register-client.mjs`** registers it as an OIDC client using `private_key_jwt`, and keeps the private key out of git
+  - **`sandbox/adapter/`** – a dependency-free Node server. It serves prototypes over http, runs authorization code + PKCE against eSignet, authenticates with `private_key_jwt`, verifies the ID token and the signed userinfo, maps claims to the contract (the pairwise `sub` is the subject, never the KUIN), and answers `data.fetch` from mock registers built from the personas. Payments stay on the mock
+  - **`references/dpi-sandbox.js`** – a drop-in for `dpi-mock.js` with the same `xstackDpi.create(…)` API and statuses. eSignet's screens open in their own window, so the prototype keeps its place. `sandbox/use-sandbox.mjs` swaps it into a copy of any prototype
+  - **`examples/build-household-support-grant/prototype-1-once-only/sandbox/`** – Prototype 1 signing in as Ines Kestel through the real eSignet screens
+  - **`sandbox/test/`** – a Playwright check through the real screens of the happy path and every unhappy status: cancel, failed, refused, not found, missing facts, declined, and acting for someone
 - **`/xstack:form-to-spec`** and the `form-to-spec` skill – a new entry point, **form → spec → build**. Most government services already exist as a paper or PDF form. The skill turns one – fillable PDF, flat PDF, scan, photo or Word document – into a `form-spec.md` that `/xstack:build` takes as its brief
   - Keeps every item with the form's own numbering, groups items into sections a citizen would recognise, and gives each a digital treatment: ask (with the component), lookup, lookup opportunity, conditional, add-another, government already holds this, drop or challenge, or back office
   - Uses only the lookups the country profile lists. Anything government plausibly holds but the profile doesn't cover becomes a lookup opportunity, never an assumed lookup

@@ -96,6 +96,7 @@ All 38 districts and their postcodes. A postcode identifies a district area, not
 | National Health Insurance Fund | NHIF | Health insurance membership and contributions |
 | Kestria Examinations Council | KEC | National exam results and certificates |
 | Data Protection Commission | DPC | The regulator under the Data Protection Act 2022 |
+| Kestria Communications Authority | KCA | Licenses mobile networks and runs the **National SIM Register** under the Communications Act 2019 |
 | National Bureau of Statistics | NBS | Census, household surveys and the digital inclusion survey |
 
 ## Economy and money
@@ -181,6 +182,15 @@ Examples of invented names: Mirel Okand, Talin Vorsa, Desa Haldry, Sefa Tormik, 
 
 ## Connectivity and channels
 
+- **Mobile networks:** two, both invented. Numbers have been portable between them since 2022, so a number's first digits don't tell you its network.
+
+  | Network | SIM cards in use | Notes |
+  |---|---|---|
+  | Lumo Telecom | about 9.6m | The largest. Runs Lumo Money. Shops in every district capital, and agents in almost every village. |
+  | Kora Mobile | about 4.5m | Strongest in the Coastal South and Eastern Islands. Runs Kora Wallet. |
+
+  There are more SIM cards than adults: many people have one for each network, and some for a family member's phone.
+
 - **4G:** covers 96% of the Capital Region and 41% of the Northern Plains. Elsewhere, 2G or 3G is common, and most people buy data in small daily bundles.
 - **USSD:** works on any phone, and it's how most people use mobile money. `*999#` is the government USSD short code.
 - **SMS:** the most reliable way to reach anyone. GovNotify sends SMS in all four languages.
@@ -207,9 +217,9 @@ Examples of invented names: Mirel Okand, Talin Vorsa, Desa Haldry, Sefa Tormik, 
 | 2021 | KestriaID launched on MOSIP. Mass enrolment campaign starts. |
 | 2022 | Data Protection Act passed. Data Protection Commission set up. |
 | 2023 | Digital Government Act passed, including the once-only principle. KesPay goes live on Mojaloop with four participants. GovKestria portal launched. |
-| 2024 | KesLink (X-Road) goes live with 9 registers. Civil registration moves to OpenCRVS and links births to the National Population Register. eSignet sign-in added to GovKestria. |
+| 2024 | KesLink (X-Road) goes live with 9 registers. Civil registration moves to OpenCRVS and links births to the National Population Register. eSignet sign-in added to GovKestria. The SIM Registration Regulations require every SIM card to be registered to a named person, and network shops start registering them with a fingerprint check against KestriaID. |
 | 2025 | Household Support Grant moves to OpenG2P with payouts over KesPay. Kora Wallet and the Treasury join KesPay. Consent registry pilot starts. |
-| 2026 | The Kestria Digital Service Standard becomes mandatory for new services. About 40 services on GovKestria, around a third of them fully online. |
+| 2026 | The Kestria Digital Service Standard becomes mandatory for new services. About 40 services on GovKestria, around a third of them fully online. KCA and KDS start online SIM registration on GovKestria. About 2.8m SIM cards in use are still not registered. |
 
 ## Laws and policy
 
@@ -240,6 +250,10 @@ All fictional. Cite them by these names.
   - sets up SPA and the National Social Registry (s.12 gives SPA a public task to hold and use registry data)
   - makes false information on purpose an offence that can stop payments and lead to repayment (s.41)
   - the **Household Support Grant Regulations 2025** set the grant's rules – see `services/household-support-grant.md`
+- **Communications Act 2019:**
+  - sets up the Kestria Communications Authority, which licenses mobile networks (s.4)
+  - giving false information to register a SIM card, or registering one in someone else's name without their agreement, is an offence (s.52)
+  - the **Communications (SIM Registration) Regulations 2024** set the rules for registering SIM cards – see `services/sim-registration.md`
 - **Persons with Disabilities Act 2018:** public services must be accessible. Government websites follow WCAG 2.2 AA (Accessibility Regulations 2024).
 - **Cloud-first and open-source policy (MoDEI, 2023):**
   - open source by default
@@ -255,6 +269,7 @@ The backlog the demo team can draw from. "Hero" services are the ones to build f
 | **Apply for the Household Support Grant** *(hero)* | SPA | Identity, social registry (public task), KesPay payout to any wallet | The whole DPI story: sign in, pull household data, assess eligibility, pay to the wallet of whoever looks after the money. **Service sheet:** `services/household-support-grant.md` |
 | **Register a birth** *(hero)* | CRO | Identity (parents), CRVS, notifications | Starts at a health facility. Creates the child's record and links it to the parents. |
 | **Renew a vehicle licence** *(hero)* | VLA | Identity, vehicle register, KRS tax check, GovPay | The fee-paying journey: card, mobile money or a Government Payment Reference |
+| **Register a SIM card** | KCA | Identity, National SIM Register, an SMS check that you have the SIM | A short, free service with a deadline. Unregistered SIM cards are switched off after 31 March 2027. **Service sheet:** `services/sim-registration.md` |
 | Register a business name | BRO | Identity, business register, GovPay | |
 | Get a tax compliance certificate | KRS | Identity, taxpayer register | Needed for government contracts and some licences |
 | Replace a lost KestriaID card | NIA | Identity (biometric at a CSC), GovPay | Partly in person by design |

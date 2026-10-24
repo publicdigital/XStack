@@ -37,3 +37,6 @@ coverage/
 # Local scratch
 scratch/
 notes-private/
+
+# Sandbox secrets (the OIDC client's private key)
+sandbox/.secrets/

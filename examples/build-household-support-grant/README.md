@@ -38,6 +38,8 @@ examples/build-household-support-grant/
 
 Open any `index.html` in a browser. There's no server and nothing is loaded from the internet. When KestriaID asks who to sign in as, pick a test person – each one runs a different scenario (see `test-plan.md`). Press "Show assumptions" in the black xstack banner to see what the prototype is assuming.
 
+To sign in through real eSignet instead of the simulated KestriaID, run the local sandbox (`sandbox/README.md`) and open `prototype-1-once-only/sandbox/` from `http://localhost:4400`. It's iteration 4 of Prototype 1 with only the DPI script swapped.
+
 All three have the same chrome, so the test is about the journey:
 - a "Kestria is a fictional country" banner
 - the GovKestria header with a language switcher
