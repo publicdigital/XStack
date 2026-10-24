@@ -235,6 +235,14 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
+server.on('error', (e) => {
+  if (e.code !== 'EADDRINUSE') throw e;
+  console.error(`Port ${config.adapterPort} is in use – probably another adapter is already running.`);
+  console.error(`Open ${config.adapterUrl}, stop the other one, or start this one with ADAPTER_PORT=4401.`);
+  console.error('A different port also needs: ADAPTER_PORT=4401 node sandbox/register-client.mjs');
+  process.exit(1);
+});
+
 server.listen(config.adapterPort, '127.0.0.1', () => {
   console.log(`xstack sandbox adapter on ${config.adapterUrl}  (eSignet ${config.esignetUrl})`);
 });
