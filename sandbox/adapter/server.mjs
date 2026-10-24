@@ -195,7 +195,7 @@ async function listing(res, rel) {
 }
 
 async function home(res) {
-  let esignet = 'not reachable – start it with sandbox/esignet/esignet.sh up';
+  let esignet = 'not reachable – start it from your kestria-sandbox checkout with ./esignet.sh up (see sandbox/README.md)';
   try { esignet = 'running, issuer ' + (await getDiscovery()).issuer; } catch { /* shown below */ }
   send(res, 200, `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>xstack sandbox</title><body style="font-family:system-ui,sans-serif;max-width:680px;margin:32px auto;padding:0 16px;line-height:1.5">

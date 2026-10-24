@@ -124,7 +124,7 @@ xstack/
     ├── _template/            start your own profile here
     ├── barbados/             the first bundled profile
     └── kestria/              a fictional country for demos, on MOSIP, Mojaloop and X-Road
-sandbox/                      real eSignet running locally for Kestria, and the adapter prototypes sign in through
+sandbox/                      the adapter prototypes use to sign in through real eSignet (run from the kestria-sandbox repo)
 ```
 
 ## Country profiles

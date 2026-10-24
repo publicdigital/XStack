@@ -48,7 +48,7 @@ async function verify(jwt, opts) {
 }
 
 function clientKey() {
-  if (!existsSync(KEY_FILE)) throw new Error('No client key. Run: node sandbox/esignet/seed.mjs');
+  if (!existsSync(KEY_FILE)) throw new Error('No client key. Run: node sandbox/register-client.mjs');
   return JSON.parse(readFileSync(KEY_FILE, 'utf8'));
 }
 

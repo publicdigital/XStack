@@ -5,7 +5,7 @@
 ## Sources
 
 - **DPI Map:** not applicable. Kestria is fictional and isn't in the DPI Map.
-- **Checks (2026-10-23):** the public docs below all resolve. KestriaID runs as a local sandbox: `sandbox/` in this repo runs real eSignet 2.0.0 with MOSIP's mock identity system, at `http://localhost:8080`, or `esignet.kestria.test` if you map that name to your computer (see `sandbox/README.md`). The other `*.kestria.test` hosts don't exist yet – they're reserved for a demo sandbox.
+- **Checks (2026-10-23):** the public docs below all resolve. KestriaID runs as a local sandbox: real eSignet 2.0.0 with MOSIP's mock identity system, from the separate `kestria-sandbox` repo, at `http://localhost:8080`, or `esignet.kestria.test` if you map that name to your computer. Prototypes sign in through it with this repo's `sandbox/` (see `sandbox/README.md`). The other `*.kestria.test` hosts don't exist yet – they're reserved for a demo sandbox.
   - <https://docs.mosip.io>
   - <https://docs.esignet.io>
   - <https://docs.mojaloop.io>
@@ -18,19 +18,19 @@
 
 | Pillar | Platform | Family | Owner | Protocol | Tier | Docs and sandbox | Source |
 |---|---|---|---|---|---|---|---|
-| Identity | **KestriaID** | MOSIP 1.2 LTS, with eSignet for sign-in | National Identity Authority (NIA) | OpenID Connect (authorization code + PKCE, `private_key_jwt`) | 1 locally | <https://docs.esignet.io>. Local sandbox: `sandbox/` (eSignet 2.0.0 and the mock identity system), at `localhost:8080` or `esignet.kestria.test`. | `world.md` |
+| Identity | **KestriaID** | MOSIP 1.2 LTS, with eSignet for sign-in | National Identity Authority (NIA) | OpenID Connect (authorization code + PKCE, `private_key_jwt`) | 1 locally | <https://docs.esignet.io>. Local sandbox: the `kestria-sandbox` repo (eSignet 2.0.0 and the mock identity system), at `localhost:8080` or `esignet.kestria.test`. Prototypes connect through `sandbox/`. | `world.md` |
 | Payments – gateway services use | **GovPay Kestria** | Kestria-specific gateway, settling over KesPay and card schemes | Kestria Digital Service (KDS) | Hosted payment page, a status API and a signed webhook | 3 | No spec yet. Mock the generic contract. | `world.md` |
 | Payments – national rail | **KesPay** | Mojaloop | Central Bank of Kestria (CBK) | Mojaloop FSPIOP API v1.1 | 2 | <https://docs.mojaloop.io>. Sandbox to be at `hub.kespay.kestria.test`. | `world.md` |
 | Payments – payouts | **Treasury disbursement service** | Built on OpenG2P's payment components, paying out over KesPay | Ministry of Finance – Treasury | Bulk transfers over KesPay | 3 | <https://docs.openg2p.org> | `world.md` |
 | Data exchange | **KesLink** | X-Road | KDS | X-Road message protocol for REST | 2 | <https://docs.x-road.global> | `world.md` |
 | Consent | **MyData Kestria** consent registry (pilot) | Kestria-specific | KDS | REST. A consent ID travels with every KesLink request. | 3 | No spec yet | `world.md` |
 
-**Tiers:** identity is **Tier 1 locally**. `sandbox/` runs real eSignet with its mock identity system on your own computer, seeded with the test personas below, and `references/dpi-sandbox.js` lets a prototype sign in through it (the `sandbox` mode in `references/dpi-baseline.md`). There's still no hosted Kestria sandbox, so outside your own computer identity is Tier 2. The payment rail and data exchange are Tier 2: the real specs are published, but there's no Kestria sandbox yet. They become Tier 1 when the Mojaloop Testing Toolkit and mock registers behind a gateway run. Until then the local sandbox answers `data.fetch` from mock registers built from the personas, and payments stay on the mock. GovPay, Treasury disbursement and MyData are Kestria inventions with no spec, so they are Tier 3 and prototypes use the generic contract.
+**Tiers:** identity is **Tier 1 locally**. The `kestria-sandbox` repo runs real eSignet with its mock identity system on your own computer, seeded with the test personas below. This repo's `sandbox/` adapter and `references/dpi-sandbox.js` let a prototype sign in through it (the `sandbox` mode in `references/dpi-baseline.md`). There's still no hosted Kestria sandbox, so outside your own computer identity is Tier 2. The payment rail and data exchange are Tier 2: the real specs are published, but there's no Kestria sandbox yet. They become Tier 1 when the Mojaloop Testing Toolkit and mock registers behind a gateway run. Until then the local sandbox answers `data.fetch` from mock registers built from the personas, and payments stay on the mock. GovPay, Treasury disbursement and MyData are Kestria inventions with no spec, so they are Tier 3 and prototypes use the generic contract.
 
 ### Identity
 
 - **What it's called on screen:** "Sign in with KestriaID"
-- **Discovery document:** `http://localhost:8080/.well-known/openid-configuration` in the local sandbox, or `http://esignet.kestria.test:8080/…` with the hostname mapped (`sandbox/README.md`). A hosted `https://esignet.kestria.test` doesn't exist yet.
+- **Discovery document:** `http://localhost:8080/.well-known/openid-configuration` in the local sandbox, or `http://esignet.kestria.test:8080/…` with the hostname mapped (see the `kestria-sandbox` README). A hosted `https://esignet.kestria.test` doesn't exist yet.
 - **Claims it returns:**
   - standard OIDC claims:
     - `name`
@@ -221,7 +221,7 @@ These are the **general** personas, one for each DPI scenario. Each service shee
 
 Kel Varrin and Pell Marrow never reach the mock: the prototype needs an "I don't have a KestriaID" route before sign-in.
 
-**In the local sandbox,** `sandbox/esignet/seed.mjs` creates every persona with a KUIN in its claims as an identity in eSignet's mock identity system. Sign in by typing the KUIN without spaces, for example `9900817347` for Ines Kestel, and the one-time code `111111`. Aru Danvell has no KUIN in his claims, so he isn't seeded and can't sign in, which is his scenario. The seed script reads `KESTRIA_PERSONAS` from this file, so change a persona here and run `sandbox/esignet/esignet.sh seed`. The mock identity system needs a sex and an email for everyone, which the personas don't have: the seed uses "Not recorded" and `<id>@example.test`.
+**In the local sandbox,** `kestria-sandbox`'s `seed-identities.mjs` creates every persona with a KUIN in its claims as an identity in eSignet's mock identity system. Sign in by typing the KUIN without spaces, for example `9900817347` for Ines Kestel, and the one-time code `111111`. Aru Danvell has no KUIN in his claims, so he isn't seeded and can't sign in, which is his scenario. The seed script reads `KESTRIA_PERSONAS` from this file, so change a persona here and run `./esignet.sh seed` in `kestria-sandbox`. The mock identity system needs a sex and an email for everyone, which the personas don't have: the seed uses "Not recorded" and `<id>@example.test`.
 
 ### Mock configuration
 

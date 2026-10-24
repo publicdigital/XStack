@@ -50,7 +50,7 @@ Every call returns a `status`, and every status other than the happy one needs a
 | Mode | Phase | What sits behind the contract |
 |---|---|---|
 | `mock` | Alpha | `dpi-mock.js`, in the browser. It shows simulated sign-in, consent and payment screens with made-up citizens |
-| `sandbox` | Beta, or alpha research with real sign-in screens | `dpi-sandbox.js` in the page, and a server-side adapter calling the platform's test environment. For Kestria, `sandbox/` runs eSignet and the adapter locally: see `sandbox/README.md`. For production, `/xstack:productionise` |
+| `sandbox` | Beta, or alpha research with real sign-in screens | `dpi-sandbox.js` in the page, and a server-side adapter calling the platform's test environment. For Kestria, eSignet runs locally from the separate `kestria-sandbox` repo, and `sandbox/` holds the adapter: see `sandbox/README.md`. For production, `/xstack:productionise` |
 | `live` | Live | The same adapter with production credentials, after the cyber engineer's review |
 
 The page code stays the same from mock to live. Only the adapter changes.

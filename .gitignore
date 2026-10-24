@@ -38,6 +38,5 @@ coverage/
 scratch/
 notes-private/
 
-# Sandbox secrets (OIDC client private key) and fetched upstream files
+# Sandbox secrets (the OIDC client's private key)
 sandbox/.secrets/
-sandbox/esignet/.upstream/
