@@ -18,6 +18,9 @@ All notable changes to xstack will be recorded here. Format inspired by [Keep a 
 
 ### Added
 
+- **Register a SIM card, a new Kestria service** – `examples/sim-registration/`. Sign in with KestriaID, see the SIM cards registered to you, prove you have the new one with a code, and register it. The prototype comes in a mock version and a sandbox version that signs in through real eSignet
+  - `profiles/kestria/services/sim-registration.md` – the rules: free, a 31 March 2027 deadline, 5 SIM cards per person, children's SIM cards registered to a parent, other ID at a network shop for people with no KUIN, and KCA's fixed declaration
+  - `world.md` gains the Kestria Communications Authority, the Communications Act 2019 and its SIM Registration Regulations, and the two mobile networks. `dpi.md` gains the `simRegistrations` fact, from the National SIM Register, with data for each persona
 - **A local KestriaID sandbox: real eSignet sign-in for prototypes** – the `sandbox` mode in `references/dpi-baseline.md`, working for Kestria. KestriaID is now Tier 1 locally
   - **eSignet runs outside xstack,** from the separate `kestria-sandbox` repo, which seeds it with the `KESTRIA_PERSONAS` from `profiles/kestria/dpi.md`. xstack is a relying party: **`sandbox/register-client.mjs`** registers it as an OIDC client using `private_key_jwt`, and keeps the private key out of git
   - **`sandbox/adapter/`** – a dependency-free Node server. It serves prototypes over http, runs authorization code + PKCE against eSignet, authenticates with `private_key_jwt`, verifies the ID token and the signed userinfo, maps claims to the contract (the pairwise `sub` is the subject, never the KUIN), and answers `data.fetch` from mock registers built from the personas. Payments stay on the mock

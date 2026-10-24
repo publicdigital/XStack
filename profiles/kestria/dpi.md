@@ -163,6 +163,7 @@ Every fact a Kestrian service might pull. The attribute key is what prototypes p
 | `landParcel` | Land parcels registered to the person | Lands Registry | KesLink | **Partial**: 40% of parcels digitised, mostly urban | DPA s.12 | `not_found` is common and doesn't mean they have no land |
 | `healthCover` | NHIF membership and status | NHIF | KesLink | Monthly | DPA s.15 (sensitive) | Needs a DPIA |
 | `qualifications` | National exam results | KEC | KesLink | Records from 1995 | DPA s.12 | |
+| `simRegistrations` | SIM cards registered to the person (structured – see below) | National SIM Register (KCA) | KesLink | Live | DPA s.13 (legal obligation) for KCA. s.12 for others. | Up to 5 per person. An empty list or `not_found` means none. Checking a **number** – whose is it? – isn't a fact about a person, so it's a KCA call, not `data.fetch()`: see `services/sim-registration.md`. |
 
 ### Value shapes
 
@@ -191,6 +192,10 @@ What `dpi.data.fetch()` returns as each fact's `value` for the structured facts,
 
 // hsgAssessment
 'likely'                              // or 'not_likely', 'needs_survey', 'already_supported'
+
+// simRegistrations – an empty array or not_found means none
+[ { number: '+999 73 118 4402', network: 'Lumo Telecom', registeredOn: '2024-06-11', usedBy: 'self' },
+  { number: '+999 79 004 2286', network: 'Kora Mobile',  registeredOn: '2025-01-20', usedBy: 'child' } ]   // a child under 16's SIM card
 
 // payoutAccount
 { route: 'kuin', provider: 'Lumo Money', providerId: 'lumomoney', last4: '7782', maskedPhone: null }
@@ -221,6 +226,8 @@ These are the **general** personas, one for each DPI scenario. Each service shee
 
 Kel Varrin and Pell Marrow never reach the mock: the prototype needs an "I don't have a KestriaID" route before sign-in.
 
+**Test phone numbers for the National SIM Register.** Every persona's `simRegistrations` numbers are registered to them. `+999 79 000 0001` and `+999 79 000 0002` are registered to people who aren't personas. Any other `+999 7…` number isn't registered. These numbers don't route anywhere: `+999` is reserved.
+
 **In the local sandbox,** `kestria-sandbox`'s `seed-identities.mjs` creates every persona with a KUIN in its claims as an identity in eSignet's mock identity system. Sign in by typing the KUIN without spaces, for example `9900817347` for Ines Kestel, and the one-time code `111111`. Aru Danvell has no KUIN in his claims, so he isn't seeded and can't sign in, which is his scenario. The seed script reads `KESTRIA_PERSONAS` from this file, so change a persona here and run `./esignet.sh seed` in `kestria-sandbox`. The mock identity system needs a sex and an email for everyone, which the personas don't have: the seed uses "Not recorded" and `<id>@example.test`.
 
 ### Mock configuration
@@ -231,6 +238,7 @@ All the mock-ready personas, in the structured value shapes above. Paste `KESTRI
 const KESTRIA_PERSONAS = [
   { id: 'mirel', label: 'Everything found – better off', claims: { fullName: 'Mirel Okand', givenName: 'Mirel', familyName: 'Okand', dateOfBirth: '1988-08-14', nationalId: '9900 214 705', phone: '+999 72 555 0101' },
     data: {
+      simRegistrations: [ { number: '+999 72 555 0101', network: 'Lumo Telecom', registeredOn: '2024-05-02', usedBy: 'self' }, { number: '+999 79 004 1150', network: 'Kora Mobile', registeredOn: '2024-09-17', usedBy: 'child' } ],
       address: { region: 'Capital Region', regionCode: 'CR', district: 'Aranport Central', village: 'Aranport', street: '[Fictional] 12 Quay Road', landmark: null, postcode: 'CR 101', recordedOn: '2021-05-02' },
       household: { number: 'HH-CR-0204411', district: 'Aranport Central', village: 'Aranport', lastSurveyed: '2024-05', registeredPerson: 'Mirel Okand',
         members: [ { name: 'Mirel Okand', relationship: 'self', age: 38, hasKuin: true }, { name: 'Joss Okand', relationship: 'partner', age: 41, hasKuin: true },
@@ -240,6 +248,7 @@ const KESTRIA_PERSONAS = [
       vehicle: '[Fictional] CR 118 K – Toyota Corolla, 2017, licence expires 30 11 2026', taxCompliance: 'Compliant' } },
   { id: 'ines', label: 'Everything found – can probably get support', claims: { fullName: 'Ines Kestel', givenName: 'Ines', familyName: 'Kestel', dateOfBirth: '1996-03-12', nationalId: '9900 817 347', phone: '+999 73 118 4402' },
     data: {
+      simRegistrations: [ { number: '+999 73 118 4402', network: 'Lumo Telecom', registeredOn: '2024-06-11', usedBy: 'self' } ],
       address: { region: 'Lake Region', regionCode: 'LK', district: 'Reedwater', village: 'Fenside', street: null, landmark: 'Behind the fish market', postcode: 'LK 117', recordedOn: '2021-09-14' },
       household: { number: 'HH-LK-0118302', district: 'Reedwater', village: 'Fenside', lastSurveyed: '2025-02', registeredPerson: 'Ines Kestel',
         members: [ { name: 'Ines Kestel', relationship: 'self', age: 30, hasKuin: true }, { name: 'Daro Kestel', relationship: 'partner', age: 33, hasKuin: true },
@@ -249,6 +258,7 @@ const KESTRIA_PERSONAS = [
       payoutAccount: { route: 'kuin', provider: 'Lumo Money', providerId: 'lumomoney', last4: '7782', maskedPhone: null } } },
   { id: 'tessa', label: 'Not the registered person – looks after the money', claims: { fullName: 'Tessa Ondrey', givenName: 'Tessa', familyName: 'Ondrey', dateOfBirth: '1997-04-09', nationalId: '9900 135 887', phone: '+999 74 310 2286' },
     data: {
+      simRegistrations: [ { number: '+999 74 310 2286', network: 'Kora Mobile', registeredOn: '2024-08-29', usedBy: 'self' } ],
       address: { region: 'Lake Region', regionCode: 'LK', district: 'Fenmouth', village: 'Gull Reach', street: null, landmark: 'Next to the boatyard', postcode: 'LK 127', recordedOn: '2022-01-20' },
       household: { number: 'HH-LK-0230945', district: 'Fenmouth', village: 'Gull Reach', lastSurveyed: '2024-11', registeredPerson: 'Marek Ondrey',
         members: [ { name: 'Marek Ondrey', relationship: 'self', age: 34, hasKuin: true }, { name: 'Tessa Ondrey', relationship: 'partner', age: 29, hasKuin: true },
@@ -259,6 +269,7 @@ const KESTRIA_PERSONAS = [
     note: 'Her husband is the registered person and works away.' },
   { id: 'talin', label: 'Address and household out of date', claims: { fullName: 'Talin Vorsa', givenName: 'Talin', familyName: 'Vorsa', dateOfBirth: '1991-11-02', nationalId: '9900 318 526', phone: '+999 75 220 3197' },
     data: {
+      simRegistrations: [ { number: '+999 75 220 3197', network: 'Kora Mobile', registeredOn: '2024-11-03', usedBy: 'self' } ],
       address: { region: 'Highlands', regionCode: 'HL', district: 'Ashgrove', village: 'Ashgrove', street: null, landmark: 'Near the coffee cooperative', postcode: 'HL 214', recordedOn: '2021-03-30' },
       household: { number: 'HH-HL-0377120', district: 'Ashgrove', village: 'Ashgrove', lastSurveyed: '2022-03', registeredPerson: 'Talin Vorsa',
         members: [ { name: 'Talin Vorsa', relationship: 'self', age: 34, hasKuin: true }, { name: 'Bren Vorsa', relationship: 'partner', age: 36, hasKuin: true },
@@ -270,6 +281,9 @@ const KESTRIA_PERSONAS = [
     data: {}, note: 'Pastoralist. Estimated date of birth. Speaks Vell.' },
   { id: 'desa', label: 'Partial result – no payout account linked', claims: { fullName: 'Desa Haldry', givenName: 'Desa', familyName: 'Haldry', dateOfBirth: '1983-05-23', nationalId: '9900 529 036', phone: '+999 71 234 5678' },
     data: {
+      simRegistrations: [ { number: '+999 71 234 5678', network: 'Kora Mobile', registeredOn: '2024-04-15', usedBy: 'self' }, { number: '+999 72 880 1934', network: 'Lumo Telecom', registeredOn: '2024-04-15', usedBy: 'self' },
+                          { number: '+999 79 004 3317', network: 'Kora Mobile', registeredOn: '2024-07-08', usedBy: 'child' }, { number: '+999 79 004 3318', network: 'Lumo Telecom', registeredOn: '2025-02-21', usedBy: 'self' },
+                          { number: '+999 72 880 4471', network: 'Lumo Telecom', registeredOn: '2025-10-30', usedBy: 'self' } ],
       address: { region: 'Coastal South', regionCode: 'CS', district: 'Belmar', village: 'Belmar', street: '[Fictional] 4 Market Lane', landmark: null, postcode: 'CS 302', recordedOn: '2022-06-11' },
       household: { number: 'HH-CS-0412076', district: 'Belmar', village: 'Belmar', lastSurveyed: '2024-09', registeredPerson: 'Desa Haldry',
         members: [ { name: 'Desa Haldry', relationship: 'self', age: 43, hasKuin: true }, { name: 'Ruta Haldry', relationship: 'parent', age: 68, hasKuin: true },
@@ -278,11 +292,13 @@ const KESTRIA_PERSONAS = [
     payment: 'declined', note: 'No account linked to her KUIN. For fee services: wallet balance too low.' },
   { id: 'jory', label: 'Says no to a consent-based pull', claims: { fullName: 'Jory Benmara', givenName: 'Jory', familyName: 'Benmara', dateOfBirth: '2001-06-30', nationalId: '9900 773 655', phone: '+999 78 605 4410' },
     data: {
+      simRegistrations: [ { number: '+999 78 605 4410', network: 'Lumo Telecom', registeredOn: '2024-10-12', usedBy: 'self' } ],
       address: { region: 'Eastern Islands', regionCode: 'EI', district: 'Saltholm', village: 'Saltholm', street: '[Fictional] 9 Ferry Street', landmark: null, postcode: 'EI 401', recordedOn: '2019-08-02' },
       qualifications: '[Fictional] Kestria Secondary Certificate, 2019' },
     note: 'Choose "No" on the consent screen. Not for public-task pulls.' },
   { id: 'anais', label: 'Older person, helped by an intermediary', claims: { fullName: 'Anaïs Vorlek', givenName: 'Anaïs', familyName: 'Vorlek', dateOfBirth: '1948-01-01', nationalId: '9900 962 518', phone: '+999 76 409 0021' },
     data: {
+      simRegistrations: [ { number: '+999 76 409 0021', network: 'Kora Mobile', registeredOn: '2024-12-02', usedBy: 'self' } ],
       address: { region: 'Eastern Islands', regionCode: 'EI', district: 'Corran Isle', village: 'Corran', street: '[Fictional] Harbour Row', landmark: 'Blue house by the jetty', postcode: 'EI 409', recordedOn: '2021-11-05' },
       household: { number: 'HH-EI-0051736', district: 'Corran Isle', village: 'Corran', lastSurveyed: '2024-02', registeredPerson: 'Anaïs Vorlek',
         members: [ { name: 'Anaïs Vorlek', relationship: 'self', age: 78, hasKuin: true }, { name: 'Mina Vorlek', relationship: 'grandchild', age: 19, hasKuin: true } ] },
@@ -301,6 +317,7 @@ const KESTRIA_PERSONAS = [
     note: 'Signs in as herself, then chooses to act for Anaïs. Needs signIn({ actingFor: true }).' },
   { id: 'aru', label: 'Can\'t sign in online (old phone number on record)', claims: { fullName: 'Aru Danvell' }, signIn: 'failed',
     data: {   // used once the mock can sign him in at a CSC (level 3)
+      simRegistrations: [ { number: '+999 77 312 0864', network: 'Lumo Telecom', registeredOn: '2024-09-25', usedBy: 'self' } ],
       address: { region: 'Northern Plains', regionCode: 'NP', district: 'Dunmar', village: 'East Wells', street: null, landmark: 'Near the water point', postcode: 'NP 501', recordedOn: '2022-04-18' },
       household: { number: 'HH-NP-0042917', district: 'Dunmar', village: 'East Wells', lastSurveyed: '2024-01', registeredPerson: 'Aru Danvell',
         members: [ { name: 'Aru Danvell', relationship: 'self', age: 61, hasKuin: true }, { name: 'Selin Danvell', relationship: 'partner', age: 58, hasKuin: true },

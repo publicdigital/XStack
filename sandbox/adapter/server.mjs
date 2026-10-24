@@ -203,6 +203,7 @@ async function home(res) {
 <p>eSignet: <strong>${esc(esignet)}</strong></p>
 <ul>
   <li><a href="/examples/build-household-support-grant/prototype-1-once-only/sandbox/">Household Support Grant, signing in with real eSignet</a></li>
+  <li><a href="/examples/sim-registration/sandbox/">Register a SIM card, signing in with real eSignet</a></li>
   <li><a href="/examples/">All examples</a> (mock prototypes work here too)</li>
 </ul>
 <p>Sign in as Ines Kestel: KUIN <code>9900817347</code>, one-time code <code>111111</code>. See <code>sandbox/README.md</code>.</p>

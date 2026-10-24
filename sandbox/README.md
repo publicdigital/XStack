@@ -137,7 +137,7 @@ With eSignet running, the client registered and the adapter running:
 cd sandbox && npm install && npm test
 ```
 
-This uses your installed Google Chrome through Playwright. It signs in through the real eSignet screens and checks 12 things: Ines's happy path and household, Deny, closing the window, going back, Aru's `failed`, errors and a forged code from eSignet, `data.fetch` without a session, the private key not being served, Mina acting for Anaïs, Sefa's `not_found`, and Desa's missing payout account and declined payment. `HEADED=1 npm test` shows the browser. Without Chrome, run `npx playwright install chromium` and `PW_CHANNEL=chromium npm test`.
+This uses your installed Google Chrome through Playwright. It signs in through the real eSignet screens and checks 14 things: Ines's happy path and household, registering a SIM card as Ines and Desa's limit of 5 (`examples/sim-registration/sandbox/`), Deny, closing the window, going back, Aru's `failed`, errors and a forged code from eSignet, `data.fetch` without a session, the private key not being served, Mina acting for Anaïs, Sefa's `not_found`, and Desa's missing payout account and declined payment. `HEADED=1 npm test` shows the browser. Without Chrome, run `npx playwright install chromium` and `PW_CHANNEL=chromium npm test`.
 
 `SANDBOX_DEBUG=1 node sandbox/adapter/server.mjs` also prints the decoded ID token and userinfo.
 

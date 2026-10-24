@@ -105,6 +105,43 @@ async function main() {
     await waitForPage(page, 'page-failed');
   });
 
+  console.log('SIM registration prototype, sandbox mode:');
+
+  async function startSim(kuin) {
+    const page = await (await fresh()).newPage();
+    await page.goto(BASE + '/examples/sim-registration/sandbox/');
+    await page.check('#haveid-yes', { force: true });
+    const [popup] = await Promise.all([page.waitForEvent('popup'), page.click('#f-start button[type=submit]')]);
+    await esignet(popup, kuin);
+    await waitForPage(page, 'page-notice');
+    await page.click('#page-notice .kg-button');
+    await page.getByText('Yes, get my details').click();
+    return page;
+  }
+
+  await check('Ines Kestel registers a second SIM card, with her KUIN from the register match', async () => {
+    const page = await startSim('9900817347');
+    await waitForPage(page, 'page-yours');
+    assert((await page.textContent('#yours-list')).includes('+999 73 118 4402'), 'her registered SIM card is missing');
+    await page.click('#page-yours .kg-button');
+    await page.fill('#number', '+999 74 555 0192');
+    await page.click('#f-number button');
+    await page.check('#who-self', { force: true });
+    await page.click('#f-who button');
+    await page.fill('#code', await page.textContent('#code-shown'));
+    await page.click('#f-code button');
+    await waitForPage(page, 'page-check');
+    const check = await page.textContent('#check-list');
+    assert(check.includes('Ines Kestel') && check.includes('9900 817 347'), 'check page: ' + check);
+    await page.click('#page-check .kg-button');
+    await waitForPage(page, 'page-done');
+  });
+
+  await check('Desa Haldry already has 5 SIM cards → limit', async () => {
+    const page = await startSim('9900529036');
+    await waitForPage(page, 'page-limit');
+  });
+
   console.log('Adapter:');
 
   await check('An error back from eSignet → failed', async () => {
