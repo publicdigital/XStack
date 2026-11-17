@@ -18,6 +18,7 @@ All notable changes to xstack will be recorded here. Format inspired by [Keep a 
 
 ### Added
 
+- **`/xstack:help`** and the `help` skill – a starting point for anyone new to xstack. It shows the staircase, an interactive page of the five steps from first conversation to a live service, with every skill and command and what comes before and after each one. Then it asks where the team is and gives the one thing to run next, in the name that works in Claude Code or in the Claude app and Cowork. The page lives in `skills/help/assets/staircase.html`
 - **`/xstack:form-to-spec`** and the `form-to-spec` skill – a new entry point, **form → spec → build**. Most government services already exist as a paper or PDF form. The skill turns one – fillable PDF, flat PDF, scan, photo or Word document – into a `form-spec.md` that `/xstack:build` takes as its brief
   - Keeps every item with the form's own numbering, groups items into sections a citizen would recognise, and gives each a digital treatment: ask (with the component), lookup, lookup opportunity, conditional, add-another, government already holds this, drop or challenge, or back office
   - Uses only the lookups the country profile lists. Anything government plausibly holds but the profile doesn't cover becomes a lookup opportunity, never an assumed lookup

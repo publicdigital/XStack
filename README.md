@@ -84,6 +84,7 @@ xstack/
 │   ├── service-standard-assessment/
 │   ├── plain-language-check/
 │   ├── weeknote/
+│   ├── help/                 start here – shows the staircase and tells you what to run next
 │   ├── discovery-kit/
 │   ├── research-coach/       router + mentor across the research cycle
 │   ├── research-planning/    objectives first, then the discussion guide
@@ -135,6 +136,8 @@ xstack's agents, skills and commands are country-agnostic. Everything specific t
 Run `/xstack:profile` to set one up for your project. It writes `.xstack/profile.md`, which the whole team can commit and share. To point prototypes at your government's design system, run `/xstack:design-system [country]`. It picks from the community-maintained [Government Design Systems List](https://github.com/ctrimm/Government-Design-Systems-List) of more than 100 national, state and city design systems. To set up identity, payments and data exchange, run `/xstack:dpi [country]`. It starts from the [DPI Map](https://dpimap.org) and checks every fact before recording it. Barbados is the first bundled profile: add `xstack profile: barbados` to your project's `CLAUDE.md` to use it. For demos, use `xstack profile: kestria`, a fictional country that runs on MOSIP, Mojaloop and X-Road. See [profiles/README.md](./profiles/README.md) for how profiles work and how to contribute one.
 
 ## New to xstack?
+
+Run `/xstack:help`, or ask *"How do I use xstack?"*. It shows the staircase – one interactive page with every step from first conversation to a live service – then asks where you are and tells you what to run next.
 
 Read **[MANUAL.md](./MANUAL.md)** – the single onboarding guide for new colleagues, partner departments, and vendor teams. About two hours to read and walk the worked example, after which you'll know which command to run, which agent to ask, and what good looks like at each phase.
 
@@ -190,6 +193,7 @@ If you're not sure, ask the **delivery manager** first – they'll route you.
 
 | You want to… | Run | Hands off to |
 |---|---|---|
+| Find out where to start | `/xstack:help` | help skill |
 | Set up your country profile | `/xstack:profile` | delivery-manager |
 | Use your government's design system | `/xstack:design-system` | developer |
 | Sign people in, pull what government knows and take payments | `/xstack:dpi` | developer |

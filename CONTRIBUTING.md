@@ -68,6 +68,7 @@ Don't guess facts about a government. Only include what you can point to.
 - [ ] If you've added an agent: README roster updated, AGENTS.md updated, plugin manifest updated
 - [ ] If you've added a skill: SKILL.md frontmatter present, agents that should call it know about it
 - [ ] If you've added a command: README command table updated, frontmatter present
+- [ ] If you've added, renamed or removed a skill or command: the staircase in `skills/help/assets/staircase.html` updated
 - [ ] CHANGELOG.md updated under the next version
 
 ## What we won't accept
