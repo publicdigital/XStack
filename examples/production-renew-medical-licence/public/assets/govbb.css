@@ -297,3 +297,17 @@ details.govbb-details .body li { font-size: 16px; margin-bottom: 6px; }
 /* Fieldsets on the detail-correction pages */
 .override-fieldset { border: 0; padding: 0; margin: 0 0 var(--bb-space-6, 24px); }
 .override-fieldset h1 { margin: 0; }
+
+/* Utilities. These replace inline style attributes, which the service's
+   Content-Security-Policy (style-src 'self') tells browsers to ignore. */
+.u-mt-8 { margin-top: 8px !important; }
+.u-mt-24 { margin-top: 24px !important; }
+.u-mb-0 { margin-bottom: 0 !important; }
+.u-mb-8 { margin-bottom: 8px !important; }
+.u-mb-12 { margin-bottom: 12px !important; }
+.u-text-13 { font-size: 13px !important; }
+.u-text-14 { font-size: 14px !important; }
+.u-text-16 { font-size: 16px !important; }
+.u-text-24 { font-size: 24px !important; }
+.u-text-secondary { color: var(--bb-grey-mid) !important; }
+.u-border-0 { border: 0 !important; }

@@ -14,11 +14,20 @@
       "source": "xstack baseline",
       "owner": "cyber-engineer",
       "severity": "must",
-      "when": ["write", "stop", "ci"],
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "forbid-pattern",
-        "files": ["**/*"],
-        "exclude": ["**/*.lock", "**/package-lock.json"],
+        "files": [
+          "**/*"
+        ],
+        "exclude": [
+          "**/*.lock",
+          "**/package-lock.json"
+        ],
         "patterns": [
           "AKIA[0-9A-Z]{16}",
           "-----BEGIN (?:RSA |EC |DSA |OPENSSH |PGP )?PRIVATE KEY",
@@ -38,11 +47,19 @@
       "source": "xstack baseline",
       "owner": "developer",
       "severity": "must",
-      "when": ["write", "stop", "ci"],
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "forbid-pattern",
-        "files": ["{{web}}/**/*.html"],
-        "patterns": ["<[^>]+\\son[a-z]+\\s*=\\s*[\"']"],
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<[^>]+\\son[a-z]+\\s*=\\s*[\"']"
+        ],
         "flags": "i"
       },
       "fix": "Move the behaviour to a linked script and use addEventListener, so a strict Content-Security-Policy can stay on."
@@ -54,14 +71,47 @@
       "source": "xstack baseline",
       "owner": "developer",
       "severity": "must",
-      "when": ["write", "stop", "ci"],
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "forbid-pattern",
-        "files": ["{{web}}/**/*.html"],
-        "patterns": ["<script(?![^>]*\\ssrc=)[^>]*>", "(?:href|action|src)\\s*=\\s*[\"']\\s*javascript:"],
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<script(?![^>]*\\ssrc=)[^>]*>",
+          "(?:href|action|src)\\s*=\\s*[\"']\\s*javascript:"
+        ],
         "flags": "i"
       },
       "fix": "Link the script with src. A strict Content-Security-Policy blocks inline script."
+    },
+    {
+      "id": "SEC-008",
+      "title": "No inline style attributes",
+      "theme": "Trust, security and privacy",
+      "source": "xstack baseline",
+      "owner": "developer",
+      "severity": "must",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<[^>]+\\sstyle\\s*=\\s*[\"']"
+        ],
+        "flags": "i"
+      },
+      "fix": "Use a class from the linked stylesheet. A strict Content-Security-Policy (style-src without 'unsafe-inline') makes browsers ignore style attributes, so the page will not look the way you wrote it."
     },
     {
       "id": "SEC-004",
@@ -70,10 +120,15 @@
       "source": "xstack baseline",
       "owner": "developer",
       "severity": "must",
-      "when": ["stop", "ci"],
+      "when": [
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "form-method",
-        "files": ["{{web}}/**/*.html"]
+        "files": [
+          "{{web}}/**/*.html"
+        ]
       },
       "fix": "Set method=\"post\" on the form (and enctype=\"multipart/form-data\" for uploads). GET puts the data in the URL, in logs and in history."
     },
@@ -84,7 +139,9 @@
       "source": "xstack baseline",
       "owner": "cyber-engineer",
       "severity": "must",
-      "when": ["ci"],
+      "when": [
+        "ci"
+      ],
       "check": {
         "type": "command",
         "requires": "gitleaks",
@@ -99,8 +156,12 @@
       "source": "xstack baseline",
       "owner": "cyber-engineer",
       "severity": "must",
-      "when": ["ci"],
-      "onlyIf": { "exists": "package.json" },
+      "when": [
+        "ci"
+      ],
+      "onlyIf": {
+        "exists": "package.json"
+      },
       "check": {
         "type": "command",
         "requires": "npm",
@@ -115,11 +176,19 @@
       "source": "xstack baseline",
       "owner": "developer",
       "severity": "must",
-      "when": ["ci"],
-      "onlyIf": { "exists": "package.json" },
+      "when": [
+        "ci"
+      ],
+      "onlyIf": {
+        "exists": "package.json"
+      },
       "check": {
         "type": "file-exists",
-        "anyOf": ["package-lock.json", "pnpm-lock.yaml", "yarn.lock"]
+        "anyOf": [
+          "package-lock.json",
+          "pnpm-lock.yaml",
+          "yarn.lock"
+        ]
       },
       "fix": "Run the package manager's install and commit the lockfile."
     },
@@ -130,11 +199,21 @@
       "source": "xstack baseline",
       "owner": "content-designer",
       "severity": "must",
-      "when": ["stop", "ci"],
+      "when": [
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "require-pattern",
-        "files": ["{{web}}/**/*.html"],
-        "patterns": ["<!DOCTYPE html>", "<html[^>]*\\slang=[\"'][a-zA-Z-]+[\"']", "<title>[^<]+</title>", "<main[\\s>]"],
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<!DOCTYPE html>",
+          "<html[^>]*\\slang=[\"'][a-zA-Z-]+[\"']",
+          "<title>[^<]+</title>",
+          "<main[\\s>]"
+        ],
         "flags": "i"
       },
       "fix": "Add the missing element. Screen readers need all four."
@@ -146,11 +225,19 @@
       "source": "xstack baseline",
       "owner": "content-designer",
       "severity": "must",
-      "when": ["write", "stop", "ci"],
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "forbid-pattern",
-        "files": ["{{web}}/**/*.html"],
-        "patterns": ["<img(?![^>]*\\salt=)[^>]*>"],
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<img(?![^>]*\\salt=)[^>]*>"
+        ],
         "flags": "i"
       },
       "fix": "Add alt text, or alt=\"\" if the image is decoration."
@@ -162,12 +249,19 @@
       "source": "xstack baseline",
       "owner": "developer",
       "severity": "must",
-      "when": ["stop", "ci"],
+      "when": [
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "links-resolve",
-        "files": ["{{web}}/**/*.html"],
+        "files": [
+          "{{web}}/**/*.html"
+        ],
         "root": "{{web}}",
-        "ignore": ["{{backendRoutes}}"]
+        "ignore": [
+          "{{backendRoutes}}"
+        ]
       },
       "fix": "Build the page, or remove the link until it exists. A dead link in a government service is a dead end for a citizen."
     },
@@ -178,11 +272,19 @@
       "source": "xstack baseline",
       "owner": "developer",
       "severity": "must",
-      "when": ["write", "stop", "ci"],
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "forbid-pattern",
-        "files": ["{{web}}/**/*.html"],
-        "patterns": ["<style[\\s>]"],
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<style[\\s>]"
+        ],
         "flags": "i"
       },
       "fix": "Move the rules to the linked stylesheet. Use the design system's own classes first."
@@ -194,11 +296,24 @@
       "source": "xstack baseline",
       "owner": "developer",
       "severity": "must",
-      "when": ["write", "stop", "ci"],
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
       "check": {
         "type": "forbid-pattern",
-        "files": ["{{web}}/**/*.html"],
-        "patterns": ["xstack-banner", "xstack-assumptions", "Show assumptions", "verify-tag", "fake-data", "\\[VERIFY WITH "]
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "xstack-banner",
+          "xstack-assumptions",
+          "Show assumptions",
+          "verify-tag",
+          "fake-data",
+          "\\[VERIFY WITH "
+        ]
       },
       "fix": "Strip the assumptions panel, banner and mock-data markers. Citizens must never see invented data presented as real."
     }

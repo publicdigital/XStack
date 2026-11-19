@@ -19,7 +19,7 @@ All notable changes to xstack will be recorded here. Format inspired by [Keep a 
 ### Added
 
 - **Constraints** – rules a production service must meet, written so a machine checks them, and enforced by xstack instead of left to instructions. See `constraints/README.md`
-  - A service opts in with `.xstack/constraints.json`. It extends the baseline in `constraints/baseline.json` (secrets, inline script, POST for uploads, page landmarks, alt text, dead links, inline styles, prototype chrome, dependency checks) and a profile layer where there is one. Barbados has the first, in `profiles/barbados/constraints.json`
+  - A service opts in with `.xstack/constraints.json`. It extends the baseline in `constraints/baseline.json` (secrets, inline script and inline styles, POST for uploads, page landmarks, alt text, dead links, inline styles, prototype chrome, dependency checks) and a profile layer where there is one. Barbados has the first, in `profiles/barbados/constraints.json`
   - `scripts/xstack-check.mjs` runs them at three stages – `write`, `stop` and `ci` – and reports PASS, FAIL, WAIVED or NOT RUN. It has no dependencies, and `--vendor` copies it into a service for CI
   - Plugin hooks in `hooks/`: a write that breaks a constraint is refused, a change to the constraints file or other protected path needs a person's approval, and an agent cannot finish while a "must" constraint fails
   - CI: `.github/workflows/constraints.yml` tests the runner and hooks and runs the `ci` stage on the example. `constraints/ci/github-actions.yml` is the same job for a service to copy

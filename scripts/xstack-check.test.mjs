@@ -47,6 +47,7 @@ test('each baseline rule catches its mistake', () => {
     'SEC-001': { 'src/config.js': FAKE_KEY },
     'SEC-002': { 'public/a.html': PAGE('<button onclick="go()">Go</button>') },
     'SEC-003': { 'public/a.html': PAGE('<script>alert(1)</script>') },
+    'SEC-008': { 'public/a.html': PAGE('<p style="margin: 0">Hi</p>') },
     'SEC-004': { 'public/a.html': PAGE('<form method="get" action="next.html"><input type="file" name="f"></form>') },
     'A11Y-001': { 'public/a.html': '<!DOCTYPE html><html><head><title>T</title></head><body><main></main></body></html>' },
     'A11Y-002': { 'public/a.html': PAGE('<img src="next.html">') },

@@ -20,7 +20,6 @@ An earlier version of this report rated a static audit as a pass. That audit was
 
 Still open:
 
-- **Inline styles** – every page has `style="..."` attributes, and the Content-Security-Policy (`style-src 'self'`) tells browsers to ignore them. Move them to the stylesheet.
 - **The new pages are not in the test suites** – add them to `tests/accessibility/a11y.spec.ts`, also a protected path.
 - **Accessibility, end-to-end and security suites pass in all five browser profiles** (140 of 140, macOS, 2026-11-19), and axe finds nothing on any of the 19 pages. Their first run failed 11 tests. The fixes: secondary text now uses GovBB grey-70 (`#595959`) because `#777777` failed contrast, the summary list on the check page is valid `dl` markup, and two test locators were wrong.
 - **Not yet run locally:** gitleaks, which runs in CI, and k6. `npm audit` finds no vulnerabilities, and the lockfile is now committed.
