@@ -61,11 +61,12 @@ test.describe('Error states are accessible and actionable', () => {
 
   test('Index page does not have a back link', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('link', { name: 'Back' })).toHaveCount(0);
+    await expect(page.getByRole('link', { name: 'Back', exact: true })).toHaveCount(0);
   });
 
   test('Confirmation page has no Back link – submission is committed', async ({ page }) => {
     await page.goto('/confirmation.html');
-    await expect(page.getByRole('link', { name: 'Back' })).toHaveCount(0);
+    // exact: the page has a "Give feedback" link, which a substring match on "Back" also finds.
+    await expect(page.getByRole('link', { name: 'Back', exact: true })).toHaveCount(0);
   });
 });
