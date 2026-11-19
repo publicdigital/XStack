@@ -87,6 +87,21 @@ function readJson(file) {
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
+// Every constrained folder at, above or (to a depth of four) below a directory.
+export function findRoots(cwd) {
+  const out = new Set();
+  const below = (dir, depth) => {
+    if (fs.existsSync(path.join(dir, CONSTRAINTS_FILE))) out.add(dir);
+    if (depth === 0) return;
+    let entries;
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
+    for (const e of entries) if (e.isDirectory() && !SKIP_DIRS.has(e.name) && !e.name.startsWith('.')) below(path.join(dir, e.name), depth - 1);
+  };
+  below(cwd, 4);
+  for (let d = path.dirname(cwd); d !== path.dirname(d); d = path.dirname(d)) if (fs.existsSync(path.join(d, CONSTRAINTS_FILE))) out.add(d);
+  return [...out];
+}
+
 // ---------- loading and merging layers ----------
 
 function layerCandidates(name, root) {

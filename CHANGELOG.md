@@ -25,6 +25,7 @@ All notable changes to xstack will be recorded here. Format inspired by [Keep a 
   - `scripts/xstack-check.mjs` runs them at three stages – `write`, `stop` and `ci` – and reports PASS, FAIL, WAIVED or NOT RUN. It has no dependencies, and `--vendor` copies it into a service for CI
   - Plugin hooks in `hooks/`: a write that breaks a constraint is refused, a change to the constraints file or other protected path needs a person's approval, and an agent cannot finish while a "must" constraint fails
   - CI: `.github/workflows/constraints.yml` tests the runner and hooks and runs the `ci` stage on the example. `constraints/ci/github-actions.yml` is the same job for a service to copy
+  - The developer and cyber-engineer agents now have a shell, so they run the checks and tests instead of describing them. `hooks/guard-bash.mjs` asks a person before a shell command changes a protected path
   - Relaxing a constraint takes a waiver with a reason, an approver and an expiry date
   - `/xstack:productionise` now writes the constraints file and builds PRODUCTION-READINESS.md from the check results, and no longer generates its own `audit.sh`. `/xstack:threat-model` turns each control into a drafted constraint
   - The medical-licence production example is retrofitted. The shipped checks failed two things its generated audit had passed: a file upload sent by GET, and 50 links to pages that did not exist. Both are fixed – the upload uses POST and the ten missing pages are built

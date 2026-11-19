@@ -85,6 +85,8 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **Owns:** Right technology, Open platforms and standards, Works first time (with the service designer), Measuring performance (with the delivery manager). Supports Sustainable and reliable and Whole problem.
 
+**Tools:** has a shell, to run the constraint checks and the tests it writes.
+
 **Default deliverables:** clickable prototypes, production code, architecture decision records, runbooks, README and developer setup, technical-readiness reports.
 
 **Skills it calls into:** `xstack:brief-to-prototypes`, `xstack:build-for-production`, `xstack:government-design-systems` (via `/xstack:design-system`), `xstack:government-dpi` (via `/xstack:dpi`), `frontend-design:design-from-scratch`, `design:design-system`, plus any house-style skills listed in the profile's Related skills section.
@@ -107,6 +109,8 @@ This file is the canonical roster. For the full definition of any agent, read th
 **File:** `agents/cyber-engineer.md`
 
 **Owns:** Trust, security and privacy. Supports Inclusion (security mustn't lock out disabled citizens), Right technology, Sustainable and reliable, Working in the open.
+
+**Tools:** has a shell, to run the constraint checks and the scanners.
 
 **Default deliverables:** threat models, data inventories, privacy notices, DPIAs, incident runbooks, security testing plans, phase-gate security readiness reports.
 

@@ -109,6 +109,30 @@ test('write guard: denies a bad write, asks on a protected path, ignores the res
   assert.equal(decision(hook('guard-write.mjs', { cwd: outside, tool_name: 'Write', tool_input: { file_path: path.join(outside, 'k.js'), content: FAKE_KEY } })), 'none');
 });
 
+test('shell guard: asks before a command changes a protected path, and only then', () => {
+  const root = service({}, { protected: ['tests/security/**'] });
+  const run = (command) => decision(hook('guard-bash.mjs', { cwd: root, tool_name: 'Bash', tool_input: { command } }));
+  for (const c of [
+    "sed -i '' 's/must/should/' .xstack/constraints.json",
+    'rm .xstack/constraints.json',
+    'echo "{}" > .xstack/constraints.json',
+    'cp /tmp/x.mjs .xstack/vendor/xstack-check.mjs',
+    'git checkout HEAD~3 -- tests/security/headers.sh',
+    'cd public && echo "exit 0" >> ../tests/security/headers.sh',
+  ]) assert.equal(run(c), 'ask', c);
+  for (const c of [
+    'node .xstack/vendor/xstack-check.mjs --stage ci',
+    'node .xstack/vendor/xstack-check.mjs --stage ci --format md > evidence.md',
+    'cat .xstack/constraints.json',
+    './tests/security/headers.sh http://localhost:8080',
+    'npx playwright test tests/security',
+    'rm -rf node_modules && npm ci',
+    'git status',
+  ]) assert.equal(run(c), 'none', c);
+  const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'xstack-none-'));
+  assert.equal(decision(hook('guard-bash.mjs', { cwd: outside, tool_name: 'Bash', tool_input: { command: 'rm .xstack/constraints.json' } })), 'none');
+});
+
 test('stop gate: sends the agent back once, records the result, skips when unchanged', () => {
   const bad = service({ 'public/a.html': PAGE('<a href="missing.html">Gone</a>') });
   const first = hook('stop-gate.mjs', { cwd: bad, stop_hook_active: false });

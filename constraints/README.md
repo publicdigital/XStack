@@ -5,6 +5,7 @@ A constraint is a rule a production service must meet, written so a machine can 
 | Where | What happens | File |
 |---|---|---|
 | When the agent writes a file | A write that adds a secret, an inline script or prototype chrome is refused. A change to a protected path needs a person to say yes | `hooks/guard-write.mjs` |
+| When the agent runs a shell command | A command that looks like it changes a protected path needs a person to say yes. Running the checks is never held up | `hooks/guard-bash.mjs` |
 | When the agent says it is done | The checks run. If a "must" constraint fails, the agent is sent back with the findings | `hooks/stop-gate.mjs` |
 | In CI | Every constraint runs, including the ones that need a server, browsers and scanners | `scripts/xstack-check.mjs --stage ci` |
 
@@ -106,6 +107,6 @@ xstack's own workflow, `.github/workflows/constraints.yml`, tests the runner and
 
 ## Limits
 
-- The hooks cover the Write and Edit tools. An agent with a shell can still change a file another way. CI is the backstop – see the CI section above.
+- The write guard covers the Write and Edit tools. The shell guard reads a command as text, so it is a tripwire, not a wall: a command can be written to slip past it. CI is the backstop – see the CI section above.
 - Pattern checks find known shapes of mistake. They do not prove their absence.
 - The baseline covers the front end and the repository. Back-end constraints – authorisation, input validation, logging – arrive with the back-end scaffold.

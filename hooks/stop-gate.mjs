@@ -11,21 +11,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { CONSTRAINTS_FILE, REPORT_FILE, runChecks, formatText, walk } from '../scripts/xstack-check.mjs';
-
-const SKIP = new Set(['node_modules', '.git', 'dist', 'build']);
-
-function rootsUnder(dir, depth, out) {
-  if (fs.existsSync(path.join(dir, CONSTRAINTS_FILE))) out.add(dir);
-  if (depth === 0) return;
-  let entries;
-  try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
-  for (const e of entries) if (e.isDirectory() && !SKIP.has(e.name) && !e.name.startsWith('.')) rootsUnder(path.join(dir, e.name), depth - 1, out);
-}
-
-function rootsAbove(dir, out) {
-  for (let d = path.dirname(dir); d !== path.dirname(d); d = path.dirname(d)) if (fs.existsSync(path.join(d, CONSTRAINTS_FILE))) out.add(d);
-}
+import { REPORT_FILE, runChecks, formatText, walk, findRoots } from '../scripts/xstack-check.mjs';
 
 function unchangedSinceLastPass(root) {
   const reportPath = path.join(root, REPORT_FILE);
@@ -39,9 +25,7 @@ let input = {};
 try { input = JSON.parse(fs.readFileSync(0, 'utf8')); } catch { /* run with defaults */ }
 const cwd = input.cwd || process.cwd();
 
-const roots = new Set();
-rootsUnder(cwd, 4, roots);
-rootsAbove(cwd, roots);
+const roots = findRoots(cwd);
 
 const failures = [];
 for (const root of roots) {
