@@ -40,7 +40,7 @@ node "$CLAUDE_PLUGIN_ROOT/scripts/xstack-check.mjs" --vendor --root .
 Constraints come from three layers. Later layers add constraints. They cannot redefine one from an earlier layer.
 
 1. **Baseline** – `constraints/baseline.json`. Ships with xstack and applies in every country.
-2. **Profile** – `profiles/<name>/constraints.json`. The government's design system, house style, platforms and law.
+2. **Profile** – `profiles/<name>/constraints.json`. The government's design system, house style, platforms and law. Barbados and Kestria have one. To write your own, start from `profiles/_template/constraints.json`.
 3. **Service** – the `constraints` list in the service's own file. Each threat-model mitigation, each field in the data inventory and each test suite that must pass.
 
 ## A constraint
@@ -73,6 +73,7 @@ Constraints come from three layers. Later layers add constraints. They cannot re
 | `require-pattern` | Every file matches every pattern | `files`, `exclude`, `patterns`, `flags` |
 | `links-resolve` | Every internal `href`, `action` and `src` points at a file | `files`, `root`, `ignore` |
 | `form-method` | Every form with a file or password input uses POST | `files` |
+| `max-size` | No file is larger than `bytes` | `files`, `exclude`, `bytes` |
 | `file-exists` | The file, or one of `anyOf`, exists | `path` or `anyOf` |
 | `command` | The command exits 0. Use it to wrap a scanner or a test suite | `run`, `requires`, `timeoutSeconds` |
 

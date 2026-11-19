@@ -74,6 +74,47 @@ test('backend routes are not treated as dead links', () => {
   assert.equal(status(report, 'WFT-001'), 'pass');
 });
 
+test('every bundled profile layer loads, and the template is valid', () => {
+  const profiles = path.join(HERE, '..', 'profiles');
+  for (const name of fs.readdirSync(profiles)) {
+    if (!fs.existsSync(path.join(profiles, name, 'constraints.json'))) continue;
+    const report = runChecks(service({}, { extends: ['xstack:baseline', `profile:${name}`] }), 'stop');
+    assert.ok(report.results.length > 13, name);
+  }
+});
+
+test('the Kestria layer passes the design system starter page and catches each mistake', () => {
+  const ds = path.join(HERE, '..', 'profiles', 'kestria', 'design-system');
+  const read = (f) => fs.readFileSync(path.join(ds, f), 'utf8');
+  const good = read('example.html');
+  const kestria = (files) => {
+    const root = service({ 'public/tokens.css': read('tokens.css'), 'public/kestria.css': read('kestria.css'), 'public/example.html': good, ...files }, { extends: ['xstack:baseline', 'profile:kestria'] });
+    for (const f of ['index.html', 'next.html']) fs.rmSync(path.join(root, 'public', f));
+    return runChecks(root, 'stop');
+  };
+  const clean = kestria({});
+  assert.deepEqual(clean.results.filter((r) => r.status === 'fail').map((r) => r.id), []);
+
+  const add = (html) => good.replace('</main>', `${html}</main>`);
+  const cases = {
+    'KS-DS-001': good.replace(/Kestria is a fictional country, used for demonstration\./, 'A demo.'),
+    'KS-DS-002': good.replace(/<link rel="stylesheet" href="tokens\.css">\s*/, ''),
+    'KS-DS-006': add('<svg viewBox="0 0 24 24"><path stroke="#ff0000" d="M0 0"/></svg>'),
+    'KS-DS-004': good.replace(/kg-header__lang/g, 'kg-header__other'),
+    'KS-DS-005': add(`<p>${'x'.repeat(100001)}</p>`),
+    'KS-DATA-001': add('<p>Call +44 20 7946 0000 or write to help@example.com</p>'),
+    'KS-DPI-001': add('<input type="password" name="secret">'),
+    'KS-DPI-002': add('<input type="text" name="account_number">'),
+    'KS-STYLE-001': add('<p>Done \u{1F389}</p>'),
+  };
+  for (const [id, html] of Object.entries(cases)) assert.equal(status(kestria({ 'public/example.html': html }), id), 'fail', id);
+  assert.equal(status(kestria({ 'public/page.css': '.x { color: #ff0000; }' }), 'KS-DS-003'), 'fail');
+  // Things that must not trip the rules: anchors that look like hex, the reserved codes, token use.
+  const fine = add('<p><a class="kg-link" href="#add">Add</a> Call +999 77 100 2000 or write to help@spa.kestria.test. It costs K 900.</p>');
+  const ok = kestria({ 'public/example.html': fine, 'public/page.css': '.x { color: var(--ink); } #add:target { outline: 3px solid var(--focus); }' });
+  assert.deepEqual(ok.results.filter((r) => r.status === 'fail').map((r) => r.id), []);
+});
+
 test('waivers: active waives, expired and incomplete do not', () => {
   const files = { 'public/a.html': PAGE('<a href="missing.html">Gone</a>') };
   const w = (over) => ({ waivers: [{ id: 'WFT-001', reason: 'r', approvedBy: 'A. Person', expires: '2999-01-01', ...over }] });

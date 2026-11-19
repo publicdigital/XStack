@@ -239,6 +239,16 @@ const CHECKS = {
     return { ok: findings.length === 0, findings, checked: files.length };
   },
 
+  'max-size'(ctx, check) {
+    const files = selectFiles(ctx, check);
+    const findings = [];
+    for (const f of files) {
+      const size = fs.statSync(path.join(ctx.root, f)).size;
+      if (size > check.bytes) findings.push(`${f} is ${size} bytes, over the limit of ${check.bytes}`);
+    }
+    return { ok: findings.length === 0, findings, checked: files.length };
+  },
+
   'file-exists'(ctx, check) {
     const want = check.anyOf || [check.path];
     const ok = want.some((p) => fs.existsSync(path.join(ctx.root, p)));
