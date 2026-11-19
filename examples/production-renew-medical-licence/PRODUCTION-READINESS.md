@@ -9,7 +9,7 @@
 
 ## Headline
 
-Every "must" constraint that can be checked without a server now holds. The front-end is **not yet ready** for private beta, until every constraint passes in CI. Locally, security headers, the lockfile, `npm audit` and the Chromium test suites pass. Firefox, WebKit, the mobile profiles and gitleaks have only run in CI.
+Every "must" constraint that can be checked without a server now holds. The front-end is **not yet ready** for private beta, until every constraint passes in CI. Locally, 16 of the 17 constraints pass at the `ci` stage. The last, the gitleaks secret scan, runs in CI.
 
 Two constraints failed when the checks were first run, and both are fixed:
 
@@ -22,8 +22,8 @@ Still open:
 
 - **Inline styles** – every page has `style="..."` attributes, and the Content-Security-Policy (`style-src 'self'`) tells browsers to ignore them. Move them to the stylesheet.
 - **The new pages are not in the test suites** – add them to `tests/accessibility/a11y.spec.ts`, also a protected path.
-- **Accessibility and end-to-end suites pass in desktop Chromium** (28 of 28, 2026-11-19), and axe finds nothing on any of the 19 pages. Their first run failed 11 tests. The fixes: secondary text now uses GovBB grey-70 (`#595959`) because `#777777` failed contrast, the summary list on the check page is valid `dl` markup, and two test locators were wrong.
-- **Not yet run:** Firefox, WebKit and the two mobile profiles, gitleaks, and k6. `npm audit` finds no vulnerabilities, and the lockfile is now committed.
+- **Accessibility, end-to-end and security suites pass in all five browser profiles** (140 of 140, macOS, 2026-11-19), and axe finds nothing on any of the 19 pages. Their first run failed 11 tests. The fixes: secondary text now uses GovBB grey-70 (`#595959`) because `#777777` failed contrast, the summary list on the check page is valid `dl` markup, and two test locators were wrong.
+- **Not yet run locally:** gitleaks, which runs in CI, and k6. `npm audit` finds no vulnerabilities, and the lockfile is now committed.
 
 **Recommended action:** wire `npm run check:ci` into CI and make it pass against staging before the formal Standards self-assessment.
 

@@ -98,9 +98,12 @@ test.describe('Bajan doctor renews their full-registration licence end to end', 
     }
   });
 
-  test('Skip link is the first focusable element', async ({ page }) => {
+  test('Skip link is the first focusable element', async ({ page, browserName }) => {
     await page.goto('/');
-    await page.keyboard.press('Tab');
+    // Safari on macOS only tabs to links with Option+Tab, unless the person has
+    // turned on "Press Tab to highlight each item". WebKit on Linux uses plain Tab.
+    const tab = browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab';
+    await page.keyboard.press(tab);
     const skip = page.getByRole('link', { name: /Skip to main content/i });
     await expect(skip).toBeFocused();
   });
