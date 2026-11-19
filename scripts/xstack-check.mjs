@@ -232,7 +232,8 @@ const CHECKS = {
 
   command(ctx, check) {
     if (check.requires) {
-      const probe = spawnSync('command', ['-v', check.requires], { shell: true, encoding: 'utf8' });
+      if (!/^[\w.-]+$/.test(check.requires)) return { ok: false, findings: [`"requires" must be a plain tool name, not ${check.requires}`], checked: 1 };
+      const probe = spawnSync(`command -v ${check.requires}`, { shell: true, encoding: 'utf8' });
       if (probe.status !== 0) return { notRun: `${check.requires} is not installed` };
     }
     const res = spawnSync(check.run, { shell: true, cwd: ctx.root, encoding: 'utf8', timeout: (check.timeoutSeconds || 600) * 1000, env: process.env });

@@ -40,3 +40,8 @@ notes-private/
 
 # xstack constraint check output (regenerated on every run)
 **/.xstack/check-report.json
+
+# Playwright output
+test-results/
+playwright-report/
+reports/

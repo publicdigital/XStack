@@ -98,8 +98,14 @@ Results are PASS, FAIL, WAIVED, NOT RUN or N/A. Each run writes `.xstack/check-r
 
 A theme is **Met** only if every one of its constraints is PASS at the `ci` stage. FAIL, WAIVED and NOT RUN are at best **Partly met**. A rating in a readiness report or a standards assessment cites the constraint ids it rests on.
 
+## CI
+
+The hooks only see the Write and Edit tools, so CI is the backstop. `constraints/ci/github-actions.yml` is a workflow for a service: copy it to `.github/workflows/constraints.yml`, make the job a required check, and require review for changes under `.xstack/`.
+
+xstack's own workflow, `.github/workflows/constraints.yml`, tests the runner and hooks (`node --test scripts/xstack-check.test.mjs`), checks that vendored copies match the source, and runs the `ci` stage on the medical-licence example.
+
 ## Limits
 
-- The hooks cover the Write and Edit tools. An agent with a shell can still change a file another way. CI is the backstop: run the `ci` stage on every pull request, and require review for changes under `.xstack/`.
+- The hooks cover the Write and Edit tools. An agent with a shell can still change a file another way. CI is the backstop – see the CI section above.
 - Pattern checks find known shapes of mistake. They do not prove their absence.
 - The baseline covers the front end and the repository. Back-end constraints – authorisation, input validation, logging – arrive with the back-end scaffold.

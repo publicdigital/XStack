@@ -169,7 +169,7 @@ If thresholds fail, the beta gate is not met for **Works first time**.
 
 - **Write the backend.** Identity-platform integration, payment-platform calls, the back-office review queue, session management – these are the developer's responsibility, designed in ADRs and built in beta.
 - **Run the pen test.** That's the cyber engineer's job, with an external supplier, before public beta.
-- **Configure CI/CD.** The team picks the platform (GitHub Actions, GitLab CI, etc.) and wires the runner script in.
+- **Configure CI/CD.** The team picks the platform (GitHub Actions, GitLab CI, etc.) and wires the runner script in. For GitHub Actions, offer `constraints/ci/github-actions.yml` as the starting point – it runs every constraint at the `ci` stage.
 - **Deploy the service.** Hosting and deployment is part of beta operational readiness.
 - **Replace the threat model.** The security tests in this skill cover the front end. The threat model covers the whole system.
 

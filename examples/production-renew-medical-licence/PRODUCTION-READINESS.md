@@ -9,7 +9,7 @@
 
 ## Headline
 
-Every "must" constraint that can be checked without a server now holds. The front-end is **not yet ready** for private beta, because five of the six constraints that need CI have not passed. The sixth, `SVC-SEC-001` (security headers), passes against the local server.
+Every "must" constraint that can be checked without a server now holds. The front-end is **not yet ready** for private beta, because the accessibility and end-to-end suites fail (`SVC-A11Y-001`, `SVC-WFT-001`). Security headers, the lockfile and `npm audit` pass.
 
 Two constraints failed when the checks were first run, and both are fixed:
 
@@ -22,7 +22,9 @@ Still open:
 
 - **Inline styles** – every page has `style="..."` attributes, and the Content-Security-Policy (`style-src 'self'`) tells browsers to ignore them. Move them to the stylesheet.
 - **The new pages are not in the test suites** – add them to `tests/accessibility/a11y.spec.ts`, also a protected path.
-- **No lockfile, and no CI run** of Playwright, axe, `npm audit`, gitleaks or k6.
+- **The accessibility suite fails.** First run, desktop Chromium, 2026-11-19: 9 of 12 axe tests fail on two rules. `color-contrast` fails on seven pages, and `dlitem` fails on the summary lists (`dt` and `dd` are not direct children of their `dl`).
+- **Two end-to-end tests fail.** The confirmation page has a link the test reads as "Back", and the happy path times out opening "What counts as CPD?".
+- **Not yet run:** Firefox, WebKit and the two mobile profiles, gitleaks, and k6. `npm audit` finds no vulnerabilities, and the lockfile is now committed.
 
 **Recommended action:** wire `npm run check:ci` into CI and make it pass against staging before the formal Standards self-assessment.
 
