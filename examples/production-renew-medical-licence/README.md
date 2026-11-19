@@ -88,7 +88,7 @@ npm run test:all
 | `<aside id="assumptions">` listing 16 unverified items | **Removed** – production users never see this |
 | `<div class="xstack-banner">` | **Removed** |
 | `<span class="fake-data">Dr. Sarah K. Williams</span>` | Plain `Dr. Sarah K. Williams` with HTML comments noting where templating would inject real values |
-| No tests | 3 E2E specs, axe-core suite, security headers tests, 2 k6 load profiles, constraint checks that ship with xstack |
+| No tests | 4 E2E specs, axe-core suite, security headers tests, 2 k6 load profiles, constraint checks that ship with xstack |
 | No build tooling | npm + Playwright + axe-core + k6 |
 
 ## What's not in this build (by design)
@@ -103,7 +103,7 @@ See `PRODUCTION-READINESS.md` for the full Standards-anchored assessment and the
 
 ## How the tests are organised
 
-**E2E regression (Playwright)** – three specs covering the most common citizen journey, the most-different alternative path, and the error states. Tests use accessible selectors (role + name) so failures double as accessibility regressions.
+**E2E regression (Playwright)** – four specs covering the most common citizen journey, the most-different alternative path, the error states, and the supporting pages (correcting details, the CPD upload and the footer pages). Tests use accessible selectors (role + name) so failures double as accessibility regressions.
 
 **Accessibility (axe-core)** – one suite running WCAG 2.1 AA across every page in its default state, plus interactive states (each radio option, expanded disclosures). Anything below AA fails the build. Standard 3 floor.
 

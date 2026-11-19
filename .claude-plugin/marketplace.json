@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Five AI specialists that bring user-centred design roles into government digital delivery teams – service design, content and interaction design, delivery, development and cyber security. For any government, anchored to a country-agnostic service standard baseline, the GOV.UK Design Principles and the GDS Way, with country profiles for local standards and design systems.",
-    "version": "0.1.1"
+    "version": "0.8.0"
   },
   "plugins": [
     {
       "name": "xstack",
       "source": "./",
       "description": "Five UCD specialists as AI team members for government digital teams. Turn a brief into testable prototypes, iterate from research, assess against your country's service standard.",
-      "version": "0.1.1",
+      "version": "0.8.0",
       "category": "service-design",
       "keywords": [
         "government",

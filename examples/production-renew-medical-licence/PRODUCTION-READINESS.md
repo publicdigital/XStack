@@ -1,6 +1,6 @@
 # Production-readiness report – Renew medical licence (front-end)
 
-**Generated:** 2026-05-16. Constraint evidence regenerated 2026-11-19
+**Generated:** 2026-05-16. Constraint evidence regenerated 2026-11-19 at the `ci` stage
 **Skill:** `xstack:build-for-production` via `/xstack:productionise`
 **Source iteration:** `examples/build-renew-medical-licence/prototype-1-phone-first/iteration-3/index.html`
 **Target phase gate:** Alpha → Beta
@@ -9,28 +9,33 @@
 
 ## Headline
 
-Every "must" constraint that can be checked without a server now holds. The front-end is **not yet ready** for private beta, until every constraint passes in CI. Locally, 16 of the 17 constraints pass at the `ci` stage. The last, the gitleaks secret scan, runs in CI.
+The front-end meets every one of its 18 constraints. 17 pass on a developer machine at the `ci` stage, and the eighteenth, the gitleaks secret scan, passes in CI.
 
-Two constraints failed when the checks were first run, and both are fixed:
+That makes the front-end ready for private beta **on the checks that exist**. It does not make the service ready: the back end, the threat-model refresh, the pen test and the DPIA are still to do, and the load tests have never been run.
 
-- `SEC-004` – the CPD upload in `public/cpd.html` now sends its file by POST, with an upload button so it works without JavaScript. The local server accepts the POST, discards the file and redirects.
-- `WFT-001` – the ten missing pages now exist: help, contact, feedback, privacy, accessibility, and five pages for correcting details. The privacy page says the full notice is still to come.
+What the constraints found, all now fixed:
 
-An earlier version of this report rated a static audit as a pass. That audit was written in the same run as the code it checked, and it recorded 50 dead links as information. The checks now ship with xstack (`xstack-check`), and the results below come from its output.
+- `SEC-004` – the CPD upload sent its file by GET. It now posts, with an upload button so it works without JavaScript.
+- `WFT-001` – 50 links went to pages that did not exist. The ten missing pages are built. The privacy page says the full notice is still to come.
+- `SEC-008` – 100 inline `style` attributes that the Content-Security-Policy told browsers to ignore. They are now classes in the stylesheet.
+- `SVC-A11Y-001` and `SVC-WFT-001` – the Playwright suites had never been run, and 11 of 28 tests failed. Secondary text now uses GovBB grey-70 (`#595959`) because `#777777` failed contrast, the summary list is valid markup, three test locators were wrong, and the test server could not serve five browser profiles at once.
+
+An earlier version of this report rated a static audit as a pass. That audit was written in the same run as the code it checked. The checks now ship with xstack (`xstack-check`), and the results below come from its output.
+
+Test results: 245 of 245 Playwright tests pass across five browser profiles (macOS, 2026-11-19), covering all 19 pages for accessibility.
 
 Still open:
 
-- **The new pages are not in the test suites** – add them to `tests/accessibility/a11y.spec.ts`, also a protected path.
-- **Accessibility, end-to-end and security suites pass in all five browser profiles** (140 of 140, macOS, 2026-11-19), and axe finds nothing on any of the 19 pages. Their first run failed 11 tests. The fixes: secondary text now uses GovBB grey-70 (`#595959`) because `#777777` failed contrast, the summary list on the check page is valid `dl` markup, and two test locators were wrong.
-- **Not yet run locally:** gitleaks, which runs in CI, and k6. `npm audit` finds no vulnerabilities, and the lockfile is now committed.
+- **Load tests** – k6 has not been run.
+- **Wording** – the privacy and accessibility pages need review by the Medical Council and a content designer.
 
-**Recommended action:** wire `npm run check:ci` into CI and make it pass against staging before the formal Standards self-assessment.
+**Recommended action:** keep the Constraints workflow as a required check, then move to the back end and the formal Standards self-assessment.
 
 ## What's in this build
 
 ```
 public/                    ← 19 HTML pages + shared CSS + minimal app.js
-tests/e2e/                 ← 3 Playwright specs covering happy path, abroad context, error states
+tests/e2e/                 ← 4 Playwright specs covering happy path, abroad context, error states, supporting pages
 tests/accessibility/       ← axe-core suite across every page in every state
 tests/security/            ← Playwright header tests + a bash script for CI without a browser
 tests/load/                ← k6 peak (Oct–Dec profile) and 8-hour soak tests
@@ -55,8 +60,8 @@ package.json               ← npm scripts for everything
 
 **Outstanding:**
 - Server-side validation needs to mirror the client patterns when the back end is wired up
-- The CPD upload still uses a single GET form action for the static demo; production needs proper multipart POST with progress reporting
-- The address-override flow is currently a placeholder link – needs the actual screens in iteration 4
+- The CPD upload posts to the local test server, which discards the file. Production needs a real multipart handler with progress reporting
+- The pages for correcting details post to the local test server, which stores nothing. They need real handlers
 
 **Next action:** developer agent wires up server-side handlers per ADR-008.
 
@@ -120,26 +125,27 @@ package.json               ← npm scripts for everything
 
 ### Constraint evidence
 
-Generated by `xstack-check` at stage `stop` on 2026-11-19. Do not edit by hand – run the check again.
+Generated by `xstack-check` at stage `ci` on 2026-11-19. Do not edit by hand – run the check again.
 
 #### Trust, security and privacy
 
 | Constraint | Result | Severity | Owner | Evidence |
 |---|---|---|---|---|
-| `SEC-001` No secrets in source | PASS | must | cyber-engineer | 40 file(s) or command(s) checked |
+| `SEC-001` No secrets in source | PASS | must | cyber-engineer | 41 file(s) or command(s) checked |
 | `SEC-002` No inline event handlers | PASS | must | developer | 19 file(s) or command(s) checked |
 | `SEC-003` No inline scripts | PASS | must | developer | 19 file(s) or command(s) checked |
+| `SEC-008` No inline style attributes | PASS | must | developer | 19 file(s) or command(s) checked |
 | `SEC-004` Forms that send files or passwords use POST | PASS | must | developer | 19 file(s) or command(s) checked |
-| `SEC-005` No secrets leaked in git history or working tree (gitleaks) | NOT RUN | must | cyber-engineer | runs at: ci |
-| `SEC-006` No known high or critical vulnerabilities in dependencies | NOT RUN | must | cyber-engineer | runs at: ci |
+| `SEC-005` No secrets leaked in git history or working tree (gitleaks) | NOT RUN | must | cyber-engineer | gitleaks is not installed |
+| `SEC-006` No known high or critical vulnerabilities in dependencies | PASS | must | cyber-engineer | 1 file(s) or command(s) checked |
 | `OPEN-001` No prototype chrome in production | PASS | must | developer | 19 file(s) or command(s) checked |
-| `SVC-SEC-001` The server sends the six security headers, with a CSP that forbids inline script | NOT RUN | must | cyber-engineer | runs at: ci |
+| `SVC-SEC-001` The server sends the six security headers, with a CSP that forbids inline script | PASS | must | cyber-engineer | 1 file(s) or command(s) checked |
 
 #### Sustainable and reliable
 
 | Constraint | Result | Severity | Owner | Evidence |
 |---|---|---|---|---|
-| `SEC-007` Dependencies are pinned by a lockfile | NOT RUN | must | developer | runs at: ci |
+| `SEC-007` Dependencies are pinned by a lockfile | PASS | must | developer | 1 file(s) or command(s) checked |
 
 #### Inclusion
 
@@ -147,14 +153,14 @@ Generated by `xstack-check` at stage `stop` on 2026-11-19. Do not edit by hand �
 |---|---|---|---|---|
 | `A11Y-001` Every page declares its language, has a title and a main landmark | PASS | must | content-designer | 19 file(s) or command(s) checked |
 | `A11Y-002` Every image has an alt attribute | PASS | must | content-designer | 19 file(s) or command(s) checked |
-| `SVC-A11Y-001` Every page in every state passes axe at WCAG 2.1 AA | NOT RUN | must | content-designer | runs at: ci |
+| `SVC-A11Y-001` Every page in every state passes axe at WCAG 2.1 AA | PASS | must | content-designer | 1 file(s) or command(s) checked |
 
 #### Works first time
 
 | Constraint | Result | Severity | Owner | Evidence |
 |---|---|---|---|---|
 | `WFT-001` Every internal link and form action goes somewhere | PASS | must | developer | 19 file(s) or command(s) checked |
-| `SVC-WFT-001` A doctor can renew end to end, including from abroad and through every error state | NOT RUN | must | developer | runs at: ci |
+| `SVC-WFT-001` A doctor can renew end to end, including from abroad, through every error state and when correcting their details | PASS | must | developer | 1 file(s) or command(s) checked |
 
 #### Right technology
 
@@ -169,11 +175,11 @@ Generated by `xstack-check` at stage `stop` on 2026-11-19. Do not edit by hand �
 |---|---|---|---|---|
 | `BB-STYLE-001` No em dashes in citizen-facing pages | PASS | must | content-designer | 19 file(s) or command(s) checked |
 
-**Total:** 11 pass, 0 fail, 0 waived, 6 not run, 0 not applicable.
+**Total:** 17 pass, 0 fail, 0 waived, 1 not run, 0 not applicable.
 
 A theme can be rated **Met** only if every one of its constraints is PASS at the `ci` stage. FAIL, WAIVED and NOT RUN are at best **Partly met**.
 
-The six constraints marked NOT RUN need a server, browsers or scanners. `npm run check:ci` runs them.
+`SEC-005` (gitleaks) is NOT RUN here because gitleaks is not installed on the machine that generated this table. It passes in CI, where `.github/workflows/constraints.yml` runs all 18 constraints on every pull request.
 
 ### Security headers – PASS (against live local server)
 
@@ -230,11 +236,11 @@ The Standards self-assessment (`/xstack:assess for the beta gate`) is the formal
 
 ## Recommendation
 
-**Do not proceed until condition 1 is met:**
+**Proceed with conditions:**
 
-1. **Make every "must" constraint pass at the `ci` stage** (`npm run check:ci`), or have the service owner record a dated waiver. Required.
-2. **Wire the test suite into CI** before private beta opens to citizens. Required.
-3. **Run the full Playwright matrix against staging** (5 device profiles). Required for Standards 3 and 5.
+1. **Keep every "must" constraint passing at the `ci` stage.** Done for this front-end: the Constraints workflow runs them on every pull request. Required.
+2. **Run the same checks against staging** once there is a back end. Required.
+3. **Run the full Playwright matrix against staging** (5 device profiles). It passes against the local server. Required for Standards 3 and 5.
 4. **Run the k6 peak load test against staging** (twice expected Oct–Dec volume). Required for Standards 5 and 13.
 5. **Refresh the threat model** to cover the production form actions and the address-override flow. Required for Standard 11.
 6. **Pen test plan signed off** before public beta. Cyber engineer owns; external supplier executes.

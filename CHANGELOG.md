@@ -4,6 +4,8 @@ All notable changes to xstack will be recorded here. Format inspired by [Keep a 
 
 ## [Unreleased]
 
+## [0.8.0] – 2026-11-19
+
 ### Changed
 
 - **xstack now works for any government** – the agents, skills and commands no longer assume Barbados. xstack brings user-centred design roles into government digital delivery teams as AI team members, especially for teams in regions that can't easily staff them

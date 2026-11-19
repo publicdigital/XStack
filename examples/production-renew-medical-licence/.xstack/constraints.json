@@ -29,7 +29,7 @@
     },
     {
       "id": "SVC-WFT-001",
-      "title": "A doctor can renew end to end, including from abroad and through every error state",
+      "title": "A doctor can renew end to end, including from abroad, through every error state and when correcting their details",
       "theme": "Works first time",
       "source": "Standard 5 (Works first time)",
       "owner": "developer",
