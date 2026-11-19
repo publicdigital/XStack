@@ -110,7 +110,7 @@ This file is the canonical roster. For the full definition of any agent, read th
 
 **Default deliverables:** threat models, data inventories, privacy notices, DPIAs, incident runbooks, security testing plans, phase-gate security readiness reports.
 
-**Skills it calls into:** none specific (cyber work is mostly bespoke per service; the agent reaches for STRIDE / LINDDUN frames documented in its own file).
+**Skills it calls into:** none specific (cyber work is mostly bespoke per service; the agent reaches for STRIDE / LINDDUN frames documented in its own file). Turns each threat-model control into a constraint that xstack checks – see `constraints/README.md`.
 
 **Triggers:** threat model, security review, pen test, privacy, data protection, incident, secure by design, PII, vulnerability, encryption, auth.
 

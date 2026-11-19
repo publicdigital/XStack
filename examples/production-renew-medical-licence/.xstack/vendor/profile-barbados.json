@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "layer": "profile:barbados",
+  "description": "Constraints from the Barbados profile: the GovBB design system and the GovTech Barbados house style.",
+  "constraints": [
+    {
+      "id": "BB-DS-001",
+      "title": "Every page uses the GovBB design system and its skip link",
+      "theme": "Right technology",
+      "source": "profiles/barbados/design-guide.md",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": ["stop", "ci"],
+      "check": {
+        "type": "require-pattern",
+        "files": ["{{web}}/**/*.html"],
+        "patterns": ["class=\"[^\"]*govbb-skip-link", "role=\"banner\"", "role=\"contentinfo\"", "rel=\"stylesheet\""]
+      },
+      "fix": "Start the page from the GovBB page template: skip link, header and footer landmarks, linked stylesheet."
+    },
+    {
+      "id": "BB-STYLE-001",
+      "title": "No em dashes in citizen-facing pages",
+      "theme": "Plain language",
+      "source": "profiles/barbados/house-style.md",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": ["write", "stop", "ci"],
+      "check": {
+        "type": "forbid-pattern",
+        "files": ["{{web}}/**/*.html"],
+        "patterns": ["—"]
+      },
+      "fix": "Use a spaced en dash, or split the sentence."
+    }
+  ]
+}

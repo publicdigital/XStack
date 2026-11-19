@@ -112,6 +112,9 @@ xstack/
 │   ├── page-composition/
 │   ├── token-cross-check/
 │   └── show-the-thing/
+├── constraints/              rules a production build must meet, checked by machine
+├── hooks/                    plugin hooks that enforce the constraints
+├── scripts/                  xstack-check, the constraint runner
 ├── references/               the canonical, country-agnostic knowledge base
 │   ├── service-standard-baseline.md   the 14 themes
 │   ├── govuk-design-principles.md

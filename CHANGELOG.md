@@ -18,6 +18,14 @@ All notable changes to xstack will be recorded here. Format inspired by [Keep a 
 
 ### Added
 
+- **Constraints** – rules a production service must meet, written so a machine checks them, and enforced by xstack instead of left to instructions. See `constraints/README.md`
+  - A service opts in with `.xstack/constraints.json`. It extends the baseline in `constraints/baseline.json` (secrets, inline script, POST for uploads, page landmarks, alt text, dead links, inline styles, prototype chrome, dependency checks) and a profile layer where there is one. Barbados has the first, in `profiles/barbados/constraints.json`
+  - `scripts/xstack-check.mjs` runs them at three stages – `write`, `stop` and `ci` – and reports PASS, FAIL, WAIVED or NOT RUN. It has no dependencies, and `--vendor` copies it into a service for CI
+  - Plugin hooks in `hooks/`: a write that breaks a constraint is refused, a change to the constraints file or other protected path needs a person's approval, and an agent cannot finish while a "must" constraint fails
+  - Relaxing a constraint takes a waiver with a reason, an approver and an expiry date
+  - `/xstack:productionise` now writes the constraints file and builds PRODUCTION-READINESS.md from the check results, and no longer generates its own `audit.sh`. `/xstack:threat-model` turns each control into a drafted constraint
+  - The medical-licence production example is retrofitted. The shipped checks failed two things its generated audit had passed: a file upload sent by GET, and 50 links to pages that did not exist. Both are fixed – the upload uses POST and the ten missing pages are built
+
 - **`/xstack:help`** and the `help` skill – a starting point for anyone new to xstack. It shows the staircase, an interactive page of the five steps from first conversation to a live service, with every skill and command and what comes before and after each one. Then it asks where the team is and gives the one thing to run next, in the name that works in Claude Code or in the Claude app and Cowork. The page lives in `skills/help/assets/staircase.html`
 - **`/xstack:form-to-spec`** and the `form-to-spec` skill – a new entry point, **form → spec → build**. Most government services already exist as a paper or PDF form. The skill turns one – fillable PDF, flat PDF, scan, photo or Word document – into a `form-spec.md` that `/xstack:build` takes as its brief
   - Keeps every item with the form's own numbering, groups items into sections a citizen would recognise, and gives each a digital treatment: ask (with the component), lookup, lookup opportunity, conditional, add-another, government already holds this, drop or challenge, or back office

@@ -9,8 +9,9 @@ This skill is the bridge between a validated alpha prototype and the front-end o
 
 1. **Per-page HTML files** with proper URLs, real navigation (links and forms, not JS state), the design system's published stylesheet linked rather than inlined, the xstack assumptions panel and mock-data markers stripped.
 2. **A comprehensive test suite** – E2E regression (Playwright), accessibility (axe-core), security (headers, CSP, basic OWASP checks), and load (k6).
-3. **A runner** that orchestrates the suite locally and in CI.
-4. **A production-readiness report** assessed against the **Works first time**, **Right technology**, **Trust, security and privacy** and **Measuring performance** themes (or the profile's own standards that map to them).
+3. **A constraints file** – the rules the service must meet, checked by a runner that ships with xstack, not one written during the run.
+4. **A runner** that orchestrates the suite locally and in CI.
+5. **A production-readiness report** built from the check results and assessed against the **Works first time**, **Right technology**, **Trust, security and privacy** and **Measuring performance** themes (or the profile's own standards that map to them).
 
 It supports the transition from alpha to beta. It explicitly does **not** make the service production-ready end to end – the backend, the integrations, the threat model, the runbook, and the operational readiness are owned by the developer, the cyber engineer, and the delivery manager via other parts of xstack. This skill is the front-end's half of beta-readiness.
 
@@ -67,8 +68,10 @@ production-[service-slug]/
 │       └── soak.js                    ← k6 8-hour soak test
 ├── scripts/
 │   ├── serve.sh                       ← local server for testing
-│   ├── run-all.sh                     ← orchestrator
-│   └── audit.sh                       ← static checks (HTML validity, link integrity, design-system class usage)
+│   └── run-all.sh                     ← orchestrator (starts with xstack-check)
+├── .xstack/
+│   ├── constraints.json               ← the rules this service must meet; a person approves changes
+│   └── vendor/                        ← xstack-check.mjs and its layers, copied from xstack
 ├── playwright.config.ts
 └── package.json
 ```
@@ -91,6 +94,18 @@ The single-file prototype becomes a multi-file site. Specifically:
 | `<div class="xstack-banner">` | **Removed.** Production users never see this. |
 
 The production HTML is **progressive enhancement**: every flow works without JavaScript. JS adds polish (animations, immediate validation feedback) but never gates the journey.
+
+---
+
+## Constraints – the rules are enforced, not remembered
+
+Read `constraints/README.md` before you start. In short:
+
+- **Write `.xstack/constraints.json` first**, before any page. It extends `xstack:baseline`, plus `profile:<name>` if the profile has a `constraints.json`. Then copy the runner in: `node "$CLAUDE_PLUGIN_ROOT/scripts/xstack-check.mjs" --vendor --root production-[service-slug]`.
+- **Add the service's own constraints**: one `command` constraint per test suite (accessibility, E2E, security headers), and one per threat-model control that can be checked. List `tests/security/**` and `tests/accessibility/**` as `protected`.
+- **Never write an audit script.** The static checks are the shipped runner's job. A checker written in the same run as the code it checks will pass whatever that run produced.
+- **Once the file exists, xstack's hooks enforce it.** A write that breaks a `write`-stage constraint is refused. You cannot finish while a "must" constraint fails at the `stop` stage. Fix the code, not the check.
+- **If a constraint cannot be met, say so.** Report it as failing, name the constraint id, and ask the user whether to fix it or record a waiver. Only a person adds a waiver or changes the constraints file.
 
 ---
 
@@ -172,9 +187,9 @@ When invoked, the skill:
 6. **Strips alpha-only markup** – assumptions panel out, xstack banner out, fake-data markers replaced with semantic placeholders
 7. **Generates the test suite** based on the journey it just split
 8. **Writes the scripts and config**
-9. **Runs the static checks** – HTML validity, link integrity (do internal links resolve?), design-system class usage (are we using the design system's class prefix consistently?)
-10. **Attempts to run the dynamic tests** if the environment has the tooling; otherwise reports what would happen
-11. **Writes PRODUCTION-READINESS.md** with the assessment
+9. **Runs the constraint checks** – `node .xstack/vendor/xstack-check.mjs --stage stop` – and fixes what fails
+10. **Attempts the `ci` stage** (`--stage ci`), which runs the dynamic tests if the environment has the tooling. What cannot run is reported as NOT RUN, never as a pass
+11. **Writes PRODUCTION-READINESS.md** – paste the output of `--format md` as the evidence section, then rate each theme from it. Met needs every constraint for that theme to pass at the `ci` stage, and each rating cites its constraint ids
 
 The skill calls into the developer agent for technical decisions and the cyber engineer agent for the security tests.
 
@@ -231,7 +246,8 @@ By the end of the skill's run, the team should have:
 
 - A `public/` folder they can serve with a one-line static server, and the journey works end-to-end without JavaScript
 - A `tests/` folder that runs locally with `npm test`
-- A `PRODUCTION-READINESS.md` with each standard (or theme) marked Met / Partly met / Not met, with evidence
+- A `.xstack/constraints.json` whose "must" constraints all hold at the `stop` stage, or a plain list of the ones that do not
+- A `PRODUCTION-READINESS.md` with each standard (or theme) marked Met / Partly met / Not met, with the constraint ids as evidence
 - A clear next-step list: what the cyber engineer needs to do, what the developer needs to wire up to the backend, what the delivery manager needs to set up for operational readiness
 
 If the report has `Not met` for any of the four themes above, the team is not ready for the beta gate. **Trust, security and privacy** is the most common reason – the front-end can pass and the backend can still fail. That's a `/xstack:threat-model` and pen-test conversation, not a `/xstack:productionise` retry.

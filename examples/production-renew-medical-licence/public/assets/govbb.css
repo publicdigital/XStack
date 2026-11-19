@@ -293,3 +293,7 @@ details.govbb-details .body li { font-size: 16px; margin-bottom: 6px; }
   .govbb-btn { border: 2px solid ButtonText; box-shadow: none; }
   .govbb-id-card, .govbb-summary-list, .govbb-callout { border-color: CanvasText; }
 }
+
+/* Fieldsets on the detail-correction pages */
+.override-fieldset { border: 0; padding: 0; margin: 0 0 var(--bb-space-6, 24px); }
+.override-fieldset h1 { margin: 0; }

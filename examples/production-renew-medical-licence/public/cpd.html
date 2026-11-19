@@ -75,12 +75,13 @@
     <strong>Total so far: 42 hours.</strong> You're above the 40-hour minimum for full registration.
   </div>
 
-  <!-- In production: <form method="POST" enctype="multipart/form-data" action="/api/renewal/cpd"> -->
-  <form method="get" action="cpd.html" enctype="multipart/form-data">
+  <!-- In production the action is /api/renewal/cpd. The local server accepts the POST, discards the file and redirects back here. -->
+  <form method="post" action="cpd.html" enctype="multipart/form-data">
     <div class="cpd-add">
       <p style="margin-bottom: 12px;">Got more to add? PDF, PNG, or JPG. Photos of paper records are fine.</p>
       <label class="govbb-skip-link" for="cpd-upload">Upload a CPD record</label>
-      <input type="file" id="cpd-upload" name="cpd_file" accept=".pdf,.png,.jpg,.jpeg">
+      <input type="file" id="cpd-upload" name="cpd_file" accept=".pdf,.png,.jpg,.jpeg" required>
+      <button type="submit" class="govbb-btn govbb-btn--alt">Upload this record</button>
     </div>
   </form>
 

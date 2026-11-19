@@ -37,3 +37,6 @@ coverage/
 # Local scratch
 scratch/
 notes-private/
+
+# xstack constraint check output (regenerated on every run)
+**/.xstack/check-report.json

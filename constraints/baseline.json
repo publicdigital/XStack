@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "layer": "xstack:baseline",
+  "description": "Constraints every xstack production build must meet, whatever the country. Themes are the ones in references/service-standard-baseline.md.",
+  "vars": {
+    "web": "public",
+    "backendRoutes": "/api/**"
+  },
+  "constraints": [
+    {
+      "id": "SEC-001",
+      "title": "No secrets in source",
+      "theme": "Trust, security and privacy",
+      "source": "xstack baseline",
+      "owner": "cyber-engineer",
+      "severity": "must",
+      "when": ["write", "stop", "ci"],
+      "check": {
+        "type": "forbid-pattern",
+        "files": ["**/*"],
+        "exclude": ["**/*.lock", "**/package-lock.json"],
+        "patterns": [
+          "AKIA[0-9A-Z]{16}",
+          "-----BEGIN (?:RSA |EC |DSA |OPENSSH |PGP )?PRIVATE KEY",
+          "gh[pousr]_[A-Za-z0-9]{36,}",
+          "xox[baprs]-[A-Za-z0-9-]{10,}",
+          "sk_live_[A-Za-z0-9]{16,}",
+          "(?:api[_-]?key|secret|passwd|password|token)[\"']?\\s*[:=]\\s*[\"'][A-Za-z0-9+/_\\-]{20,}[\"']"
+        ],
+        "flags": "i"
+      },
+      "fix": "Remove the value. Read it from the environment or the platform's secret store, and rotate it if it was ever real."
+    },
+    {
+      "id": "SEC-002",
+      "title": "No inline event handlers",
+      "theme": "Trust, security and privacy",
+      "source": "xstack baseline",
+      "owner": "developer",
+      "severity": "must",
+      "when": ["write", "stop", "ci"],
+      "check": {
+        "type": "forbid-pattern",
+        "files": ["{{web}}/**/*.html"],
+        "patterns": ["<[^>]+\\son[a-z]+\\s*=\\s*[\"']"],
+        "flags": "i"
+      },
+      "fix": "Move the behaviour to a linked script and use addEventListener, so a strict Content-Security-Policy can stay on."
+    },
+    {
+      "id": "SEC-003",
+      "title": "No inline scripts",
+      "theme": "Trust, security and privacy",
+      "source": "xstack baseline",
+      "owner": "developer",
+      "severity": "must",
+      "when": ["write", "stop", "ci"],
+      "check": {
+        "type": "forbid-pattern",
+        "files": ["{{web}}/**/*.html"],
+        "patterns": ["<script(?![^>]*\\ssrc=)[^>]*>", "(?:href|action|src)\\s*=\\s*[\"']\\s*javascript:"],
+        "flags": "i"
+      },
+      "fix": "Link the script with src. A strict Content-Security-Policy blocks inline script."
+    },
+    {
+      "id": "SEC-004",
+      "title": "Forms that send files or passwords use POST",
+      "theme": "Trust, security and privacy",
+      "source": "xstack baseline",
+      "owner": "developer",
+      "severity": "must",
+      "when": ["stop", "ci"],
+      "check": {
+        "type": "form-method",
+        "files": ["{{web}}/**/*.html"]
+      },
+      "fix": "Set method=\"post\" on the form (and enctype=\"multipart/form-data\" for uploads). GET puts the data in the URL, in logs and in history."
+    },
+    {
+      "id": "SEC-005",
+      "title": "No secrets leaked in git history or working tree (gitleaks)",
+      "theme": "Trust, security and privacy",
+      "source": "xstack baseline",
+      "owner": "cyber-engineer",
+      "severity": "must",
+      "when": ["ci"],
+      "check": {
+        "type": "command",
+        "requires": "gitleaks",
+        "run": "gitleaks dir . --no-banner --redact"
+      },
+      "fix": "Remove and rotate whatever gitleaks reports."
+    },
+    {
+      "id": "SEC-006",
+      "title": "No known high or critical vulnerabilities in dependencies",
+      "theme": "Trust, security and privacy",
+      "source": "xstack baseline",
+      "owner": "cyber-engineer",
+      "severity": "must",
+      "when": ["ci"],
+      "onlyIf": { "exists": "package.json" },
+      "check": {
+        "type": "command",
+        "requires": "npm",
+        "run": "npm audit --audit-level=high"
+      },
+      "fix": "Upgrade or replace the dependency. If there is no fix yet, a human records a waiver with an expiry date."
+    },
+    {
+      "id": "SEC-007",
+      "title": "Dependencies are pinned by a lockfile",
+      "theme": "Sustainable and reliable",
+      "source": "xstack baseline",
+      "owner": "developer",
+      "severity": "must",
+      "when": ["ci"],
+      "onlyIf": { "exists": "package.json" },
+      "check": {
+        "type": "file-exists",
+        "anyOf": ["package-lock.json", "pnpm-lock.yaml", "yarn.lock"]
+      },
+      "fix": "Run the package manager's install and commit the lockfile."
+    },
+    {
+      "id": "A11Y-001",
+      "title": "Every page declares its language, has a title and a main landmark",
+      "theme": "Inclusion",
+      "source": "xstack baseline",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": ["stop", "ci"],
+      "check": {
+        "type": "require-pattern",
+        "files": ["{{web}}/**/*.html"],
+        "patterns": ["<!DOCTYPE html>", "<html[^>]*\\slang=[\"'][a-zA-Z-]+[\"']", "<title>[^<]+</title>", "<main[\\s>]"],
+        "flags": "i"
+      },
+      "fix": "Add the missing element. Screen readers need all four."
+    },
+    {
+      "id": "A11Y-002",
+      "title": "Every image has an alt attribute",
+      "theme": "Inclusion",
+      "source": "xstack baseline",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": ["write", "stop", "ci"],
+      "check": {
+        "type": "forbid-pattern",
+        "files": ["{{web}}/**/*.html"],
+        "patterns": ["<img(?![^>]*\\salt=)[^>]*>"],
+        "flags": "i"
+      },
+      "fix": "Add alt text, or alt=\"\" if the image is decoration."
+    },
+    {
+      "id": "WFT-001",
+      "title": "Every internal link and form action goes somewhere",
+      "theme": "Works first time",
+      "source": "xstack baseline",
+      "owner": "developer",
+      "severity": "must",
+      "when": ["stop", "ci"],
+      "check": {
+        "type": "links-resolve",
+        "files": ["{{web}}/**/*.html"],
+        "root": "{{web}}",
+        "ignore": ["{{backendRoutes}}"]
+      },
+      "fix": "Build the page, or remove the link until it exists. A dead link in a government service is a dead end for a citizen."
+    },
+    {
+      "id": "TECH-001",
+      "title": "Styles are linked, not inlined",
+      "theme": "Right technology",
+      "source": "xstack baseline",
+      "owner": "developer",
+      "severity": "must",
+      "when": ["write", "stop", "ci"],
+      "check": {
+        "type": "forbid-pattern",
+        "files": ["{{web}}/**/*.html"],
+        "patterns": ["<style[\\s>]"],
+        "flags": "i"
+      },
+      "fix": "Move the rules to the linked stylesheet. Use the design system's own classes first."
+    },
+    {
+      "id": "OPEN-001",
+      "title": "No prototype chrome in production",
+      "theme": "Trust, security and privacy",
+      "source": "xstack baseline",
+      "owner": "developer",
+      "severity": "must",
+      "when": ["write", "stop", "ci"],
+      "check": {
+        "type": "forbid-pattern",
+        "files": ["{{web}}/**/*.html"],
+        "patterns": ["xstack-banner", "xstack-assumptions", "Show assumptions", "verify-tag", "fake-data", "\\[VERIFY WITH "]
+      },
+      "fix": "Strip the assumptions panel, banner and mock-data markers. Citizens must never see invented data presented as real."
+    }
+  ]
+}

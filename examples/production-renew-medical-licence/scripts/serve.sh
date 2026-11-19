@@ -40,6 +40,20 @@ class SecureHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Server", "alpha.gov.bb")
         super().end_headers()
 
+    def do_POST(self):
+        # Stand-in for the back end: read and discard the body, then
+        # Post/Redirect/Get to the form's action. Nothing is stored.
+        remaining = int(self.headers.get("Content-Length") or 0)
+        while remaining > 0:
+            chunk = self.rfile.read(min(remaining, 65536))
+            if not chunk:
+                break
+            remaining -= len(chunk)
+        self.send_response(303)
+        self.send_header("Location", self.path)
+        self.send_header("Content-Length", "0")
+        self.end_headers()
+
 with socketserver.TCPServer(("", PORT), SecureHandler) as httpd:
     httpd.serve_forever()
 PY

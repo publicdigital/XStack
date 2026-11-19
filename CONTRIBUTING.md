@@ -39,6 +39,9 @@ xstack/
 ├── commands/      one .md per slash command, frontmatter + body
 ├── skills/        one folder per skill, with SKILL.md
 ├── references/    one .md per reference, the canonical, country-agnostic xstack view
+├── constraints/   the baseline constraints every production build must meet, and how they work
+├── hooks/         plugin hooks that enforce constraints when an agent writes or stops
+├── scripts/       xstack-check, the constraint runner
 └── profiles/      one folder per country profile, plus _template/
 ```
 
