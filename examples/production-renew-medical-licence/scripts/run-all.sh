@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Run the full test suite: static audit + Playwright (E2E, a11y, security) + load.
+# Run the full test suite: constraint checks + Playwright (E2E, a11y, security) + load.
 # Exit non-zero if any category fails.
 #
 # Usage:
@@ -44,7 +44,7 @@ run() {
   fi
 }
 
-run "static"        ./scripts/audit.sh
+run "static"        node .xstack/vendor/xstack-check.mjs --stage stop
 
 # Tests below require a running server. Playwright starts one via webServer
 # config; the security shell test depends on it too.

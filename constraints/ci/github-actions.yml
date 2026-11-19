@@ -1,0 +1,60 @@
+# Constraint checks for a service built with /xstack:productionise.
+# Copy to .github/workflows/constraints.yml in the service's repository.
+#
+# It runs every constraint in .xstack/constraints.json at the ci stage. A "must"
+# constraint that fails, or that cannot run because a tool is missing, fails the job.
+# Make this job a required check, and require review for changes under .xstack/.
+
+name: Constraints
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  constraints:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GITLEAKS_VERSION: 8.21.2
+      GITLEAKS_SHA256: 5bc41815076e6ed6ef8fbecc9d9b75bcae31f39029ceb55da08086315316e3ba
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install gitleaks
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl -sSfL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
+          tar -xzf gitleaks.tar.gz gitleaks
+          sudo install gitleaks /usr/local/bin/gitleaks
+      - name: Install dependencies
+        run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps
+      # If a constraint needs a running service (a header check, say), start it
+      # here on a port your browser tests do not use, and pass its URL below.
+      - name: Start a server for the header check
+        run: |
+          PORT=8081 ./scripts/serve.sh &
+          for i in $(seq 1 20); do curl -sf -o /dev/null http://localhost:8081/ && exit 0; sleep 1; done
+          exit 1
+      - name: Run every constraint
+        env:
+          BASE_URL: http://localhost:8081
+        run: node .xstack/vendor/xstack-check.mjs --stage ci
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: constraint-report
+          path: .xstack/check-report.json
+          include-hidden-files: true
+          if-no-files-found: ignore

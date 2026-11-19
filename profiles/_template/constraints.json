@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "layer": "profile:[your-country]",
+  "description": "Constraints from the [country] profile. Copy this file to profiles/[your-country]/constraints.json (or .xstack/profile-constraints.json for a project-local profile), replace every [placeholder], and delete the rules that do not apply.",
+  "_how_to_use": [
+    "A profile layer holds the rules that are true for every service in one government, and only there. Rules for every country belong in constraints/baseline.json. Rules for one service belong in that service's .xstack/constraints.json.",
+    "Replace every [placeholder] in the text and every YOUR-... in the patterns. The patterns are regular expressions, so a placeholder left in one will never match a real page.",
+    "Write a rule only if a machine can check it. Each one needs a source a person can look up: a page of the design system, a section of a law, a line of dpi.md.",
+    "Good places to look: (1) the design system – its stylesheet, class prefix, required header and footer; (2) house style – anything the style guide bans outright; (3) shared platforms in dpi.md – what a service must never build or ask for itself; (4) law – accessibility level, languages, data that must not be collected; (5) data formats – reserved test numbers and domains for prototypes.",
+    "Give each id a short country prefix, such as BB- or KS-, so it cannot clash with the baseline or another profile.",
+    "A service uses the layer with: \"extends\": [\"xstack:baseline\", \"profile:[your-country]\"]. For a project-local file, give the path instead: \".xstack/profile-constraints.json\".",
+    "Test it: run xstack-check on a page built from your design system's starter template. Every rule should pass. Then break each rule on purpose and check it fails.",
+    "The format, the check types and how waivers work are in constraints/README.md. See profiles/barbados/constraints.json and profiles/kestria/constraints.json for finished layers. Keys that start with an underscore are notes; the runner ignores them."
+  ],
+  "constraints": [
+    {
+      "id": "XX-DS-001",
+      "title": "Every page is built on the [name] design system",
+      "theme": "Right technology",
+      "source": "[link or path to the design system's page template]",
+      "owner": "developer",
+      "severity": "must",
+      "when": [
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "require-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "YOUR-STYLESHEET\\.css",
+          "class=\"[^\"]*\\bYOUR-PREFIX-header\\b",
+          "class=\"[^\"]*\\bYOUR-PREFIX-footer\\b",
+          "YOUR-PREFIX-skip-link"
+        ]
+      },
+      "fix": "Start the page from the design system's page template."
+    },
+    {
+      "id": "XX-DPI-001",
+      "title": "No home-made sign-in: people sign in with [identity platform]",
+      "theme": "Open platforms and standards",
+      "source": "dpi.md, Identity",
+      "owner": "developer",
+      "severity": "must",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<input[^>]*type\\s*=\\s*[\"']?password"
+        ],
+        "flags": "i"
+      },
+      "fix": "Send the person to the national identity platform. A service never sees a password."
+    },
+    {
+      "id": "XX-LAW-001",
+      "title": "Every page offers [the other official language]",
+      "theme": "Inclusion",
+      "source": "[Act and section]",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": [
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "require-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "class=\"[^\"]*\\bYOUR-PREFIX-language-switch\\b"
+        ]
+      },
+      "fix": "Add the language switcher from the design system's header."
+    },
+    {
+      "id": "XX-STYLE-001",
+      "title": "[One thing the house style bans outright]",
+      "theme": "Plain language",
+      "source": "[link or path to the style guide]",
+      "owner": "content-designer",
+      "severity": "should",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "YOUR-BANNED-THING"
+        ]
+      },
+      "fix": "[What to write instead.]"
+    }
+  ]
+}

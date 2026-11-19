@@ -33,4 +33,12 @@ For diagrams, use Mermaid where the tooling supports it; otherwise produce a cle
 
 Cross-reference the assessment against the **Trust, security and privacy**, **Inclusion** (security mustn't lock disabled citizens out) and **Open platforms and standards** (reuse the national identity platform, don't bake your own) themes. Cite the profile's own standard by number and title where there is one.
 
+**Turn every control into a constraint.** A control that nothing checks is a hope. If the service has `.xstack/constraints.json`, give each control in section 7 one of three endings:
+
+- **A constraint** – draft it in the format in `constraints/README.md`, with `source` set to the threat it answers (e.g. `threat model T-04`), and a check: a pattern, or a `command` that runs a test or a scanner.
+- **A test still to write** – name the test and its owner, and draft the `command` constraint that will run it.
+- **Not machine-checkable** – say so, and say who verifies it and when (pen test, DPIA, procedure).
+
+Each data-inventory item the service must not collect becomes a `forbid-pattern` constraint on the form field names. List the drafted constraints at the end of the threat model under "Constraints to add". The constraints file is protected: a person approves adding them. Never remove or loosen an existing constraint; if one is wrong, say why and ask for a waiver.
+
 Save the threat model to the workspace folder as `threat-model-[service-slug]-YYYY-MM-DD.md` and share the file link with the user. Flag any findings the developer needs to act on immediately.

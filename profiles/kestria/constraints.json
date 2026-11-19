@@ -1,0 +1,249 @@
+{
+  "version": 1,
+  "layer": "profile:kestria",
+  "description": "Constraints from the Kestria profile: the GovKestria design system, the reserved codes for a fictional country, and Kestria's shared platforms and law. Kestria is a fictional country, used for demonstration.",
+  "constraints": [
+    {
+      "id": "KS-DS-001",
+      "title": "Every page shows the fictional-country notice, in the banner and in the footer",
+      "theme": "Trust, security and privacy",
+      "source": "profiles/kestria/design-system/DESIGN.md, rule 1",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": [
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "require-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "class=\"[^\"]*\\bkg-banner\\b[^>]*>(?:\\s*<div[^>]*>)?\\s*(?:Kestria is a fictional country, used for demonstration\\.|Kesträ e kuvelta maro, naitoslo\\.)",
+          "\\bkg-footer\\b[\\s\\S]*?(?:Kestria is a fictional country, used for demonstration\\.|Kesträ e kuvelta maro, naitoslo\\.)"
+        ]
+      },
+      "fix": "Use the ServiceHeader and Footer markup from DESIGN.md. Never remove or shorten the notice: without it a demo can be mistaken for a real government service."
+    },
+    {
+      "id": "KS-DS-002",
+      "title": "Every page is built on GovKestria: tokens.css then kestria.css, the kg-body and kg-main wrappers, and the skip link",
+      "theme": "Right technology",
+      "source": "profiles/kestria/design-system/DESIGN.md, Files in this package",
+      "owner": "developer",
+      "severity": "must",
+      "when": [
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "require-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "tokens\\.css[\\s\\S]*kestria\\.css",
+          "<body[^>]*class=\"[^\"]*\\bkg-body\\b",
+          "<main[^>]*class=\"[^\"]*\\bkg-main\\b",
+          "kg-skip-link",
+          "class=\"[^\"]*\\bkg-header\\b"
+        ]
+      },
+      "fix": "Start the page from profiles/kestria/design-system/example.html."
+    },
+    {
+      "id": "KS-DS-003",
+      "title": "No hard-coded colours in stylesheets: every colour comes from a token",
+      "theme": "Right technology",
+      "source": "profiles/kestria/design-system/DESIGN.md, Don'ts",
+      "owner": "developer",
+      "severity": "must",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.css"
+        ],
+        "exclude": [
+          "**/tokens.css",
+          "**/kestria.css"
+        ],
+        "patterns": [
+          ":[^;{}]*#[0-9a-f]{3,8}\\b",
+          "\\b(?:rgb|hsl)a?\\("
+        ],
+        "flags": "i"
+      },
+      "fix": "Use var(--token). If no token fits, add one to tokens.json and tokens.css first."
+    },
+    {
+      "id": "KS-DS-006",
+      "title": "No hard-coded colours in pages: icons use currentColor",
+      "theme": "Right technology",
+      "source": "profiles/kestria/design-system/DESIGN.md, Iconography",
+      "owner": "developer",
+      "severity": "must",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "(?:fill|stroke|color|stop-color|bgcolor)\\s*=\\s*[\"'](?:#[0-9a-f]{3,8}\\b|(?:rgb|hsl)a?\\()"
+        ],
+        "flags": "i"
+      },
+      "fix": "Draw icons with stroke=\"currentColor\" so they take the text colour."
+    },
+    {
+      "id": "KS-DS-004",
+      "title": "Every page offers the other language",
+      "theme": "Inclusion",
+      "source": "Digital Government Act 2023, s.14 (profiles/kestria/profile.md, Law and policy)",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": [
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "require-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "class=\"[^\"]*\\bkg-header__lang\\b"
+        ]
+      },
+      "fix": "Add the language switcher from the ServiceHeader. Every national service must work in Kestrian and English."
+    },
+    {
+      "id": "KS-DS-005",
+      "title": "Each page is under 100 KB before fonts",
+      "theme": "Inclusion",
+      "source": "profiles/kestria/design-system/DESIGN.md, rule 5",
+      "owner": "developer",
+      "severity": "must",
+      "when": [
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "max-size",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "bytes": 100000
+      },
+      "fix": "Cut the page down. It has to load on a 2G connection."
+    },
+    {
+      "id": "KS-DATA-001",
+      "title": "Phone numbers, email addresses and links use only Kestria's reserved codes, and money shows as K",
+      "theme": "Trust, security and privacy",
+      "source": "profiles/kestria/design-system/DESIGN.md, rule 3",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "\\+(?!999\\b)\\d[\\d ]{7,}",
+          "[\\w.+-]+@(?![\\w.-]*kestria\\.test\\b)[\\w-]+(?:\\.[\\w-]+)+",
+          "(?:href|action)\\s*=\\s*[\"']https?://(?![\\w.-]*kestria\\.test\\b|fonts\\.googleapis\\.com|fonts\\.gstatic\\.com)",
+          ">[^<]*\\bXTS\\b"
+        ]
+      },
+      "fix": "Use +999 numbers, kestria.test addresses and K for money. A real number or domain in a demo can reach a real person."
+    },
+    {
+      "id": "KS-DPI-001",
+      "title": "No home-made sign-in: people sign in with KestriaID",
+      "theme": "Open platforms and standards",
+      "source": "profiles/kestria/dpi.md, Identity (National Identity Act 2020)",
+      "owner": "developer",
+      "severity": "must",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<input[^>]*type\\s*=\\s*[\"']?password"
+        ],
+        "flags": "i"
+      },
+      "fix": "Send the person to \"Sign in with KestriaID\" (eSignet, OpenID Connect). A service never sees a password."
+    },
+    {
+      "id": "KS-DPI-002",
+      "title": "The service never asks for an account number, card number or PIN",
+      "theme": "Trust, security and privacy",
+      "source": "profiles/kestria/dpi.md, Payments to people",
+      "owner": "cyber-engineer",
+      "severity": "must",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "<(?:input|select|textarea)[^>]*\\s(?:name|id)\\s*=\\s*[\"'][^\"']*(?:\\bpin\\b|account[_-]?(?:number|no)\\b|iban|card[_-]?(?:number|no)\\b|cvv|cvc)"
+        ],
+        "flags": "i"
+      },
+      "fix": "Remove the field. GovPay takes payments and the Treasury disbursement service pays people; the service only ever shows a masked account."
+    },
+    {
+      "id": "KS-STYLE-001",
+      "title": "No emoji in pages",
+      "theme": "Plain language",
+      "source": "profiles/kestria/design-system/DESIGN.md, Writing content",
+      "owner": "content-designer",
+      "severity": "should",
+      "when": [
+        "write",
+        "stop",
+        "ci"
+      ],
+      "check": {
+        "type": "forbid-pattern",
+        "files": [
+          "{{web}}/**/*.html"
+        ],
+        "patterns": [
+          "[\\u{1F300}-\\u{1FAFF}\\u{2600}-\\u{27BF}\\u{FE0F}]"
+        ],
+        "flags": "u"
+      },
+      "fix": "Use words, with an inline SVG line icon beside them where an icon helps."
+    }
+  ]
+}

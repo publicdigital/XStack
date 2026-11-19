@@ -49,9 +49,9 @@ test.describe('Bajan doctor renews their full-registration licence end to end', 
     await expect(page.getByText(/Total so far: 42 hours/)).toBeVisible();
     await expect(page.getByText(/above the 40-hour minimum/)).toBeVisible();
     // 'What counts as CPD?' disclosure
-    await page.getByRole('group', { name: /What counts as CPD/i }).first().click().catch(async () => {
-      await page.getByText(/What counts as CPD\?/).click();
-    });
+    // Click the summary. A <details> has the group role but takes no name from
+    // its summary, so a named-group locator never resolves.
+    await page.getByText('What counts as CPD?').click();
     await expect(page.getByText(/Overseas rotations/)).toBeVisible();
     await page.getByRole('button', { name: 'Continue' }).click();
 
@@ -98,9 +98,12 @@ test.describe('Bajan doctor renews their full-registration licence end to end', 
     }
   });
 
-  test('Skip link is the first focusable element', async ({ page }) => {
+  test('Skip link is the first focusable element', async ({ page, browserName }) => {
     await page.goto('/');
-    await page.keyboard.press('Tab');
+    // Safari on macOS only tabs to links with Option+Tab, unless the person has
+    // turned on "Press Tab to highlight each item". WebKit on Linux uses plain Tab.
+    const tab = browserName === 'webkit' && process.platform === 'darwin' ? 'Alt+Tab' : 'Tab';
+    await page.keyboard.press(tab);
     const skip = page.getByRole('link', { name: /Skip to main content/i });
     await expect(skip).toBeFocused();
   });

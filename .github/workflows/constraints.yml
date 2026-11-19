@@ -1,0 +1,88 @@
+name: Constraints
+
+# The backstop for xstack's constraint hooks. The hooks only see the Write and
+# Edit tools; this runs on every pull request, whoever or whatever made the change.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: constraints-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  runner:
+    name: Runner and hooks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test the runner and the hooks
+        run: node --test scripts/xstack-check.test.mjs
+      - name: Vendored copies match the source
+        run: |
+          for dir in $(git ls-files '*/.xstack/constraints.json' | xargs -n1 dirname | xargs -n1 dirname); do
+            node scripts/xstack-check.mjs --vendor --root "$dir"
+          done
+          git diff --exit-code -- '*/.xstack/vendor/*' || {
+            echo "::error::A vendored xstack-check is out of date. Run: node scripts/xstack-check.mjs --vendor --root <service>"
+            exit 1
+          }
+
+  example:
+    name: Example service (ci stage)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: examples/production-renew-medical-licence
+    env:
+      GITLEAKS_VERSION: 8.21.2
+      GITLEAKS_SHA256: 5bc41815076e6ed6ef8fbecc9d9b75bcae31f39029ceb55da08086315316e3ba
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: examples/production-renew-medical-licence/package-lock.json
+      - name: Install gitleaks
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl -sSfL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check
+          tar -xzf gitleaks.tar.gz gitleaks
+          sudo install gitleaks /usr/local/bin/gitleaks
+      - name: Install dependencies
+        run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps
+      - name: Start a server for the header check
+        run: |
+          PORT=8081 ./scripts/serve.sh &
+          for i in $(seq 1 20); do curl -sf -o /dev/null http://localhost:8081/ && exit 0; sleep 1; done
+          echo "::error::The local server did not start"; exit 1
+      - name: Run every constraint
+        env:
+          BASE_URL: http://localhost:8081
+        run: node .xstack/vendor/xstack-check.mjs --stage ci
+      - name: Add the evidence to the run summary
+        if: always()
+        run: node .xstack/vendor/xstack-check.mjs --stage stop --format md --no-report >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Keep the reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: constraint-reports
+          path: |
+            examples/production-renew-medical-licence/.xstack/check-report.json
+            examples/production-renew-medical-licence/reports/
+          include-hidden-files: true
+          if-no-files-found: ignore

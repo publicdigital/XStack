@@ -10,6 +10,10 @@ Upload `xstack.zip` via **Customize → Plugins → upload a custom plugin file*
 
 > **If `/` invocations fail with "Unknown command" (even for valid skills):** there's a known Cowork bug where the slash-command resolver breaks — skills appear in the `/` menu but won't run, and even the built-in `/feedback` fails. When that happens, **trigger skills by natural language instead.** Don't type the slash name; just describe what you want and Claude picks the right skill from its description. For example, instead of `/discovery-kit`, write: *"Using xstack, scope a discovery for … — give me the problem statement, stakeholder map, research plan, and interview guide."* Fully quitting and reopening the app or starting a fresh conversation sometimes clears it.
 
+## Not sure where to start?
+
+Run **`/help`** from the xstack skills, or ask *"How do I use xstack?"*. It shows the staircase – one interactive page with every step from first conversation to a live service. Tap any skill to see what comes before it and what it leads to. Then it asks where you are and tells you the one thing to run next.
+
 ## Set up your country profile
 
 Do this once per project, before your first real piece of work. A country profile tells xstack about your government: its service standard, design system, shared platforms, terms and data formats.

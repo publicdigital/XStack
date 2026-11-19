@@ -225,6 +225,8 @@ Use it for status and progress labels. Keep it short and never make it interacti
 </div>
 ```
 
+Add `kg-help--spaced` when the panel follows a form, to put `--space-6` above it. Don't use a `style` attribute: a strict Content-Security-Policy blocks them, and the Kestria constraints refuse them.
+
 ### Footer
 
 ```html

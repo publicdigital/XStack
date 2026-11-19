@@ -42,6 +42,15 @@ Where the profile says nothing about something, agents fall back to the baseline
 
 Start from `profiles/_template/profile.md`.
 
+### Constraints
+
+A profile can also carry `constraints.json`: the rules that hold for every production service in that government, written so a machine checks them. For example, "every page uses our design system's header", "no home-made sign-in", "every page offers the second official language".
+
+- Start from `profiles/_template/constraints.json`. Its notes say where to look for rules and how to test them.
+- A bundled profile's layer is used with `"extends": ["xstack:baseline", "profile:<country>"]` in a service's `.xstack/constraints.json`. For a project-local profile, save the layer as `.xstack/profile-constraints.json` and give that path in `extends`.
+- Only write a rule a machine can check, and give each one a source a person can look up.
+- `profiles/barbados/constraints.json` and `profiles/kestria/constraints.json` are finished layers. How constraints work is in `constraints/README.md`.
+
 ---
 
 ## Creating a profile

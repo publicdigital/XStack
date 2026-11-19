@@ -28,7 +28,7 @@ require_header() {
   local name="$1"
   local pattern="$2"
   local value
-  value=$(echo "$HEADERS" | grep -i "^$name:" | head -1 | sed -E "s/^[^:]+:\s*//" | tr -d '\r' || true)
+  value=$(echo "$HEADERS" | grep -i "^$name:" | head -1 | sed -E "s/^[^:]+:[[:space:]]*//" | tr -d '\r' || true)
   if [[ -z "$value" ]]; then
     red "MISSING  $name"
     EXIT_CODE=1

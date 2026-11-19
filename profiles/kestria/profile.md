@@ -18,6 +18,7 @@ xstack profile: kestria
 | `service-standards.md` | The Kestria Digital Service Standard, with how an agent checks each point | Assessing or citing standards |
 | `dpi.md` | KestriaID, KesPay, GovPay Kestria and KesLink: protocols, the payout model, the data catalogue with value shapes, and test personas | Building anything that signs people in, pulls data or takes or makes payments |
 | `design-system.md` and `design-system/` | The GovKestria design system: `DESIGN.md` (rules, tokens, components, patterns), `tokens.css` and `tokens.json`, `kestria.css` (`kg-` components) and `example.html`. `design-system.md` says how xstack prototypes use it. | Building any Kestria page, prototype or service |
+| `constraints.json` | Ten rules a machine checks on every production Kestria service: the fictional-country notice, GovKestria markup and tokens, the reserved codes, the language switcher, page weight, and no home-made sign-in or account fields | Building for production. A service uses it with `"extends": ["xstack:baseline", "profile:kestria"]` |
 | `services/*.md` | Service sheets – the rules of a particular service (eligibility, who can apply and be paid, sign-in levels, timings, declaration wording, which personas fit). So far: `household-support-grant.md` | Building or researching that service. Its rules win over a brief's guesses. |
 
 ## Government and context

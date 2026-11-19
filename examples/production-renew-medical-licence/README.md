@@ -41,7 +41,10 @@ production-renew-medical-licence/
 ├── scripts/
 │   ├── serve.sh                       ← local server with the security headers set
 │   ├── run-all.sh                     ← orchestrator
-│   └── audit.sh                       ← static checks (no browser, no k6)
+│   └── run-all.sh                     ← orchestrator
+├── .xstack/
+│   ├── constraints.json               ← the rules this service must meet (protected: a person approves changes)
+│   └── vendor/                        ← xstack-check and its baseline and Barbados layers, copied from xstack
 ├── playwright.config.ts
 └── package.json
 ```
@@ -58,9 +61,10 @@ brew install k6                                    # macOS
 sudo apt-get install k6                            # Ubuntu / Debian
 # or use the Docker image: docker pull grafana/k6
 
-# Serve and audit
+# Serve and check
 npm run serve         # http://localhost:8080, with the security headers set
-npm run audit         # static checks, no browser, no network
+npm run check         # constraint checks, no browser, no network
+npm run check:ci      # every constraint, including the ones that need a server, browsers and scanners
 
 # Run the test categories
 npm run test:e2e
@@ -77,14 +81,14 @@ npm run test:all
 
 | Alpha prototype | Production build |
 |---|---|
-| `prototype-1-phone-first/iteration-3/index.html` – one file with all 9 pages | 9 separate HTML files, one per URL |
+| `prototype-1-phone-first/iteration-3/index.html` – one file with all 9 pages | 19 separate HTML files, one per URL: the 9 journey pages plus help, contact, feedback, privacy, accessibility and five pages for correcting details |
 | Inline `<style>` block ~250 lines | Linked stylesheet at `assets/govbb.css` |
 | `<button onclick="goTo('page-X')">` | `<a href="X.html">` or `<form action="X.html">` |
 | JavaScript-driven navigation | Server-side navigation; JS as progressive enhancement only |
 | `<aside id="assumptions">` listing 16 unverified items | **Removed** – production users never see this |
 | `<div class="xstack-banner">` | **Removed** |
 | `<span class="fake-data">Dr. Sarah K. Williams</span>` | Plain `Dr. Sarah K. Williams` with HTML comments noting where templating would inject real values |
-| No tests | 3 E2E specs, axe-core suite, security headers tests, 2 k6 load profiles, static audit |
+| No tests | 4 E2E specs, axe-core suite, security headers tests, 2 k6 load profiles, constraint checks that ship with xstack |
 | No build tooling | npm + Playwright + axe-core + k6 |
 
 ## What's not in this build (by design)
@@ -99,7 +103,7 @@ See `PRODUCTION-READINESS.md` for the full Standards-anchored assessment and the
 
 ## How the tests are organised
 
-**E2E regression (Playwright)** – three specs covering the most common citizen journey, the most-different alternative path, and the error states. Tests use accessible selectors (role + name) so failures double as accessibility regressions.
+**E2E regression (Playwright)** – four specs covering the most common citizen journey, the most-different alternative path, the error states, and the supporting pages (correcting details, the CPD upload and the footer pages). Tests use accessible selectors (role + name) so failures double as accessibility regressions.
 
 **Accessibility (axe-core)** – one suite running WCAG 2.1 AA across every page in its default state, plus interactive states (each radio option, expanded disclosures). Anything below AA fails the build. Standard 3 floor.
 

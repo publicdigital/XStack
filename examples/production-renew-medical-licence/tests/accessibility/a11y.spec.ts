@@ -23,6 +23,16 @@ const pages = [
   { url: '/check.html', name: 'Check your answers' },
   { url: '/payment.html', name: 'Payment' },
   { url: '/confirmation.html', name: 'Confirmation' },
+  { url: '/address-override.html', name: 'Different address' },
+  { url: '/contact-update.html', name: 'Update email or phone' },
+  { url: '/category-update.html', name: 'Wrong category' },
+  { url: '/parish-update.html', name: 'Wrong parish' },
+  { url: '/identity-help.html', name: 'Not your details' },
+  { url: '/help.html', name: 'Help' },
+  { url: '/contact.html', name: 'Contact' },
+  { url: '/feedback.html', name: 'Feedback' },
+  { url: '/privacy.html', name: 'Privacy' },
+  { url: '/accessibility.html', name: 'Accessibility' },
 ];
 
 test.describe('WCAG 2.1 AA – every page, default state', () => {
