@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>xstack Staircase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: five phase cards stepping up left to right like a staircase; one bold spine joins the main move in each; supporting skills are chips; selecting one lights up its needs and feeds. */
+:root{
+  --bg:#f3f5f4; --card:#ffffff; --ink:#13201c; --muted:#5e6c67; --line:#dde4e1; --soft:#eef2f0;
+  --p0:#e4efe9; --p1:#c8e4d7; --p2:#97cfb7; --p3:#3d9b7b; --p4:#17604a; --on-dark:#ffffff;
+  --needs:#2563eb; --needs-bg:#e6eeff; --feeds:#d0611c; --feeds-bg:#fff0e5;
+  --ds:#7c5cd6; --dpi:#d6457b; --spine:#13201c;
+  --sans:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"Geist Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1513; --card:#171f1c; --ink:#e7eeeb; --muted:#94a39d; --line:#2a3531; --soft:#1d2724;
+  --p0:#1f2b27; --p1:#1d3a30; --p2:#1f5141; --p3:#2a7a5f; --p4:#3fae88; --on-dark:#08130f;
+  --needs:#7aa2ff; --needs-bg:#1b2747; --feeds:#ff9a5c; --feeds-bg:#3a2416; --ds:#a68cff; --dpi:#ff7aa8; --spine:#e7eeeb; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1513; --card:#171f1c; --ink:#e7eeeb; --muted:#94a39d; --line:#2a3531; --soft:#1d2724;
+  --p0:#1f2b27; --p1:#1d3a30; --p2:#1f5141; --p3:#2a7a5f; --p4:#3fae88; --on-dark:#08130f;
+  --needs:#7aa2ff; --needs-bg:#1b2747; --feeds:#ff9a5c; --feeds-bg:#3a2416; --ds:#a68cff; --dpi:#ff7aa8; --spine:#e7eeeb; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+.wrap{max-width:1340px;margin:0 auto;padding-block:36px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+header{display:grid;gap:8px;max-width:760px}
+h1{margin:0;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.05;font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+header p{margin:0;color:var(--muted);font-size:1.05rem;max-width:62ch}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;color:var(--muted);align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.dot.ds{background:var(--ds)}.dot.dpi{background:var(--dpi)}
+.ring{width:14px;height:14px;border-radius:4px;border:2px solid;display:inline-block}
+.ring.n{border-color:var(--needs);background:var(--needs-bg)}.ring.f{border-color:var(--feeds);background:var(--feeds-bg)}
+
+/* staircase */
+.stairs{position:relative;display:grid;grid-template-columns:1fr 1.3fr 1.3fr 1fr .9fr;gap:30px;align-items:start}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;display:grid;min-width:0;overflow:hidden;position:relative;z-index:1}
+.step:nth-child(1){margin-top:232px}.step:nth-child(2){margin-top:174px}.step:nth-child(3){margin-top:116px}.step:nth-child(4){margin-top:58px}
+.head{padding:14px 16px 12px;display:grid;gap:2px;background:var(--tint);color:var(--hink)}
+.head .num{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.head h2{margin:0;font-size:1.3rem;font-weight:700;letter-spacing:-.02em}
+.head p{margin:0;font-size:13px;opacity:.85;line-height:1.35}
+.gate{justify-self:start;margin-top:8px;font:500 11.5px var(--mono);border-radius:8px;padding:4px 10px;text-align:left;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;opacity:.9}
+.gate:hover{opacity:1}
+.body{padding:14px 16px 16px;display:grid;gap:14px}
+.main{display:grid;gap:8px}
+.loopnote{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;padding-left:4px}
+.group{display:grid;gap:7px}
+.group h3{margin:0;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.makes{border-top:1px dashed var(--line);padding-top:12px}
+.up{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.up b{color:var(--ink);font-weight:600}
+
+/* chips and pills */
+.chip,.pill{font:inherit;cursor:pointer;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:5px 9px;display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12px;line-height:1.25;text-align:left;max-width:100%;transition:opacity .15s,border-color .15s,background .15s,box-shadow .15s}
+.chip:hover,.pill:hover{border-color:var(--ink)}
+.chip:focus-visible,.pill:focus-visible,.gate:focus-visible{outline:2px solid var(--needs);outline-offset:2px}
+.chip.cmd{background:var(--soft)}
+.chip.file{border-style:dashed;background:transparent}
+.chip.file::before{content:"";width:9px;height:11px;flex:none;border:1.5px solid currentColor;border-radius:1px;clip-path:polygon(0 0,65% 0,100% 30%,100% 100%,0 100%);opacity:.6}
+.pill{background:var(--ink);color:var(--card);border-color:var(--ink);border-radius:12px;padding:9px 12px;display:grid;gap:0;width:100%}
+.pill .ns{font-size:10.5px;opacity:.6}
+.pill .nm{font-size:14px;font-weight:600;font-family:var(--mono)}
+.pill.sub{background:var(--card);color:var(--ink);padding:6px 10px}
+.pill.sub .nm{font-size:12.5px}
+.ns-i{opacity:.55}
+.dots{display:inline-flex;gap:3px;margin-left:2px}
+
+/* focus states */
+.stairs.focus .chip,.stairs.focus .pill,.sprint.focus .chip,.sprint.focus .pill{opacity:.28}
+.is-sel{opacity:1!important;box-shadow:0 0 0 3px var(--ink);}
+.is-needs{opacity:1!important;border-color:var(--needs)!important;background:var(--needs-bg)!important;color:var(--ink)!important}
+.is-feeds{opacity:1!important;border-color:var(--feeds)!important;background:var(--feeds-bg)!important;color:var(--ink)!important}
+.is-needs .ns,.is-feeds .ns{opacity:.6}
+.spine{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:visible}
+.spine path{fill:none;stroke:var(--spine);stroke-width:2.5;stroke-linecap:round}
+.spine .lab rect{fill:var(--spine)}
+.spine .lab text{fill:var(--card);font:600 11.5px var(--sans)}
+.stairs.focus .spine{opacity:.15}
+@media (prefers-reduced-motion:no-preference){.spine{transition:opacity .2s}}
+
+/* every sprint */
+.sprint{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.sprint h2{margin:0;font-size:1rem;font-weight:700}
+.sprint p{margin:0;color:var(--muted);font-size:13px;flex:1 1 260px;min-width:0}
+.sprint .chips{gap:8px}
+
+/* detail */
+.detail{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:grid;gap:14px}
+.detail .kind{font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.detail h2{margin:0;font:600 1.35rem var(--mono);letter-spacing:-.01em;overflow-wrap:anywhere}
+.detail p{margin:0;max-width:72ch}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.col{border-radius:12px;padding:12px 14px;display:grid;gap:8px;align-content:start;min-width:0}
+.col.n{background:var(--needs-bg)}.col.f{background:var(--feeds-bg)}
+.col h3{margin:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.col.n h3{color:var(--needs)}.col.f h3{color:var(--feeds)}
+.col ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.col li{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.col li button{font:500 13px var(--mono);background:none;border:0;padding:0;color:var(--ink);cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line)}
+.col li span{color:var(--muted);font-size:13px}
+.clear{justify-self:start;font:inherit;font-size:13px;color:var(--muted);background:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer}
+
+@media (max-width:1060px){
+  .stairs{grid-template-columns:1fr;gap:14px}
+  .step:nth-child(n){margin-top:0}
+  .spine{display:none}
+  .step{order:var(--o)}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>From first conversation to a live service</h1>
+    <p>This is the path a team takes with xstack. Each step is a stage of the work. The dark button on each step is the thing you do to move up. Everything around it helps you do that well. Tap any skill to see what comes before it and what it leads to.</p>
+  </header>
+  <div class="legend">
+    <span><i class="dot ds"></i>uses your design system</span>
+    <span><i class="dot dpi"></i>uses your shared platforms</span>
+    <span>Every skill starts by reading your country profile</span>
+    <span><i class="ring n"></i>comes before</span>
+    <span><i class="ring f"></i>comes after</span>
+  </div>
+  <div class="stairs" id="stairs"><svg class="spine" id="spine" aria-hidden="true"></svg></div>
+  <section class="detail" id="detail" aria-live="polite"></section>
+  <section class="sprint" id="sprint">
+    <h2>Every week, at every stage</h2>
+    <div class="chips" id="sprintChips"></div>
+    <p>Write a weeknote. Show your work to real people. Check your words are plain. And before you move up a step, take an honest look at how you're doing against the standard.</p>
+  </section>
+</div>
+
+<script>
+const N={
+ 'profile.md':{k:'file',ph:'Step 0 · Setup',d:'Everything xstack needs to know about your government: its service standard, design system, shared platforms, laws and the words it uses. Every skill reads this first. If you don’t have one yet, xstack falls back to a general standard.'},
+ 'dpi.md':{k:'file',ph:'Step 0 · Setup',d:'Your government’s shared platforms: how people sign in, how they pay, how services share data, and which register holds which facts.'},
+ 'design-system.md':{k:'file',ph:'Step 0 · Setup',d:'How to make prototypes look and behave like your government’s own services: the stylesheet, components, header and footer, and fonts.'},
+ 'profile':{t:'/xstack:profile',s:'the delivery manager',k:'cmd',ph:'Step 0 · Setup',d:'The place to start. It asks about your government, writes your country profile, then looks up your design system and shared platforms for you.'},
+ 'dpi':{t:'/xstack:dpi',s:'government-dpi',k:'cmd',ph:'Step 0 · Setup',d:'Starts from the DPI Map, checks every fact with you, and writes down what prototypes need to sign people in, take payments and look things up.'},
+ 'design-system':{t:'/xstack:design-system',s:'government-design-systems',k:'cmd',ph:'Step 0 · Setup',d:'Finds your government in the Government Design Systems List and works out how prototypes should use it.'},
+ 'discover':{t:'/xstack:discover',s:'discovery-kit',k:'cmd',ph:'Step 1 · Discovery',d:'Gets your discovery started and helps you wrap it up: the problem you’re solving, who’s involved, what to research, how things work today, and the final report.'},
+ 'research-plans':{ph:'Step 1 · Discovery',d:'A full research plan, discussion guide and note-taking sheet, ready to share as a Word document.'},
+ 'synthesize-research':{ph:'Step 1 · Discovery',d:'Got a folder full of notes and recordings? This turns it into findings people will actually read, and checks the themes with you first.'},
+ 'service-journey-mapping':{ph:'Step 1 · Discovery',d:'Turns your journeys and blueprints into web pages your colleagues can comment on.'},
+ 'service-blueprint':{ph:'Step 1 · Discovery',d:'Shows what happens behind the scenes: the staff, systems and rules that make each step of the journey work.'},
+ 'research-planning':{ph:'Step 1 · Discovery',d:'Helps you work out what you need to learn and why, then writes the questions to ask.'},
+ 'transcript-analysis':{ph:'Step 1 · Discovery',d:'Reads your interview transcripts for what people actually do, not just what they say: the workarounds, the moments they got stuck.'},
+ 'research-presenting':{ph:'Step 1 · Discovery',d:'Turns what you found into clear recommendations, each with someone who’ll act on it.'},
+ 'journey-map':{ph:'Step 1 · Discovery',d:'Follows one person through the service step by step: what they do, think and feel, across every channel, with evidence for each step.'},
+ 'ecosystem-map':{ph:'Step 1 · Discovery',d:'Everyone and everything the service depends on: people, offices, systems, and how they connect.'},
+ 'research-coach':{ph:'Step 1 · Discovery',d:'Not sure where you are with your research? Start here. It works out what you need next and points you to the right skill.'},
+ 'experience-map':{ph:'Step 1 · Discovery',d:'Zooms right out to the person’s whole goal, like having a baby or starting a business, across every service and agency involved.'},
+ 'workshop-facilitation':{ph:'Step 1 · Discovery',d:'Plans sessions where the department builds the maps with you, rather than just being asked for comments.'},
+ 'iterate':{t:'/xstack:iterate',s:'prototype-iteration',k:'cmd',ph:'Step 2 · Alpha',d:'Give it a prototype and what you learned from testing, as notes or raw transcripts. It makes the next version and writes down what changed and why.'},
+ 'prototypes':{t:'prototypes/',k:'file',ph:'Step 2 · Alpha',d:'A few different clickable prototypes. Each comes with notes on what was assumed, and on how every question is asked, looked up or left until later.'},
+ 'synthetic-research':{ph:'Step 2 · Alpha',d:'Runs made-up people, based on real population data, through your prototype to catch the obvious problems before you test with real people. It never replaces them.'},
+ 'review':{t:'/xstack:review',s:'service-design-review',k:'cmd',ph:'Step 2 · Alpha',d:'Checks your service against good patterns and the standard, then sorts what it finds: fix now, fix later, check with the department, or test with users.'},
+ 'design-review':{ph:'Step 2 · Alpha',d:'Checks a design against the standard and the accessibility rules, and tells you what to fix first.'},
+ 'build':{t:'/xstack:build',s:'brief-to-prototypes',k:'cmd',ph:'Step 2 · Alpha',ds:1,dpi:1,d:'Turns a brief or a form spec into several prototypes you can test, in your government’s design system, using its real sign-in, payments and data.'},
+ 'form-to-spec':{t:'/xstack:form-to-spec',s:'form-to-spec',k:'cmd',ph:'Step 2 · Alpha',dpi:1,d:'Got an existing paper or PDF form? This goes through it item by item and decides what to ask, what to look up, what government already knows and what to drop. Nothing gets lost.'},
+ 'form-spec.md':{k:'file',ph:'Step 2 · Alpha',d:'Your form, rethought question by question. /xstack:build uses it as its brief.'},
+ 'page-composition':{ph:'Step 2 · Alpha',d:'Puts pages together in Figma using the design system’s own components, in the right order.'},
+ 'component-spec':{ph:'Step 2 · Alpha',d:'Reads a component in your Figma library and writes up how it works: its parts, states and settings.'},
+ 'component-build':{ph:'Step 2 · Alpha',d:'Makes a new component in Figma using the design system’s real values. It shows you a plan first and waits for your go-ahead.'},
+ 'productionise':{t:'/xstack:productionise',s:'build-for-production',k:'cmd',ph:'Step 3 · Beta',ds:1,d:'Turns the prototype that worked into the real front end: the proper stylesheet, no pretend data, and tests for accessibility, speed and every page.'},
+ 'threat-model':{t:'/xstack:threat-model',s:'the cyber engineer',k:'cmd',ph:'Step 3 · Beta',dpi:1,d:'Works out what could go wrong with people’s information and what you’ll do about it. Every fact pulled from a register is something to protect.'},
+ 'front-end':{t:'production front-end',k:'file',ph:'Step 3 · Beta',d:'The real pages, built on your design system, with tests to make sure they keep working.'},
+ 'token-cross-check':{ph:'Step 3 · Beta',d:'Checks that your Figma library and your code still match, and lists anything missing or out of step.'},
+ 'threat-doc':{t:'threat model + DPIA',k:'file',ph:'Step 3 · Beta',d:'Your threat model, data protection assessment and privacy notice. Updated in beta, then every three months once you’re live.'},
+ 'weeknote':{t:'/xstack:weeknote',s:'weeknote',k:'cmd',ph:'Every week',d:'A short public note about what the team did this week, even when the week was hard.'},
+ 'show':{t:'/xstack:show',s:'show-the-thing',k:'cmd',ph:'Every sprint',d:'Plans your show-and-tell: who’s coming, what you’ll show and in what order. Research findings and maps work well here.'},
+ 'assess':{t:'/xstack:assess',s:'service-standard-assessment',k:'cmd',ph:'Before every step up',d:'An honest look, with evidence, at how you’re doing against your service standard. Do it before every step up, and once a year when you’re live.'},
+ 'plain-language':{t:'/xstack:plain-language',s:'plain-language-check',k:'cmd',ph:'Any time',d:'Checks that any text is clear and easy to read: page copy, error messages, privacy notices, weeknotes.'},
+};
+const E=[
+ ['profile','profile.md','creates it'],['dpi','dpi.md','creates it'],['design-system','design-system.md','creates it'],
+ ['profile','dpi','runs it for you'],['profile','design-system','runs it for you'],
+ ['design-system.md','build','for the look and feel'],['design-system.md','productionise','for the real stylesheet'],
+ ['dpi.md','build','for sign-in, payments and data'],['dpi.md','form-to-spec','to know which register holds what'],['dpi.md','threat-model','to map where data goes'],
+ ['research-planning','transcript-analysis','after the interviews'],['transcript-analysis','research-presenting','with what you found'],
+ ['research-coach','research-planning','points you here'],['research-coach','transcript-analysis','points you here'],['research-coach','research-presenting','points you here'],
+ ['research-planning','research-plans','as a Word document'],['research-presenting','journey-map','with evidence'],
+ ['experience-map','journey-map','zooming in'],['journey-map','service-blueprint','adding what’s behind the scenes'],['ecosystem-map','service-blueprint','with who and what’s involved'],
+ ['workshop-facilitation','ecosystem-map','built together'],['journey-map','service-journey-mapping','as a page to comment on'],
+ ['research-presenting','discover','with recommendations'],['synthesize-research','discover','with findings'],['service-blueprint','discover','with maps'],
+ ['discover','build','with the brief'],['form-to-spec','form-spec.md','creates it'],['form-spec.md','build','as the brief'],
+ ['build','prototypes','makes them'],['prototypes','synthetic-research','for a first check'],['prototypes','review','for review'],['prototypes','design-review','for review'],
+ ['synthetic-research','iterate','with what broke'],['review','iterate','with fixes'],['design-review','iterate','with fixes'],['transcript-analysis','iterate','with real interviews'],['iterate','prototypes','as the next version'],
+ ['component-spec','component-build','written up first'],['component-build','page-composition','with components'],['page-composition','design-review','for checking'],
+ ['prototypes','productionise','once one works'],['prototypes','threat-model','with its list of questions'],
+ ['productionise','threat-model','for a security test'],['productionise','front-end','builds it'],['threat-model','threat-doc','writes it up'],
+ ['front-end','token-cross-check','for checking'],['token-cross-check','component-spec','against Figma'],
+ ['research-presenting','show','to share what you found'],
+];
+const STEPS=[
+ {n:0,name:'Setup',lead:'Tell xstack which government you’re working for. You only do this once.',tint:'--p0',dark:0,main:['profile'],sub:['design-system','dpi'],subh:'It also sets up',groups:[],makes:['profile.md','design-system.md','dpi.md'],up:'Three files every other skill reads'},
+ {n:1,name:'Discovery',lead:'Go and talk to people. Understand how things work today before you change anything.',tint:'--p1',dark:0,main:['discover'],groups:[['Listening to people',['research-coach','research-planning','research-plans','transcript-analysis','synthesize-research','research-presenting']],['Making sense of it',['experience-map','journey-map','ecosystem-map','service-blueprint','service-journey-mapping','workshop-facilitation']]],makes:[],up:'A clear problem, what you learned, and maps of how things work now'},
+ {n:2,name:'Alpha',lead:'Try several ideas, not just one. Put them in front of people and keep improving them.',tint:'--p2',dark:0,gate:'Ready for alpha?',main:['build','iterate'],loop:1,groups:[['Got a paper form? Start here',['form-to-spec','form-spec.md']],['Testing',['synthetic-research','review','design-review']],['If your design system is in Figma',['component-spec','component-build','page-composition']]],makes:['prototypes'],up:'A prototype that works for the people who’ll use it'},
+ {n:3,name:'Beta',lead:'Build the real thing, and make sure it keeps people’s information safe.',tint:'--p3',dark:1,gate:'Ready for beta?',main:['productionise','threat-model'],groups:[['Keeping design and code in step',['token-cross-check']]],makes:['front-end','threat-doc'],up:'A service ready for the public'},
+ {n:4,name:'Live',lead:'People are using it. Keep listening and keep making it better.',tint:'--p4',dark:1,gate:'Ready to go live?',live:1},
+];
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const label=id=>N[id].t||id;
+function dots(id){const o=N[id];return (o.ds||o.dpi)?`<span class="dots">${o.ds?'<i class="dot ds" title="reads design-system.md"></i>':''}${o.dpi?'<i class="dot dpi" title="reads dpi.md"></i>':''}</span>`:''}
+function chip(id){const o=N[id],k=o.k||'skill';let t=label(id);
+  if(k==='cmd')t=`<span class="ns-i">/xstack:</span>${esc(t.replace('/xstack:',''))}`;else t=esc(t);
+  return `<button class="chip ${k}" data-id="${id}" aria-label="${esc(label(id))}">${t}${dots(id)}</button>`}
+function pill(id,sub){const o=N[id];return `<button class="pill${sub?' sub':''}" data-id="${id}" aria-label="${esc(label(id))}"><span class="ns">/xstack:</span><span class="nm">${esc(label(id).replace('/xstack:',''))} ${dots(id)}</span></button>`}
+
+const stairs=document.getElementById('stairs');
+STEPS.forEach((s,i)=>{const el=document.createElement('section');el.className='step';el.style.setProperty('--o',i);
+  el.style.setProperty('--tint',`var(${s.tint})`);el.style.setProperty('--hink',s.dark?'var(--on-dark)':'var(--ink)');
+  let h=`<div class="head"><span class="num">Step ${s.n}</span><h2>${s.name}</h2><p>${s.lead}</p>${s.gate?`<button class="gate" data-id="assess" title="Check in with /xstack:assess before this step">Check-in: ${s.gate}</button>`:''}</div><div class="body">`;
+  if(s.live){h+=`<div class="main"><button class="pill" data-id="discover" data-spine><span class="ns">and round again</span><span class="nm">↺ back to listening</span></button></div>
+     <p style="margin:0;font-size:13.5px;color:var(--muted)">Going live isn’t the finish line. What you learn from real use starts the next round of research, and the same skills come round again.</p>
+     <div class="group"><h3>Once a year</h3><div class="chips">${chip('assess')}</div></div>`;}
+  else{
+    h+=`<div class="main">${s.main.map((m,j)=>pill(m)+(s.loop&&j===0?'<div class="loopnote">↻ Test with people, improve, test again, until one version works</div>':'')).join('')}</div>`;
+    if(s.sub)h+=`<div class="group"><h3>${s.subh}</h3><div class="chips">${s.sub.map(chip).join('')}</div></div>`;
+    s.groups.forEach(([g,ids])=>h+=`<div class="group"><h3>${g}</h3><div class="chips">${ids.map(chip).join('')}</div></div>`);
+    h+=`<div class="group makes">${s.makes.length?`<h3>You’ll have</h3><div class="chips">${s.makes.map(chip).join('')}</div>`:''}<div class="up">You leave this step with ↗ <b>${s.up}</b></div></div>`;}
+  el.innerHTML=h+'</div>';stairs.append(el)});
+document.getElementById('sprintChips').innerHTML=['weeknote','show','plain-language','assess'].map(chip).join('');
+
+// spine
+const spine=document.getElementById('spine');
+function drawSpine(){const r=stairs.getBoundingClientRect();spine.setAttribute('viewBox',`0 0 ${r.width} ${r.height}`);spine.setAttribute('width',r.width);spine.setAttribute('height',r.height);
+  if(getComputedStyle(spine).display==='none')return;
+  const steps=[...stairs.querySelectorAll('.step')];
+  const anchors=steps.map(s=>s.querySelector('.main .pill'));
+  let out='';
+  for(let i=0;i<anchors.length-1;i++){const a=anchors[i].getBoundingClientRect(),b=anchors[i+1].getBoundingClientRect();
+    const x1=a.right-r.left,y1=a.top+a.height/2-r.top,x2=b.left-r.left,y2=b.top+b.height/2-r.top,mx=(x1+x2)/2;
+    out+=`<path d="M${x1-6},${y1} C${mx},${y1} ${mx},${y2} ${x2-4},${y2}"/><path d="M${x2-11},${y2-5} L${x2-3},${y2} L${x2-11},${y2+5}" />`;
+}
+  spine.innerHTML=out}
+new ResizeObserver(drawSpine).observe(stairs);document.fonts&&document.fonts.ready.then(drawSpine);
+
+// selection
+const detail=document.getElementById('detail'),sprint=document.getElementById('sprint');
+function all(sel){return document.querySelectorAll(sel)}
+function clear(){stairs.classList.remove('focus');sprint.classList.remove('focus');all('.is-sel,.is-needs,.is-feeds').forEach(e=>e.classList.remove('is-sel','is-needs','is-feeds'));
+  detail.innerHTML=`<div class="kind">How to read this</div><p>Start at the bottom left and work your way up. First, you tell xstack about your government. Then you go and listen to people and map what really happens today. That gives you a brief, which you turn into a few prototypes. You test those with people and keep improving them until one works. Then you build it for real, make it secure, and launch. Between each step there’s a check-in, where you look honestly at the evidence before moving on.</p><p style="color:var(--muted);font-size:14px">Tap any skill to see what comes before it (blue) and what comes after (orange).</p>`}
+function select(id){const o=N[id],ins=E.filter(e=>e[1]===id),outs=E.filter(e=>e[0]===id);
+  all('.is-sel,.is-needs,.is-feeds').forEach(e=>e.classList.remove('is-sel','is-needs','is-feeds'));
+  stairs.classList.add('focus');sprint.classList.add('focus');
+  ins.forEach(e=>all(`[data-id="${e[0]}"]:not(.gate)`).forEach(x=>x.classList.add('is-needs')));
+  outs.forEach(e=>all(`[data-id="${e[1]}"]:not(.gate)`).forEach(x=>x.classList.add('is-feeds')));
+  all(`[data-id="${id}"]:not(.gate)`).forEach(x=>{x.classList.remove('is-needs','is-feeds');x.classList.add('is-sel')});
+  const li=(arr,i)=>arr.map(e=>`<li><button data-go="${e[i]}">${esc(label(e[i]))}</button><span>${e[2]}</span></li>`).join('');
+  const pre=(o.k!=='file'&&id!=='profile')?`<li><button data-go="profile.md">profile.md</button><span>every skill reads this first</span></li>`:'';
+  const kind=o.k==='cmd'?(o.s.startsWith('the ')?`A command, led by ${o.s}`:`A command · uses the ${o.s} skill`):o.k==='file'?'Something you’ll keep':'A skill';
+  detail.innerHTML=`<div class="kind">${o.ph} · ${kind}</div><h2>${esc(label(id))}</h2><p>${o.d}</p>
+   <div class="cols"><div class="col n"><h3>Comes before</h3><ul>${pre+li(ins,0)||'<li><span>Nothing. This is a starting point.</span></li>'}</ul></div>
+   <div class="col f"><h3>Comes after</h3><ul>${li(outs,1)||'<li><span>Nothing yet. The trail ends here for now.</span></li>'}</ul></div></div>
+   <button class="clear" data-clear>Clear</button>`;
+  detail.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>select(b.dataset.go));
+  detail.querySelector('[data-clear]').onclick=clear;}
+document.addEventListener('click',ev=>{const b=ev.target.closest('[data-id]');if(b){select(b.dataset.id);return}
+  if(!ev.target.closest('.detail'))clear()});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape')clear()});
+clear();
+</script>
+
+</body>
+</html>

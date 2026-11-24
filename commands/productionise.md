@@ -20,10 +20,12 @@ Once you have the context, the skill produces (in a `production-[service-slug]/`
 1. **Per-page HTML files** with proper URLs, real navigation, the design system's published stylesheet linked (from the profile, or as the team confirms), the assumptions panel and mock markers stripped
 2. **The test suite** – Playwright E2E regression (3 specs), axe-core accessibility, security headers + CSP, k6 load tests (peak and soak)
 3. **Configuration** – playwright.config.ts, package.json with npm scripts
-4. **Scripts** – serve.sh, run-all.sh, audit.sh
+4. **Scripts** – serve.sh, run-all.sh
 5. **PRODUCTION-READINESS.md** – assessed against the **Works first time**, **Right technology**, **Trust, security and privacy** and **Measuring performance** themes (cited as the profile's own standards where there is a profile), each Met / Partly met / Not met, with evidence
 
-Run what's runnable in the current environment: HTML validation, link integrity, design-system class usage. For the parts that need full tool installation (Playwright browsers, k6 binary, OWASP ZAP), the report explicitly says "requires CI environment with these tools installed" with the exact commands.
+6. **Constraints** – `.xstack/constraints.json` (the baseline, the profile's layer where it has one, and this service's own), with xstack's check runner copied into `.xstack/vendor/`. See `constraints/README.md`
+
+Do not write your own audit script. Run the shipped runner – `node .xstack/vendor/xstack-check.mjs --stage stop` – and fix what it finds. The ratings in PRODUCTION-READINESS.md come from its output: a theme is Met only when every one of its constraints passes at the `ci` stage, and each rating cites the constraint ids it rests on. If a "must" constraint cannot be met, report it as failing and ask the user whether to fix it or record a waiver. Never add a waiver yourself. For the parts that need full tool installation (Playwright browsers, k6 binary, OWASP ZAP), the report explicitly says "requires CI environment with these tools installed" with the exact commands.
 
 After generation, share the production folder via a computer:// link. Highlight any standards still at Partly met or Not met, and name the next-step owner (cyber engineer for the threat-model gap, developer for the backend wiring, delivery manager for operational readiness).
 

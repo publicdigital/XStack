@@ -34,6 +34,7 @@ Start from `profiles/_template/profile.md`. Write `.xstack/profile.md` in the pr
 - Map **every** standard in their service standard to one or more themes in `references/service-standard-baseline.md`. List any baseline theme with no match under "Not in our standard".
 - If they gave you the full text of their standard, save it as `.xstack/service-standards.md` in the same format as `profiles/barbados/service-standards.md`, with "How an agent checks" questions for each standard.
 - Delete the template's comments and any section you have nothing for.
+- If the team builds for production, offer a constraints layer: the rules that hold for every service in their government, written so a machine checks them. Start from `profiles/_template/constraints.json`, write `.xstack/profile-constraints.json`, and include only rules with a source the team can point to. See the Constraints section of `profiles/README.md`.
 
 ## 4. Confirm
 

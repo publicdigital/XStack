@@ -34,7 +34,7 @@
 
   <div class="govbb-callout govbb-callout--gold" role="region" aria-label="Notice for specialists">
     <strong>Specialists – check your College too</strong>
-    <p style="margin-top: 8px; margin-bottom: 0;">If you hold a specialty qualification (MRCPCH, MRCP, MRCS, FAAP, FACS, FRCS, FRCOG and similar), your College usually requires more hours than the Council's minimum, and may require specialty-specific evidence. Filing 40 Council hours doesn't automatically meet your College's requirement.</p>
+    <p class="u-mt-8 u-mb-0">If you hold a specialty qualification (MRCPCH, MRCP, MRCS, FAAP, FACS, FRCS, FRCOG and similar), your College usually requires more hours than the Council's minimum, and may require specialty-specific evidence. Filing 40 Council hours doesn't automatically meet your College's requirement.</p>
   </div>
 
   <details class="govbb-details">
@@ -49,7 +49,7 @@
         <li>Online accredited learning (BMJ Learning, NEJM Knowledge+, UpToDate-CME and similar)</li>
         <li>Peer-reviewed publications (counted per Medical Council guidance)</li>
       </ul>
-      <p style="margin-bottom: 0;">Not sure if something counts? Add it anyway and tell us what it was. We'll check.</p>
+      <p class="u-mb-0">Not sure if something counts? Add it anyway and tell us what it was. We'll check.</p>
     </div>
   </details>
 
@@ -75,12 +75,13 @@
     <strong>Total so far: 42 hours.</strong> You're above the 40-hour minimum for full registration.
   </div>
 
-  <!-- In production: <form method="POST" enctype="multipart/form-data" action="/api/renewal/cpd"> -->
-  <form method="get" action="cpd.html" enctype="multipart/form-data">
+  <!-- In production the action is /api/renewal/cpd. The local server accepts the POST, discards the file and redirects back here. -->
+  <form method="post" action="cpd.html" enctype="multipart/form-data">
     <div class="cpd-add">
-      <p style="margin-bottom: 12px;">Got more to add? PDF, PNG, or JPG. Photos of paper records are fine.</p>
+      <p class="u-mb-12">Got more to add? PDF, PNG, or JPG. Photos of paper records are fine.</p>
       <label class="govbb-skip-link" for="cpd-upload">Upload a CPD record</label>
-      <input type="file" id="cpd-upload" name="cpd_file" accept=".pdf,.png,.jpg,.jpeg">
+      <input type="file" id="cpd-upload" name="cpd_file" accept=".pdf,.png,.jpg,.jpeg" required>
+      <button type="submit" class="govbb-btn govbb-btn--alt">Upload this record</button>
     </div>
   </form>
 
@@ -100,12 +101,12 @@
 <footer class="govbb-footer" role="contentinfo">
   <div class="govbb-footer__inner">
     <div>
-      <p style="margin-bottom: 8px;"><strong>alpha.gov.bb</strong></p>
-      <p style="margin-bottom: 0; font-size: 13px;">Built and maintained by GovTech Barbados in partnership with the Medical Council of Barbados.</p>
+      <p class="u-mb-8"><strong>alpha.gov.bb</strong></p>
+      <p class="u-mb-0 u-text-13">Built and maintained by GovTech Barbados in partnership with the Medical Council of Barbados.</p>
     </div>
     <div>
-      <p style="margin-bottom: 8px;"><a href="help.html">Help</a> · <a href="privacy.html">Privacy</a> · <a href="accessibility.html">Accessibility</a> · <a href="contact.html">Contact</a></p>
-      <p style="margin-bottom: 0; font-size: 13px;">© 2026 Government of Barbados</p>
+      <p class="u-mb-8"><a href="help.html">Help</a> · <a href="privacy.html">Privacy</a> · <a href="accessibility.html">Accessibility</a> · <a href="contact.html">Contact</a></p>
+      <p class="u-mb-0 u-text-13">© 2026 Government of Barbados</p>
     </div>
     <div class="govbb-footer__crest" aria-hidden="true">BB</div>
   </div>

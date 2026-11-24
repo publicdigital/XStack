@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "service": "renew-medical-licence",
+  "extends": ["xstack:baseline", "profile:barbados"],
+  "vars": { "web": "public" },
+  "protected": ["tests/security/**", "tests/accessibility/**", "playwright.config.ts"],
+  "constraints": [
+    {
+      "id": "SVC-SEC-001",
+      "title": "The server sends the six security headers, with a CSP that forbids inline script",
+      "theme": "Trust, security and privacy",
+      "source": "Standard 11 (Trust, safety, confidentiality)",
+      "owner": "cyber-engineer",
+      "severity": "must",
+      "when": ["ci"],
+      "check": { "type": "command", "requires": "curl", "run": "./tests/security/headers.sh \"${BASE_URL:-http://localhost:8080}\"" },
+      "fix": "Set the missing header on the server. scripts/serve.sh shows the values."
+    },
+    {
+      "id": "SVC-A11Y-001",
+      "title": "Every page in every state passes axe at WCAG 2.1 AA",
+      "theme": "Inclusion",
+      "source": "Standard 3 (Inclusion)",
+      "owner": "content-designer",
+      "severity": "must",
+      "when": ["ci"],
+      "check": { "type": "command", "requires": "npx", "run": "npx --no-install playwright test tests/accessibility" },
+      "fix": "Fix the violation axe reports. Do not add the rule to an exclusion list."
+    },
+    {
+      "id": "SVC-WFT-001",
+      "title": "A doctor can renew end to end, including from abroad, through every error state and when correcting their details",
+      "theme": "Works first time",
+      "source": "Standard 5 (Works first time)",
+      "owner": "developer",
+      "severity": "must",
+      "when": ["ci"],
+      "check": { "type": "command", "requires": "npx", "run": "npx --no-install playwright test tests/e2e" },
+      "fix": "Fix the journey, not the test."
+    }
+  ],
+  "waivers": []
+}

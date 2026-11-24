@@ -39,6 +39,9 @@ xstack/
 ├── commands/      one .md per slash command, frontmatter + body
 ├── skills/        one folder per skill, with SKILL.md
 ├── references/    one .md per reference, the canonical, country-agnostic xstack view
+├── constraints/   the baseline constraints every production build must meet, and how they work
+├── hooks/         plugin hooks that enforce constraints when an agent writes or stops
+├── scripts/       xstack-check, the constraint runner
 └── profiles/      one folder per country profile, plus _template/
 ```
 
@@ -68,6 +71,7 @@ Don't guess facts about a government. Only include what you can point to.
 - [ ] If you've added an agent: README roster updated, AGENTS.md updated, plugin manifest updated
 - [ ] If you've added a skill: SKILL.md frontmatter present, agents that should call it know about it
 - [ ] If you've added a command: README command table updated, frontmatter present
+- [ ] If you've added, renamed or removed a skill or command: the staircase in `skills/help/assets/staircase.html` updated
 - [ ] CHANGELOG.md updated under the next version
 
 ## What we won't accept

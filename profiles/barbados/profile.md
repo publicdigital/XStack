@@ -16,6 +16,7 @@ xstack profile: barbados
 | `service-standards.md` | The full Barbados Digital Service Standards, with how an agent checks each one | Assessing or citing standards |
 | `house-style.md` | GovTech Barbados visual identity, voice, chrome and data formats | Building prototypes, slides, documents |
 | `service-patterns.md` | The nine standard alpha.gov.bb pages, reusable field blocks and Barbados field standards | Designing or reviewing a form or service |
+| `constraints.json` | Rules a machine checks on every production service: the GovBB page chrome, and the house-style ban on em dashes | Building for production. A service uses it with `"extends": ["xstack:baseline", "profile:barbados"]` |
 | `design-tokens.yaml` | The GOV.BB Pattern Library's exact token values, component inventory and scope guard | Design-system work in Figma or code |
 | `design-guide.md` | How the GOV.BB design system is organised and the rules for working in it safely | Design-system work in Figma or code |
 | `assets/logo_*.png` | GovTech Barbados logos: colour on light, white on dark | Building slides or documents |
